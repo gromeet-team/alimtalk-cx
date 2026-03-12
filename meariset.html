@@ -3,772 +3,1570 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>메아리셋 알림톡 CX 개선안</title>
+<title>메아리셋 알림톡 CX 대시보드</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Noto Sans KR', sans-serif; background: #faf8f5; color: #1a1a1a; line-height: 1.6; }
-  .header { background: linear-gradient(135deg, #D4540A 0%, #FF6B35 60%, #FF9F6B 100%); color: white; padding: 48px 40px; text-align: center; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #faf8f5;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #D4540A 0%, #FF6B35 60%, #FF9F6B 100%);
+    color: white;
+    padding: 48px 40px;
+    text-align: center;
+  }
   .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
   .header p { font-size: 15px; opacity: 0.9; }
+
   .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
-  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }
-  .summary-card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+
+  /* Tabs */
+  .tab-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 16px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: #666;
+    transition: all 0.3s;
+  }
+  .tab-btn.active {
+    background: #FF6B35;
+    color: white;
+  }
+  .tab-btn:hover:not(.active) { background: #fff3ec; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Summary Cards */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
   .summary-card .num { font-size: 32px; font-weight: 700; color: #FF6B35; }
   .summary-card .label { font-size: 13px; color: #666; margin-top: 4px; }
-  .section-title { font-size: 20px; font-weight: 700; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 2px solid #FF6B35; color: #D4540A; }
-  .principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; margin-bottom: 40px; }
-  .principle { background: white; border-radius: 12px; padding: 20px 24px; border-left: 4px solid #FF6B35; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-  .principle .tag { display: inline-block; background: #fff3ec; color: #D4540A; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-bottom: 8px; }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FF6B35;
+    color: #D4540A;
+  }
+
+  /* Principles */
+  .principles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .principle {
+    background: white;
+    border-radius: 12px;
+    padding: 20px 24px;
+    border-left: 4px solid #FF6B35;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .principle .tag {
+    display: inline-block;
+    background: #fff3ec;
+    color: #D4540A;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
   .principle h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
   .principle p { font-size: 13px; color: #555; }
-  .campaign-card { background: white; border-radius: 16px; margin-bottom: 24px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-  .campaign-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: #fafbfd; border-bottom: 1px solid #eee; cursor: pointer; user-select: none; }
+
+  /* Campaign Cards */
+  .campaign-card {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .campaign-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: #fafbfd;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    user-select: none;
+  }
   .campaign-header:hover { background: #fff5ef; }
   .campaign-header .left { display: flex; align-items: center; gap: 12px; }
-  .campaign-header .num-badge { width: 32px; height: 32px; background: #FF6B35; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; }
+  .campaign-header .num-badge {
+    width: 32px; height: 32px;
+    background: #FF6B35;
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600;
+  }
   .campaign-header .name { font-size: 16px; font-weight: 600; }
-  .campaign-header .timing { font-size: 12px; color: #888; background: #fff3ec; padding: 4px 12px; border-radius: 20px; }
-  .campaign-header .arrow { font-size: 20px; color: #999; transition: transform 0.3s; }
+  .campaign-header .timing {
+    font-size: 12px;
+    color: #888;
+    background: #f0f2f7;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .campaign-header .arrow {
+    font-size: 20px;
+    color: #999;
+    transition: transform 0.3s;
+  }
   .campaign-card.open .campaign-header .arrow { transform: rotate(180deg); }
+
   .campaign-body { display: none; padding: 24px; }
   .campaign-card.open .campaign-body { display: block; }
+
+  /* Phone mockup */
   .phone-wrap { display: flex; justify-content: center; }
-  .phone { width: 300px; background: #f7f7f2; border-radius: 24px; border: 2px solid #ddd; padding: 12px; font-size: 12.5px; line-height: 1.7; }
-  .phone .kakao-header { text-align: center; font-size: 11px; color: #999; padding: 6px 0 10px; border-bottom: 1px solid #eee; margin-bottom: 10px; }
-  .phone .msg { background: #FEE500; border-radius: 12px; padding: 14px; margin-bottom: 8px; color: #1a1a1a; word-break: keep-all; }
-  .phone .msg.white { background: white; border: 1px solid #e5e5e5; }
-  .phone .btn-group { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
-  .phone .btn { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 8px; text-align: center; font-size: 12px; color: #333; font-weight: 500; }
-  .phone .btn.primary { background: #FF6B35; color: white; border-color: #FF6B35; }
+  .phone {
+    width: 300px;
+    background: #f7f7f2;
+    border-radius: 24px;
+    border: 2px solid #ddd;
+    padding: 12px;
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+  .phone .kakao-header {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    padding: 6px 0 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+  .phone .msg {
+    background: #FEE500;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+    word-break: keep-all;
+  }
+  .phone .msg.white {
+    background: white;
+    border: 1px solid #e5e5e5;
+  }
+  .phone .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .phone .btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+  }
+  .phone .btn.primary {
+    background: #FF6B35;
+    color: white;
+    border-color: #FF6B35;
+  }
   .phone .good { background: #fff3ec; padding: 1px 4px; border-radius: 3px; font-size: 11px; }
-  .design-note { margin-top: 16px; padding: 12px 16px; background: #fff8f3; border: 1px solid #ffe0c8; border-radius: 8px; font-size: 12.5px; color: #555; }
+
+  .design-note {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #fff8f3;
+    border: 1px solid #ffe0c8;
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: #555;
+  }
   .design-note strong { color: #D4540A; }
-  .impact { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-left: 8px; }
-  .impact.high { background: #ffe0e0; color: #c44; }
-  .impact.mid { background: #fff3d0; color: #b08800; }
-  .journey { display: flex; align-items: center; gap: 4px; padding: 20px 24px; overflow-x: auto; background: white; border-radius: 12px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-  .journey-step { flex-shrink: 0; padding: 8px 14px; border-radius: 8px; font-size: 11px; font-weight: 500; text-align: center; min-width: 80px; border: 1px solid #ddd; background: white; }
+
+  /* Journey */
+  .journey {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .journey-step {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+    border: 1px solid #ddd;
+    background: white;
+  }
   .journey-step.active { background: #FF6B35; color: white; border-color: #FF6B35; }
   .journey-step.crm { background: #fff3ec; color: #D4540A; border: 2px dashed #FF6B35; }
   .journey-step.cancel { background: #fff5f5; border-color: #ffd4d4; }
   .journey-arrow { color: #999; font-size: 16px; flex-shrink: 0; }
-  .footer { text-align: center; padding: 32px; color: #999; font-size: 12px; }
+
+  /* CRM Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+    margin: 24px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #FF6B35, #FF9F6B, #FFD4A8);
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .timeline-item:hover { box-shadow: 0 2px 12px rgba(255,107,53,0.15); }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -33px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #FF6B35;
+    border: 3px solid #fff3ec;
+  }
+  .timeline-item.friendtalk::before { background: #e74c3c; }
+  .timeline-item.special::before { background: #9b59b6; border-color: #f0e6f6; }
+
+  .timeline-item .day-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-right: 8px;
+  }
+  .timeline-item .day-badge.alimtalk { background: #fff3ec; color: #D4540A; }
+  .timeline-item .day-badge.friendtalk { background: #fde8e8; color: #c44; }
+  .timeline-item .day-badge.special { background: #f0e6f6; color: #7b3fa0; }
+
+  .timeline-item .title { font-size: 14px; font-weight: 600; margin: 4px 0; }
+  .timeline-item .desc { font-size: 12px; color: #777; }
+  .timeline-item .channel-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 6px;
+  }
+  .channel-tag.at { background: #e0f0e0; color: #2d7a2d; }
+  .channel-tag.ft { background: #ffe0e0; color: #c44; }
+  .channel-tag.solapi { background: #e0e0f5; color: #4a4a9e; }
+
+  .timeline-detail { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+  .timeline-item.open .timeline-detail { display: block; }
+
+  .msg-preview {
+    background: #f7f7f2;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    padding: 14px;
+    font-size: 12px;
+    line-height: 1.8;
+    max-width: 320px;
+    margin: 8px 0;
+  }
+  .msg-preview .btn-preview {
+    display: block;
+    text-align: center;
+    padding: 6px;
+    margin-top: 8px;
+    background: #FF6B35;
+    color: white;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* Cost table */
+  .cost-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .cost-table th, .cost-table td {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .cost-table th { background: #fff3ec; color: #D4540A; font-weight: 600; }
+  .cost-table tr:last-child td { border-bottom: none; font-weight: 600; }
+  .cost-table .right { text-align: right; }
+
+  /* Impact */
+  .impact {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+  }
+  .impact.high { background: #ffe0e0; color: #c44; }
+  .impact.mid { background: #fff3d0; color: #b08800; }
+
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: #999;
+    font-size: 12px;
+  }
+
   @media (max-width: 768px) {
     .phone { width: 100%; }
+    .tab-nav { flex-direction: column; }
     .principles { grid-template-columns: 1fr; }
   }
-  /* Tool section */
-  .tool-section { background: #2a1508; padding: 24px; }
-  .tool-section-inner { max-width: 900px; margin: 0 auto; }
-  .tool-title { color: #ffb088; font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-  .tool-tabs { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; flex-wrap: wrap; }
-  .tool-tabs::-webkit-scrollbar { display: none; }
-  .tool-tab { padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); background: transparent; transition: all 0.2s; white-space: nowrap; }
-  .tool-tab:hover { border-color: #ffb088; color: #ffb088; }
-  .tool-tab.active { background: #FF6B35; color: white; border-color: #FF6B35; }
-  .tool-panel { display: none; margin-top: 16px; }
-  .tool-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 700px) { .tool-panel.active { grid-template-columns: 1fr; } }
-  .tool-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; }
-  .tool-box-header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.07); border-bottom: 1px solid rgba(255,255,255,0.08); }
-  .tool-box-header span { font-size: 11px; font-weight: 700; color: #ffb088; letter-spacing: 0.5px; }
-  .copy-btn { padding: 4px 12px; background: #FF6B35; color: white; border: none; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; transition: background 0.15s; }
-  .copy-btn:hover { background: #D4540A; }
-  .copy-btn.copied { background: #e67e22; }
-  .tool-msg-pre { padding: 14px; font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.85); white-space: pre-wrap; word-break: keep-all; max-height: 320px; overflow-y: auto; font-family: 'Noto Sans KR', sans-serif; }
-  .tool-stats { padding: 8px 14px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; gap: 12px; font-size: 11px; color: rgba(255,255,255,0.4); }
-  .url-list { padding: 8px 0; }
-  .url-item { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; gap: 8px; font-size: 11.5px; }
-  .url-item:last-child { border-bottom: none; }
-  .url-status-ok { color: #4caf50; font-size: 14px; }
-  .url-status-warn { color: #ff9800; font-size: 14px; }
-  .url-label { color: rgba(255,255,255,0.8); font-weight: 600; min-width: 100px; }
-  .url-note { color: #ff9800; font-size: 10.5px; }
-  .url-spacer { flex: 1; }
-  .url-actions { display: flex; gap: 5px; }
-  .url-btn { padding: 3px 8px; border-radius: 5px; font-size: 10.5px; font-weight: 600; cursor: pointer; text-decoration: none; border: none; }
-  .url-btn-open { background: rgba(255,107,53,0.4); color: #ffb088; }
-  .url-btn-open:hover { background: rgba(255,107,53,0.7); }
-  .url-btn-copy { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
-  .url-btn-copy:hover { background: rgba(255,255,255,0.2); }
-  .url-kakao { color: rgba(255,255,255,0.4); font-size: 10.5px; font-style: italic; }
+
+  /* ===== 실무도구 섹션 ===== */
+  .tool-section {
+    margin-top: 16px;
+    padding: 14px;
+    background: rgba(0,0,0,0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.07);
+  }
+  .copy-btn-tool {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    background: #D4540A;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+    margin-bottom: 10px;
+  }
+  .copy-btn-tool:hover { background: #e05b11; }
+  .copy-btn-tool.copied { background: #27ae60; }
+  .url-section-tool { display: flex; flex-direction: column; gap: 6px; }
+  .url-item-tool {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 5px 8px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+  }
+  .url-label-tool { color: #444; font-weight: 500; flex: 1; }
+  .url-actions-tool { display: flex; gap: 5px; flex-shrink: 0; }
+  .url-btn-open-tool {
+    padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600;
+    background: rgba(212,84,10,0.15); color: #D4540A;
+    text-decoration: none; cursor: pointer;
+  }
+  .url-btn-open-tool:hover { background: rgba(212,84,10,0.3); }
+  .url-btn-copy-tool {
+    padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600;
+    background: #f0f0f0; color: #555; border: none; cursor: pointer; font-family: inherit;
+  }
+  .url-btn-copy-tool:hover { background: #e0e0e0; }
+
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>메아리셋 알림톡 CX 개선안</h1>
-  <p>10개 캠페인 설계 + CRM 12주 자동화 · 2026-03-11</p>
-</div>
-
-<!-- 실무 도구 -->
-<div class="tool-section">
-  <div class="tool-section-inner">
-    <div class="tool-title">📋 실무 도구 — AFTER 문구 복사 &amp; URL 확인</div>
-    <div class="tool-tabs">
-      <button class="tool-tab active" onclick="showTool('payment')">결제완료</button>
-      <button class="tool-tab" onclick="showTool('ship-start')">배송시작</button>
-      <button class="tool-tab" onclick="showTool('ship-done')">배송완료</button>
-      <button class="tool-tab" onclick="showTool('confirm')">구매확정</button>
-      <button class="tool-tab" onclick="showTool('cancel-req')">취소요청</button>
-      <button class="tool-tab" onclick="showTool('cancel-done')">취소완료</button>
-      <button class="tool-tab" onclick="showTool('exchange-req')">교환요청</button>
-      <button class="tool-tab" onclick="showTool('exchange-done')">교환완료</button>
-      <button class="tool-tab" onclick="showTool('return-req')">반품요청</button>
-      <button class="tool-tab" onclick="showTool('return-done')">반품완료</button>
-    </div>
-
-    <!-- 결제완료 -->
-    <div id="tool-payment" class="tool-panel active">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('payment-msg', this)">📋 복사</button></div>
-        <pre id="payment-msg" class="tool-msg-pre">#{고객명}님, 반갑습니다!
-기록의 파트너 메아리셋입니다.
-
-주문이 정상적으로 완료되었습니다.
-새로운 90일의 시작, 함께해주셔서 감사합니다.
-
-📦 주문 정보
-▪️ 주문일 : #{주문일}
-▪️ 상품명 : #{상품명}
-▪️ 결제금액 : #{총결제금액}원
-
-꼼꼼히 준비하여
-정성껏 보내드리겠습니다.
-
-"적은 것은 반드시 돌아옵니다."
-메아리셋이 함께합니다 ✨</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">주문내역 확인하기</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 배송시작 -->
-    <div id="tool-ship-start" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('ship-start-msg', this)">📋 복사</button></div>
-        <pre id="ship-start-msg" class="tool-msg-pre">#{고객명}님!
-메아리셋 노트가
-지금 막 출발했습니다!
-
-🚚 배송 정보
-▪️ 상품명 : #{상품명}
-▪️ 택배사 : #{배송회사}
-▪️ 송장번호 : #{송장번호}
-
-평균 1~2일 이내 도착 예정입니다.
-
-노트가 도착하면
-가장 먼저 '시작의 메아리' 페이지를
-펼쳐보세요 😊</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">배송조회 바로가기</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 배송완료 -->
-    <div id="tool-ship-done" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('ship-done-msg', this)">📋 복사</button></div>
-        <pre id="ship-done-msg" class="tool-msg-pre">#{고객명}님!
-메아리셋 노트가
-안전하게 도착했습니다!
-
-📦 배송 완료 정보
-▪️ 상품명 : #{상품명}
-▪️ 송장번호 : #{송장번호}
-
-📝 노트 시작하기
-1. 앞쪽 '시작의 메아리' 페이지를 펼쳐주세요
-2. 90일 후의 나에게 편지를 적어보세요
-3. QR을 스캔해 등록하면, 90일 후 카톡으로 돌아옵니다!
-
-제품에 이상이 있으시면
-카카오톡 채널 '메아리셋'으로 연락주세요.
-
-"작게 적고, 크게 돌아옵니다."
-새로운 90일, 응원합니다 ✨</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-ok">✅</span><span class="url-label">시작의 메아리 등록하기</span><span class="url-spacer"></span><div class="url-actions"><a href="https://smartstore.naver.com/meariset" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://smartstore.naver.com/meariset', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-status-ok">✅</span><span class="url-label">에코챌린지 카페 가입</span><span class="url-spacer"></span><div class="url-actions"><a href="https://smartstore.naver.com/meariset" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://smartstore.naver.com/meariset', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 구매확정 -->
-    <div id="tool-confirm" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('confirm-msg', this)">📋 복사</button></div>
-        <pre id="confirm-msg" class="tool-msg-pre">#{고객명}님,
-구매확정 감사합니다!
-
-메아리셋과 함께하는 90일,
-잘 진행되고 있으신가요?
-
-✅ 구매가 확정되었습니다.
-
-혹시 노트 사용 중 궁금한 점이 있다면
-카페에서 가이드를 확인해보세요.
-
-기록을 멈추지 마세요.
-오늘 적은 한 줄이, 내일의 나를 바꿉니다.</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-ok">✅</span><span class="url-label">에코챌린지 카페 가기</span><span class="url-spacer"></span><div class="url-actions"><a href="https://smartstore.naver.com/meariset" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://smartstore.naver.com/meariset', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 취소요청 -->
-    <div id="tool-cancel-req" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('cancel-req-msg', this)">📋 복사</button></div>
-        <pre id="cancel-req-msg" class="tool-msg-pre">#{고객명}님,
-취소 요청이 접수되었습니다.
-
-📋 취소 정보
-▪️ 상품명 : #{상품명}
-▪️ 환불예정금액 : #{환불금액}원
-
-영업일 기준 1~3일 이내
-환불이 완료될 예정입니다.
-
-궁금한 점은 카카오톡 채널
-'메아리셋'으로 편하게 문의주세요.
-
-다음 시즌에 다시 만나요 🍃</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">취소 상세 확인</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 취소완료 -->
-    <div id="tool-cancel-done" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('cancel-done-msg', this)">📋 복사</button></div>
-        <pre id="cancel-done-msg" class="tool-msg-pre">#{고객명}님,
-취소 및 환불이 완료되었습니다.
-
-💰 환불 정보
-▪️ 상품명 : #{상품명}
-▪️ 환불금액 : #{환불금액}원
-▪️ 환불수단 : #{결제수단}
-
-카드사에 따라 2~5영업일 후
-계좌에 반영됩니다.
-
-언제든 돌아오실 때,
-메아리셋이 기다리고 있겠습니다 ✨</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">환불 상세 확인</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 교환요청 -->
-    <div id="tool-exchange-req" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('exchange-req-msg', this)">📋 복사</button></div>
-        <pre id="exchange-req-msg" class="tool-msg-pre">#{고객명}님,
-교환 요청이 접수되었습니다.
-
-📋 교환 정보
-▪️ 상품명 : #{상품명}
-▪️ 사유 : #{교환사유}
-
-회수 택배가 곧 방문할 예정입니다.
-교환 상품은 회수 확인 후
-1~2영업일 내 재발송됩니다.
-
-궁금한 점은 카카오톡 채널
-'메아리셋'으로 편하게 문의주세요.</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">교환 진행상황 확인</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 교환완료 -->
-    <div id="tool-exchange-done" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('exchange-done-msg', this)">📋 복사</button></div>
-        <pre id="exchange-done-msg" class="tool-msg-pre">#{고객명}님,
-교환 상품이 발송되었습니다!
-
-🚚 배송 정보
-▪️ 상품명 : #{상품명}
-▪️ 택배사 : #{배송회사}
-▪️ 송장번호 : #{송장번호}
-
-새 노트와 함께
-90일의 여정을 다시 시작해보세요.
-
-기다려주셔서 감사합니다 🍃</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">배송조회 바로가기</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 반품요청 -->
-    <div id="tool-return-req" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('return-req-msg', this)">📋 복사</button></div>
-        <pre id="return-req-msg" class="tool-msg-pre">#{고객명}님,
-반품 요청이 접수되었습니다.
-
-📋 반품 정보
-▪️ 상품명 : #{상품명}
-▪️ 사유 : #{반품사유}
-
-회수 택배가 곧 방문할 예정입니다.
-회수 확인 후 환불이 진행됩니다.
-
-궁금한 점은 카카오톡 채널
-'메아리셋'으로 편하게 문의주세요.
-
-다음 시즌에 다시 만나요 🍃</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">반품 진행상황 확인</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-          <div class="url-item"><span class="url-kakao">채널 추가 버튼 (URL 없음)</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 반품완료 -->
-    <div id="tool-return-done" class="tool-panel">
-      <div class="tool-box">
-        <div class="tool-box-header"><span>AFTER 메시지</span><button class="copy-btn" onclick="copyMsg('return-done-msg', this)">📋 복사</button></div>
-        <pre id="return-done-msg" class="tool-msg-pre">#{고객명}님,
-반품 및 환불이 완료되었습니다.
-
-💰 환불 정보
-▪️ 상품명 : #{상품명}
-▪️ 환불금액 : #{환불금액}원
-▪️ 환불수단 : #{결제수단}
-
-카드사에 따라 2~5영업일 후
-계좌에 반영됩니다.
-
-언제든 돌아오실 때,
-메아리셋이 기다리고 있겠습니다 ✨</pre>
-        <div class="tool-stats">메아리셋 — 발송 데이터 수집 예정</div>
-      </div>
-      <div class="tool-box">
-        <div class="tool-box-header"><span>버튼 &amp; 랜딩 URL</span></div>
-        <div class="url-list">
-          <div class="url-item"><span class="url-status-warn">⚠️</span><span class="url-label">환불 상세 확인</span><span class="url-note">직접 링크 아님</span><span class="url-spacer"></span><div class="url-actions"><a href="https://new-m.pay.naver.com/" target="_blank" class="url-btn url-btn-open">↗ 열기</a><button class="url-btn url-btn-copy" onclick="copyUrl('https://new-m.pay.naver.com/', this)">복사</button></div></div>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  <h1>메아리셋 알림톡 CX 대시보드</h1>
+  <p>카페24 표준 알림톡 + CRM 12주 자동화 · "모든 기록은 메아리가 된다" · 2026-03-11</p>
 </div>
 
 <div class="container">
-  <div class="summary-grid">
-    <div class="summary-card"><div class="num">10</div><div class="label">표준 캠페인 설계</div></div>
-    <div class="summary-card"><div class="num">5</div><div class="label">설계 원칙 적용</div></div>
-    <div class="summary-card"><div class="num">10/10</div><div class="label">버튼 CTA 통일</div></div>
-    <div class="summary-card"><div class="num">🧡</div><div class="label">"기록 약자의 편" 톤</div></div>
+
+  <!-- Tab Navigation -->
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('standard')">Part A · 카페24 표준 알림톡</button>
+    <button class="tab-btn" onclick="switchTab('crm')">Part B · CRM 12주 자동화</button>
   </div>
 
-  <div class="section-title">고객 여정 (Customer Journey)</div>
-  <div class="journey">
-    <div class="journey-step active">결제완료</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">배송시작</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">배송완료</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step crm">CRM D+0<br><small>알마니 시작</small></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">구매확정</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step crm">12주 가이드<br><small>D+7~D+84</small></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step crm">90일 편지<br><small>D+90</small></div>
-    <div class="journey-arrow" style="margin:0 12px;">|</div>
-    <div class="journey-step cancel">취소</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step cancel">교환</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step cancel">반품</div>
-  </div>
+  <!-- ========== PART A: 카페24 표준 알림톡 ========== -->
+  <div id="tab-standard" class="tab-content active">
 
-  <div class="section-title">설계 원칙 (5가지)</div>
-  <div class="principles">
-    <div class="principle"><span class="tag">원칙 1</span><h3>"기록 약자의 편" 브랜드 톤 관통</h3><p>"적은 것은 반드시 돌아옵니다" — 전 캠페인에 메아리셋의 따뜻한 코치 톤을 일관 적용. 과잉 감사/사과 대신 진정성 있는 공감.</p></div>
-    <div class="principle"><span class="tag">원칙 2</span><h3>버튼 CTA 우선순위 통일</h3><p>1번: 핵심 행동(주문확인/배송조회/구매확정) → 2번: 보조(카페가입/FAQ) → 3번: 채널추가. 전 캠페인 동일 적용.</p></div>
-    <div class="principle"><span class="tag">원칙 3</span><h3>배송완료 = CRM 진입점</h3><p>배송완료 메시지에서 "시작의 메아리 등록"과 카페 가이드 안내. 알마니 D+0과 자연스러운 브릿지 역할.</p></div>
-    <div class="principle"><span class="tag">원칙 4</span><h3>간결한 공감 (취소/교환/반품)</h3><p>과도한 사과 축소. "다음 시즌에 다시 만나요" 리텐션 메시지 삽입으로 재구매 가능성 유지.</p></div>
-    <div class="principle"><span class="tag">원칙 5</span><h3>노트 사용 가이드 = 배송완료 시점</h3><p>결제 직후가 아닌, 노트를 실제 손에 들었을 때 사용법 안내. 적절한 타이밍에 적절한 정보.</p></div>
-  </div>
-
-  <div class="section-title">캠페인별 설계안</div>
-
-  <!-- 1. 결제완료 -->
-  <div class="campaign-card open" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">1</div><span class="name">결제완료</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">결제 직후</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님, 반갑습니다!<br>
-          기록의 파트너 <b>메아리셋</b>입니다.<br><br>
-          주문이 정상적으로 완료되었습니다.<br>
-          <span class="good">새로운 90일의 시작, 함께해주셔서 감사합니다.</span><br><br>
-          📦 <b>주문 정보</b><br>
-          ▪️ 주문일 : #{주문일}<br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 결제금액 : #{총결제금액}원<br><br>
-          꼼꼼히 준비하여<br>
-          정성껏 보내드리겠습니다.<br><br>
-          <b>"적은 것은 반드시 돌아옵니다."</b><br>
-          메아리셋이 함께합니다 ✨
-          <div class="btn-group">
-            <div class="btn primary">주문내역 확인하기</div>
-            <div class="btn">메아리셋 채널 추가</div>
-          </div>
-        </div></div>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="num">10</div>
+        <div class="label">표준 캠페인 설계</div>
       </div>
-      <div class="design-note"><strong>설계 의도:</strong> 결제 직후 = 주문 확인에만 집중. 사용법은 배송완료로 이동. "새로운 90일의 시작"으로 기대감 형성.</div>
-    </div>
-  </div>
-
-  <!-- 2. 배송시작 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">2</div><span class="name">배송시작</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">출고 시</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님!<br>
-          메아리셋 노트가<br>
-          지금 막 출발했습니다!<br><br>
-          🚚 <b>배송 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 택배사 : #{배송회사}<br>
-          ▪️ 송장번호 : #{송장번호}<br><br>
-          <span class="good">평균 1~2일 이내 도착 예정입니다.</span><br><br>
-          노트가 도착하면<br>
-          가장 먼저 '시작의 메아리' 페이지를<br>
-          펼쳐보세요 😊
-          <div class="btn-group">
-            <div class="btn primary">배송조회 바로가기</div>
-            <div class="btn">메아리셋 채널 추가</div>
-          </div>
-        </div></div>
+      <div class="summary-card">
+        <div class="num">5</div>
+        <div class="label">설계 원칙 적용</div>
       </div>
-      <div class="design-note"><strong>설계 의도:</strong> 배송 정보 핵심만. '시작의 메아리' 언급으로 수령 후 행동을 사전 유도 (프라이밍).</div>
-    </div>
-  </div>
-
-  <!-- 3. 배송완료 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">3</div><span class="name">배송완료</span><span class="impact high">KEY</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">배송 완료 시 · CRM 진입점</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님!<br>
-          메아리셋 노트가<br>
-          <b>안전하게 도착했습니다!</b><br><br>
-          📦 <b>배송 완료 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 송장번호 : #{송장번호}<br><br>
-          <span class="good">📝 <b>노트 시작하기</b></span><br>
-          1. 앞쪽 '시작의 메아리' 페이지를 펼쳐주세요<br>
-          2. 90일 후의 나에게 편지를 적어보세요<br>
-          3. QR을 스캔해 등록하면, 90일 후 카톡으로 돌아옵니다!<br><br>
-          제품에 이상이 있으시면<br>
-          카카오톡 채널 '메아리셋'으로 연락주세요.<br><br>
-          <b>"작게 적고, 크게 돌아옵니다."</b><br>
-          새로운 90일, 응원합니다 ✨
-          <div class="btn-group">
-            <div class="btn primary">시작의 메아리 등록하기</div>
-            <div class="btn">에코챌린지 카페 가입</div>
-            <div class="btn">메아리셋 채널 추가</div>
-          </div>
-        </div></div>
+      <div class="summary-card">
+        <div class="num">10/10</div>
+        <div class="label">버튼 CTA 통일</div>
       </div>
-      <div class="design-note"><strong>설계 의도:</strong> CRM 진입의 핵심 터치포인트. 노트 사용법 안내 + 시작의 메아리 등록 CTA. 알마니 D+0 메시지와 상호 보완. 1번 버튼 = Tally 폼 직행.</div>
-    </div>
-  </div>
-
-  <!-- 4. 구매확정 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">4</div><span class="name">구매확정</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">구매확정 시</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          구매확정 감사합니다!<br><br>
-          메아리셋과 함께하는 90일,<br>
-          잘 진행되고 있으신가요?<br><br>
-          ✅ 구매가 확정되었습니다.<br><br>
-          혹시 노트 사용 중 궁금한 점이 있다면<br>
-          카페에서 가이드를 확인해보세요.<br><br>
-          <b>기록을 멈추지 마세요.</b><br>
-          오늘 적은 한 줄이, 내일의 나를 바꿉니다.
-          <div class="btn-group">
-            <div class="btn primary">에코챌린지 카페 가기</div>
-            <div class="btn">메아리셋 채널 추가</div>
-          </div>
-        </div></div>
-      </div>
-      <div class="design-note"><strong>설계 의도:</strong> 구매확정에만 집중. 리뷰 유도 제거 → 카페 유입으로 전환. 노트 사용 지속 동기부여.</div>
-    </div>
-  </div>
-
-  <!-- 5. 취소요청 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">5</div><span class="name">취소요청</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">취소 접수 시</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          취소 요청이 접수되었습니다.<br><br>
-          📋 <b>취소 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 환불예정금액 : #{환불금액}원<br><br>
-          영업일 기준 1~3일 이내<br>
-          환불이 완료될 예정입니다.<br><br>
-          궁금한 점은 카카오톡 채널<br>
-          '메아리셋'으로 편하게 문의주세요.<br><br>
-          다음 시즌에 다시 만나요 🍃
-          <div class="btn-group">
-            <div class="btn primary">취소 상세 확인</div>
-            <div class="btn">메아리셋 채널 추가</div>
-          </div>
-        </div></div>
-      </div>
-      <div class="design-note"><strong>설계 의도:</strong> 과도한 사과 대신 명확한 절차 안내. "다음 시즌에 다시 만나요"로 리텐션 여지.</div>
-    </div>
-  </div>
-
-  <!-- 6. 취소완료 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">6</div><span class="name">취소완료</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">환불 처리 완료</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          취소 및 환불이 완료되었습니다.<br><br>
-          💰 <b>환불 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 환불금액 : #{환불금액}원<br>
-          ▪️ 환불수단 : #{결제수단}<br><br>
-          카드사에 따라 2~5영업일 후<br>
-          계좌에 반영됩니다.<br><br>
-          언제든 돌아오실 때,<br>
-          메아리셋이 기다리고 있겠습니다 ✨
-          <div class="btn-group">
-            <div class="btn primary">환불 상세 확인</div>
-          </div>
-        </div></div>
+      <div class="summary-card">
+        <div class="num">🧡</div>
+        <div class="label">"기록 약자의 편" 톤</div>
       </div>
     </div>
-  </div>
 
-  <!-- 7. 교환요청 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">7</div><span class="name">교환요청</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">교환 접수 시</span><span class="arrow">▼</span></div>
+    <!-- 고객 여정 -->
+    <div class="section-title">고객 여정 (Customer Journey)</div>
+    <div class="journey">
+      <div class="journey-step active">결제완료</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step active">배송시작</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step active">배송완료</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step crm">CRM D+0<br><small>알마니 시작</small></div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step active">구매확정</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step crm">12주 가이드<br><small>D+7~D+84</small></div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step crm">90일 편지<br><small>D+90</small></div>
+      <div class="journey-arrow" style="margin:0 12px;">|</div>
+      <div class="journey-step cancel">취소</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step cancel">교환</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step cancel">반품</div>
     </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          교환 요청이 접수되었습니다.<br><br>
-          📋 <b>교환 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 사유 : #{교환사유}<br><br>
-          회수 택배가 곧 방문할 예정입니다.<br>
-          교환 상품은 회수 확인 후<br>
-          1~2영업일 내 재발송됩니다.<br><br>
-          궁금한 점은 카카오톡 채널<br>
-          '메아리셋'으로 편하게 문의주세요.
-          <div class="btn-group">
-            <div class="btn primary">교환 진행상황 확인</div>
-            <div class="btn">메아리셋 채널 추가</div>
-          </div>
-        </div></div>
+
+    <!-- 설계 원칙 -->
+    <div class="section-title">설계 원칙 (5가지)</div>
+    <div class="principles">
+      <div class="principle">
+        <span class="tag">원칙 1</span>
+        <h3>"기록 약자의 편" 브랜드 톤 관통</h3>
+        <p>"적은 것은 반드시 돌아옵니다" — 전 캠페인에 메아리셋의 따뜻한 코치 톤을 일관 적용. 과잉 감사/사과 대신 진정성 있는 공감.</p>
+      </div>
+      <div class="principle">
+        <span class="tag">원칙 2</span>
+        <h3>버튼 CTA 우선순위 통일</h3>
+        <p>1번: 핵심 행동(주문확인/배송조회/구매확정) → 2번: 보조(카페가입/FAQ) → 3번: 채널추가. 전 캠페인 동일 적용.</p>
+      </div>
+      <div class="principle">
+        <span class="tag">원칙 3</span>
+        <h3>배송완료 = CRM 진입점</h3>
+        <p>배송완료 메시지에서 "시작의 메아리 등록"과 카페 가이드 안내. 알마니 D+0과 자연스러운 브릿지 역할.</p>
+      </div>
+      <div class="principle">
+        <span class="tag">원칙 4</span>
+        <h3>간결한 공감 (취소/교환/반품)</h3>
+        <p>과도한 사과 축소. "다음 시즌에 다시 만나요" 리텐션 메시지 삽입으로 재구매 가능성 유지.</p>
+      </div>
+      <div class="principle">
+        <span class="tag">원칙 5</span>
+        <h3>노트 사용 가이드 = 배송완료 시점</h3>
+        <p>결제 직후가 아닌, 노트를 실제 손에 들었을 때 사용법 안내. 적절한 타이밍에 적절한 정보.</p>
       </div>
     </div>
-  </div>
 
-  <!-- 8. 교환완료 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">8</div><span class="name">교환완료</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">교환 상품 발송 시</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          교환 상품이 발송되었습니다!<br><br>
-          🚚 <b>배송 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 택배사 : #{배송회사}<br>
-          ▪️ 송장번호 : #{송장번호}<br><br>
-          새 노트와 함께<br>
-          90일의 여정을 다시 시작해보세요.<br><br>
-          기다려주셔서 감사합니다 🍃
-          <div class="btn-group">
-            <div class="btn primary">배송조회 바로가기</div>
+    <!-- 캠페인 카드들 -->
+    <div class="section-title">캠페인별 설계안</div>
+
+    <!-- 1. 결제완료 -->
+    <div class="campaign-card open" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">1</div>
+          <span class="name">결제완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">결제 직후</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님, 반갑습니다!<br>
+              기록의 파트너 <b>메아리셋</b>입니다.<br><br>
+              주문이 정상적으로 완료되었습니다.<br>
+              <span class="good">새로운 90일의 시작, 함께해주셔서 감사합니다.</span><br><br>
+              📦 <b>주문 정보</b><br>
+              ▪️ 주문일 : #{주문일}<br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 결제금액 : #{총결제금액}원<br><br>
+              꼼꼼히 준비하여<br>
+              정성껏 보내드리겠습니다.<br><br>
+              <b>"적은 것은 반드시 돌아옵니다."</b><br>
+              메아리셋이 함께합니다 ✨
+              <div class="btn-group">
+                <div class="btn primary">주문내역 확인하기</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
           </div>
-        </div></div>
+        </div>
+        <div class="design-note">
+          <strong>설계 의도:</strong> 결제 직후 = 주문 확인에만 집중. 사용법은 배송완료로 이동. "새로운 90일의 시작"으로 기대감 형성.
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 9. 반품요청 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">9</div><span class="name">반품요청</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">반품 접수 시</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          반품 요청이 접수되었습니다.<br><br>
-          📋 <b>반품 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 사유 : #{반품사유}<br><br>
-          회수 택배가 곧 방문할 예정입니다.<br>
-          회수 확인 후 환불이 진행됩니다.<br><br>
-          궁금한 점은 카카오톡 채널<br>
-          '메아리셋'으로 편하게 문의주세요.<br><br>
-          다음 시즌에 다시 만나요 🍃
-          <div class="btn-group">
-            <div class="btn primary">반품 진행상황 확인</div>
-            <div class="btn">메아리셋 채널 추가</div>
+    <!-- 2. 배송시작 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">2</div>
+          <span class="name">배송시작</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">출고 시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님!<br>
+              메아리셋 노트가<br>
+              지금 막 출발했습니다!<br><br>
+              🚚 <b>배송 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 택배사 : #{배송회사}<br>
+              ▪️ 송장번호 : #{송장번호}<br><br>
+              <span class="good">평균 1~2일 이내 도착 예정입니다.</span><br><br>
+              노트가 도착하면<br>
+              가장 먼저 '시작의 메아리' 페이지를<br>
+              펼쳐보세요 😊
+              <div class="btn-group">
+                <div class="btn primary">배송조회 바로가기</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
           </div>
-        </div></div>
+        </div>
+        <div class="design-note">
+          <strong>설계 의도:</strong> 배송 정보 핵심만. '시작의 메아리' 언급으로 수령 후 행동을 사전 유도 (프라이밍).
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 10. 반품완료 -->
-  <div class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
-      <div class="left"><div class="num-badge">10</div><span class="name">반품완료</span></div>
-      <div style="display:flex;align-items:center;gap:12px;"><span class="timing">환불 처리 완료</span><span class="arrow">▼</span></div>
-    </div>
-    <div class="campaign-body">
-      <div class="phone-wrap">
-        <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">
-          #{고객명}님,<br>
-          반품 및 환불이 완료되었습니다.<br><br>
-          💰 <b>환불 정보</b><br>
-          ▪️ 상품명 : #{상품명}<br>
-          ▪️ 환불금액 : #{환불금액}원<br>
-          ▪️ 환불수단 : #{결제수단}<br><br>
-          카드사에 따라 2~5영업일 후<br>
-          계좌에 반영됩니다.<br><br>
-          언제든 돌아오실 때,<br>
-          메아리셋이 기다리고 있겠습니다 ✨
-          <div class="btn-group">
-            <div class="btn primary">환불 상세 확인</div>
+    <!-- 3. 배송완료 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">3</div>
+          <span class="name">배송완료</span>
+          <span class="impact high">KEY</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">배송 완료 시 · CRM 진입점</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님!<br>
+              메아리셋 노트가<br>
+              <b>안전하게 도착했습니다!</b><br><br>
+              📦 <b>배송 완료 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 송장번호 : #{송장번호}<br><br>
+              <span class="good">📝 <b>노트 시작하기</b></span><br>
+              1. 앞쪽 '시작의 메아리' 페이지를 펼쳐주세요<br>
+              2. 90일 후의 나에게 편지를 적어보세요<br>
+              3. QR을 스캔해 등록하면, 90일 후 카톡으로 돌아옵니다!<br><br>
+              제품에 이상이 있으시면<br>
+              카카오톡 채널 '메아리셋'으로 연락주세요.<br><br>
+              <b>"작게 적고, 크게 돌아옵니다."</b><br>
+              새로운 90일, 응원합니다 ✨
+              <div class="btn-group">
+                <div class="btn primary">시작의 메아리 등록하기</div>
+                <div class="btn">에코챌린지 카페 가입</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
           </div>
-        </div></div>
+        </div>
+        <div class="design-note">
+          <strong>설계 의도:</strong> CRM 진입의 핵심 터치포인트. 노트 사용법 안내 + 시작의 메아리 등록 CTA. 알마니 D+0 메시지와 상호 보완. 1번 버튼 = Tally 폼 직행.
+        </div>
       </div>
     </div>
-  </div>
+
+    <!-- 4. 구매확정 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">4</div>
+          <span class="name">구매확정</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">구매확정 시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              구매확정 감사합니다!<br><br>
+              메아리셋과 함께하는 90일,<br>
+              잘 진행되고 있으신가요?<br><br>
+              ✅ 구매가 확정되었습니다.<br><br>
+              혹시 노트 사용 중 궁금한 점이 있다면<br>
+              카페에서 가이드를 확인해보세요.<br><br>
+              <b>기록을 멈추지 마세요.</b><br>
+              오늘 적은 한 줄이, 내일의 나를 바꿉니다.
+              <div class="btn-group">
+                <div class="btn primary">에코챌린지 카페 가기</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="design-note">
+          <strong>설계 의도:</strong> 구매확정에만 집중. 리뷰 유도 제거 → 카페 유입으로 전환. 노트 사용 지속 동기부여.
+        </div>
+      </div>
+    </div>
+
+    <!-- 5~10: 취소/교환/반품 -->
+    <!-- 5. 취소요청 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">5</div>
+          <span class="name">취소요청</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">취소 접수 시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              취소 요청이 접수되었습니다.<br><br>
+              📋 <b>취소 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 환불예정금액 : #{환불금액}원<br><br>
+              영업일 기준 1~3일 이내<br>
+              환불이 완료될 예정입니다.<br><br>
+              궁금한 점은 카카오톡 채널<br>
+              '메아리셋'으로 편하게 문의주세요.<br><br>
+              다음 시즌에 다시 만나요 🍃
+              <div class="btn-group">
+                <div class="btn primary">취소 상세 확인</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="design-note">
+          <strong>설계 의도:</strong> 과도한 사과 대신 명확한 절차 안내. "다음 시즌에 다시 만나요"로 리텐션 여지.
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. 취소완료 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">6</div>
+          <span class="name">취소완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">환불 처리 완료</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              취소 및 환불이 완료되었습니다.<br><br>
+              💰 <b>환불 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 환불금액 : #{환불금액}원<br>
+              ▪️ 환불수단 : #{결제수단}<br><br>
+              카드사에 따라 2~5영업일 후<br>
+              계좌에 반영됩니다.<br><br>
+              언제든 돌아오실 때,<br>
+              메아리셋이 기다리고 있겠습니다 ✨
+              <div class="btn-group">
+                <div class="btn primary">환불 상세 확인</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. 교환요청 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">7</div>
+          <span class="name">교환요청</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">교환 접수 시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              교환 요청이 접수되었습니다.<br><br>
+              📋 <b>교환 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 사유 : #{교환사유}<br><br>
+              회수 택배가 곧 방문할 예정입니다.<br>
+              교환 상품은 회수 확인 후<br>
+              1~2영업일 내 재발송됩니다.<br><br>
+              궁금한 점은 카카오톡 채널<br>
+              '메아리셋'으로 편하게 문의주세요.
+              <div class="btn-group">
+                <div class="btn primary">교환 진행상황 확인</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. 교환완료 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">8</div>
+          <span class="name">교환완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">교환 상품 발송 시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              교환 상품이 발송되었습니다!<br><br>
+              🚚 <b>배송 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 택배사 : #{배송회사}<br>
+              ▪️ 송장번호 : #{송장번호}<br><br>
+              새 노트와 함께<br>
+              90일의 여정을 다시 시작해보세요.<br><br>
+              기다려주셔서 감사합니다 🍃
+              <div class="btn-group">
+                <div class="btn primary">배송조회 바로가기</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. 반품요청 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">9</div>
+          <span class="name">반품요청</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">반품 접수 시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              반품 요청이 접수되었습니다.<br><br>
+              📋 <b>반품 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 사유 : #{반품사유}<br><br>
+              회수 택배가 곧 방문할 예정입니다.<br>
+              회수 확인 후 환불이 진행됩니다.<br><br>
+              궁금한 점은 카카오톡 채널<br>
+              '메아리셋'으로 편하게 문의주세요.<br><br>
+              다음 시즌에 다시 만나요 🍃
+              <div class="btn-group">
+                <div class="btn primary">반품 진행상황 확인</div>
+                <div class="btn">메아리셋 채널 추가</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. 반품완료 -->
+    <div class="campaign-card" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">10</div>
+          <span class="name">반품완료</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">환불 처리 완료</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              #{고객명}님,<br>
+              반품 및 환불이 완료되었습니다.<br><br>
+              💰 <b>환불 정보</b><br>
+              ▪️ 상품명 : #{상품명}<br>
+              ▪️ 환불금액 : #{환불금액}원<br>
+              ▪️ 환불수단 : #{결제수단}<br><br>
+              카드사에 따라 2~5영업일 후<br>
+              계좌에 반영됩니다.<br><br>
+              언제든 돌아오실 때,<br>
+              메아리셋이 기다리고 있겠습니다 ✨
+              <div class="btn-group">
+                <div class="btn primary">환불 상세 확인</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /tab-standard -->
+
+  <!-- ========== PART B: CRM 12주 자동화 ========== -->
+  <div id="tab-crm" class="tab-content">
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="num">13</div>
+        <div class="label">주간 메시지 (알마니)</div>
+      </div>
+      <div class="summary-card">
+        <div class="num">1</div>
+        <div class="label">웰컴 메시지</div>
+      </div>
+      <div class="summary-card">
+        <div class="num">1</div>
+        <div class="label">90일 편지 (Solapi)</div>
+      </div>
+      <div class="summary-card">
+        <div class="num">~21,000원</div>
+        <div class="label">월 비용 (100명)</div>
+      </div>
+    </div>
+
+    <!-- CRM 고객 여정 -->
+    <div class="section-title">CRM 고객 여정</div>
+    <div class="journey">
+      <div class="journey-step active">노트 수령</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step active">QR 스캔</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step" style="background:#FEE500;border-color:#e5d000;">웰컴 메시지</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step active">Tally 등록</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step crm">D+0 시작</div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step crm">D+7~77<br><small>12주 가이드</small></div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step" style="background:#fde8e8;border-color:#e8a0a0;">D+84<br><small>완주+재구매</small></div>
+      <div class="journey-arrow">→</div>
+      <div class="journey-step" style="background:#e0e0f5;border-color:#b0b0e0;">D+90<br><small>90일 편지</small></div>
+    </div>
+
+    <!-- 웰컴 메시지 -->
+    <div class="section-title">웰컴 메시지 (카톡 채널 추가 즉시)</div>
+    <div class="campaign-card open" onclick="this.classList.toggle('open')">
+      <div class="campaign-header">
+        <div class="left">
+          <div class="num-badge">W</div>
+          <span class="name">웰컴 메시지</span>
+          <span class="impact mid">v3</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span class="timing">채널 추가 즉시</span>
+          <span class="arrow">▼</span>
+        </div>
+      </div>
+      <div class="campaign-body">
+        <div class="phone-wrap">
+          <div class="phone">
+            <div class="kakao-header">카카오톡 채널 메시지</div>
+            <div class="msg">
+              메아리셋 노트, 잘 받으셨나요? ✨<br><br>
+              작성하기 전에 주목!<br><br>
+              노트 앞쪽에 '시작의 메아리' 페이지가 있어요. 거기에 90일 후의 나에게 편지를 적어보세요.<br><br>
+              그리고 아래 버튼을 눌러 등록하면 정확히 90일 후, 그 편지가 카톡으로 돌아옵니다! (수신 동의 하신분들만)<br><br>
+              시작의 메아리에 적는것은 곧, '확정된 미래' 입니다.<br><br>
+              생생하게 생각하고 진심을 다해 적어보세요.<br><br>
+              적으면, 반드시 돌아와요!
+              <div class="btn-group">
+                <div class="btn primary">시작의 메아리 등록하기</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="design-note">
+          <strong>버전:</strong> v3 (확정된 미래 프레이밍) · <strong>버튼:</strong> 1개 — Tally 폼 직행 (Hick의 법칙) · <strong>이미지:</strong> 메아리셋 제품 사진 800x400px 첨부
+        </div>
+      </div>
+    </div>
+
+    <!-- 12주 타임라인 -->
+    <div class="section-title">12주 주간 메시지 타임라인 (알마니 · 배송완료 D+N)</div>
+    <p style="font-size:13px;color:#777;margin-bottom:20px;">각 메시지를 클릭하면 상세 내용을 확인할 수 있습니다. 메시지 v3 기준.</p>
+
+    <div class="timeline">
+      <!-- D+0: 시작의 메아리 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+0</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">시작의 메아리 등록 안내</div>
+        <div class="desc">배송완료 즉시 · 약속 장치 + 손실회피 · 노트 4~5p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            #{고객명}님, 메아리셋 노트가 도착했어요.<br><br>
+            본격적으로 쓰기 전에, 딱 하나만 먼저 해주세요.<br><br>
+            📖 메아리셋 노트의 4~5페이지를 펴세요<br>
+            90일 후의 나에게 편지를 써보세요.<br>
+            지금 느끼는 것, 이루고 싶은 것, 솔직하게.<br><br>
+            손으로 직접 적는 게 중요해요.<br>
+            목표를 손으로 적은 사람은 그렇지 않은 사람보다 이룰 확률이 42% 높습니다.<br><br>
+            적으면 사진 찍어서 등록해주세요.<br>
+            3개월 뒤, 이 편지가 카톡으로 돌아옵니다.<br><br>
+            ✅ 이미 등록하셨다면, 준비 완료!<br>
+            다음 주부터 매주 기록 가이드가 카톡으로 도착해요.<br><br>
+            📌 앞으로 12주간 매주 한 통씩,<br>
+            기록이 막힐 때 딱 맞는 타이밍에 도착하는 메시지를 보내드릴게요.<br>
+            작심삼일 넘기는 법, 슬럼프 탈출법, 기록이 쌓이면 보이는 것들까지.<br>
+            혼자 쓰면 3주, 함께하면 12주.
+            <div class="btn-preview">시작의 메아리 등록하기 → Tally</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 약속 장치(commitment device) + 손실회피 + 12주 여정 프레이밍. QR 미스캔 60%에게 유일한 터치포인트. "이미 등록하셨다면" 분기로 중복감 해소.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+7: 에코 트라이앵글 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+7</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">에코 트라이앵글 작성</div>
+        <div class="desc">난이도 앵커링 + 자기효능감 · 권위 훅 · 노트 6~7p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 오타니 쇼헤이 아시죠?<br>
+            고1 때 종이에 "8구단 드래프트 1순위"를 적었어요.<br>
+            10년 뒤 진짜 이뤄집니다.<br><br>
+            근데 그가 쓴 만다라트는 64칸이에요.<br>
+            솔직히 64칸 채우다 포기한 적 없으세요?<br><br>
+            메아리셋은 13칸이면 돼요.<br>
+            큰 목표 1개, 핵심 방향 3개, 이번 분기 할 것 9개. 끝.<br><br>
+            📖 메아리셋 노트의 6~7페이지를 펴세요<br>
+            너무 완벽하게 적으려 하지 마세요.<br>
+            90일 동안 고치고, 바꾸고, 다시 적을 수 있어요.<br>
+            지금은 "일단 채우는 것"이 전부입니다.
+            <div class="btn-preview">에코 트라이앵글 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 난이도 앵커링(64칸→13칸 대비) + 자기효능감("나도 할 수 있겠다"). 오타니 사례로 권위 훅.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+14: 월간 관제탑 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+14</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">월간 관제탑 세팅</div>
+        <div class="desc">선택 과부하 차단 + 허용 프레이밍 · 과학 훅 · 노트 8~9p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 요즘 뭘 해야 하는지 너무 많지 않나요?<br><br>
+            재밌는 실험이 있어요.<br>
+            사람들에게 선택지를 6개 줬을 때보다 24개를 줬을 때, 오히려 아무것도 안 고르는 비율이 10배 높았대요.<br><br>
+            선택지가 많으면 뇌가 지쳐서 "그냥 안 해"를 선택하는 거예요.<br><br>
+            📖 메아리셋 노트의 8~9페이지를 펴세요<br>
+            습관 / 관계 / 건강 / 경제 / 배움.<br>
+            5개 중 3개만 고르세요.<br><br>
+            핵심은 "뭘 할까"보다 "뭘 안 할까"를 먼저 정하는 거예요.<br>
+            나머지 2개는 이번 분기 안 해도 됩니다.<br>
+            진짜로요.
+            <div class="btn-preview">월간 관제탑 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 선택 과부하 차단 + 허용 프레이밍("안 해도 되는 것"을 먼저 정해주기).
+          </div>
+        </div>
+      </div>
+
+      <!-- D+21 (위기): C.E.O 시스템 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+21</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">C.E.O 시스템 익히기 ⚠️</div>
+        <div class="desc">⚠️ 작심삼일×7 위기 · 외적 귀인 + 시스템 전환 · 공감 훅 · 노트 10p~</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 혹시 할 일 목록에 20개 적어놓고<br>
+            5개만 하고 자책한 적 있으세요?<br><br>
+            그거, 당신 의지력 문제가 아니에요.<br>
+            목록이 잘못 만들어진 거예요.<br><br>
+            못 끝낸 일은 머릿속에 계속 남아서 에너지를 먹어요.<br>
+            잠을 자도 개운하지 않고, 쉬어도 쉰 것 같지 않죠.<br>
+            근데 종이에 적어두는 순간, 뇌가 "저장했으니 이제 놓자"고 판단해요.<br><br>
+            📖 메아리셋 노트의 주간 페이지를 펴세요 (10p~)<br>
+            핵심(Core) 3개, 실행(Execute) 3개, 비울 것(Offload) 6개.<br>
+            줄여서 C.E.O 시스템이에요.<br>
+            핵심 3개만 끝내면 오늘은 이긴 거예요.<br>
+            나머지는 내려놓으세요.
+            <div class="btn-preview">C.E.O 시스템 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 외적 귀인("네 잘못 아님") + 시스템으로 전환(의지력→구조). 자이가르닉 효과를 소비자 언어로.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+28 (위기): 습관의 과학 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+28</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">습관의 과학 (루틴 체크) ⚠️</div>
+        <div class="desc">⚠️ 한 달 고비 · 정상화 + 실행의도 · 과학 훅 · 노트 8~9p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 한 달이 됐어요.<br><br>
+            솔직히 물어볼게요.<br>
+            혹시 슬슬 귀찮아지기 시작했나요?<br><br>
+            그렇다면 정상이에요.<br>
+            "21일이면 습관이 된다"는 건 사실이 아니거든요.<br>
+            실제로는 평균 66일이 걸려요. 사람마다 다르고, 하루 빠져도 괜찮아요.<br><br>
+            아직 절반도 안 왔어요.<br>
+            귀찮은 게 당연한 시기입니다.<br><br>
+            대신 하나만 바꿔보세요.<br>
+            "시간 나면 운동해야지" → "월수금 7시 = 운동"<br>
+            이렇게 '언제'를 정해두면 고민 없이 몸이 먼저 움직여요.<br><br>
+            📖 메아리셋 노트의 관제탑(8~9p) 우측 하단에 루틴 체크가 있어요.<br>
+            습관 3개만 정해서 매일 체크해보세요.<br>
+            X가 줄줄이 이어지면, "이 줄 끊기 싫다"는 마음이 의지력을 대신해요.
+            <div class="btn-preview">습관의 과학 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 정상화("지금 상태가 원래 맞음") + 실행의도(if-then 루틴). UCL 66일 연구.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+35: Brain Dump -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+35</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">Brain Dump</div>
+        <div class="desc">인지 부하 해소 + 즉각 보상 · 공감 훅 · 노트 20~21p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 머릿속이 복잡한데 정리하려 할수록 더 꼬인 적 없으세요?<br><br>
+            그럴 땐 정리하지 마세요.<br>
+            그냥 다 꺼내세요.<br><br>
+            머리는 생각을 만드는 곳이지, 저장하는 곳이 아니에요.<br>
+            할 일, 걱정, 아이디어, 하고 싶은 것, 사야 할 것, 연락할 사람...<br>
+            종이에 옮기는 순간, 놀랍게도 머리가 맑아져요.<br><br>
+            📖 메아리셋 노트의 20~21페이지를 펴세요<br>
+            타이머 10분 맞추고, 판단 없이 그냥 쓰세요.<br>
+            예쁘게 안 써도 돼요. 순서도 필요 없어요.<br><br>
+            다 쏟아내고 나면<br>
+            "아 이게 나를 무겁게 하고 있었구나" 보일 거예요.
+            <div class="btn-preview">Brain Dump 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 인지 부하 해소("쏟아내면 가벼워진다") + 즉각 보상(기분 변화 체감).
+          </div>
+        </div>
+      </div>
+
+      <!-- D+42 (위기): 중간 회고 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+42</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">중간 회고 ⚠️</div>
+        <div class="desc">⚠️ 절반 지점 · 매몰비용 리프레이밍 + 하향 조정 허용 · 공감 훅 · 노트 22~23p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 이 시점에 가장 많이 드는 생각 아세요?<br>
+            "처음만큼 열심히 못 하고 있는데..."<br><br>
+            맞아요. 이 시기가 제일 힘들어요.<br>
+            근데 괜찮아요.<br>
+            노트를 다시 꺼내 든 것만으로도 이어갈 수 있어요.<br><br>
+            📖 메아리셋 노트의 22~23페이지를 펴세요<br>
+            잘한 것 / 아쉬운 것 / 바꿀 것.<br>
+            이 3가지만 적어보세요.<br><br>
+            에코 트라이앵글(6~7p)도 한번 보세요.<br>
+            채워두셨다면, 너무 높았던 건 낮춰도 돼요.<br>
+            아직 비어있다면, 지금 채워도 괜찮아요.<br>
+            목표를 수정하는 건 포기가 아니라, 똑똑한 조정이에요.
+            <div class="btn-preview">중간 회고 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 매몰비용 리프레이밍("여기까지 온 게 아깝지 않게") + 하향 조정 허용.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+49: 기록의 복리 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+49</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">기록의 복리</div>
+        <div class="desc">보유 효과 + 누적 가시화 · 권위 훅 · 노트 10p~(주간)</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 노트를 받은 지 49일이 됐어요.<br>
+            매일은 아니어도, 몇 번이라도 펴보셨다면<br>
+            한번 주간 페이지를 처음부터 쭉 넘겨보세요.<br><br>
+            뭔가 보이기 시작할 거예요.<br><br>
+            📖 메아리셋 노트의 주간 페이지(10p~)를 처음부터 훑어보세요<br>
+            매번 핵심에 올라오는 일이 있을 거예요.<br>
+            매번 미루는 일도 보일 거예요.<br>
+            에너지가 높은 요일, 낮은 요일도요.<br><br>
+            그게 "나의 패턴"이에요.<br>
+            아무도 알려주지 않는, 나만 알 수 있는 정보.<br>
+            기록이 쌓일수록 이 패턴이 선명해져요.<br>
+            그게 기록의 복리입니다.<br><br>
+            아직 적은 게 별로 없어도 괜찮아요.<br>
+            오늘부터 1주만 적어도 패턴은 보이기 시작해요.
+            <div class="btn-preview">기록의 복리 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 보유 효과("이미 가진 것의 가치") + 누적 가시화. 패턴 발견으로 기록의 실용적 가치 체감.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+56 (위기): 영감 보관소 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+56</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">영감 보관소 ⚠️</div>
+        <div class="desc">⚠️ 슬럼프 · 새로움 주입 + 환기 · 권위 훅 · 노트 60~61p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 이번엔 기록 얘기 말고 다른 얘기 할게요.<br><br>
+            최근에 책이나 영상에서 "오 이거 좋다" 했던 거 있으세요?<br>
+            그때 어디에 메모했어요?<br><br>
+            ...아마 안 하셨을 거예요.<br>
+            대부분 그래요. 감동받고, 잊고, 또 감동받고, 또 잊어요.<br><br>
+            📖 메아리셋 노트의 60~61페이지를 펴세요<br>
+            "영감 보관소"예요.<br>
+            날짜, 어디서 봤는지, 핵심 한 줄만 적으면 돼요.<br><br>
+            3개월 뒤에 이 페이지를 다시 보면<br>
+            "내가 이런 걸 좋아하는 사람이구나" 가 보여요.<br>
+            흩어진 영감을 한 곳에 모아두세요.
+            <div class="btn-preview">영감 보관소 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 새로움 주입(새 페이지 소개로 환기) + "흘려보낸 것"에 대한 아쉬움 자극. 기록 피로 시점에 다른 소재로 전환.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+63 (위기): 휴식의 힘 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+63</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">휴식의 힘 ⚠️</div>
+        <div class="desc">⚠️ 번아웃 위험 · 허가형 메시지 + 회복 · 과학 훅 · 노트 34~35p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 솔직히 말할게요.<br>
+            혹시 슬슬 지치기 시작했다면, 이 메시지가 타이밍일 거예요.<br><br>
+            이 시기에 지치는 건 당연해요.<br>
+            "더 열심히"가 아니라 "잠깐 쉬기"가 필요한 때예요.<br><br>
+            쉬는 게 게으른 게 아니에요.<br>
+            오히려 지금 안 쉬면 남은 한 달을 못 가요.<br>
+            폰 충전 10%에서 억지로 쓰면 꺼지잖아요. 사람도 같아요.<br><br>
+            📖 메아리셋 노트의 34~35페이지를 펴세요<br>
+            이번엔 "나를 지치게 하는 것들"을 적어보세요.<br>
+            해야 하는데 미루는 일, 신경 쓰이는 사람, 안 풀리는 고민.<br><br>
+            적고 나면 한결 가벼워질 거예요.
+            <div class="btn-preview">휴식의 힘 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 허가형 메시지("쉬어도 된다"는 허락) + 회복은 전략이라는 리프레이밍.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+70: 마지막 스퍼트 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+70</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">마지막 스퍼트</div>
+        <div class="desc">목표 근접 효과 + 완료 편향 · 공감 훅 · 노트 6~7p(재확인)</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 90일 중 70일이 지났어요.<br>
+            이제 거의 다 왔어요.<br><br>
+            에코 트라이앵글을 보지 말고,<br>
+            지금 마음속에 떠오르는 '딱 하나'를 적어보세요.<br>
+            이번 분기가 끝나기 전에 꼭 끝내고 싶은 것.<br><br>
+            9개 다 못 이루어도 충분해요.<br>
+            하나를 끝까지 해낸 사람이, 열 개를 시작만 한 사람보다 강해요.<br><br>
+            📌 남은 20일, 딱 하나에만 집중하세요.<br>
+            새로 추가하지 말고, 마무리만 생각하세요.<br>
+            그 하나가 이번 분기의 마침표가 됩니다.
+            <div class="btn-preview">마지막 스퍼트 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 목표 근접 효과(가까울수록 동기↑) + 완료 편향(끝내고 싶은 욕구).
+          </div>
+        </div>
+      </div>
+
+      <!-- D+77: 회고 준비 -->
+      <div class="timeline-item" onclick="this.classList.toggle('open')">
+        <span class="day-badge alimtalk">D+77</span>
+        <span class="channel-tag at">알림톡 13원</span>
+        <div class="title">회고 준비</div>
+        <div class="desc">대비 효과 + 성장 가시화 · 권위 훅 · 노트 48~49p</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님, 다음 주면 이 노트의 마지막 주예요.<br><br>
+            하나만 해볼게요.<br>
+            노트 앞쪽을 넘겨보세요.<br>
+            적어둔 게 있다면 — 처음 쓴 목표, 초반의 기록들.<br><br>
+            그때의 글씨체, 그때의 고민.<br>
+            지금이랑 비교해보세요.<br><br>
+            뭔가 달라진 게 있다면<br>
+            그게 바로 시간의 힘이에요.<br>
+            달라진 게 없어 보여도<br>
+            "여기까지 노트를 갖고 있는 나"는 분명 달라져 있어요.<br><br>
+            📖 메아리셋 노트의 48~49페이지를 미리 살펴보세요<br>
+            다음 주에 여기를 채울 거예요.<br><br>
+            미리 떠올려보세요.<br>
+            가장 뿌듯했던 순간은?<br>
+            가장 힘들었던 순간은?<br>
+            다음 90일에도 이어갈 것은?
+            <div class="btn-preview">회고 준비 가이드 → 카페</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 대비 효과(처음 vs 지금) + 성장 가시화(변화를 "보게" 만들기). 버튼 2개: 가이드 + 인증하러 가기.
+          </div>
+        </div>
+      </div>
+
+      <!-- D+84 친구톡: 완주 + 시즌2 -->
+      <div class="timeline-item friendtalk" onclick="this.classList.toggle('open')">
+        <span class="day-badge friendtalk">D+84</span>
+        <span class="channel-tag ft">친구톡 25원</span>
+        <div class="title">🎉 완주 + 시즌2 유도</div>
+        <div class="desc">새출발 효과 + 정체성 전환 · 재구매 CTA · 광고성</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            {고객명}님.<br><br>
+            거의 90일이에요.<br><br>
+            한 줄이라도 적은 날이 있다면,<br>
+            그게 다 메아리예요.<br><br>
+            매일 못 채워도 충분해요.<br>
+            중간에 멈췄다가 다시 펼쳤어도 충분해요.<br>
+            이 노트 한 권을 끝까지 갖고 있다는 건,<br>
+            당신이 '기록하는 사람'이라는 뜻이에요.<br><br>
+            📖 메아리셋 노트의 4~5페이지를 다시 펴보세요<br>
+            처음에 적었던 편지, 기억나세요?<br>
+            그때의 나와 지금의 나, 비교해보세요.<br><br>
+            그리고 50페이지, 마지막 페이지를 펴세요.<br>
+            "다음 90일의 나에게" 한 줄만 남겨주세요.<br><br>
+            지금 이 순간을 기억해주세요.<br>
+            처음 노트를 펼을 때의 나와,<br>
+            마지막 페이지를 채우는 지금의 나.<br>
+            그 사이의 모든 기록이 당신의 메아리입니다.<br><br>
+            새로운 시작점에 서면<br>
+            뇌가 과거를 "이전 시즌"으로 분리해요.<br>
+            지금이 바로 그 순간이에요.<br>
+            새로운 90일, 준비되셨나요?
+            <div class="btn-preview">새로운 90일 시작하기 → 스마트스토어</div>
+          </div>
+          <div class="design-note">
+            <strong>심리 설계:</strong> 새출발 효과 + 정체성 전환("기록하는 사람"으로 자기 인식 변화). <strong>채널:</strong> 친구톡(광고성 — 재구매 유도).
+          </div>
+        </div>
+      </div>
+
+      <!-- D+90 90일 편지 -->
+      <div class="timeline-item special" onclick="this.classList.toggle('open')">
+        <span class="day-badge special">D+90</span>
+        <span class="channel-tag solapi">Solapi 친구톡</span>
+        <div class="title">💌 90일 편지 (시작의 메아리)</div>
+        <div class="desc">Tally 등록일 +90일 · Zapier Zap 2 자동발송</div>
+        <div class="timeline-detail">
+          <div class="msg-preview">
+            #{고객명}님, 3개월 전 오늘, 나에게 보낸 편지가 도착했어요.<br><br>
+            그때 적어두었던 목표와 다짐, 기억하시나요?<br>
+            지난 90일간의 여정은 어떠셨나요?<br><br>
+            📝 내 편지 보기<br>
+            {Google Drive 공유 링크}<br><br>
+            새로운 90일, 또 다른 나에게 편지를 써보는 건 어떨까요?
+            <div class="btn-preview">새로운 여정 시작하기 → 스마트스토어</div>
+          </div>
+          <div class="design-note">
+            <strong>자동화:</strong> Zapier Zap 2 (매일 9시 KST) → Sheets Lookup → Solapi 친구톡 · <strong>비용:</strong> 25원/건 · <strong>이미지:</strong> Drive 공유 링크 (손글씨 편지 사진)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 비용 요약 -->
+    <div class="section-title">비용 요약 (월 100명 기준)</div>
+    <table class="cost-table">
+      <thead>
+        <tr><th>항목</th><th>채널</th><th>단가</th><th class="right">월 비용</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>12주 알림톡 (1~12)</td><td>알마니 알림톡</td><td>13원 × 12회</td><td class="right">15,600원</td></tr>
+        <tr><td>완주 메시지 (13)</td><td>알마니 친구톡</td><td>25원 × 1회</td><td class="right">2,500원</td></tr>
+        <tr><td>90일 편지</td><td>Solapi 친구톡</td><td>25원 × 1회</td><td class="right">2,500원</td></tr>
+        <tr><td>Zapier</td><td>구독</td><td>-</td><td class="right">구독중</td></tr>
+        <tr><td>Google Drive/Sheets</td><td>-</td><td>-</td><td class="right">0원</td></tr>
+        <tr><td><b>합계</b></td><td></td><td></td><td class="right"><b>약 20,600원</b></td></tr>
+      </tbody>
+    </table>
+
+    <!-- 기술 스택 -->
+    <div class="section-title">기술 스택 & 자동화</div>
+    <div class="principles">
+      <div class="principle">
+        <span class="tag">Tally → Zapier</span>
+        <h3>Zap 1: 등록 자동화</h3>
+        <p>Tally 제출 → Google Drive 사진 백업 → Google Sheets 기록. 자동.</p>
+      </div>
+      <div class="principle">
+        <span class="tag">Zapier → Solapi</span>
+        <h3>Zap 2: 90일 편지</h3>
+        <p>매일 9시 Sheets Lookup → 발송예정일 매칭 → Solapi 친구톡 자동발송. 코드 v5.</p>
+      </div>
+      <div class="principle">
+        <span class="tag">카페24 → 알마니</span>
+        <h3>12주 주간 메시지</h3>
+        <p>배송완료 트리거 → D+N 자동발송. 0~11주 알림톡(13원), 12주 친구톡(25원).</p>
+      </div>
+      <div class="principle">
+        <span class="tag">네이버 카페</span>
+        <h3>콘텐츠 허브</h3>
+        <p>주차별 가이드 게시글 13개 → 알림톡 버튼 랜딩. 인증 챌린지 + 커뮤니티.</p>
+      </div>
+    </div>
+
+  </div><!-- /tab-crm -->
+
 </div>
 
 <div class="footer">
-  메아리셋 알림톡 CX 개선안 · "모든 기록은 메아리가 된다" · 2026-03-11
+  메아리셋 알림톡 CX 대시보드 · "모든 기록은 메아리가 된다" · 2026-03-11
 </div>
 
 <script>
-function showTool(id) {
-  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
-  const panel = document.getElementById('tool-' + id);
-  if (panel) panel.classList.add('active');
-  event.currentTarget.classList.add('active');
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
 }
-function copyMsg(elId, btn) {
-  const text = document.getElementById(elId).innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = '✅ 복사됨!';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+</script>
+
+
+<script>
+(function() {
+  var urlMap = {
+    "주문내역 확인하기": "https://new-m.pay.naver.com/",
+    "주문내역 바로가기": "https://new-m.pay.naver.com/",
+    "배송조회 바로가기": "https://new-m.pay.naver.com/",
+    "구매확정 하기": "https://new-m.pay.naver.com/",
+    "리뷰 남기기": "https://smartstore.naver.com/meariset",
+    "한달 사용 후기 남기기": "https://smartstore.naver.com/meariset",
+    "메아리셋 채널 추가": "https://pf.kakao.com/_meariset",
+    "채널 추가하기": "https://pf.kakao.com/_meariset",
+    "스마트스토어 바로가기": "https://smartstore.naver.com/meariset",
+    "고객센터 문의하기": "https://smartstore.naver.com/meariset"
+  };
+
+  function getText(el) {
+    // 텍스트 노드만 추출 (btn 제외)
+    var clone = el.cloneNode(true);
+    clone.querySelectorAll('.btn-group').forEach(function(b){ b.remove(); });
+    return clone.innerText.trim();
+  }
+
+  function initCard(card) {
+    var afterDiv = card.querySelector('.after');
+    if (!afterDiv) return;
+    var phone = afterDiv.querySelector('.phone');
+    if (!phone) return;
+
+    var msgText = getText(phone);
+    var buttons = phone.querySelectorAll('.btn');
+    var urlItems = [];
+
+    buttons.forEach(function(btn) {
+      var text = btn.textContent.trim();
+      var url = urlMap[text];
+      if (url) {
+        btn.style.cursor = 'pointer';
+        (function(u) {
+          btn.addEventListener('click', function(e){ e.stopPropagation(); window.open(u, '_blank'); });
+        })(url);
+        urlItems.push({ label: text, url: url });
+      }
+    });
+
+    var tool = document.createElement('div');
+    tool.className = 'tool-section';
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'copy-btn-tool';
+    copyBtn.textContent = '📋 AFTER 메시지 복사';
+    (function(t, b) {
+      b.addEventListener('click', function(e) {
+        e.stopPropagation();
+        navigator.clipboard.writeText(t).then(function() {
+          b.textContent = '✅ 복사됨!';
+          b.classList.add('copied');
+          setTimeout(function(){ b.textContent = '📋 AFTER 메시지 복사'; b.classList.remove('copied'); }, 2000);
+        }).catch(function(){
+          var ta = document.createElement('textarea');
+          ta.value = t; document.body.appendChild(ta); ta.select();
+          document.execCommand('copy'); document.body.removeChild(ta);
+          b.textContent = '✅ 복사됨!';
+          setTimeout(function(){ b.textContent = '📋 AFTER 메시지 복사'; }, 2000);
+        });
+      });
+    })(msgText, copyBtn);
+    tool.appendChild(copyBtn);
+
+    if (urlItems.length > 0) {
+      var urlSec = document.createElement('div');
+      urlSec.className = 'url-section-tool';
+      urlItems.forEach(function(item) {
+        var row = document.createElement('div');
+        row.className = 'url-item-tool';
+        row.innerHTML = '<span class="url-label-tool">' + item.label + '</span>' +
+          '<div class="url-actions-tool">' +
+          '<a href="' + item.url + '" target="_blank" class="url-btn-open-tool" onclick="event.stopPropagation()">↗ 열기</a>' +
+          '<button class="url-btn-copy-tool" onclick="event.stopPropagation();copyToolUrl('' + item.url + '',this)">복사</button>' +
+          '</div>';
+        urlSec.appendChild(row);
+      });
+      tool.appendChild(urlSec);
+    }
+
+    afterDiv.appendChild(tool);
+  }
+
+  window.copyToolUrl = function(url, btn) {
+    navigator.clipboard.writeText(url).then(function(){
+      btn.textContent = '✅'; setTimeout(function(){ btn.textContent = '복사'; }, 2000);
+    }).catch(function(){
+      var ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      btn.textContent = '✅'; setTimeout(function(){ btn.textContent = '복사'; }, 2000);
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    document.querySelectorAll('.campaign-card').forEach(initCard);
   });
-}
-function copyUrl(url, btn) {
-  navigator.clipboard.writeText(url).then(() => {
-    const orig = btn.textContent;
-    btn.textContent = '✅';
-    setTimeout(() => { btn.textContent = orig; }, 1200);
-  });
-}
+})();
 </script>
 
 </body>
