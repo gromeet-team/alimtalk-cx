@@ -434,6 +434,94 @@
   }
   .url-btn-copy-tool:hover { background: #e0e0e0; }
 
+
+  /* ===== 기존/개선 선택 기능 ===== */
+  .adopt-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 24px;
+    background: #f5f5f0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .adopt-toggle { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+  .adopt-btn {
+    padding: 6px 14px; font-size: 12px; font-weight: 600; border: none;
+    cursor: pointer; font-family: inherit; transition: all 0.2s; background: white; color: #999;
+  }
+  .adopt-btn.keep.active  { background: #ff6b6b; color: white; }
+  .adopt-btn.adopt.active { background: #4a7c28; color: white; }
+  .adopt-btn:not(.active):hover { background: #f0f0f0; }
+
+  /* 채택 안 된 카드는 약간 흐리게 */
+  .campaign-card.kept .after { opacity: 0.45; }
+  .campaign-card.kept .before { border: 2px solid #ff6b6b; }
+  .campaign-card.adopted .after { border: 2px solid #4a7c28; }
+
+  /* 상단 요약 바 */
+  .adopt-summary {
+    position: sticky; top: 0; z-index: 200;
+    background: #1a2e10; color: white;
+    padding: 10px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .adopt-summary .count { font-weight: 700; color: #86efac; }
+  .adopt-summary .adopt-all-btn {
+    padding: 5px 14px; background: #4a7c28; color: white;
+    border: none; border-radius: 6px; font-size: 12px; font-weight: 600;
+    cursor: pointer; font-family: inherit;
+  }
+  .adopt-summary .adopt-all-btn:hover { background: #3a6020; }
+
+  /* tool-section 스타일 */
+  .tool-section {
+    margin: 0 20px 16px; padding: 14px;
+    background: rgba(0,0,0,0.03);
+    border-radius: 10px; border: 1px solid rgba(0,0,0,0.07);
+  }
+  .copy-btn-tool {
+    display: block; width: 100%; padding: 8px 12px;
+    background: #2d5016; color: white; border: none; border-radius: 7px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+    transition: background 0.15s; margin-bottom: 10px;
+  }
+  .copy-btn-tool:hover { background: #3d6a20; }
+  .copy-btn-tool.copied { background: #27ae60; }
+  .copy-btn-before {
+    display: none; width: 100%; padding: 8px 12px;
+    background: #c44; color: white; border: none; border-radius: 7px;
+    font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit;
+    transition: background 0.15s; margin-bottom: 10px;
+  }
+  .campaign-card.kept .copy-btn-before { display: block; }
+  .campaign-card.kept .copy-btn-tool { display: none; }
+  .url-section-tool { display: flex; flex-direction: column; gap: 6px; }
+  .url-item-tool {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12px; padding: 5px 8px;
+    background: white; border-radius: 6px; border: 1px solid #e8e8e8;
+  }
+  .url-label-tool { color: #444; font-weight: 500; flex: 1; }
+  .url-actions-tool { display: flex; gap: 5px; flex-shrink: 0; }
+  .url-btn-open-tool {
+    padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600;
+    background: rgba(74,124,40,0.15); color: #2d5016; text-decoration: none;
+  }
+  .url-btn-open-tool:hover { background: rgba(74,124,40,0.3); }
+  .url-btn-copy-tool {
+    padding: 3px 8px; border-radius: 5px; font-size: 11px; font-weight: 600;
+    background: #f0f0f0; color: #555; border: none; cursor: pointer; font-family: inherit;
+  }
+
+  .adopt-summary { background: #7a2d08; }
+  .adopt-btn.adopt.active { background: #D4540A; }
+  .campaign-card.adopted .after { border: 2px solid #D4540A; }
+  .copy-btn-tool { background: #D4540A; }
+  .copy-btn-tool:hover { background: #b84109; }
+  .url-btn-open-tool { background: rgba(212,84,10,0.15); color: #7a2d08; }
+  .url-btn-open-tool:hover { background: rgba(212,84,10,0.3); }
+  .adopt-all-btn { background: #D4540A !important; }
+
 </style>
 </head>
 <body>
@@ -1465,6 +1553,9 @@ function switchTab(tab) {
 </script>
 
 
+
+
+
 <script>
 (function() {
   var urlMap = {
@@ -1474,29 +1565,65 @@ function switchTab(tab) {
     "구매확정 하기": "https://new-m.pay.naver.com/",
     "리뷰 남기기": "https://smartstore.naver.com/meariset",
     "한달 사용 후기 남기기": "https://smartstore.naver.com/meariset",
-    "메아리셋 채널 추가": "https://pf.kakao.com/_meariset",
-    "채널 추가하기": "https://pf.kakao.com/_meariset",
     "스마트스토어 바로가기": "https://smartstore.naver.com/meariset",
+    "메아리셋 채널 추가": "https://smartstore.naver.com/meariset",
+    "채널 추가하기": "https://smartstore.naver.com/meariset",
     "고객센터 문의하기": "https://smartstore.naver.com/meariset"
   };
 
-  function getText(el) {
-    // 텍스트 노드만 추출 (btn 제외)
-    var clone = el.cloneNode(true);
+  var STORAGE_KEY = 'alimtalk-adopt-meariset';
+
+  function getText(phone) {
+    var clone = phone.cloneNode(true);
     clone.querySelectorAll('.btn-group').forEach(function(b){ b.remove(); });
+    clone.querySelectorAll('.highlight,.good').forEach(function(s){ s.replaceWith(document.createTextNode(s.textContent)); });
     return clone.innerText.trim();
   }
 
-  function initCard(card) {
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e) { return {}; }
+  }
+  function saveState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+
+  function applyState(card, state) {
+    var id = card.dataset.cid;
+    var kept = state[id] === 'keep';
+    card.classList.toggle('kept', kept);
+    card.classList.toggle('adopted', !kept);
+    var keepBtn = card.querySelector('.adopt-btn.keep');
+    var adoptBtn = card.querySelector('.adopt-btn.adopt');
+    if (keepBtn) keepBtn.classList.toggle('active', kept);
+    if (adoptBtn) adoptBtn.classList.toggle('active', !kept);
+    updateSummary();
+  }
+
+  function updateSummary() {
+    var cards = document.querySelectorAll('.campaign-card[data-cid]');
+    var state = loadState();
+    var adopted = 0;
+    cards.forEach(function(c){ if (state[c.dataset.cid] !== 'keep') adopted++; });
+    var el = document.getElementById('adopt-count');
+    if (el) el.textContent = adopted + '/' + cards.length + '개 개선 채택';
+  }
+
+  function initCard(card, idx) {
+    var cid = 'card-' + idx;
+    card.dataset.cid = cid;
+
     var afterDiv = card.querySelector('.after');
+    var beforeDiv = card.querySelector('.before');
     if (!afterDiv) return;
+
     var phone = afterDiv.querySelector('.phone');
     if (!phone) return;
+    var beforePhone = beforeDiv ? beforeDiv.querySelector('.phone') : null;
 
-    var msgText = getText(phone);
+    var afterText = getText(phone);
+    var beforeText = beforePhone ? getText(beforePhone) : '';
+
+    // 버튼 클릭 → URL 연결
     var buttons = phone.querySelectorAll('.btn');
     var urlItems = [];
-
     buttons.forEach(function(btn) {
       var text = btn.textContent.trim();
       var url = urlMap[text];
@@ -1509,40 +1636,99 @@ function switchTab(tab) {
       }
     });
 
+    // adopt-bar (헤더 아래 추가)
+    var bar = document.createElement('div');
+    bar.className = 'adopt-bar';
+
+    var toggle = document.createElement('div');
+    toggle.className = 'adopt-toggle';
+
+    var keepBtn = document.createElement('button');
+    keepBtn.className = 'adopt-btn keep';
+    keepBtn.textContent = '⬜ 현행 유지';
+    var adoptBtn = document.createElement('button');
+    adoptBtn.className = 'adopt-btn adopt active';
+    adoptBtn.textContent = '✅ 개선 채택';
+
+    (function(c) {
+      keepBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var s = loadState(); s[c.dataset.cid] = 'keep'; saveState(s); applyState(c, s);
+      });
+      adoptBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var s = loadState(); delete s[c.dataset.cid]; saveState(s); applyState(c, s);
+      });
+    })(card);
+
+    toggle.appendChild(keepBtn);
+    toggle.appendChild(adoptBtn);
+    bar.appendChild(toggle);
+
+    var body = card.querySelector('.campaign-body');
+    if (body) body.insertBefore(bar, body.firstChild);
+
+    // tool-section
     var tool = document.createElement('div');
     tool.className = 'tool-section';
 
-    var copyBtn = document.createElement('button');
-    copyBtn.className = 'copy-btn-tool';
-    copyBtn.textContent = '📋 AFTER 메시지 복사';
+    // after 복사
+    var copyAfterBtn = document.createElement('button');
+    copyAfterBtn.className = 'copy-btn-tool';
+    copyAfterBtn.textContent = '📋 AFTER 메시지 복사';
     (function(t, b) {
       b.addEventListener('click', function(e) {
         e.stopPropagation();
-        navigator.clipboard.writeText(t).then(function() {
-          b.textContent = '✅ 복사됨!';
-          b.classList.add('copied');
-          setTimeout(function(){ b.textContent = '📋 AFTER 메시지 복사'; b.classList.remove('copied'); }, 2000);
-        }).catch(function(){
-          var ta = document.createElement('textarea');
-          ta.value = t; document.body.appendChild(ta); ta.select();
-          document.execCommand('copy'); document.body.removeChild(ta);
-          b.textContent = '✅ 복사됨!';
-          setTimeout(function(){ b.textContent = '📋 AFTER 메시지 복사'; }, 2000);
-        });
+        (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+          .catch(function(){
+            var ta = document.createElement('textarea');
+            ta.value = t; document.body.appendChild(ta); ta.select();
+            document.execCommand('copy'); document.body.removeChild(ta);
+          })
+          .then(function(){
+            b.textContent = '✅ 복사됨!'; b.classList.add('copied');
+            setTimeout(function(){ b.textContent = '📋 AFTER 메시지 복사'; b.classList.remove('copied'); }, 2000);
+          });
       });
-    })(msgText, copyBtn);
-    tool.appendChild(copyBtn);
+    })(afterText, copyAfterBtn);
+    tool.appendChild(copyAfterBtn);
 
+    // before 복사 (현행 유지 모드에서만 표시)
+    if (beforeText) {
+      var copyBeforeBtn = document.createElement('button');
+      copyBeforeBtn.className = 'copy-btn-before';
+      copyBeforeBtn.textContent = '📋 현행 메시지 복사';
+      (function(t, b) {
+        b.addEventListener('click', function(e) {
+          e.stopPropagation();
+          (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject())
+            .catch(function(){
+              var ta = document.createElement('textarea');
+              ta.value = t; document.body.appendChild(ta); ta.select();
+              document.execCommand('copy'); document.body.removeChild(ta);
+            })
+            .then(function(){
+              b.textContent = '✅ 복사됨!';
+              setTimeout(function(){ b.textContent = '📋 현행 메시지 복사'; }, 2000);
+            });
+        });
+      })(beforeText, copyBeforeBtn);
+      tool.appendChild(copyBeforeBtn);
+    }
+
+    // URL 섹션
     if (urlItems.length > 0) {
       var urlSec = document.createElement('div');
       urlSec.className = 'url-section-tool';
       urlItems.forEach(function(item) {
         var row = document.createElement('div');
         row.className = 'url-item-tool';
-        row.innerHTML = '<span class="url-label-tool">' + item.label + '</span>' +
+        var encodedUrl = item.url.replace(/'/g, "\'");
+        row.innerHTML =
+          '<span class="url-label-tool">' + item.label + '</span>' +
           '<div class="url-actions-tool">' +
           '<a href="' + item.url + '" target="_blank" class="url-btn-open-tool" onclick="event.stopPropagation()">↗ 열기</a>' +
-          '<button class="url-btn-copy-tool" onclick="event.stopPropagation();copyToolUrl('' + item.url + '',this)">복사</button>' +
+          '<button class="url-btn-copy-tool" onclick="event.stopPropagation();_copyUrl('' + encodedUrl + '',this)">복사</button>' +
           '</div>';
         urlSec.appendChild(row);
       });
@@ -1550,22 +1736,42 @@ function switchTab(tab) {
     }
 
     afterDiv.appendChild(tool);
+
+    // 초기 상태 적용
+    applyState(card, loadState());
   }
 
-  window.copyToolUrl = function(url, btn) {
-    navigator.clipboard.writeText(url).then(function(){
-      btn.textContent = '✅'; setTimeout(function(){ btn.textContent = '복사'; }, 2000);
-    }).catch(function(){
-      var ta = document.createElement('textarea');
-      ta.value = url; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      btn.textContent = '✅'; setTimeout(function(){ btn.textContent = '복사'; }, 2000);
-    });
+  window._copyUrl = function(url, btn) {
+    (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject())
+      .catch(function(){
+        var ta = document.createElement('textarea');
+        ta.value = url; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      })
+      .then(function(){ btn.textContent = '✅'; setTimeout(function(){ btn.textContent = '복사'; }, 2000); });
   };
 
   document.addEventListener('DOMContentLoaded', function(){
+    // 상단 요약 바 추가
+    var summary = document.createElement('div');
+    summary.className = 'adopt-summary';
+    summary.innerHTML =
+      '<span>캠페인 채택 현황: <span id="adopt-count" class="count">0/0개 개선 채택</span></span>' +
+      '<button class="adopt-all-btn" onclick="_adoptAll()">전체 개선 채택</button>';
+    var container = document.querySelector('.container');
+    if (container) container.parentNode.insertBefore(summary, container);
+
     document.querySelectorAll('.campaign-card').forEach(initCard);
+    updateSummary();
   });
+
+  window._adoptAll = function() {
+    var s = loadState();
+    document.querySelectorAll('.campaign-card[data-cid]').forEach(function(c){
+      delete s[c.dataset.cid]; applyState(c, s);
+    });
+    saveState(s);
+  };
 })();
 </script>
 
