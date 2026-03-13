@@ -1798,6 +1798,14 @@
           </div>
         </div>
       </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-cs11', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-cs11', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-cs11', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
 <div data-campaign="campaign-cs12" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')">
       <div class="left">
@@ -1831,6 +1839,13 @@
   </div>
 
  
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-cs11', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-cs11', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-cs11', 'skip')">⏭️ 보류</button>
+      </div>
+    
       <div class="decision-bar">
         <span class="status-label">결정</span>
         <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-cs11', 'adopt')">✅ 채택</button>
