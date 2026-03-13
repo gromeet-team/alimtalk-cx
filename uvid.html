@@ -1602,38 +1602,32 @@
     <div class="campaign-body">
       <div class="comparison">
         <div class="before">
-          <div class="col-label">❌ BEFORE (공통 패턴)</div>
-          <div style="padding:20px;">
-            <h4 style="font-size:14px; margin-bottom:12px;">현재 구조</h4>
-            <p style="font-size:13px; color:#555; margin-bottom:16px;">
-              6개 캠페인 모두 유사한 톤으로 운영 중.<br>
-              사과+다짐 3~5단락이 반복되며, 실질 절차 정보가 부족.
-            </p>
-            <div style="background:#fff5f5; padding:12px; border-radius:8px; font-size:12px; margin-bottom:12px;">
-              <b>취소요청</b> — 간결한 편이나 환불 수단별 소요일 미안내<br>
-              1번 버튼이 채널추가 (CTA 우선순위 불일치)
-            </div>
-            <div style="background:#fff5f5; padding:12px; border-radius:8px; font-size:12px; margin-bottom:12px;">
-              <b>취소완료</b> — 사과+다짐 4단락 과다<br>
-              환불 수단별 기간 미구체
-            </div>
-            <div style="background:#fff8f0; padding:12px; border-radius:8px; font-size:12px; margin-bottom:12px;">
-              <b>교환요청</b> — 사과+다짐 4단락, 교환 절차/일정 정보 부족<br>
-              <b>교환완료</b> — FAQ TOP 30 링크 미삽입, 본문 버튼(3개)과 실제 버튼(2개) 불일치
-            </div>
-            <div style="background:#f5f0ff; padding:12px; border-radius:8px; font-size:12px;">
-              <b>반품요청</b> — 🥲 이모지 부적절, 사과+다짐 5단락, 환불 절차 미안내<br>
-              <b>반품완료</b> — 🥲 반복, 감성 4단락 과다
-            </div>
-          </div>
-          <ul class="issues" style="padding:0 20px 20px;">
-            <li>CS 6개 캠페인 전반에 사과+다짐 과다 (3~5단락)</li>
-            <li>환불 수단별 기간 미구체 (고객이 가장 궁금한 정보)</li>
-            <li>교환/반품 절차 안내 누락</li>
-            <li>🥲 부적절 이모지 (반품에 울상)</li>
-            <li>버튼 CTA 우선순위 불일치 (1번이 채널추가)</li>
-          </ul>
-        </div>
+<div class="col-label">❌ BEFORE (현재 발송 중)</div>
+<div style="margin-bottom:16px">
+  <div style="font-size:11px;font-weight:600;color:#e55;margin-bottom:6px;">취소요청</div>
+  <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">#{고객명}님, 주문 취소 요청이 접수되었습니다.<br><br>주문번호: #{주문번호}<br>상품명: #{상품명}<br><br>환불은 결제 수단에 따라 영업일 기준 3~5일 내 처리됩니다.<div class="btn-group"><div class="btn">채널추가하기</div></div></div></div>
+</div>
+<div style="margin-bottom:16px">
+  <div style="font-size:11px;font-weight:600;color:#e55;margin-bottom:6px;">취소완료</div>
+  <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">#{고객명}님, 취소가 완료되었습니다.<br><br>주문번호: #{주문번호}<br>상품명: #{상품명}<br><br>환불은 영업일 기준 3~5일 내 처리됩니다.<div class="btn-group"><div class="btn">채널추가하기</div></div></div></div>
+</div>
+<div style="margin-bottom:16px">
+  <div style="font-size:11px;font-weight:600;color:#e55;margin-bottom:6px;">교환요청</div>
+  <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">#{고객명}님, 교환 요청이 접수되었습니다.<br><br>주문번호: #{주문번호}<br>상품명: #{상품명}<br><br>상품 회수 후 새 상품 발송이 영업일 기준 3~5일 내 진행됩니다.<div class="btn-group"><div class="btn">채널추가하기</div></div></div></div>
+</div>
+<div style="margin-bottom:16px">
+  <div style="font-size:11px;font-weight:600;color:#e55;margin-bottom:6px;">교환완료</div>
+  <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">#{고객명}님, 교환 처리가 완료되었습니다.<br><br>상품명: #{상품명}<br><br>새 상품이 발송되었습니다.<div class="btn-group"><div class="btn">채널추가하기</div></div></div></div>
+</div>
+<div style="margin-bottom:16px">
+  <div style="font-size:11px;font-weight:600;color:#e55;margin-bottom:6px;">반품요청</div>
+  <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">#{고객명}님, 반품 요청이 접수되었습니다.<br><br>주문번호: #{주문번호}<br>상품명: #{상품명}<br><br>회수 후 환불은 영업일 기준 3~5일 내 처리됩니다.<div class="btn-group"><div class="btn">채널추가하기</div></div></div></div>
+</div>
+<div>
+  <div style="font-size:11px;font-weight:600;color:#e55;margin-bottom:6px;">반품완료</div>
+  <div class="phone"><div class="kakao-header">카카오 알림톡</div><div class="msg white">#{고객명}님, 반품이 완료되었습니다.<br><br>상품명: #{상품명}<br><br>환불이 완료되었습니다.<div class="btn-group"><div class="btn">채널추가하기</div></div></div></div>
+</div>
+</div>
         <div class="arrow-col">→</div>
         <div class="after">
           <div class="col-label">✅ AFTER (개선 방향)</div>
