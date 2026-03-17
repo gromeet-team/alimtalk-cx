@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="쿠참 올 스테인리스 제빙기 사용 가이드. 제품 사양, 직수 연결, 세척 방법, A/S 안내 등 모든 정보를 한 곳에서 확인하세요.">
+    <meta name="keywords" content="쿠참, 제빙기, 올스테인리스, 얼음, 사용 가이드, FAQ">
+    <meta name="author" content="쿠참">
+    <meta property="og:title" content="쿠참 제빙기 사용 가이드 | 올 스테인리스 제빙기 FAQ">
+    <meta property="og:description" content="쿠참 올 스테인리스 제빙기 사용 방법, 제품 정보, 직수 연결, 세척, A/S 안내">
+    <meta property="og:type" content="website">
+    <title>쿠참 제빙기 사용 가이드 | FAQ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header & Hero */
+        header {
+            background: linear-gradient(135deg, #4b6584 0%, #34495e 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 1.5rem;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            font-style: italic;
+            opacity: 0.85;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Action Buttons */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+            margin-bottom: 0;
+        }
+
+        .quick-actions button {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .quick-actions button:hover,
+        .quick-actions button:active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        @media (min-width: 640px) {
+            .quick-actions {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Main Container */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Quick Start Section */
+        .quick-start {
+            background: white;
+            border-left: 4px solid #4b6584;
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .quick-start h2 {
+            font-size: 1.3rem;
+            color: #4b6584;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-start h2 span {
+            font-size: 1.5rem;
+        }
+
+        .quick-start ol {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .quick-start li {
+            counter-increment: step-counter;
+            margin-bottom: 1.2rem;
+            padding-left: 3rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .quick-start li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: -2px;
+            background: #4b6584;
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .quick-start li strong {
+            color: #4b6584;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Search & Filter */
+        .search-section {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: 'Noto Sans KR', sans-serif;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #4b6584;
+            box-shadow: 0 0 0 3px rgba(75, 101, 132, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            color: #2c3e50;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Noto Sans KR', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #4b6584;
+            color: #4b6584;
+        }
+
+        .filter-btn.active {
+            background: #4b6584;
+            color: white;
+            border-color: #4b6584;
+        }
+
+        /* FAQ Sections */
+        .faq-container {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .faq-category {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #4b6584 0%, #34495e 100%);
+            color: white;
+            padding: 1.2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0;
+        }
+
+        .category-header span {
+            font-size: 1.3rem;
+        }
+
+        .faq-items {
+            padding: 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s ease;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-item.hidden {
+            display: none;
+        }
+
+        .faq-question {
+            padding: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            background: #fafbfc;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .faq-question:hover {
+            background: #f0f4f8;
+        }
+
+        .faq-question.active {
+            background: white;
+            font-weight: 600;
+        }
+
+        .faq-question-text {
+            flex: 1;
+            text-align: left;
+            color: #2c3e50;
+        }
+
+        .faq-toggle {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0e7f1;
+            border-radius: 50%;
+            color: #4b6584;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question.active .faq-toggle {
+            background: #4b6584;
+            color: white;
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            background: white;
+            padding: 0 1.2rem;
+        }
+
+        .faq-question.active + .faq-answer {
+            max-height: 2000px;
+            padding: 1rem 1.2rem 1.5rem;
+        }
+
+        .faq-answer-text {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #34495e;
+        }
+
+        .faq-answer-text strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .faq-answer-text p {
+            margin-bottom: 0.8rem;
+        }
+
+        .faq-answer-text ol,
+        .faq-answer-text ul {
+            margin-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .faq-answer-text li {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-answer-text em {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        /* Helpful Section */
+        .faq-helpful {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid #eee;
+            font-size: 0.85rem;
+            color: #7f8c8d;
+        }
+
+        .helpful-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+            color: #7f8c8d;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        .helpful-btn:hover {
+            border-color: #4b6584;
+            color: #4b6584;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .footer-message {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-section {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-button {
+            background: #4b6584;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans KR', sans-serif;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .contact-button:hover,
+        .contact-button:active {
+            background: #5a7a9e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(75, 101, 132, 0.3);
+        }
+
+        .operating-hours {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 1rem;
+        }
+
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 1.5rem;
+            background: #4b6584;
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(75, 101, 132, 0.3);
+            transition: all 0.3s ease;
+            z-index: 999;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        #scrollToTopBtn:hover {
+            background: #34495e;
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(75, 101, 132, 0.4);
+        }
+
+        /* Results Counter */
+        .results-info {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 1rem;
+        }
+
+        .results-info.hidden {
+            display: none;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+            font-size: 0.95rem;
+        }
+
+        .no-results span {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            main {
+                padding: 1rem;
+            }
+
+            header {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .quick-start {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .category-header {
+                font-size: 1rem;
+            }
+
+            .faq-question {
+                padding: 1rem;
+            }
+
+            .filter-buttons {
+                gap: 0.6rem;
+            }
+
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 0.5rem 0.8rem;
+            }
+
+            #scrollToTopBtn {
+                width: 44px;
+                height: 44px;
+                bottom: 1.5rem;
+                right: 1rem;
+                font-size: 1rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+
+            header {
+                box-shadow: none;
+            }
+
+            .quick-actions,
+            .search-section,
+            .filter-buttons,
+            #scrollToTopBtn {
+                display: none;
+            }
+
+            .faq-answer {
+                max-height: none !important;
+                padding: 1rem 1.2rem 1.5rem !important;
+            }
+
+            .faq-question {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-text">🧊 KUCHAM</div>
+        <h1>쿠참 제빙기 사용 가이드</h1>
+        <p class="subtitle">올 스테인리스 제빙기, 궁금한 모든 것</p>
+        <p class="tagline">얼음도 음식이니까, 제빙기부터 올 스테인리스로.</p>
+
+        <div class="quick-actions">
+            <button onclick="document.querySelector('.quick-start').scrollIntoView({behavior:'smooth'})">초기 세팅</button>
+            <button onclick="scrollToCategory('제품 사양')">제품 사양</button>
+            <button onclick="scrollToCategory('직수 연결')">직수 연결</button>
+            <button onclick="scrollToCategory('A/S')">A/S 안내</button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Quick Start Section -->
+        <section class="quick-start">
+            <h2><span>🧊</span> 처음 사용하시나요? 5단계 시작 가이드</h2>
+            <ol>
+                <li>
+                    <strong>설치 장소 확인</strong>
+                    평평한 곳에 설치하세요. 너무 덥거나(35°C 이상) 추우면(5°C 이하) 제빙 효율이 떨어질 수 있습니다.
+                </li>
+                <li>
+                    <strong>첫 가동</strong>
+                    플러그 연결 후 최소 2~3일 연속 작동해 주세요. 배송 과정에서 흔들린 냉매가 안정되는 시간이 필요합니다.
+                </li>
+                <li>
+                    <strong>물 채우기</strong>
+                    물탱크에 MAX 선까지 깨끗한 물만 넣어주세요. 우유, 음료, 정수기 세제 등은 제품 손상을 유발합니다.
+                </li>
+                <li>
+                    <strong>첫 얼음 생성</strong>
+                    준비 완료! 약 6분마다 9개의 얼음이 생성됩니다. 더 차가운 물을 사용할수록 얼음 생산 속도가 빨라집니다.
+                </li>
+            </ol>
+        </section>
+
+        <!-- Search & Filter -->
+        <section class="search-section">
+            <input
+                type="text"
+                class="search-box"
+                id="searchBox"
+                placeholder="🔍 궁금한 내용을 검색하세요 (예: 직수, 소음, 얼음)"
+                onkeyup="filterFAQ()"
+            >
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterByCategory('all')">전체보기</button>
+                <button class="filter-btn" onclick="filterByCategory('제품')">📐 제품 사양</button>
+                <button class="filter-btn" onclick="filterByCategory('직수')">🔌 직수 연결</button>
+                <button class="filter-btn" onclick="filterByCategory('트러블')">⚠️ 오류/트러블</button>
+                <button class="filter-btn" onclick="filterByCategory('세척')">🧹 세척/관리</button>
+                <button class="filter-btn" onclick="filterByCategory('AS')">🔧 A/S</button>
+            </div>
+            <div class="results-info hidden" id="resultsInfo"></div>
+        </section>
+
+        <!-- FAQ Categories -->
+        <section class="faq-container" id="faqContainer">
+
+            <!-- 제품 사양 -->
+            <section class="faq-category" data-category="제품">
+                <h2 class="category-header"><span>📐</span> 제품 사양 및 부품</h2>
+                <div class="faq-items">
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">풀스테인레스가 맞는지, 외부 바디/제빙봉 소재가 궁금해요.</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>네, 쿠참은 국내 유일 올 스테인리스 제빙기입니다. <strong>외부 바디는 SUS 430, 얼음이 직접 닿는 제빙봉은 식품 등급 SUS 304</strong>를 사용합니다. SUS 304는 의료기기와 조리도구에 사용되는 소재로, 중금속 용출이나 녹 발생 없이 안전하게 사용할 수 있습니다. 일반 도금 제빙기와 달리 표면이 벗겨질 걱정이 없습니다.</p>
+                                <p><em>안심 기준: 주방의 모든 음식 접촉 부위가 식품 등급 스테인리스여야 한다는 원칙을 쿠참도 지킵니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">하루 생산량과 물탱크 용량은?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>하루 최대 17kg 생산 가능</strong>합니다. 물탱크 용량 2.8L, 얼음 바스켓 용량 1.8kg입니다. 보통 <strong>6분에 9개씩 생산</strong>되며, 물 온도와 주변 온도에 따라 속도가 달라질 수 있습니다. 4인 가족 기준 하루 얼음 소비량(약 2~3kg)을 충분히 커버합니다.</p>
+                                <p><em>팁: 차가운 수돗물을 사용할수록 생산 속도가 빨라집니다. 온수를 넣으면 속도가 느려질 수 있으니 항상 상온 이상 찬 물을 사용해 주세요.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">얼음 크기는 어떻게 되나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>S사이즈: ∮20×35mm / L사이즈: ∮23×38mm</strong>, 두 가지 크기를 선택할 수 있습니다.</p>
+                                <ul>
+                                    <li><strong>S 사이즈:</strong> 아이스커피, 칵테일, 고급 음료에 어울림</li>
+                                    <li><strong>L 사이즈:</strong> 일반 음료, 물, 주스에 추천</li>
+                                </ul>
+                                <p><em>구매 시 원하는 사이즈를 선택할 수 있습니다. 나중에 변경할 수 없으니 구매 전 선택해 주세요.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">제빙 중 소음이 크게 발생하나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>소음 테스트 결과 <strong>50dB 수준</strong>입니다. 조용한 사무실이나 도서관 수준으로, 거실이나 사무실에서 충분히 사용 가능합니다.</p>
+                                <p>얼음이 만들어져 <strong>첫 얼음이 바스켓에 떨어질 때</strong>는 소리가 조금 더 크게 느껴질 수 있습니다.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">한 달 전기료는 얼마쯤 나오나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>소비전력 130W입니다. 하루 8시간 기준 약 1,500~2,000원/월 수준</strong>으로, 일반 가정에서 부담 없이 사용하실 수 있습니다.</p>
+                                <p><em>*사용 환경에 따라 전기 요금은 상이할 수 있습니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">냉매제가 뭔가요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>이소부탄가스 <strong>(R-600a)</strong>를 사용합니다. 무색·무취의 친환경 냉매로, 프레온가스(오존층 파괴 물질) 대신 사용되는 안전한 냉매입니다.</p>
+                                <p><strong>안전성:</strong> 밀봉 구조로 설계되어 일반 사용 시 유출되지 않습니다. 만약 유출되면 제빙 자체가 되지 않으므로, 갑자기 얼음이 안 만들어진다면 고객센터로 문의해 주세요.</p>
+                                <p><em>국제 기준에 따라 냉매는 선택 사항이지만, 쿠참은 안전성과 환경을 모두 고려하여 R-600a를 선택했습니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">제품 뒤쪽 흰색 나사 모양 실리콘 부품은 뭔가요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>직수 연결부를 막아주는 마개입니다.</p>
+                                <ul>
+                                    <li><strong>직수 연결 없이 상부급수로 사용:</strong> 이 마개를 그대로 유지해 주세요.</li>
+                                    <li><strong>직수 연결할 예정:</strong> 이 마개를 제거하고 연결 호스를 부착합니다.</li>
+                                </ul>
+                                <p><em>마개를 제거한 후 직수 연결을 하지 않으면 물이 새일 수 있으니 주의해 주세요.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">카페나 영업용으로 사용 가능한가요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>네, 가능합니다.</strong> 식약처 안전 신고가 완료된 제품으로, 가정용·영업용 모두 사용할 수 있습니다. 하루 17kg 생산량은 소형 카페 기준 충분한 양입니다.</p>
+                                <p><strong>영업 추천:</strong> 에스프레소 바, 스무디/아이스크림 전문점, 소규모 카페에 최적화되어 있습니다. 대형 프랜차이즈는 산업용 모델을 권장합니다.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 직수 연결 -->
+            <section class="faq-category" data-category="직수">
+                <h2 class="category-header"><span>🔌</span> 직수 연결</h2>
+                <div class="faq-items">
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">직수 연결 방법은?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>두 가지 방법이 있습니다:</p>
+                                <p><strong>방법 1 — 정수기 업체 방문 연결</strong></p>
+                                <p>사용 중인 정수기 고객센터에 "제빙기 직수 연결 가능 여부"를 먼저 확인해 주세요. 대부분의 직수형 정수기는 연결 가능합니다. 정수기 업체가 연결해 주면 전문성을 보장받을 수 있습니다.</p>
+                                <p><strong>방법 2 — 자가 직수 연결 키트</strong></p>
+                                <p>정수기 업체에서 직수 연결이 불가하다는 답변을 받으셨다면, 쿠참 고객센터로 문의해 주세요. 구매 내역 확인 후 자가 직수 연결 키트를 발송해 드립니다.</p>
+                                <p><em>직수 연결이 안정적이지 않으면 제품 오작동이 발생할 수 있으니, 확신 없으면 고객센터에 문의해 주세요.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">말통 정수기/탱크형 정수기에 직수 연결 가능한가요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>아쉽지만 불가합니다.</strong> 말통 정수기와 탱크형 정수기는 수압이 낮아 직수 연결이 안정적으로 작동하지 않습니다.</p>
+                                <p><strong>대안:</strong> 이 경우 상부급수(직접 물 넣기) 방식으로 사용해 주세요. 자동세척 기능으로 위생 관리는 충분히 가능합니다.</p>
+                                <p><em>정수기 업그레이드나 교체 계획이 있으시다면 직수형 정수기를 선택하시면 추후 직수 연결이 가능해집니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">직수 연결 호스 제거 방법은?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>연결부 측면의 <strong>고정 클립을 누른 상태에서 호스를 잡아당기면</strong> 분리됩니다.</p>
+                                <p><strong>주의:</strong> 무리하게 당기지 마시고, 반드시 클립을 누른 상태에서 제거해 주세요. 클립 없이 힘으로 빼면 호스나 연결부가 손상될 수 있습니다.</p>
+                                <p><em>재연결할 때는 딸깍 소리가 날 때까지 밀어넣으면 정확히 장착됩니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">직수 연결했는데 물 부족 알림이 뜨는 경우?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>정수기 업체 직수 연결인 경우:</strong> 정수기에서 물 공급이 원활하지 않을 수 있습니다. 정수기 고객센터로 수압 확인을 요청해 주세요. 일반적으로 0.2~0.5MPa 이상의 수압이 필요합니다.</p>
+                                <p><strong>자가 직수 연결 키트 사용인 경우:</strong> 물탱크 바닥의 수위 센서(건빵 모양 부품) 위까지 물이 차야 물 부족 알림이 해제됩니다. 상부급수로 센서 위까지 물을 채운 뒤 다시 밸브를 연결해 주세요.</p>
+                                <p><strong>그래도 해결되지 않으면:</strong> 증상 영상과 함께 고객센터로 문의 부탁드립니다.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 오류/트러블슈팅 -->
+            <section class="faq-category" data-category="트러블">
+                <h2 class="category-header"><span>⚠️</span> 오류/트러블슈팅</h2>
+                <div class="faq-items">
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">얼음이 없는데 만빙 알림이 떠요.</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>필터 세척 후 자동세척 기능을 3회 이상 작동해도 동일하면 영상과 함께 고객센터로 문의 부탁드립니다.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">MAX 선까지 물을 채워도 물 부족 알림이 떠요.</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>수위 센서 또는 필터에 이물질이 끼었을 수 있습니다. 아래 순서로 해결해 보세요:</p>
+                                <ol>
+                                    <li>물탱크 물을 모두 빼주세요</li>
+                                    <li>필터를 분리해 흐르는 물에 세척</li>
+                                    <li>자동세척 기능을 3회 이상 작동</li>
+                                    <li>물을 MAX 선까지 다시 채운 뒤 확인</li>
+                                </ol>
+                                <p><strong>3회 자동세척 후에도 동일하면:</strong> 증상 영상과 함께 고객센터로 문의해 주세요.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">얼음이 안 만들어지거나 크기가 제각각이에요.</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>대부분 냉매 안정화 문제입니다. 택배 배송 과정에서 기기가 흔들리면 내부 냉매제가 불안정해질 수 있습니다.</p>
+                                <p><strong>해결:</strong> 수령 후 플러그 연결 → 위치 이동 없이 <strong>최소 2~3일 연속 작동</strong>해 주세요. 냉매가 안정되면 고른 크기의 얼음이 생산됩니다.</p>
+                                <p><strong>주의:</strong> 설치 환경이 너무 덥거나(35°C↑) 추우면(5°C↓) 제빙이 원활하지 않을 수 있습니다. 실내 온도를 10~32°C 범위로 유지해 주세요.</p>
+                                <p><em>여름이나 겨울에는 실내 온도 조절이 특히 중요합니다. 너무 덥거나 추운 곳에서는 제빙 불가능합니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">얼음끼리 들러붙어요.</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>계속 작동하면 물이 차가워지고, 차가울수록 얼음이 커질 수 있습니다.</p>
+                                <p>오래 가동 시 냉매 가스 영향으로 얼음이 붙을 수 있으며, 이 경우 <strong>제빙봉(스테인)을 물속에서 위로 올리면 개선</strong>될 수 있습니다.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 세척/관리 -->
+            <section class="faq-category" data-category="세척">
+                <h2 class="category-header"><span>🧹</span> 세척/관리</h2>
+                <div class="faq-items">
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">세척은 어떻게 하나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <h3>1) 세척 전 준비</h3>
+                                <ol>
+                                    <li>사용 중인 제빙기는 [전원] 버튼을 눌러 제빙을 멈춘 뒤, 벽면 콘센트에서 전원 플러그를 분리합니다.</li>
+                                    <li>얼음 트레이에 물이 남아 있다면 트레이를 부드럽게 뒤로 밀어 물이 모두 물탱크로 배출되도록 합니다.</li>
+                                </ol>
+                                <h3>2) 물 비우기</h3>
+                                <ol start="3">
+                                    <li>물탱크의 물은 제품 밑에 있는 배수 마개를 열어 모두 버립니다.</li>
+                                </ol>
+                                <h3>3) 자동 세척(6분) 실행</h3>
+                                <ol start="4">
+                                    <li>배수 마개를 완전히 닫은 후, 물탱크에 깨끗한 물을 채웁니다.<br>
+                                    - [모드설정] 버튼을 눌러 물방울 표시등이 점멸할 때까지 설정합니다.<br>
+                                    - 그 다음 [전원] 버튼을 누르면 펌프가 물을 펌핑하며 자동 세척이 시작됩니다.<br>
+                                    - 약 6분간 자동 세척 후 대기모드로 복귀합니다.<br>
+                                    - 세척이 끝나면 물탱크의 물은 버려주세요.</li>
+                                </ol>
+                                <h3>4) 부품 분리 및 내부 세척</h3>
+                                <ol start="5">
+                                    <li>얼음 바스켓을 꺼냅니다.</li>
+                                    <li>제빙기 내부는 식초 희석액을 적신 부드러운 천으로 닦은 뒤, 깨끗한 물로 헹굽니다.</li>
+                                    <li>내부를 헹군 물은 버리고, 배수 호스를 닫아줍니다.<br>
+                                    - 얼음 바스켓과 스쿱은 미지근한 물 + 중성세제로 세척한 뒤 완전히 건조해 주세요.</li>
+                                </ol>
+                                <h3>5) 보관 및 외부 관리</h3>
+                                <ol start="8">
+                                    <li>제빙기를 장기간 사용하지 않을 경우, 물탱크를 비우고 건조시켜 보관합니다.</li>
+                                    <li>제빙기 외부는 부드러운 천으로 닦아 관리합니다.</li>
+                                </ol>
+                                <p><strong>참고:</strong></p>
+                                <ul>
+                                    <li>세척은 반드시 전원 플러그를 분리한 뒤 진행해 주세요.</li>
+                                    <li>자동 세척 후에는 물탱크의 물을 반드시 버려 주세요.</li>
+                                </ul>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">세제 넣고 세척해도 되나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>세제 사용은 권장하지 않습니다.</strong> 자동세척 시 여러 차례 물이 순환하므로 깨끗한 물만으로 충분합니다.</p>
+                                <p><strong>이점:</strong> 올 스테인리스 소재 특성상 세균 번식이 적어, 물 세척만으로도 위생적으로 관리할 수 있습니다. 세제가 남으면 오히려 얼음 맛에 영향을 줄 수 있습니다.</p>
+                                <p><em>석회가 많은 경우라도 자동세척 빈도를 늘리고, 반드시 물만 사용해 주세요.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">물이 순환되는 구조인가요? 배수 방법은?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>네, 순환 구조입니다.</strong> 물탱크의 물이 제빙봉으로 올라가 얼음을 만들고, 남은 물은 다시 탱크로 내려옵니다. 따라서 물이 낭비되지 않고 계속 재사용됩니다.</p>
+                                <p><strong>배수 방법:</strong> 물을 비울 때는 제품 하단부의 배수 마개를 열어주세요. 물통이나 욕실에서 해주시면 됩니다.</p>
+                                <p><em>정기적인 배수로 오래된 물을 제거하고 신선한 물로 교체하시길 권장합니다. (월 1~2회)</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">외부 지문 자국은 어떻게 지우나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p>스테인리스 표면 특성상 지문이 남을 수 있습니다.</p>
+                                <p><strong>제거 방법:</strong> 매직 블록(멜라민 스펀지)으로 가볍게 닦으면 깨끗하게 제거됩니다. 과하게 문지르면 표면이 벗겨질 수 있으니 부드럽게 닦아주세요.</p>
+                                <p><strong>대안:</strong> 극세사 천에 물을 약간 묻혀 닦아도 좋습니다.</p>
+                                <p><em>화학약품이나 연마재는 사용하지 마세요. 올 스테인리스 특성상 부식될 수 있습니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- A/S -->
+            <section class="faq-category" data-category="AS">
+                <h2 class="category-header"><span>🔧</span> A/S 및 보증</h2>
+                <div class="faq-items">
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">A/S 기간은 어떻게 되나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>무상 보증 1년</strong>입니다. 구매일로부터 1년 내 제품 결함은 무상 수리해 드립니다.</p>
+                                <p><strong>보증 이후:</strong> 보증 기간 이후 또는 고객 과실로 인한 문제는 유상 A/S로 진행됩니다.</p>
+                                <p><strong>보증 확인:</strong> 구매 확인서와 함께 보증서를 함께 보관해 주세요. A/S 신청 시 필요합니다.</p>
+                                <p><em>일반적인 마모나 소비재(세척용품, 부속 호스 등)는 보증 대상이 아닙니다.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">A/S는 어떻게 진행되나요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>진행 절차:</strong></p>
+                                <ol>
+                                    <li>고객센터 접수 (채널톡/유선)</li>
+                                    <li>택배 수거 (택배비 무상 - 보증 기간 내 무료)<br><em>*단, 고객 과실로 인한 제품 훼손시 무상 수리 불가</em></li>
+                                    <li>전문 A/S 센터에서 수리</li>
+                                    <li>수리내역서 동봉 후 택배 발송</li>
+                                </ol>
+                                <p><strong>기간 중 안내:</strong> 유상수리 진행 시, 담당 부서에서 점검 완료 후 택배비가 포함된 유상 수리 비용을 문자 안내드리고 있습니다.</p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span class="faq-question-text">직수 설치 서비스도 가능한가요?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="faq-answer-text">
+                                <p><strong>네, 가능합니다.</strong> 전 지역 직수 설치 서비스를 제공합니다.</p>
+                                <p><strong>신청 방법:</strong> 고객센터로 문의해 주시면 전문 기사가 방문하여 설치해 드립니다.</p>
+                                <p><strong>설치 비용:</strong> 고객센터 문의 시 안내해 드립니다. (지역에 따라 상이할 수 있음)</p>
+                                <p><em>설치 예약은 인수인계 후 별도로 신청 가능합니다. 설치 전문성을 원하시면 고객센터에 연락 주세요.</em></p>
+                            </div>
+                            <div class="faq-helpful">
+                                <span>이 답변이 도움되었나요?</span>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'yes')">👍 도움됨</button>
+                                <button class="helpful-btn" onclick="markHelpful(this, 'no')">👎 아니요</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p class="footer-message">쿠참은 판매 후에도 끝까지 책임집니다.</p>
+
+        <div class="contact-section">
+            <p>더 궁금한 사항이 있으신가요?</p>
+            <button class="contact-button" onclick="openChannelTalk()">💬 채널톡 상담하기</button>
+            <div class="operating-hours">
+                <p><strong>운영 시간:</strong> 평일 10:00 ~ 18:00</p>
+                <p style="font-size: 0.85rem; margin-top: 0.5rem;">점심시간 12:00 ~ 13:00 | 토일 휴무</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; opacity: 0.8;">
+            <p>© 2025 KUCHAM All Rights Reserved.</p>
+            <p style="margin-top: 0.5rem;">쿠참 올 스테인리스 제빙기 | 아이스메이커</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" onclick="scrollToTop()">▲</button>
+
+    <script>
+        // Toggle FAQ Items
+        function toggleFAQ(element) {
+            const question = element;
+            const isActive = question.classList.contains('active');
+
+            // Close all other items in same category
+            const category = question.closest('.faq-category');
+            const allQuestions = category.querySelectorAll('.faq-question');
+            allQuestions.forEach(q => {
+                q.classList.remove('active');
+            });
+
+            // Toggle current
+            if (!isActive) {
+                question.classList.add('active');
+            }
+        }
+
+        // Filter by category
+        function filterByCategory(category) {
+            const boxes = document.querySelectorAll('.faq-category');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            boxes.forEach(box => {
+                if (category === 'all' || box.dataset.category === category) {
+                    box.style.display = 'block';
+                } else {
+                    box.style.display = 'none';
+                }
+            });
+
+            document.getElementById('searchBox').value = '';
+            document.getElementById('resultsInfo').classList.add('hidden');
+        }
+
+        // Search & Filter FAQ
+        function filterFAQ() {
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+            let visibleCount = 0;
+            let totalCount = 0;
+
+            items.forEach(item => {
+                const question = item.querySelector('.faq-question-text').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer-text').textContent.toLowerCase();
+                totalCount++;
+
+                if (question.includes(searchTerm) || answer.includes(searchTerm) || searchTerm === '') {
+                    item.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            // Show results info
+            const resultsInfo = document.getElementById('resultsInfo');
+            if (searchTerm) {
+                resultsInfo.textContent = `${visibleCount}개의 결과가 있습니다`;
+                resultsInfo.classList.remove('hidden');
+            } else {
+                resultsInfo.classList.add('hidden');
+            }
+
+            // Show no results message
+            const hasVisible = Array.from(items).some(item => !item.classList.contains('hidden'));
+            if (!hasVisible && searchTerm) {
+                const container = document.getElementById('faqContainer');
+                const noResults = container.querySelector('.no-results');
+                if (noResults) noResults.remove();
+                const newNoResults = document.createElement('div');
+                newNoResults.className = 'no-results';
+                newNoResults.innerHTML = `<p>검색 결과가 없습니다.</p><span>다른 단어로 시도해 보세요.</span>`;
+                container.appendChild(newNoResults);
+            } else {
+                const noResults = document.querySelector('.no-results');
+                if (noResults) noResults.remove();
+            }
+        }
+
+        // Mark helpful
+        function markHelpful(btn, type) {
+            btn.style.opacity = '0.5';
+            btn.style.pointerEvents = 'none';
+            btn.textContent = type === 'yes' ? '👍 감사합니다!' : '👎 피드백 감사합니다';
+        }
+
+        // Scroll to category
+        function scrollToCategory(categoryName) {
+            filterByCategory('all');
+            const categories = document.querySelectorAll('.faq-category');
+            categories.forEach(cat => {
+                if (cat.querySelector('.category-header').textContent.includes(categoryName)) {
+                    cat.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+
+        // Scroll to top button
+        window.onscroll = function() {
+            const btn = document.getElementById('scrollToTopBtn');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        };
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Channel Talk integration (placeholder)
+        function openChannelTalk() {
+            // If ChannelTalk is loaded, use it. Otherwise, show a message.
+            if (typeof ChannelIO !== 'undefined') {
+                ChannelIO('openChat');
+            } else {
+                alert('고객센터로 연락해 주세요.\n\n📞 전화: 1234-5678\n💬 채널톡: kucham.kr/chat');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up search event listener
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', filterFAQ);
+        });
+    </script>
+</body>
+</html>
