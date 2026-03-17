@@ -3417,10 +3417,60 @@ function switchTab(tab) {
     }
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  // Supabase 저장/불러오기
+  const SUPABASE_URL = "https://dnkqmvhiwhraurpisorw.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_D645oN8fWfI8h7ZODqGMQQ_47sgCYOF";
+  const BRAND = "meariset";
+
+  async function saveEdit(id, content) {
+    await fetch(`${SUPABASE_URL}/rest/v1/alimtalk_edits`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Authorization": `Bearer ${SUPABASE_KEY}`,
+        "Prefer": "resolution=merge-duplicates"
+      },
+      body: JSON.stringify({ id: `${BRAND}_${id}`, brand: BRAND, content, updated_at: new Date().toISOString() })
+    });
+  }
+
+  async function loadEdits() {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/alimtalk_edits?brand=eq.${BRAND}`, {
+      headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}` }
+    });
+    return await res.json();
+  }
+
+  document.addEventListener('DOMContentLoaded', async function() {
     document.querySelectorAll('[contenteditable="true"], input, .before-url-box, .decision-bar').forEach(el => {
       el.addEventListener('click', e => e.stopPropagation());
     });
+
+    // contenteditable 요소에 blur 시 저장
+    const editables = document.querySelectorAll('[contenteditable="true"]');
+    editables.forEach((el, idx) => {
+      el.addEventListener('blur', async () => {
+        try {
+          await saveEdit(idx, el.innerHTML);
+          el.style.outline = "2px solid #22c55e";
+          setTimeout(() => { el.style.outline = ""; }, 1000);
+        } catch(e) { console.warn("저장 실패:", e); }
+      });
+    });
+
+    // 저장된 내용 불러오기
+    try {
+      const edits = await loadEdits();
+      edits.forEach(edit => {
+        const idx = parseInt(edit.id.replace(`${BRAND}_`, ''), 10);
+        if (!isNaN(idx) && editables[idx]) {
+          editables[idx].innerHTML = edit.content;
+        }
+      });
+    } catch (e) {
+      console.warn('Supabase 불러오기 실패:', e);
+    }
   });
 </script>
 
