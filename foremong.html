@@ -2643,8 +2643,9 @@
     }
   }
 
-  // localStorage 기반 자동 저장
+  // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "foremong";
+  const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
     // 클릭 이벤트 전파 차단
@@ -2652,31 +2653,113 @@
       el.addEventListener('click', e => e.stopPropagation());
     });
 
-    // contenteditable 실시간 저장 + 복원
     const editables = document.querySelectorAll('[contenteditable="true"]');
-    editables.forEach((el, idx) => {
-      // 저장된 내용 복원
-      const saved = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
-      if (saved) el.innerHTML = saved;
+    const urlInputs = document.querySelectorAll('.url-input');
 
-      // 타이핑할 때마다 실시간 저장
+    // GitHub에서 팀 공유 데이터 로드 (최신 버전)
+    async function loadTeamData() {
+      try {
+        const res = await fetch(`${API_BASE}?brand=${BRAND}`, { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        editables.forEach((el, idx) => {
+          const key = `ce_${idx}`;
+          if (data[key]) el.innerHTML = data[key];
+          else {
+            // localStorage fallback
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local) el.innerHTML = local;
+          }
+        });
+        urlInputs.forEach((el, idx) => {
+          const key = `url_${idx}`;
+          if (data[key]) el.value = data[key];
+          else {
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local) el.value = local;
+          }
+        });
+      } catch {
+        // 네트워크 오류 시 localStorage 사용
+        editables.forEach((el, idx) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
+          if (s) el.innerHTML = s;
+        });
+        urlInputs.forEach((el, idx) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
+          if (s) el.value = s;
+        });
+      }
+    }
+
+    loadTeamData();
+
+    // 타이핑할 때마다 localStorage에 즉시 저장
+    editables.forEach((el, idx) => {
       el.addEventListener('input', () => {
         localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, el.innerHTML);
         el.style.outline = "2px solid #22c55e";
         clearTimeout(el._saveTimer);
-        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 1000);
+        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
       });
     });
-
-    // url-input 저장 + 복원
-    const urlInputs = document.querySelectorAll('.url-input');
     urlInputs.forEach((el, idx) => {
-      const saved = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
-      if (saved) el.value = saved;
       el.addEventListener('input', () => {
         localStorage.setItem(`alimtalk_${BRAND}_url_${idx}`, el.value);
       });
     });
+
+    // 팀 공유 버튼 생성
+    const shareBtn = document.createElement('button');
+    shareBtn.id = 'team-share-btn';
+    shareBtn.textContent = '팀 공유 저장';
+    shareBtn.style.cssText = `
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: #22c55e; color: white; border: none; border-radius: 12px;
+      padding: 14px 24px; font-size: 15px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(34,197,94,0.4);
+      transition: all 0.2s; font-family: 'Noto Sans KR', sans-serif;
+    `;
+    shareBtn.addEventListener('mouseenter', () => { shareBtn.style.background = '#16a34a'; });
+    shareBtn.addEventListener('mouseleave', () => { shareBtn.style.background = '#22c55e'; });
+
+    shareBtn.addEventListener('click', async () => {
+      shareBtn.disabled = true;
+      shareBtn.textContent = '저장 중...';
+      shareBtn.style.background = '#9ca3af';
+
+      const changes = {};
+      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
+      urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
+
+      try {
+        const res = await fetch(API_BASE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brand: BRAND, changes }),
+        });
+        if (res.ok) {
+          shareBtn.textContent = '✅ 저장 완료!';
+          shareBtn.style.background = '#22c55e';
+          setTimeout(() => {
+            shareBtn.textContent = '팀 공유 저장';
+            shareBtn.disabled = false;
+          }, 2000);
+        } else {
+          throw new Error('save failed');
+        }
+      } catch {
+        shareBtn.textContent = '❌ 저장 실패';
+        shareBtn.style.background = '#ef4444';
+        setTimeout(() => {
+          shareBtn.textContent = '팀 공유 저장';
+          shareBtn.style.background = '#22c55e';
+          shareBtn.disabled = false;
+        }, 2000);
+      }
+    });
+
+    document.body.appendChild(shareBtn);
   });
 </script>
 
