@@ -135,6 +135,7 @@
   .before, .after {
     border-radius: 12px;
     padding: 20px;
+    min-width: 0;
   }
   .before { background: #fff5f5; border: 1px solid #ffd4d4; }
   .after { background: #f0faf0; border: 1px solid #c4e8c4; }
@@ -224,6 +225,8 @@
     list-style: none;
     padding-left: 18px;
     position: relative;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
   }
   .issues li::before {
     content: '\2022';
@@ -611,6 +614,8 @@
   }
   .after-url-box .url-suggest {
     flex: 1;
+    min-width: 0;
+    display: inline-block;
     font-size: 11px;
     color: #15803d;
     background: white;
@@ -700,6 +705,8 @@
   }
   .after-url-box .url-suggest {
     flex: 1;
+    min-width: 0;
+    display: inline-block;
     font-size: 11px;
     color: #15803d;
     background: white;
