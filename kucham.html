@@ -619,6 +619,13 @@
     border-radius: 6px;
     border: 1px solid #86efac;
     word-break: break-all;
+    cursor: text;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .after-url-box .url-suggest:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
   }
   .after-url-box .url-note {
     font-size: 10px;
@@ -701,6 +708,13 @@
     border-radius: 6px;
     border: 1px solid #86efac;
     word-break: break-all;
+    cursor: text;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .after-url-box .url-suggest:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
   }
   .after-url-box .url-note {
     font-size: 10px;
@@ -920,11 +934,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">주문내역 확인하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널 추가</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
             </div>
             <div class="url-note">네이버페이 주문내역 유지</div>
           </div>
@@ -1031,11 +1045,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">배송조회 바로가기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널 추가</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
             </div>
             <div class="url-note">배송조회 네이버페이 유지</div>
           </div>
@@ -1145,15 +1159,15 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">사용가이드 보기</span>
-              <span class="url-suggest">https://alimtalk-cx.vercel.app/kucham-faq.html</span>
+              <span class="url-suggest" contenteditable="true">https://alimtalk-cx.vercel.app/kucham-faq.html</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">문의하기</span>
-              <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+              <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">구매확정 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
             </div>
             <div class="url-note">사용가이드 → FAQ 페이지 / 구매확정 → 네이버페이</div>
           </div>
@@ -1251,11 +1265,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">FAQ 바로가기</span>
-              <span class="url-suggest">https://alimtalk-cx.vercel.app/kucham-faq.html</span>
+              <span class="url-suggest" contenteditable="true">https://alimtalk-cx.vercel.app/kucham-faq.html</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">문의하기</span>
-              <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+              <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
             </div>
             <div class="url-note">사용 3일차 — CS 선제 대응 랜딩</div>
           </div>
@@ -1357,11 +1371,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">구매확정 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">문의하기</span>
-              <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+              <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
             </div>
             <div class="url-note">구매확정 CTA 1순위</div>
           </div>
@@ -1454,11 +1468,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">리뷰 작성하기</span>
-              <span class="url-suggest">https://shopping.naver.com/my/writable-reviews</span>
+              <span class="url-suggest" contenteditable="true">https://shopping.naver.com/my/writable-reviews</span>
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
             </div>
             <div class="url-note">리뷰 URL → 스마트스토어 리뷰</div>
           </div>
@@ -1544,15 +1558,15 @@
               <div class="url-box-title">&#128161; 제안 랜딩 URL</div>
               <div class="url-row">
                 <span class="url-btn-label">한달 후기 작성하기</span>
-                <span class="url-suggest">https://shopping.naver.com/my/writable-reviews</span>
+                <span class="url-suggest" contenteditable="true">https://shopping.naver.com/my/writable-reviews</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">재구매 바로가기</span>
-                <span class="url-suggest">(스마트스토어 상품 페이지 URL)</span>
+                <span class="url-suggest" contenteditable="true">(스마트스토어 상품 페이지 URL)</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
               </div>
               <div class="url-note">&#9989; 리뷰 URL: 네이버 모바일 리뷰 작성 페이지 (전 상품 공통) &middot; 재구매 &rarr; 스마트스토어 상품 페이지</div>
             </div>
@@ -1650,11 +1664,11 @@
             <div class="url-box-title">&#128161; 취소요청 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">주문내역 확인</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+                <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -1756,15 +1770,15 @@
             <div class="url-box-title">&#128161; 취소완료 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">의견 남기기</span>
-                <span class="url-suggest">(의견 수집 폼 URL)</span>
+                <span class="url-suggest" contenteditable="true">(의견 수집 폼 URL)</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+                <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -1868,11 +1882,11 @@
             <div class="url-box-title">&#128161; 교환요청 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">주문내역 확인</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+                <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -1972,15 +1986,15 @@
             <div class="url-box-title">&#128161; 교환완료 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">배송조회 바로가기</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+                <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
               </div>
             <div class="url-note">기존 템플릿에 FAQ 링크 미삽입 상태 | </div>
           </div>
@@ -2094,11 +2108,11 @@
             <div class="url-box-title">&#128161; 반품요청 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">주문내역 확인</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <span class="url-suggest" contenteditable="true">https://new-m.pay.naver.com/</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+                <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -2204,15 +2218,15 @@
             <div class="url-box-title">&#128161; 반품완료 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">의견 남기기</span>
-                <span class="url-suggest">(의견 수집 폼 URL)</span>
+                <span class="url-suggest" contenteditable="true">(의견 수집 폼 URL)</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">(카카오톡 채널 채팅 URL)</span>
+                <span class="url-suggest" contenteditable="true">(카카오톡 채널 채팅 URL)</span>
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <span class="url-suggest" contenteditable="true">http://pf.kakao.com/_JUbqK</span>
               </div>
             <div class="url-note"></div>
           </div>
@@ -2365,9 +2379,20 @@
     }
   }
 
-  // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
-  const BRAND = "kucham";
-  const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
+  // 알림톡 편집 저장 시스템 (GitHub Contents API 직접 저장)
+  const GITHUB_REPO = "gromeet-team/alimtalk-cx";
+  const GITHUB_FILE = "kucham.html";
+  const GITHUB_API = `https://api.github.com/repos/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+
+  function getGitHubToken() {
+    let token = localStorage.getItem("gh_pat");
+    if (!token) {
+      token = prompt("GitHub PAT를 입력하세요 (최초 1회):");
+      if (!token) return null;
+      localStorage.setItem("gh_pat", token);
+    }
+    return token;
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     // 클릭 이벤트 전파 차단
@@ -2375,113 +2400,125 @@
       el.addEventListener('click', e => e.stopPropagation());
     });
 
-    const editables = document.querySelectorAll('[contenteditable="true"]');
-    const urlInputs = document.querySelectorAll('.url-input');
-
-    // GitHub에서 팀 공유 데이터 로드 (최신 버전)
-    async function loadTeamData() {
-      try {
-        const res = await fetch(`${API_BASE}?brand=${BRAND}`, { cache: 'no-store' });
-        if (!res.ok) return;
-        const data = await res.json();
-        editables.forEach((el, idx) => {
-          const key = `ce_${idx}`;
-          if (data[key]) el.innerHTML = data[key];
-          else {
-            // localStorage fallback
-            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (local) el.innerHTML = local;
-          }
-        });
-        urlInputs.forEach((el, idx) => {
-          const key = `url_${idx}`;
-          if (data[key]) el.value = data[key];
-          else {
-            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (local) el.value = local;
-          }
-        });
-      } catch {
-        // 네트워크 오류 시 localStorage 사용
-        editables.forEach((el, idx) => {
-          const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
-          if (s) el.innerHTML = s;
-        });
-        urlInputs.forEach((el, idx) => {
-          const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
-          if (s) el.value = s;
-        });
-      }
-    }
-
-    loadTeamData();
-
-    // 타이핑할 때마다 localStorage에 즉시 저장
-    editables.forEach((el, idx) => {
-      el.addEventListener('input', () => {
-        localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, el.innerHTML);
-        el.style.outline = "2px solid #22c55e";
-        clearTimeout(el._saveTimer);
-        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
-      });
-    });
-    urlInputs.forEach((el, idx) => {
-      el.addEventListener('input', () => {
-        localStorage.setItem(`alimtalk_${BRAND}_url_${idx}`, el.value);
-      });
-    });
-
-    // 팀 공유 버튼 생성
-    const shareBtn = document.createElement('button');
-    shareBtn.id = 'team-share-btn';
-    shareBtn.textContent = '팀 공유 저장';
-    shareBtn.style.cssText = `
+    // 버튼 컨테이너
+    const btnContainer = document.createElement('div');
+    btnContainer.style.cssText = `
       position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-      background: #22c55e; color: white; border: none; border-radius: 12px;
-      padding: 14px 24px; font-size: 15px; font-weight: 700;
-      cursor: pointer; box-shadow: 0 4px 16px rgba(34,197,94,0.4);
+      display: flex; gap: 8px; align-items: center;
+    `;
+
+    // 🔑 토큰변경 버튼
+    const tokenBtn = document.createElement('button');
+    tokenBtn.innerHTML = '🔑 토큰변경';
+    tokenBtn.style.cssText = `
+      background: #6b7280; color: white; border: none; border-radius: 10px;
+      padding: 10px 16px; font-size: 13px; font-weight: 600;
+      cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       transition: all 0.2s; font-family: 'Noto Sans KR', sans-serif;
     `;
-    shareBtn.addEventListener('mouseenter', () => { shareBtn.style.background = '#16a34a'; });
-    shareBtn.addEventListener('mouseleave', () => { shareBtn.style.background = '#22c55e'; });
+    tokenBtn.addEventListener('mouseenter', () => { tokenBtn.style.background = '#4b5563'; });
+    tokenBtn.addEventListener('mouseleave', () => { tokenBtn.style.background = '#6b7280'; });
+    tokenBtn.addEventListener('click', () => {
+      localStorage.removeItem("gh_pat");
+      alert("토큰이 초기화됐습니다.");
+    });
 
-    shareBtn.addEventListener('click', async () => {
-      shareBtn.disabled = true;
-      shareBtn.textContent = '저장 중...';
-      shareBtn.style.background = '#9ca3af';
+    // 💾 저장하기 버튼
+    const saveBtn = document.createElement('button');
+    saveBtn.id = 'github-save-btn';
+    saveBtn.innerHTML = '💾 저장하기';
+    saveBtn.style.cssText = `
+      background: #4b6584; color: white; border: none; border-radius: 12px;
+      padding: 14px 28px; font-size: 16px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(75,101,132,0.5);
+      transition: all 0.2s; font-family: 'Noto Sans KR', sans-serif;
+    `;
+    saveBtn.addEventListener('mouseenter', () => { saveBtn.style.background = '#3b5168'; saveBtn.style.transform = 'scale(1.05)'; });
+    saveBtn.addEventListener('mouseleave', () => { saveBtn.style.background = '#4b6584'; saveBtn.style.transform = 'scale(1)'; });
 
-      const changes = {};
-      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
-      urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
+    saveBtn.addEventListener('click', async () => {
+      const token = getGitHubToken();
+      if (!token) return;
+
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '⏳ 저장 중...';
+      saveBtn.style.background = '#9ca3af';
+      saveBtn.style.cursor = 'wait';
 
       try {
-        const res = await fetch(API_BASE, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ brand: BRAND, changes }),
+        // 1) 현재 파일 SHA 가져오기
+        const getRes = await fetch(GITHUB_API, {
+          headers: { 'Authorization': `Bearer ${token}` }
         });
-        if (res.ok) {
-          shareBtn.textContent = '✅ 저장 완료!';
-          shareBtn.style.background = '#22c55e';
-          setTimeout(() => {
-            shareBtn.textContent = '팀 공유 저장';
-            shareBtn.disabled = false;
-          }, 2000);
-        } else {
-          throw new Error('save failed');
+        if (!getRes.ok) throw new Error(`SHA 조회 실패: ${getRes.status}`);
+        const fileData = await getRes.json();
+        const sha = fileData.sha;
+
+        // 2) 현재 DOM을 HTML로 직렬화
+        const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+        // 3) base64 인코딩 (UTF-8 지원)
+        const encoder = new TextEncoder();
+        const bytes = encoder.encode(htmlContent);
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) {
+          binary += String.fromCharCode(bytes[i]);
         }
-      } catch {
-        shareBtn.textContent = '❌ 저장 실패';
-        shareBtn.style.background = '#ef4444';
+        const base64Content = btoa(binary);
+
+        // 4) GitHub API로 파일 업데이트
+        const now = new Date().toISOString();
+        const putRes = await fetch(GITHUB_API, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: `chore: kucham 알림톡 편집 저장 [${now}]`,
+            content: base64Content,
+            sha: sha,
+          }),
+        });
+
+        if (putRes.ok) {
+          saveBtn.innerHTML = '✅ 저장 완료!';
+          saveBtn.style.background = '#22c55e';
+          saveBtn.style.cursor = 'pointer';
+          setTimeout(() => {
+            saveBtn.innerHTML = '💾 저장하기';
+            saveBtn.style.background = '#4b6584';
+            saveBtn.disabled = false;
+          }, 3000);
+          alert('저장 완료! 1~2분 후 반영됩니다.');
+        } else {
+          const errData = await putRes.json().catch(() => ({}));
+          if (errData.message && errData.message.includes("Bad credentials")) {
+            localStorage.removeItem("gh_pat");
+            alert("PAT가 잘못되었습니다. 다시 시도해주세요.");
+            saveBtn.innerHTML = '💾 저장하기';
+            saveBtn.style.background = '#4b6584';
+            saveBtn.disabled = false;
+            return;
+          }
+          throw new Error(errData.message || `저장 실패: ${putRes.status}`);
+        }
+      } catch (err) {
+        saveBtn.innerHTML = '❌ 저장 실패';
+        saveBtn.style.background = '#ef4444';
+        saveBtn.style.cursor = 'pointer';
+        alert('저장 실패: ' + err.message);
         setTimeout(() => {
-          shareBtn.textContent = '팀 공유 저장';
-          shareBtn.style.background = '#22c55e';
-          shareBtn.disabled = false;
-        }, 2000);
+          saveBtn.innerHTML = '💾 저장하기';
+          saveBtn.style.background = '#4b6584';
+          saveBtn.disabled = false;
+        }, 3000);
       }
     });
 
-    document.body.appendChild(shareBtn);
+    btnContainer.appendChild(tokenBtn);
+    btnContainer.appendChild(saveBtn);
+    document.body.appendChild(btnContainer);
   });
 </script>
 
