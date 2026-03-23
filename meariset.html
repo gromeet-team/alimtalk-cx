@@ -262,10 +262,39 @@
     font-family: 'Noto Sans KR', sans-serif;
   }
   #float-modify-btn.all-on { background: #ef4444; }
+
+  /* 상단 브랜드 네비 */
+  .top-nav {
+    position: sticky; top: 0; z-index: 1002;
+    background: #1a1a1a; padding: 10px 24px;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .top-nav .logo {
+    color: white; font-weight: 700; font-size: 13px;
+    margin-right: 8px; text-decoration: none;
+  }
+  .top-nav .brand-btn {
+    padding: 5px 14px; border-radius: 16px; font-size: 12px; font-weight: 600;
+    border: none; cursor: pointer; text-decoration: none; color: white;
+    opacity: 0.7; transition: all 0.3s;
+  }
+  .top-nav .brand-btn:hover { opacity: 1; }
+  .top-nav .brand-btn.active { opacity: 1; box-shadow: 0 0 0 2px white; }
+  .top-nav .brand-btn.foremong { background: #4a7c28; }
+  .top-nav .brand-btn.uvid { background: #4A6FA5; }
+  .top-nav .brand-btn.meariset { background: #FF6B35; }
+  .top-nav .brand-btn.kucham { background: #4b6584; }
 </style>
 </head>
 <body>
 
+<div class="top-nav">
+  <a href="index.html" class="logo">🌿 알림톡 CX 개선안</a>
+  <a href="foremong.html" class="brand-btn foremong">🌿 Foremong</a>
+  <a href="uvid.html" class="brand-btn uvid">🌞 UVID</a>
+  <a href="meariset.html" class="brand-btn meariset active">📓 메아리셋</a>
+  <a href="kucham.html" class="brand-btn kucham">🧊 쿠참</a>
+</div>
 <div class="header">
   <h1>메아리셋 12주 알림톡 CRM</h1>
   <p>배송완료 기점 · 주단위 자동 발송 · 알림톡 12개 + 친구톡 1개</p>
