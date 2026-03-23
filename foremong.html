@@ -787,31 +787,26 @@
   .top-nav .brand-btn.kucham { background: #4b6584; }
 
 
-  /* 모바일 플로팅 수정필요 전체토글 버튼 */
+  /* 플로팅 수정필요 전체토글 버튼 (데스크탑+모바일 공통) */
   #float-modify-btn {
-    display: none;
+    display: block;
+    position: fixed;
+    bottom: 80px;
+    left: 24px;
+    z-index: 999;
+    padding: 10px 20px;
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    white-space: nowrap;
   }
-  @media (max-width: 768px) {
-    #float-modify-btn {
-      display: block;
-      position: fixed;
-      bottom: 80px;
-      left: 16px;
-      z-index: 999;
-      padding: 10px 16px;
-      background: #f59e0b;
-      color: white;
-      border: none;
-      border-radius: 24px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-      white-space: nowrap;
-    }
-    #float-modify-btn.all-on {
-      background: #ef4444;
-    }
+  #float-modify-btn.all-on {
+    background: #ef4444;
   }
 </style>
 </head>
@@ -863,98 +858,6 @@
     <div class="summary-card">
       <div class="num">12/12</div>
       <div class="label">버튼 CTA 통일</div>
-    </div>
-  </div>
-
-  <!-- 고객 여정 맵 -->
-  <div class="section-title">고객 여정 (Customer Journey)</div>
-  <div class="journey" style="background:white; border-radius:12px; margin-bottom:24px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-    <div class="journey-step active">결제완료</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">배송시작</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">배송완료</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step new-step">설치확인<br><small>+1~2일 NEW</small></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">구매확정<br><small>+3일</small></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">리뷰유도<br><small>+7일</small></div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step active">한달리뷰<br><small>+30일</small></div>
-    <div class="journey-arrow" style="margin:0 12px;">|</div>
-    <div class="journey-step" style="background:#fff5f5; border-color:#ffd4d4;">취소요청</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step" style="background:#fff5f5; border-color:#ffd4d4;">취소완료</div>
-    <div class="journey-arrow" style="margin:0 8px;">|</div>
-    <div class="journey-step" style="background:#fff8f0; border-color:#ffe0b0;">교환요청</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step" style="background:#fff8f0; border-color:#ffe0b0;">교환완료</div>
-    <div class="journey-arrow" style="margin:0 8px;">|</div>
-    <div class="journey-step" style="background:#f5f0ff; border-color:#d4c4f5;">반품요청</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step" style="background:#f5f0ff; border-color:#d4c4f5;">반품완료</div>
-  </div>
-
-  <!-- 개선 원칙 -->
-  <div class="section-title">적용 개선 원칙 (3단계)</div>
-  <div style="font-size:13px; color:#666; margin:-8px 0 16px; padding:0 4px;">우선순위별 단계 적용 — 1단계부터 순차 실행, 3단계는 캠페인별 판단</div>
-
-  <div style="margin-bottom:12px;">
-    <div style="background:#c44; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">1단계 — 즉시 적용 (정보 정확성)</div>
-  </div>
-  <div class="principles" style="border-left:3px solid #c44; padding-left:12px; margin-bottom:24px;">
-    <div class="principle">
-      <span class="tag" style="background:#c44;">필수</span>
-      <h3>버튼 CTA 우선순위 통일</h3>
-      <p>1번: 핵심 행동(정품등록/리뷰/조회) → 2번: 보조 행동 → 3번: 채널추가. 현재 1번이 채널추가인 캠페인 다수 — 고객이 가장 필요한 행동이 맨 뒤에 있는 건 명백한 오류.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#c44;">필수</span>
-      <h3>배송완료 정품등록 CTA 복원</h3>
-      <p>변경요청에 있던 정품등록 버튼이 작업본에서 누락 → 1번 버튼으로 복원. 누락된 기능 복구.</p>
-    </div>
-  </div>
-
-  <div style="margin-bottom:12px;">
-    <div style="background:#e8a020; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">2단계 — 구조 개선 (타이밍 최적화)</div>
-  </div>
-  <div class="principles" style="border-left:3px solid #e8a020; padding-left:12px; margin-bottom:24px;">
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>정보의 적시 배치</h3>
-      <p>결제완료 시점의 인증 정보 5종 → 배송시작/배송완료로 분산. 각 시점에 맞는 정보만 전달. 메시지 톤은 유지하되 정보 위치만 이동.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>구매확정 ↔ 리뷰 분리</h3>
-      <p>구매확정 유도 시점에서 리뷰 요청 제거. 구매확정만 집중 → +7일 캠페인에서 리뷰 전담. 한 메시지, 한 목적.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>설치확인 터치포인트 추가</h3>
-      <p>배송완료 +1~2일 "설치 잘 되셨나요?" 메시지 신설. 초기 불량/설치 실수 CS 선제 대응.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>시즌 대응 (한달 리뷰)</h3>
-      <p>"겨울이 끝나갈 무렵" 등 시즌 고정 표현 제거 → 시즌 중립 or 분기 처리 가능한 구조로.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>성과 추적 체계</h3>
-      <p>캠페인별 오픈율/클릭율/전환율 추적 구조 설계. 월 1회 리뷰로 데이터 기반 개선.</p>
-    </div>
-  </div>
-
-  <div style="margin-bottom:12px;">
-    <div style="background:#7b61ff; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">3단계 — 캠페인별 판단 (톤 조정)</div>
-  </div>
-  <div class="principles" style="border-left:3px solid #7b61ff; padding-left:12px; margin-bottom:24px;">
-    <div class="principle">
-      <span class="tag" style="background:#7b61ff;">판단</span>
-      <h3>반복 제거 + 핵심 감성 1줄 집중</h3>
-      <p>CS 메시지(취소/교환/반품)의 사과+다짐 3~5단락 → 같은 말 반복 제거. 감성을 없애는 게 아니라 가장 진심인 한 줄로 압축. "짧은 인연이었지만 다음에 더 좋은 경험으로 보답하겠습니다" 한 문장이 5단락 사과보다 기억에 남음. 단, 포레몽은 고가 온수매트 브랜드이므로 캠페인별로 장문 유지/압축 여부를 개별 판단.</p>
     </div>
   </div>
 
@@ -2863,6 +2766,99 @@
     </table>
     <p style="margin-top:16px; font-size:12px; color:#888;">※ 알마니센터 데이터 기반 월 1회 리뷰 권장. 측정 시작 후 1개월 뒤 첫 성과 비교 가능.</p>
   </div>
+
+  <!-- 고객 여정 맵 -->
+  <div class="section-title">고객 여정 (Customer Journey)</div>
+  <div class="journey" style="background:white; border-radius:12px; margin-bottom:24px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+    <div class="journey-step active">결제완료</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">배송시작</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">배송완료</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step new-step">설치확인<br><small>+1~2일 NEW</small></div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">구매확정<br><small>+3일</small></div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">리뷰유도<br><small>+7일</small></div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">한달리뷰<br><small>+30일</small></div>
+    <div class="journey-arrow" style="margin:0 12px;">|</div>
+    <div class="journey-step" style="background:#fff5f5; border-color:#ffd4d4;">취소요청</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step" style="background:#fff5f5; border-color:#ffd4d4;">취소완료</div>
+    <div class="journey-arrow" style="margin:0 8px;">|</div>
+    <div class="journey-step" style="background:#fff8f0; border-color:#ffe0b0;">교환요청</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step" style="background:#fff8f0; border-color:#ffe0b0;">교환완료</div>
+    <div class="journey-arrow" style="margin:0 8px;">|</div>
+    <div class="journey-step" style="background:#f5f0ff; border-color:#d4c4f5;">반품요청</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step" style="background:#f5f0ff; border-color:#d4c4f5;">반품완료</div>
+  </div>
+
+  <!-- 개선 원칙 -->
+  <div class="section-title">적용 개선 원칙 (3단계)</div>
+  <div style="font-size:13px; color:#666; margin:-8px 0 16px; padding:0 4px;">우선순위별 단계 적용 — 1단계부터 순차 실행, 3단계는 캠페인별 판단</div>
+
+  <div style="margin-bottom:12px;">
+    <div style="background:#c44; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">1단계 — 즉시 적용 (정보 정확성)</div>
+  </div>
+  <div class="principles" style="border-left:3px solid #c44; padding-left:12px; margin-bottom:24px;">
+    <div class="principle">
+      <span class="tag" style="background:#c44;">필수</span>
+      <h3>버튼 CTA 우선순위 통일</h3>
+      <p>1번: 핵심 행동(정품등록/리뷰/조회) → 2번: 보조 행동 → 3번: 채널추가. 현재 1번이 채널추가인 캠페인 다수 — 고객이 가장 필요한 행동이 맨 뒤에 있는 건 명백한 오류.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#c44;">필수</span>
+      <h3>배송완료 정품등록 CTA 복원</h3>
+      <p>변경요청에 있던 정품등록 버튼이 작업본에서 누락 → 1번 버튼으로 복원. 누락된 기능 복구.</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="background:#e8a020; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">2단계 — 구조 개선 (타이밍 최적화)</div>
+  </div>
+  <div class="principles" style="border-left:3px solid #e8a020; padding-left:12px; margin-bottom:24px;">
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>정보의 적시 배치</h3>
+      <p>결제완료 시점의 인증 정보 5종 → 배송시작/배송완료로 분산. 각 시점에 맞는 정보만 전달. 메시지 톤은 유지하되 정보 위치만 이동.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>구매확정 ↔ 리뷰 분리</h3>
+      <p>구매확정 유도 시점에서 리뷰 요청 제거. 구매확정만 집중 → +7일 캠페인에서 리뷰 전담. 한 메시지, 한 목적.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>설치확인 터치포인트 추가</h3>
+      <p>배송완료 +1~2일 "설치 잘 되셨나요?" 메시지 신설. 초기 불량/설치 실수 CS 선제 대응.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>시즌 대응 (한달 리뷰)</h3>
+      <p>"겨울이 끝나갈 무렵" 등 시즌 고정 표현 제거 → 시즌 중립 or 분기 처리 가능한 구조로.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>성과 추적 체계</h3>
+      <p>캠페인별 오픈율/클릭율/전환율 추적 구조 설계. 월 1회 리뷰로 데이터 기반 개선.</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="background:#7b61ff; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">3단계 — 캠페인별 판단 (톤 조정)</div>
+  </div>
+  <div class="principles" style="border-left:3px solid #7b61ff; padding-left:12px; margin-bottom:24px;">
+    <div class="principle">
+      <span class="tag" style="background:#7b61ff;">판단</span>
+      <h3>반복 제거 + 핵심 감성 1줄 집중</h3>
+      <p>CS 메시지(취소/교환/반품)의 사과+다짐 3~5단락 → 같은 말 반복 제거. 감성을 없애는 게 아니라 가장 진심인 한 줄로 압축. "짧은 인연이었지만 다음에 더 좋은 경험으로 보답하겠습니다" 한 문장이 5단락 사과보다 기억에 남음. 단, 포레몽은 고가 온수매트 브랜드이므로 캠페인별로 장문 유지/압축 여부를 개별 판단.</p>
+    </div>
+  </div>
+
 
   <div class="footer">
     포레몽 알림톡 CX 개선안 · 2026-03-24 · 그로밋팀
