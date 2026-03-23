@@ -234,6 +234,34 @@
   #team-share-btn:hover { background: #16a34a; }
 
   .hidden { display: none !important; }
+
+  /* 수정필요 토글 */
+  .modify-toggle { display: flex; align-items: center; gap: 6px; }
+  .modify-toggle label { font-size: 12px; color: #888; cursor: pointer; user-select: none; }
+  .modify-toggle input[type="checkbox"] { display: none; }
+  .modify-toggle .toggle-switch {
+    width: 36px; height: 20px; background: #ddd; border-radius: 20px;
+    position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+  }
+  .modify-toggle .toggle-switch::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px; background: white; border-radius: 50%; transition: left 0.2s;
+  }
+  .modify-toggle input:checked + .toggle-switch { background: #f59e0b; }
+  .modify-toggle input:checked + .toggle-switch::after { left: 18px; }
+  .modify-toggle input:checked ~ label { color: #f59e0b; font-weight: 600; }
+  .crm-card.needs-modify { border-left: 4px solid #f59e0b !important; background: #fffdf5; }
+  .crm-card.needs-modify .crm-header { background: #fffbec; }
+
+  /* 플로팅 수정필요 전체토글 버튼 */
+  #float-modify-btn {
+    display: block; position: fixed; bottom: 80px; left: 24px; z-index: 999;
+    padding: 10px 20px; background: #f59e0b; color: white; border: none;
+    border-radius: 24px; font-size: 13px; font-weight: 700; cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25); white-space: nowrap;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  #float-modify-btn.all-on { background: #ef4444; }
 </style>
 </head>
 <body>
@@ -329,6 +357,11 @@ function renderCards() {
         ${typeBadge}
         <span class="crm-title">${num}. ${msg.title}</span>
         <span class="crm-psych">${msg.psych}</span>
+        <div class="modify-toggle" onclick="event.stopPropagation()" style="margin-left:auto;">
+          <input type="checkbox" id="modify-${campaignId}" onchange="toggleModify('${campaignId}', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-${campaignId}').click();"></span>
+          <label for="modify-${campaignId}" onclick="event.stopPropagation()">수정필요</label>
+        </div>
         <span class="crm-toggle">▼</span>
       </div>
       <div class="crm-body">
@@ -361,6 +394,29 @@ function toggleAll(open) {
     if (open) c.classList.add('open');
     else c.classList.remove('open');
   });
+}
+
+function toggleModify(campaignId, checkbox, event) {
+  event.stopPropagation();
+  const card = document.querySelector('[data-campaign="' + campaignId + '"]');
+  if (checkbox.checked) card.classList.add('needs-modify');
+  else card.classList.remove('needs-modify');
+  localStorage.setItem('alimtalk_meariset_modify_' + campaignId, checkbox.checked ? '1' : '0');
+}
+
+function toggleAllModify() {
+  const checkboxes = document.querySelectorAll("input[id^=modify-crm]");
+  const allOn = Array.from(checkboxes).every(cb => cb.checked);
+  checkboxes.forEach(cb => {
+    if (allOn && cb.checked) cb.click();
+    else if (!allOn && !cb.checked) cb.click();
+  });
+  const newState = !allOn;
+  const fb = document.getElementById("float-modify-btn");
+  if (fb) {
+    fb.textContent = newState ? "☒ 전체 OFF" : "☑ 수정필요 전체 ON";
+    fb.classList.toggle("all-on", newState);
+  }
 }
 
 function decide(campaignId, type) {
@@ -463,6 +519,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   loadTeamData();
+    // 수정필요 토글 상태 복원
+    document.querySelectorAll("input[id^=modify-crm]").forEach(cb => {
+      const campaignId = cb.id.replace('modify-', '');
+      const saved = localStorage.getItem('alimtalk_meariset_modify_' + campaignId);
+      if (saved === '1' && !cb.checked) cb.click();
+    });
+
 
   // Auto-save to localStorage on typing
   editables.forEach((el, idx) => {
@@ -515,5 +578,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<button id="float-modify-btn" onclick="toggleAllModify()">☑ 수정필요 전체 ON</button>
 </body>
 </html>
