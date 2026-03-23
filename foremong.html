@@ -853,7 +853,7 @@
       <div class="label">기존 캠페인</div>
     </div>
     <div class="summary-card">
-      <div class="num">+1</div>
+      <div class="num">+4</div>
       <div class="label">신규 캠페인 제안</div>
     </div>
     <div class="summary-card">
@@ -2600,6 +2600,239 @@
   </div>
 
 
+<!-- 정품등록 시스템 알림톡 -->
+  <div class="section-title">정품등록 시스템 알림톡 (자동발송 신규)</div>
+
+  <div data-campaign="campaign-14" class="campaign-card" onclick="this.classList.toggle('open')">
+    <div class="campaign-header">
+      <div class="left">
+        <div class="num-badge" style="background:#2d5016;">NEW</div>
+        <span class="name">정품등록 완료</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-14" onchange="toggleModify('campaign-14', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-14').click();"></span>
+          <label for="modify-campaign-14" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">정품등록 즉시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)<br><br>
+              정품등록 후 고객 확인 수단 없음.<br>
+              A/S 보증 기간도 안내 안 됨.
+            </div>
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white" contenteditable="true">
+              #{고객명}님, 포레몽 정품 등록이<br>
+              완료되었습니다! 🎉<br><br>
+              포레몽과 함께 해주셔서 감사해요.<br>
+              끝까지 책임지겠습니다.<br><br>
+              🛡 무상 A/S 1년 → 2년 보장<br>
+              #{보증만료일}까지 안심하고<br>
+              사용하세요.<br><br>
+              A/S 문의는 언제든지<br>
+              포레몽 채널로 연락해 주세요.
+              <div class="btn-group">
+                <div class="btn">채널추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 발송 조건</div>
+            <div class="url-row">
+              <span class="url-btn-label">발송 시점</span>
+              <span class="url-suggest">register.foremong.com 정품등록 완료 즉시</span>
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">변수</span>
+              <span class="url-suggest">etc1=고객명, etc2=보증만료일 (YYYY년 MM월 DD일)</span>
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">채널추가</span>
+              <span class="url-suggest">http://pf.kakao.com/_AUhMK/friend</span>
+            </div>
+            <div class="url-note">알마니 스마트스토어 채널 · 검수 대기 중</div>
+          </div>
+        </div>
+      </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-14', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-14', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-14', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <div data-campaign="campaign-15" class="campaign-card" onclick="this.classList.toggle('open')">
+    <div class="campaign-header">
+      <div class="left">
+        <div class="num-badge" style="background:#2d5016;">NEW</div>
+        <span class="name">포토리뷰 유도 (+7일)</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-15" onchange="toggleModify('campaign-15', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-15').click();"></span>
+          <label for="modify-campaign-15" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">정품등록 +7일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)<br><br>
+              정품등록 시스템과 별개로<br>
+              카페24 알림톡에서 리뷰 유도하나<br>
+              정품등록 고객 대상 타겟 불가.
+            </div>
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white" contenteditable="true">
+              #{고객명}님, 포레몽 온수매트는<br>
+              잘 사용하고 계신가요? 🔥<br><br>
+              #{제품명} 구매 후 7일이 지났어요.<br><br>
+              📸 포토리뷰 남기시면<br>
+              세탁망(9,900원 상당)을<br>
+              무료로 드려요!<br><br>
+              소중한 사용 후기가 더 많은 분들께<br>
+              따뜻함을 전하는 데 큰 힘이 됩니다 🙏<br><br>
+              리뷰 혜택 받는 방법은<br>
+              포레몽 카카오채널에서 확인해 주세요.
+              <div class="btn-group">
+                <div class="btn">채널추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 발송 조건</div>
+            <div class="url-row">
+              <span class="url-btn-label">발송 시점</span>
+              <span class="url-suggest">정품등록 D+7, 리뷰 미제출 + 마케팅 동의자</span>
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">변수</span>
+              <span class="url-suggest">etc1=고객명, etc2=제품명</span>
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">채널추가</span>
+              <span class="url-suggest">http://pf.kakao.com/_AUhMK/friend</span>
+            </div>
+            <div class="url-note">알마니 스마트스토어 채널 · 검수 신청 예정</div>
+          </div>
+        </div>
+      </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-15', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-15', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-15', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <div data-campaign="campaign-16" class="campaign-card" onclick="this.classList.toggle('open')">
+    <div class="campaign-header">
+      <div class="left">
+        <div class="num-badge" style="background:#2d5016;">NEW</div>
+        <span class="name">A/S 보증 만료 안내 (D-30)</span>
+        <span class="impact mid">MID</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-16" onchange="toggleModify('campaign-16', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-16').click();"></span>
+          <label for="modify-campaign-16" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">보증만료 D-30</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)<br><br>
+              A/S 만료 인지 못하고 분쟁 발생.<br>
+              장기 CRM 접점 부재.
+            </div>
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white" contenteditable="true">
+              #{고객명}님, 포레몽 온수매트<br>
+              A/S 보증이 30일 후 만료됩니다. 🛡<br><br>
+              📅 보증 만료일: #{보증만료일}<br><br>
+              만료 전 불편하신 점이 있으시면<br>
+              포레몽 카카오채널로 언제든 연락주세요.<br>
+              구매 후에도 끝까지 책임지겠습니다. 🔥
+              <div class="btn-group">
+                <div class="btn">채널추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 발송 조건</div>
+            <div class="url-row">
+              <span class="url-btn-label">발송 시점</span>
+              <span class="url-suggest">보증만료 D-30, 마케팅 동의자 (매일 KST 10:00 자동)</span>
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">변수</span>
+              <span class="url-suggest">etc1=고객명, etc2=보증만료일 (YYYY년 MM월 DD일)</span>
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">채널추가</span>
+              <span class="url-suggest">http://pf.kakao.com/_AUhMK/friend</span>
+            </div>
+            <div class="url-note">알마니 스마트스토어 채널 · 검수 대기 중 · KPI: 장기 CRM 접점</div>
+          </div>
+        </div>
+      </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-16', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-16', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-16', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
 <!-- 성과 추적 -->
   <div class="section-title">성과 추적 체계 (신규 도입)</div>
   <div style="background:white; border-radius:16px; padding:24px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:24px;">
@@ -2622,14 +2855,17 @@
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">구매확정 유도</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>구매확정율</b></td></tr>
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">리뷰 유도 (+7일)</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>리뷰 작성율</b></td></tr>
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">한달 리뷰 (+30일)</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>장기 리뷰율</b></td></tr>
-        <tr><td style="padding:10px 12px;" colspan="6" style="color:#999; font-size:12px;">취소/교환/반품 6개: 핵심 KPI = 의견 수집율, 윈백 전환율</td></tr>
+        <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;" colspan="6" style="color:#999; font-size:12px;">취소/교환/반품 6개: 핵심 KPI = 의견 수집율, 윈백 전환율</td></tr>
+        <tr style="background:#f0faf0;"><td style="padding:10px 12px; border-bottom:1px solid #eee;">정품등록 완료 <small>(NEW)</small></td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>채널추가율</b></td></tr>
+        <tr style="background:#f0faf0;"><td style="padding:10px 12px; border-bottom:1px solid #eee;">포토리뷰 유도 D+7 <small>(NEW)</small></td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>리뷰 전환율</b></td></tr>
+        <tr style="background:#f0faf0;"><td style="padding:10px 12px; border-bottom:1px solid #eee;">A/S 만료 D-30 <small>(NEW)</small></td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;">장기 CRM 접점</td></tr>
       </tbody>
     </table>
     <p style="margin-top:16px; font-size:12px; color:#888;">※ 알마니센터 데이터 기반 월 1회 리뷰 권장. 측정 시작 후 1개월 뒤 첫 성과 비교 가능.</p>
   </div>
 
   <div class="footer">
-    포레몽 알림톡 CX 개선안 · 2026-03-16 · 그로밋팀
+    포레몽 알림톡 CX 개선안 · 2026-03-24 · 그로밋팀
   </div>
 </div>
 
