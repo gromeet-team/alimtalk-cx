@@ -3130,17 +3130,22 @@
   }
 
   function toggleAllModify() {
-    const btn = document.getElementById("toggle-modify-btn");
     const checkboxes = document.querySelectorAll("input[id^=modify-campaign]");
     const allOn = Array.from(checkboxes).every(cb => cb.checked);
+    // allOn이면 전체 끄기, 아니면 전체 켜기
     checkboxes.forEach(cb => {
-      if (cb.checked !== !allOn) cb.click();
+      if (allOn && cb.checked) cb.click();
+      else if (!allOn && !cb.checked) cb.click();
     });
-    btn.textContent = allOn ? "☑ 수정필요 전체 ON" : "☒ 수정필요 전체 OFF";
+    const newState = !allOn;
+    const label = newState ? "☒ 수정필요 전체 OFF" : "☑ 수정필요 전체 ON";
+    const floatLabel = newState ? "☒ 전체 OFF" : "☑ 전체 ON";
+    const btn = document.getElementById("toggle-modify-btn");
+    if (btn) btn.textContent = label;
     const fb = document.getElementById("float-modify-btn");
     if (fb) {
-      fb.textContent = allOn ? "☑ 전체 ON" : "☒ 전체 OFF";
-      fb.classList.toggle("all-on", !allOn);
+      fb.textContent = floatLabel;
+      fb.classList.toggle("all-on", newState);
     }
   }
 </script>
