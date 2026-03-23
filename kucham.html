@@ -760,30 +760,26 @@
 
 
   /* 모바일 플로팅 수정필요 전체토글 버튼 */
+  /* 플로팅 수정필요 전체토글 버튼 (데스크탑+모바일 공통) */
   #float-modify-btn {
-    display: none;
+    display: block;
+    position: fixed;
+    bottom: 80px;
+    left: 24px;
+    z-index: 999;
+    padding: 10px 20px;
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    white-space: nowrap;
   }
-  @media (max-width: 768px) {
-    #float-modify-btn {
-      display: block;
-      position: fixed;
-      bottom: 80px;
-      left: 16px;
-      z-index: 999;
-      padding: 10px 16px;
-      background: #f59e0b;
-      color: white;
-      border: none;
-      border-radius: 24px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.25);
-      white-space: nowrap;
-    }
-    #float-modify-btn.all-on {
-      background: #ef4444;
-    }
+  #float-modify-btn.all-on {
+    background: #ef4444;
   }
 </style>
 </head>
@@ -835,74 +831,6 @@
     <div class="summary-card">
       <div class="num">12/12</div>
       <div class="label">버튼 CTA 통일</div>
-    </div>
-  </div>
-
-  <!-- 고객 여정 맵 -->
-  <div class="section-title">고객 여정 (Customer Journey)</div>
-  <div class="journey" style="background:white; border-radius:12px; margin-bottom:24px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
-    <div class="journey-step active">결제완료</div>
-    <div class="journey-arrow">&rarr;</div>
-    <div class="journey-step active">배송시작</div>
-    <div class="journey-arrow">&rarr;</div>
-    <div class="journey-step active">배송완료</div>
-    <div class="journey-arrow">&rarr;</div>
-    <div class="journey-step new-step">사용확인<br><small>+3일 NEW</small></div>
-    <div class="journey-arrow">&rarr;</div>
-    <div class="journey-step active">구매확정 유도<br><small>+7일</small></div>
-    <div class="journey-arrow">&rarr;</div>
-    <div class="journey-step active">리뷰 유도<br><small>+14일</small></div>
-  </div>
-
-  <!-- 개선 원칙 -->
-  <div class="section-title">적용 개선 원칙 (3단계)</div>
-  <div style="font-size:13px; color:#666; margin:-8px 0 16px; padding:0 4px;">우선순위별 단계 적용 — 1단계부터 순차 실행, 3단계는 캠페인별 판단</div>
-
-  <div style="margin-bottom:12px;">
-    <div style="background:#c44; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">1단계 — 즉시 적용 (정보 정확성)</div>
-  </div>
-  <div class="principles" style="border-left:3px solid #c44; padding-left:12px; margin-bottom:24px;">
-    <div class="principle">
-      <span class="tag" style="background:#c44;">필수</span>
-      <h3>버튼 CTA 우선순위 통일</h3>
-      <p>1번: 핵심 행동(주문확인/배송조회/사용가이드) &rarr; 2번: 보조 행동 &rarr; 3번: 채널추가. 현재 채널추가가 1번인 캠페인 수정.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#c44;">필수</span>
-      <h3>제품 스펙 나열 최소화</h3>
-      <p>결제완료 시점의 하루 17kg, 6분 9개, SUS304 등 스펙 나열 과다 &rarr; 핵심 주문정보만 전달. 스펙은 사용가이드 랜딩으로 이동.</p>
-    </div>
-  </div>
-
-  <div style="margin-bottom:12px;">
-    <div style="background:#e8a020; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">2단계 — 구조 개선 (타이밍 최적화)</div>
-  </div>
-  <div class="principles" style="border-left:3px solid #e8a020; padding-left:12px; margin-bottom:24px;">
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>초기 세팅 안내 적시 배치</h3>
-      <p>제빙기 초기 세팅(평평한 곳 설치 &rarr; 물 채우기 &rarr; 2~3일 연속 가동) 안내를 배송완료 시점에 집중 배치. 배송시작에서는 사전 예고만.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>구매확정 &harr; 리뷰 분리</h3>
-      <p>구매확정 유도 시점에서 리뷰 요청 제거. 구매확정만 집중 &rarr; +7일 캠페인에서 리뷰 전담.</p>
-    </div>
-    <div class="principle">
-      <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>사용확인 터치포인트 추가</h3>
-      <p>배송완료 +3일 "얼음은 잘 만들어지고 있나요?" 메시지 신설. 초기 사용 문제(소음, 얼음 크기) CS 선제 대응.</p>
-    </div>
-  </div>
-
-  <div style="margin-bottom:12px;">
-    <div style="background:#7b61ff; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">3단계 — 캠페인별 판단 (톤 조정)</div>
-  </div>
-  <div class="principles" style="border-left:3px solid #7b61ff; padding-left:12px; margin-bottom:24px;">
-    <div class="principle">
-      <span class="tag" style="background:#7b61ff;">판단</span>
-      <h3>반복 제거 + 핵심 감성 1줄 집중</h3>
-      <p>장황한 제품 홍보/사용법 설명 반복 제거. 감성을 없애는 게 아니라 가장 기억에 남는 한 줄로 압축. "올 스테인리스로 만든 깨끗한 얼음" 한 문장이 스펙 나열보다 효과적.</p>
     </div>
   </div>
 
@@ -2339,6 +2267,75 @@
     <p style="margin-top:16px; font-size:12px; color:#888;">※ 알마니센터 데이터 기반 월 1회 리뷰 권장. 측정 시작 후 1개월 뒤 첫 성과 비교 가능.</p>
   </div>
 
+  <!-- 고객 여정 맵 -->
+  <div class="section-title">고객 여정 (Customer Journey)</div>
+  <div class="journey" style="background:white; border-radius:12px; margin-bottom:24px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+    <div class="journey-step active">결제완료</div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-step active">배송시작</div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-step active">배송완료</div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-step new-step">사용확인<br><small>+3일 NEW</small></div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-step active">구매확정 유도<br><small>+7일</small></div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-step active">리뷰 유도<br><small>+14일</small></div>
+  </div>
+
+  <!-- 개선 원칙 -->
+  <div class="section-title">적용 개선 원칙 (3단계)</div>
+  <div style="font-size:13px; color:#666; margin:-8px 0 16px; padding:0 4px;">우선순위별 단계 적용 — 1단계부터 순차 실행, 3단계는 캠페인별 판단</div>
+
+  <div style="margin-bottom:12px;">
+    <div style="background:#c44; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">1단계 — 즉시 적용 (정보 정확성)</div>
+  </div>
+  <div class="principles" style="border-left:3px solid #c44; padding-left:12px; margin-bottom:24px;">
+    <div class="principle">
+      <span class="tag" style="background:#c44;">필수</span>
+      <h3>버튼 CTA 우선순위 통일</h3>
+      <p>1번: 핵심 행동(주문확인/배송조회/사용가이드) &rarr; 2번: 보조 행동 &rarr; 3번: 채널추가. 현재 채널추가가 1번인 캠페인 수정.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#c44;">필수</span>
+      <h3>제품 스펙 나열 최소화</h3>
+      <p>결제완료 시점의 하루 17kg, 6분 9개, SUS304 등 스펙 나열 과다 &rarr; 핵심 주문정보만 전달. 스펙은 사용가이드 랜딩으로 이동.</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="background:#e8a020; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">2단계 — 구조 개선 (타이밍 최적화)</div>
+  </div>
+  <div class="principles" style="border-left:3px solid #e8a020; padding-left:12px; margin-bottom:24px;">
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>초기 세팅 안내 적시 배치</h3>
+      <p>제빙기 초기 세팅(평평한 곳 설치 &rarr; 물 채우기 &rarr; 2~3일 연속 가동) 안내를 배송완료 시점에 집중 배치. 배송시작에서는 사전 예고만.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>구매확정 &harr; 리뷰 분리</h3>
+      <p>구매확정 유도 시점에서 리뷰 요청 제거. 구매확정만 집중 &rarr; +7일 캠페인에서 리뷰 전담.</p>
+    </div>
+    <div class="principle">
+      <span class="tag" style="background:#e8a020;">구조</span>
+      <h3>사용확인 터치포인트 추가</h3>
+      <p>배송완료 +3일 "얼음은 잘 만들어지고 있나요?" 메시지 신설. 초기 사용 문제(소음, 얼음 크기) CS 선제 대응.</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom:12px;">
+    <div style="background:#7b61ff; color:white; display:inline-block; padding:4px 12px; border-radius:8px 8px 0 0; font-size:12px; font-weight:bold;">3단계 — 캠페인별 판단 (톤 조정)</div>
+  </div>
+  <div class="principles" style="border-left:3px solid #7b61ff; padding-left:12px; margin-bottom:24px;">
+    <div class="principle">
+      <span class="tag" style="background:#7b61ff;">판단</span>
+      <h3>반복 제거 + 핵심 감성 1줄 집중</h3>
+      <p>장황한 제품 홍보/사용법 설명 반복 제거. 감성을 없애는 게 아니라 가장 기억에 남는 한 줄로 압축. "올 스테인리스로 만든 깨끗한 얼음" 한 문장이 스펙 나열보다 효과적.</p>
+    </div>
+  </div>
+
+
   <div class="footer">
     쿠참 알림톡 CX 개선안 &middot; 2026-03-17 &middot; 그로밋팀
   </div>
@@ -2426,6 +2423,8 @@
     } else {
       card.classList.remove('needs-modify');
     }
+    // localStorage에 토글 상태 저장
+    localStorage.setItem(`alimtalk_kucham_modify_${campaignId}`, checkbox.checked ? '1' : '0');
     updateModifyCount();
   }
 
@@ -2500,6 +2499,12 @@
     }
 
     loadTeamData();
+    // 수정필요 토글 상태 복원 (localStorage)
+    document.querySelectorAll("input[id^=modify-campaign]").forEach(cb => {
+      const campaignId = cb.id.replace('modify-', '');
+      const saved = localStorage.getItem(`alimtalk_kucham_modify_${campaignId}`);
+      if (saved === '1' && !cb.checked) cb.click();
+    });
 
     // 타이핑할 때마다 localStorage에 즉시 저장
     editables.forEach((el, idx) => {
