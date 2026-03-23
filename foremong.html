@@ -2949,6 +2949,8 @@
     } else {
       card.classList.remove('needs-modify');
     }
+    // localStorage에 토글 상태 저장
+    localStorage.setItem(`alimtalk_foremong_modify_${campaignId}`, checkbox.checked ? '1' : '0');
     updateModifyCount();
   }
 
@@ -3023,6 +3025,13 @@
     }
 
     loadTeamData();
+
+    // 수정필요 토글 상태 복원 (localStorage)
+    document.querySelectorAll("input[id^=modify-campaign]").forEach(cb => {
+      const campaignId = cb.id.replace('modify-', '');
+      const saved = localStorage.getItem(`alimtalk_foremong_modify_${campaignId}`);
+      if (saved === '1' && !cb.checked) cb.click();
+    });
 
     // 타이핑할 때마다 localStorage에 즉시 저장
     editables.forEach((el, idx) => {
