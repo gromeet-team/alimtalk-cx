@@ -866,8 +866,8 @@
   <div class="section-title">캠페인별 전 / 후 비교</div>
 
   <!-- 1. 결제완료 -->
-  <div data-campaign="campaign-1" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-1" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">1</div>
         <span class="name">결제완료</span>
@@ -884,7 +884,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1020,8 +1020,8 @@
   </div>
 
   <!-- 2. 배송시작 -->
-  <div data-campaign="campaign-2" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-2" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">2</div>
         <span class="name">배송시작</span>
@@ -1038,7 +1038,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1166,8 +1166,8 @@
   </div>
 
   <!-- 3. 배송완료 -->
-  <div data-campaign="campaign-3" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-3" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">3</div>
         <span class="name">배송완료</span>
@@ -1184,7 +1184,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1302,8 +1302,8 @@
   </div>
 
   <!-- 4. 설치확인 (NEW) -->
-  <div data-campaign="campaign-4" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-4" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#e8a020;">N</div>
         <span class="name">설치확인</span>
@@ -1320,7 +1320,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label" style="color:#999;">⬜ 기존: 없음</div>
@@ -1388,8 +1388,8 @@
   </div>
 
   <!-- 5. 구매확정 유도 -->
-  <div data-campaign="campaign-5" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-5" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">4</div>
         <span class="name">구매확정 유도</span>
@@ -1406,7 +1406,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1528,8 +1528,8 @@
   </div>
 
   <!-- 6. 리뷰 유도 (+7일) -->
-  <div data-campaign="campaign-6" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-6" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">5</div>
         <span class="name">리뷰 유도 (배송+7일)</span>
@@ -1546,7 +1546,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1697,8 +1697,8 @@
   </div>
 
   <!-- 7. 한달 리뷰 (+30일) -->
-  <div data-campaign="campaign-7" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-7" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">6</div>
         <span class="name">한달 리뷰 (배송+30일)</span>
@@ -1715,7 +1715,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1834,8 +1834,8 @@
 
   <!-- 8~12: 취소/교환/반품 (6개 개별 캠페인) -->
   <!-- 8-13: 취소/교환/반품 (6개 개별 캠페인) -->
-    <div data-campaign="campaign-8" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+    <div data-campaign="campaign-8" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#c44;">7</div>
         <span class="name">취소요청</span>
@@ -1852,7 +1852,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -1945,8 +1945,8 @@
   </div>
 
 
-  <div data-campaign="campaign-9" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-9" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#c44;">8</div>
         <span class="name">취소완료</span>
@@ -1963,7 +1963,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -2057,8 +2057,8 @@
   </div>
 
 
-  <div data-campaign="campaign-10" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-10" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#e88a00;">9</div>
         <span class="name">교환요청</span>
@@ -2075,7 +2075,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -2174,8 +2174,8 @@
   </div>
 
 
-  <div data-campaign="campaign-11" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-11" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#e88a00;">10</div>
         <span class="name">교환완료</span>
@@ -2192,7 +2192,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -2297,8 +2297,8 @@
   </div>
 
 
-  <div data-campaign="campaign-12" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-12" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#7b61ff;">11</div>
         <span class="name">반품요청</span>
@@ -2315,7 +2315,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -2418,8 +2418,8 @@
   </div>
 
 
-  <div data-campaign="campaign-13" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-13" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#7b61ff;">12</div>
         <span class="name">반품완료</span>
@@ -2436,7 +2436,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">❌ BEFORE</div>
@@ -2536,8 +2536,8 @@
 <!-- 정품등록 시스템 알림톡 -->
   <div class="section-title">정품등록 시스템 알림톡 (자동발송 신규)</div>
 
-  <div data-campaign="campaign-14" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-14" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#2d5016;">NEW</div>
         <span class="name">정품등록 완료</span>
@@ -2553,7 +2553,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">📋 기존</div>
@@ -2614,8 +2614,8 @@
   </div>
 
 
-  <div data-campaign="campaign-16" class="campaign-card" onclick="this.classList.toggle('open')">
-    <div class="campaign-header">
+  <div data-campaign="campaign-16" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge" style="background:#2d5016;">NEW</div>
         <span class="name">A/S 보증 만료 안내 (D-30)</span>
@@ -2631,7 +2631,7 @@
         <span class="arrow">▼</span>
       </div>
     </div>
-    <div class="campaign-body">
+    <div class="campaign-body" onclick="event.stopPropagation()">
       <div class="comparison">
         <div class="before">
           <div class="col-label">📋 기존</div>
