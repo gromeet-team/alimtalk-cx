@@ -274,15 +274,16 @@
     min-width: 100px;
     white-space: nowrap;
   }
-  .after-url-box .url-suggest {
-    flex: 1;
-    font-size: 11px;
+
+  .after-url-box .url-input {
     color: #15803d;
-    background: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid #86efac;
-    word-break: break-all;
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+  }
+  .after-url-box .url-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.15);
+    outline: none;
   }
   .after-url-box .url-note {
     font-size: 10px;
@@ -759,7 +760,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">주문내역 확인하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">결제 직후 — 주문 확인이 최우선, 브랜드 홍보는 배송시작으로 이동</div>
           </div>
@@ -862,7 +863,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">배송조회 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 시점 — 배송 정보 전달에 집중, 사용 TIP은 배송완료 후로 이동</div>
           </div>
@@ -964,7 +965,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">구매확정 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">구매확정에만 집중 — 리뷰는 별도 캠페인(+7일)으로 분리</div>
           </div>
@@ -1058,7 +1059,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">리뷰 작성하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 +7일 — 사용 경험이 축적된 적정 시점에 리뷰 단독 요청</div>
           </div>
@@ -1151,7 +1152,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">한달 후기 작성하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 +30일 — 장기 사용 후기 + 사용팁 리마인드로 재구매 연결</div>
           </div>
@@ -1259,7 +1260,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">취소 현황 확인</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
           </div>
           <ul class="issues">
@@ -1363,7 +1364,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">주문내역 확인</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
           </div>
           <ul class="issues">
@@ -1469,7 +1470,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">교환 현황 확인</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
           </div>
           <ul class="issues">
@@ -1570,7 +1571,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">배송조회 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
           </div>
           <ul class="issues">
@@ -1675,7 +1676,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">반품 현황 확인</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
           </div>
           <ul class="issues">
@@ -1777,7 +1778,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">주문내역 확인</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
           </div>
           <ul class="issues">

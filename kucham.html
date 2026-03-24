@@ -659,15 +659,16 @@
     min-width: 100px;
     white-space: nowrap;
   }
-  .after-url-box .url-suggest {
-    flex: 1;
-    font-size: 11px;
+
+  .after-url-box .url-input {
     color: #15803d;
-    background: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid #86efac;
-    word-break: break-all;
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+  }
+  .after-url-box .url-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.15);
+    outline: none;
   }
   .after-url-box .url-note {
     font-size: 10px;
@@ -741,15 +742,16 @@
     min-width: 100px;
     white-space: nowrap;
   }
-  .after-url-box .url-suggest {
-    flex: 1;
-    font-size: 11px;
+
+  .after-url-box .url-input {
     color: #15803d;
-    background: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    border: 1px solid #86efac;
-    word-break: break-all;
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+  }
+  .after-url-box .url-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.15);
+    outline: none;
   }
   .after-url-box .url-note {
     font-size: 10px;
@@ -949,11 +951,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">주문내역 확인하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널 추가</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">네이버페이 주문내역 유지</div>
           </div>
@@ -1067,11 +1069,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">배송조회 바로가기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널 추가</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송조회 네이버페이 유지</div>
           </div>
@@ -1188,15 +1190,15 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">사용가이드 보기</span>
-              <span class="url-suggest">https://alimtalk-cx.vercel.app/kucham-faq.html</span>
+              <input type="text" class="url-input" value="https://alimtalk-cx.vercel.app/kucham-faq.html" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">문의하기</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">구매확정 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">사용가이드 → FAQ 페이지 / 구매확정 → 네이버페이</div>
           </div>
@@ -1294,11 +1296,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">FAQ 바로가기</span>
-              <span class="url-suggest">https://alimtalk-cx.vercel.app/kucham-faq.html</span>
+              <input type="text" class="url-input" value="https://alimtalk-cx.vercel.app/kucham-faq.html" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">문의하기</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">사용 3일차 — CS 선제 대응 랜딩</div>
           </div>
@@ -1411,11 +1413,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">구매확정 하기</span>
-              <span class="url-suggest">https://new-m.pay.naver.com/</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">문의하기</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">구매확정 CTA 1순위</div>
           </div>
@@ -1519,11 +1521,11 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">리뷰 작성하기</span>
-              <span class="url-suggest">https://shopping.naver.com/my/writable-reviews</span>
+              <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널</span>
-              <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">리뷰 URL → 스마트스토어 리뷰</div>
           </div>
@@ -1609,15 +1611,15 @@
               <div class="url-box-title">💡 제안 랜딩 URL</div>
               <div class="url-row">
                 <span class="url-btn-label">한달 후기 작성하기</span>
-                <span class="url-suggest">https://shopping.naver.com/my/writable-reviews</span>
+                <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">재구매 바로가기</span>
-                <span class="url-suggest">(스마트스토어 상품 페이지 URL)</span>
+                <input type="text" class="url-input" value="(스마트스토어 상품 페이지 URL)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-note">✅ 리뷰 URL: 네이버 모바일 리뷰 작성 페이지 (전 상품 공통) · 재구매 → 스마트스토어 상품 페이지</div>
             </div>
@@ -1722,11 +1724,11 @@
             <div class="url-box-title">💡 취소요청 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">주문내역 확인</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -1835,11 +1837,11 @@
             <div class="url-box-title">💡 취소완료 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">의견 남기기</span>
-                <span class="url-suggest">(의견 수집 폼 URL)</span>
+                <input type="text" class="url-input" value="(의견 수집 폼 URL)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -1950,11 +1952,11 @@
             <div class="url-box-title">💡 교환요청 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">주문내역 확인</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -2061,11 +2063,11 @@
             <div class="url-box-title">💡 교환완료 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">배송조회 바로가기</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
             <div class="url-note">기존 템플릿에 FAQ 링크 미삽입 상태 | </div>
           </div>
@@ -2186,11 +2188,11 @@
             <div class="url-box-title">💡 반품요청 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">주문내역 확인</span>
-                <span class="url-suggest">https://new-m.pay.naver.com/</span>
+                <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">1:1 문의하기</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
             <div class="url-note">기존 버튼: 채널추가(WL) · 주문내역(네이버페이) | </div>
           </div>
@@ -2303,11 +2305,11 @@
             <div class="url-box-title">💡 반품완료 랜딩 URL</div>
             <div class="url-row">
                 <span class="url-btn-label">의견 남기기</span>
-                <span class="url-suggest">(의견 수집 폼 URL)</span>
+                <input type="text" class="url-input" value="(의견 수집 폼 URL)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
-                <span class="url-suggest">http://pf.kakao.com/_JUbqK</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
             <div class="url-note"></div>
           </div>
