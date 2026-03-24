@@ -2727,6 +2727,150 @@
 </div>
 
 
+  <!-- 14. 정품등록 완료 알림 -->
+  <div data-campaign="campaign-14" class="campaign-card" onclick="this.classList.toggle('open')">
+    <div class="campaign-header">
+      <div class="left">
+        <div class="num-badge" style="background:#2d5016;">NEW</div>
+        <span class="name">정품등록 완료 알림</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-14" onchange="toggleModify('campaign-14', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-14').click();"></span>
+          <label for="modify-campaign-14" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">정품등록 직후</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)<br><br>
+              정품등록 시스템 없음.<br>
+              register.kucham.kr 구축 예정.
+            </div>
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white" contenteditable="true">
+              #{고객명}님, 쿠참 제빙기<br>
+              정품 등록이 완료되었습니다! 🧊<br><br>
+              믿고 선택해 주셔서 감사해요.<br>
+              끝까지 책임지겠습니다.<br><br>
+              🛡 무상 A/S <b>1년 보장</b><br>
+              #{보증만료일}까지 안심하고<br>
+              사용하세요.<br><br>
+              A/S 문의는 언제든지<br>
+              쿠참 카카오채널로 연락해 주세요.
+              <div class="btn-group">
+                <div class="btn">채널추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 발송 조건 / 변수</div>
+            <div class="url-row">
+              <span class="url-btn-label">발송 시점</span>
+              <input type="text" class="url-input" value="정품등록 완료 즉시" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">변수</span>
+              <input type="text" class="url-input" value="etc1=고객명, etc2=보증만료일 (YYYY년 MM월 DD일)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">채널추가</span>
+              <input type="text" class="url-input" value="쿠참 카카오채널 URL (등록 후 입력)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">알마니 검수 신청 필요 — cpId 확인 후 시스템 반영</div>
+          </div>
+          <ul class="change-list">
+            <li>정품등록 완료 즉시 보증기간 명시 → 고객 신뢰 + A/S 분쟁 예방</li>
+            <li>포레몽 정품등록 템플릿 (4942) 구조 동일 적용</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 15. AS만료 D-30 알림 -->
+  <div data-campaign="campaign-15" class="campaign-card" onclick="this.classList.toggle('open')">
+    <div class="campaign-header">
+      <div class="left">
+        <div class="num-badge" style="background:#2d5016;">NEW</div>
+        <span class="name">AS만료 알림 (D-30)</span>
+        <span class="impact mid">MID</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-15" onchange="toggleModify('campaign-15', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-15').click();"></span>
+          <label for="modify-campaign-15" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">보증만료 D-30</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)
+            </div>
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white" contenteditable="true">
+              #{고객명}님, 쿠참 제빙기<br>
+              A/S 보증이 30일 후 만료됩니다. 🧊<br><br>
+              🛡 보증 만료일: #{보증만료일}<br><br>
+              만료 전 불편하신 점이 있으시면<br>
+              쿠참 카카오채널로 언제든 연락주세요.<br><br>
+              구매 후에도 쿠참이<br>
+              끝까지 책임지겠습니다 ❄️
+              <div class="btn-group">
+                <div class="btn">채널추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 발송 조건 / 변수</div>
+            <div class="url-row">
+              <span class="url-btn-label">발송 시점</span>
+              <input type="text" class="url-input" value="보증 만료 D-30 (매일 10:00 KST 크론)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">변수</span>
+              <input type="text" class="url-input" value="etc1=고객명, etc2=보증만료일 (YYYY년 MM월 DD일)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">알마니 검수 신청 필요 — cpId 확인 후 시스템 반영</div>
+          </div>
+          <ul class="change-list">
+            <li>만료 전 선제적 CS 유도 → 부정 리뷰 방지</li>
+            <li>포레몽 AS만료 템플릿 (4853) 구조 동일 적용</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <button id="float-modify-btn" onclick="toggleAllModify()">☑ 수정필요 전체 ON</button>
 </body>
 </html>
