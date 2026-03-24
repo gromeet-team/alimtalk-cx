@@ -159,6 +159,7 @@
   }
   @media (max-width: 768px) {
     .compare-grid { grid-template-columns: 1fr; }
+    .phone { width: 100%; }
   }
 
   .col-label {
@@ -173,29 +174,13 @@
   .col-label.after { color: #16a34a; }
 
   .before-col {
-    background: #fff;
-    border: 1px solid #fecaca;
-    border-radius: 8px;
-    padding: 16px;
-    font-size: 14px;
-    line-height: 1.7;
     white-space: pre-wrap;
-    color: #444;
   }
 
   .after-col {
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    border-radius: 8px;
-    padding: 16px;
-    font-size: 14px;
-    line-height: 1.7;
     min-height: 120px;
     outline: none;
-    transition: outline 0.2s;
-  }
-  .after-col:focus {
-    outline: 2px solid #22c55e;
+    white-space: pre-wrap;
   }
 
   /* Decision bar */
@@ -234,6 +219,80 @@
   #team-share-btn:hover { background: #16a34a; }
 
   .hidden { display: none !important; }
+
+  /* Phone mockup */
+  .phone {
+    width: 320px;
+    margin: 0 auto;
+    background: #f7f7f2;
+    border-radius: 24px;
+    border: 2px solid #ddd;
+    padding: 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .phone .kakao-header {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    padding: 6px 0 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+  .phone .msg {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+    word-break: keep-all;
+  }
+  .phone .msg.white {
+    background: white;
+    border: 1px solid #e5e5e5;
+  }
+  .phone .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .phone .btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 9px;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+  }
+  .phone .btn.primary {
+    background: #FF6B35;
+    color: white;
+    border-color: #FF6B35;
+  }
+
+  /* Editable AFTER in phone */
+  .after-col[contenteditable="true"] {
+    outline: none;
+    border: 2px dashed transparent;
+    transition: border-color 0.2s;
+  }
+  .after-col[contenteditable="true"]:focus {
+    border-color: #f59e0b;
+    background: #fffdf7;
+  }
+  .after-col[contenteditable="true"]:hover:not(:focus) {
+    border-color: #e5e7eb;
+  }
+  .edit-hint {
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    margin-top: 4px;
+  }
 
   /* 수정필요 토글 */
   .modify-toggle { display: flex; align-items: center; gap: 6px; }
@@ -611,17 +670,24 @@ function renderCards() {
         <div class="compare-grid">
           <div>
             <div class="col-label before">❌ 현재 (BEFORE)</div>
-            <div class="before-col" id="before-crm-${num}">${beforeHtml}</div>
+            <div class="phone">
+              <div class="kakao-header">카카오 알림톡</div>
+              <div class="msg white before-col" id="before-crm-${num}">${beforeHtml}</div>
+            </div>
           </div>
           <div>
             <div class="col-label after">✅ 개선안 (AFTER)</div>
-            <div class="after-col" contenteditable="true" id="${ceId}"></div>
+            <div class="phone">
+              <div class="kakao-header">카카오 알림톡</div>
+              <div class="msg white after-col" contenteditable="true" id="${ceId}"></div>
+            </div>
+            <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
           </div>
         </div>
         <div class="decision-bar" onclick="event.stopPropagation()">
-          <button class="decision-btn adopt" onclick="decide('${campaignId}','adopt')">채택</button>
-          <button class="decision-btn modify" onclick="decide('${campaignId}','modify')">수정</button>
-          <button class="decision-btn skip" onclick="decide('${campaignId}','skip')">보류</button>
+          <button class="decision-btn adopt" onclick="decide('${campaignId}','adopt')">✅ 채택</button>
+          <button class="decision-btn modify" onclick="decide('${campaignId}','modify')">✏️ 수정</button>
+          <button class="decision-btn skip" onclick="decide('${campaignId}','skip')">⏭️ 보류</button>
         </div>
       </div>
     </div>`;
