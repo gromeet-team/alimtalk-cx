@@ -1691,6 +1691,88 @@
     </div>
   </div>
 
+  <!-- NEW. 10일 관리 안내 (NEW) -->
+  <div data-campaign="campaign-6b" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge" style="background:#e8a020;">N</div>
+        <span class="name">10일 관리 안내</span>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modify-toggle" onclick="event.stopPropagation()">
+            <input type="checkbox" id="modify-campaign-6b" onchange="toggleModify('campaign-6b', this, event)">
+            <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-6b').click();"></span>
+            <label for="modify-campaign-6b" onclick="event.stopPropagation()">수정필요</label>
+          </div>
+        <span class="timing">배송완료 +10일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label" style="color:#999;">⬜ 기존: 없음</div>
+          <div style="text-align:center; padding:60px 20px; color:#999; font-size:14px;">
+            리뷰유도(+7일) → 한달리뷰(+30일) 사이<br>
+            <b>터치포인트 공백 (23일)</b><br><br>
+            온수매트 유지관리 안내 없음<br>
+            물 보충 미안내로 CS 발생 가능
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ NEW 캠페인</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              포레몽 온수매트 따뜻하게<br>
+              잘 사용하고 계신가요? 🌿<br><br>
+              사용하신 지 <b>벌써 10일</b>이 지났어요!<br><br>
+              💧 온수매트를 더 오래, 더 건강하게<br>
+              사용하시려면 정기적인<br>
+              <b>물 관리</b>가 중요합니다.<br><br>
+              아래 영상으로 간단히 확인해 보세요.
+              <div class="btn-group">
+                <div class="btn primary">물 빼는 방법 보기</div>
+                <div class="btn">고객센터 문의</div>
+                <div class="btn">포레몽 채널 추가</div>
+              </div>
+            </div>
+          </div>
+            <div class="after-url-box" onclick="event.stopPropagation()">
+              <div class="url-box-title">💡 제안 랜딩 URL</div>
+              <div class="url-row">
+                <span class="url-btn-label">물 빼는 방법 보기</span>
+                <input type="text" class="url-input" value="https://youtu.be/PrmMdzZ6o2I?si=FkoZK05oT2hhs3ri" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-row">
+                <span class="url-btn-label">고객센터 문의</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_AUhMK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-row">
+                <span class="url-btn-label">포레몽 채널 추가</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_AUhMK/friend" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-note">정기적인 물 관리 안내 — 유지보수 CS 선제 대응 + 장기 브랜드 경험 강화</div>
+            </div>
+          <ul class="issues">
+            <li>+7일 리뷰유도 이후 공백 채움</li>
+            <li>물 관리 안내로 소음/에러 CS 사전 차단</li>
+            <li>장기 만족도 → 재구매 유도 포석</li>
+          </ul>
+        </div>
+      </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-6b', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-6b', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-6b', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 7. 한달 리뷰 (+30일) -->
   <div data-campaign="campaign-7" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
