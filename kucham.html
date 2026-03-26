@@ -1678,22 +1678,21 @@
             <div class="kakao-header">카카오 알림톡</div>
             <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
               #{고객명}님,<br>
-              벌써 한 달이 지났네요! 잘 쓰고 계신가요? ✨<br>
+              쿠참 제빙기와 함께한 지 벌써 한 달이 지났네요. ❄️<br>
               <br>
-              오늘 틈 나실 때 세척 한 번 해주시면 좋을 것 같아요.<br>
+              혹시 바빠서 깜빡하셨을까 봐 연락드려요!<br>
+              📸 포토리뷰 남겨주시면, 쿠참이 준비한 특별 선물<br>
+              [손목 마사지기]를 받아가실 수 있습니다.<br>
               <br>
-              🧊 세척 방법<br>
-              1️⃣ 물탱크에 물 채우기<br>
-              2️⃣ 세척 버튼 누르기 (약 6분)<br>
-              3️⃣ 바닥 배수 마개로 물 빼기<br>
+              잠깐의 시간으로 소중한 내 손목을 위한<br>
+              건강 선물까지 꼭 챙겨가세요!<br>
               <br>
-              한 달 쓰신 솔직한 후기도 남겨주시면<br>
-              좋은 점, 아쉬운 점 모두 읽고 꼭 반영할게요 😊
+              정성스러운 리뷰 하나하나 꼼꼼히 읽고<br>
+              더 좋은 서비스로 보답하겠습니다. 🤍
               
               <div class="btn-group">
                 <div class="btn primary">한달 후기 작성하기</div>
-                <div class="btn">재구매 바로가기</div>
-                <div class="btn">쿠참 채널 추가</div>
+                <div class="btn">사은품 신청하기</div>
               </div>
             </div>
           </div>
@@ -1705,14 +1704,10 @@
                 <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-row">
-                <span class="url-btn-label">재구매 바로가기</span>
-                <input type="text" class="url-input" value="(스마트스토어 상품 페이지 URL)" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+                <span class="url-btn-label">사은품 신청하기</span>
+                <input type="text" class="url-input" value="https://register.kucham.kr/review-claim" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
-              <div class="url-row">
-                <span class="url-btn-label">쿠참 채널 추가</span>
-                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
-              </div>
-              <div class="url-note">✅ 리뷰 URL: 네이버 모바일 리뷰 작성 페이지 (전 상품 공통) · 재구매 → 스마트스토어 상품 페이지</div>
+              <div class="url-note">포토리뷰 사은품 신청 → register.kucham.kr/review-claim</div>
             </div>
           <ul class="issues">
             <li>"스테인리스 얼음의 차이" — 쿠참 USP와 연결</li>
@@ -2625,6 +2620,18 @@
 
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "kucham";
+
+  // 캠페인 순서 변경 시 idx 기반 캐시 충돌 방지
+  (function() {
+    const CACHE_VERSION = "v4";
+    const VER_KEY = `alimtalk_${BRAND}_cache_version`;
+    if (localStorage.getItem(VER_KEY) !== CACHE_VERSION) {
+      Object.keys(localStorage)
+        .filter(k => k.startsWith(`alimtalk_${BRAND}_`))
+        .forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(VER_KEY, CACHE_VERSION);
+    }
+  })();
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
