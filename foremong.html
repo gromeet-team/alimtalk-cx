@@ -3055,6 +3055,14 @@
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "foremong";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
+  const DATA_VERSION = "20260326_v2";
+  // localStorage 버전 체크 — 버전이 바뀌면 기존 캐시 전체 삭제
+  if (localStorage.getItem(`alimtalk_${BRAND}_data_version`) !== DATA_VERSION) {
+    Object.keys(localStorage).forEach(k => {
+      if (k.startsWith(`alimtalk_${BRAND}_`)) localStorage.removeItem(k);
+    });
+    localStorage.setItem(`alimtalk_${BRAND}_data_version`, DATA_VERSION);
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     // 클릭 이벤트 전파 차단
