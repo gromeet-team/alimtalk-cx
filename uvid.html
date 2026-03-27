@@ -2225,9 +2225,19 @@
 
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "uvid";
+  const DATA_VERSION = "2026-03-27-v2";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
+    // 버전 변경 시 localStorage 초기화 (오염 데이터 제거)
+    if (localStorage.getItem(`alimtalk_${BRAND}_data_version`) !== DATA_VERSION) {
+      const keysToRemove = [];
+      for (let k in localStorage) {
+        if (k.startsWith(`alimtalk_${BRAND}_`)) keysToRemove.push(k);
+      }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(`alimtalk_${BRAND}_data_version`, DATA_VERSION);
+    }
     // 클릭 이벤트 전파 차단
     document.querySelectorAll('[contenteditable="true"], input, .before-url-box, .decision-bar').forEach(el => {
       el.addEventListener('click', e => e.stopPropagation());
