@@ -2666,7 +2666,7 @@
 
   // 캠페인 순서 변경 시 idx 기반 캐시 충돌 방지
   (function() {
-    const CACHE_VERSION = "v4";
+    const CACHE_VERSION = "v5";
     const VER_KEY = `alimtalk_${BRAND}_cache_version`;
     if (localStorage.getItem(VER_KEY) !== CACHE_VERSION) {
       Object.keys(localStorage)
@@ -2683,7 +2683,8 @@
       el.addEventListener('click', e => e.stopPropagation());
     });
 
-    const editables = document.querySelectorAll('[contenteditable="true"]');
+    const editables = document.querySelectorAll('[contenteditable="true"]:not([data-title-key])');
+    const titleEditables = document.querySelectorAll('[contenteditable="true"][data-title-key]');
     const urlInputs = document.querySelectorAll('.url-input');
 
     // GitHub에서 팀 공유 데이터 로드 (최신 버전)
@@ -2699,6 +2700,14 @@
             // localStorage fallback
             const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
             if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
+          }
+        });
+        titleEditables.forEach((el) => {
+          const key = el.dataset.titleKey;
+          if (data[key]) el.innerHTML = data[key];
+          else {
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local && local.trim()) el.innerHTML = local;
           }
         });
         urlInputs.forEach((el, idx) => {
@@ -2722,6 +2731,10 @@
           const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
           if (s) el.innerHTML = s;
         });
+        titleEditables.forEach((el) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
+          if (s) el.innerHTML = s;
+        });
         urlInputs.forEach((el, idx) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
           if (s) el.value = s;
@@ -2742,6 +2755,15 @@
       el.addEventListener('input', () => {
         const _html = el.innerHTML.trim(); if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
         el.style.outline = "2px solid #22c55e";
+        clearTimeout(el._saveTimer);
+        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+      });
+    });
+    titleEditables.forEach((el) => {
+      el.addEventListener('input', () => {
+        const _html = el.innerHTML.trim();
+        if (_html) localStorage.setItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`, _html);
+        el.style.outline = "2px solid #2196f3";
         clearTimeout(el._saveTimer);
         el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
       });
@@ -2773,6 +2795,7 @@
 
       const changes = {};
       editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
+      titleEditables.forEach((el) => { changes[el.dataset.titleKey] = el.innerHTML; });
       urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
       document.querySelectorAll(".campaign-card").forEach((card, idx) => {
         const sel = card.querySelector(".decision-btn.selected");
