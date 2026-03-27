@@ -2233,7 +2233,7 @@
       el.addEventListener('click', e => e.stopPropagation());
     });
 
-    const editables = document.querySelectorAll('[contenteditable="true"]');
+    const editables = document.querySelectorAll('[contenteditable="true"]:not([data-title-key])');
     const urlInputs = document.querySelectorAll('.url-input');
     const titleEditables = document.querySelectorAll('[data-title-key]');
 
