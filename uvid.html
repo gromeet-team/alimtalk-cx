@@ -1277,7 +1277,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">리뷰 작성하기</span>
-              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              <input type="text" class="url-input" value="" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 +7일 — 사용 경험이 축적된 적정 시점에 리뷰 단독 요청</div>
           </div>
@@ -1454,7 +1454,7 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">한달 후기 작성하기</span>
-              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              <input type="text" class="url-input" value="" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 +30일 — 장기 사용 후기 + 사용팁 리마인드로 재구매 연결</div>
           </div>
@@ -2228,7 +2228,7 @@
 
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "uvid";
-  const DATA_VERSION = "2026-03-27-v4";
+  const DATA_VERSION = "2026-03-30-v5";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -2258,11 +2258,20 @@
         const data = await res.json();
         editables.forEach((el, idx) => {
           const key = `ce_${idx}`;
-          if (data[key]) el.innerHTML = data[key];
+          const existingBtnGroup = el.querySelector('.btn-group');
+          const setContent = (html) => {
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const savedBg = temp.querySelector('.btn-group');
+            if (savedBg) savedBg.remove();
+            el.innerHTML = temp.innerHTML;
+            if (existingBtnGroup) el.appendChild(existingBtnGroup);
+          };
+          if (data[key]) setContent(data[key]);
           else {
             // localStorage fallback
             const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
+            if (local && local.trim() && local.trim() !== '<br>') setContent(local);
           }
         });
         urlInputs.forEach((el, idx) => {
@@ -2295,7 +2304,15 @@
         // 네트워크 오류 시 localStorage 사용
         editables.forEach((el, idx) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
-          if (s) el.innerHTML = s;
+          if (s) {
+            const existingBtnGroup = el.querySelector('.btn-group');
+            const temp = document.createElement('div');
+            temp.innerHTML = s;
+            const savedBg = temp.querySelector('.btn-group');
+            if (savedBg) savedBg.remove();
+            el.innerHTML = temp.innerHTML;
+            if (existingBtnGroup) el.appendChild(existingBtnGroup);
+          }
         });
         urlInputs.forEach((el, idx) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
@@ -2319,8 +2336,25 @@
 
     // 타이핑할 때마다 localStorage에 즉시 저장
     editables.forEach((el, idx) => {
+      // Enter 키 → <br> 처리 (브라우저 <div> 자동 삽입 방지)
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          document.execCommand('insertLineBreak');
+        }
+      });
       el.addEventListener('input', () => {
-        const _html = el.innerHTML.trim(); if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
+        // <div> 태그가 삽입됐을 경우 <br>로 정규화
+        const raw = el.innerHTML;
+        const cleaned = raw.replace(/<div><br\s*\/?><\/div>/gi, '<br>').replace(/<div>(.*?)<\/div>/gi, '$1<br>');
+        if (cleaned !== raw) { el.innerHTML = cleaned; }
+
+        // btn-group 제외하고 저장
+        const clone = el.cloneNode(true);
+        const bg = clone.querySelector('.btn-group');
+        if (bg) bg.remove();
+        const _html = clone.innerHTML.trim();
+        if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
         el.style.outline = "2px solid #22c55e";
         clearTimeout(el._saveTimer);
         el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
@@ -2362,7 +2396,12 @@
       shareBtn.style.background = '#9ca3af';
 
       const changes = {};
-      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
+      editables.forEach((el, idx) => {
+        const clone = el.cloneNode(true);
+        const bg = clone.querySelector('.btn-group');
+        if (bg) bg.remove();
+        changes[`ce_${idx}`] = clone.innerHTML;
+      });
       urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
       const titleChanges = {};
       titleEditables.forEach(el => {
