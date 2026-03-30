@@ -2323,15 +2323,25 @@
   // 수정 필요 토글
 
   function switchProductTab(btn, campaignId, product) {
-    event.stopPropagation();
+    if (event) event.stopPropagation();
     var bar = btn.closest('.product-tab-bar');
     bar.querySelectorAll('.product-tab-btn').forEach(function(b) { b.classList.remove('active'); });
     btn.classList.add('active');
     var card = document.querySelector('[data-campaign="' + campaignId + '"]');
-    card.querySelectorAll('.product-tab-content').forEach(function(c) { c.classList.remove('active'); });
+    card.querySelectorAll('.product-tab-content').forEach(function(c) {
+      c.classList.remove('active');
+      c.style.display = 'none';
+    });
     var t = card.querySelector('.product-tab-content[data-product="' + product + '"]');
-    if (t) t.classList.add('active');
+    if (t) { t.classList.add('active'); t.style.display = 'block'; }
   }
+
+  // 탭 초기 상태 강제 적용
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.product-tab-content').forEach(function(el) {
+      el.style.display = el.classList.contains('active') ? 'block' : 'none';
+    });
+  });
 
   function toggleModify(campaignId, checkbox, event) {
     event.stopPropagation();
