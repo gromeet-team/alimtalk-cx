@@ -285,6 +285,51 @@
     color: #333;
   }
 
+  /* AFTER 제안 랜딩 URL 박스 */
+  .after-url-box {
+    margin: 8px 0 0 0;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .after-url-box .url-box-title {
+    font-weight: 600;
+    color: #15803d;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .after-url-box .url-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .after-url-box .url-row:last-child { margin-bottom: 0; }
+  .after-url-box .url-btn-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #166534;
+    min-width: 110px;
+    white-space: nowrap;
+  }
+  .after-url-box .url-input {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    background: #f0fdf4;
+    color: #15803d;
+    font-size: 11px;
+    font-family: monospace;
+  }
+  .after-url-box .url-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.15);
+    outline: none;
+  }
+
   /* Editable AFTER in phone */
   .after-col[contenteditable="true"] {
     outline: none;
@@ -417,6 +462,51 @@
 <button id="team-share-btn">팀 공유 저장</button>
 
 <script>
+const BUTTON_URLS = [
+  [ // 1주 (D+0)
+    { label: "시작 가이드 보기", url: "https://tally.so/r/LZpYWO" },
+    { label: "메아리셋 채널 추가", url: "http://pf.kakao.com/_RWKhX" }
+  ],
+  [ // 2주 (D+7)
+    { label: "에코 트라이앵글 가이드", url: "https://cafe.naver.com/yangfams/1930" }
+  ],
+  [ // 3주 (D+14)
+    { label: "월간 관제탑 가이드", url: "https://cafe.naver.com/yangfams/1931" }
+  ],
+  [ // 4주 (D+21)
+    { label: "CEO 시스템 가이드", url: "https://cafe.naver.com/yangfams/1932" }
+  ],
+  [ // 5주 (D+28)
+    { label: "습관 가이드 보기", url: "https://cafe.naver.com/yangfams/1933" }
+  ],
+  [ // 6주 (D+35)
+    { label: "브레인 덤프 가이드", url: "https://cafe.naver.com/yangfams/1934" }
+  ],
+  [ // 7주 (D+42)
+    { label: "중간 점검 가이드", url: "https://cafe.naver.com/yangfams/1935" }
+  ],
+  [ // 8주 (D+49)
+    { label: "패턴 발견 가이드", url: "https://cafe.naver.com/yangfams/1936" }
+  ],
+  [ // 9주 (D+56)
+    { label: "영감 보관소 가이드", url: "https://cafe.naver.com/yangfams/1937" }
+  ],
+  [ // 10주 (D+63)
+    { label: "전략적 쉼 가이드", url: "https://cafe.naver.com/yangfams/1938" }
+  ],
+  [ // 11주 (D+70)
+    { label: "마침표 하나 가이드", url: "https://cafe.naver.com/yangfams/1939" }
+  ],
+  [ // 12주 (D+77)
+    { label: "회고 준비 가이드", url: "https://cafe.naver.com/yangfams/1940" },
+    { label: "인증하러 가기", url: "https://cafe.naver.com/f-e/cafes/23719567/menus/119" }
+  ],
+  [ // 13주 (D+84)
+    { label: "시즌2 시작하기", url: "" },
+    { label: "메아리셋 채널 추가", url: "http://pf.kakao.com/_RWKhX" }
+  ],
+];
+
 const CRM_DATA = [
   { day: 0, type: "alimtalk", title: "노트 도착 — 90일 후의 나에게 편지", psych: "구매 직후 몰입 · 자기선언 효과", before: `#{고객명}님, 메아리셋 노트가 도착했어요.
 
@@ -692,6 +782,15 @@ function renderCards() {
               <div class="kakao-header">카카오 알림톡</div>
               <div class="msg white after-col" contenteditable="true" id="${ceId}"></div>
             </div>
+            ${BUTTON_URLS[i] && BUTTON_URLS[i].length ? `
+            <div class="after-url-box" onclick="event.stopPropagation()">
+              <div class="url-box-title">💡 제안 랜딩 URL</div>
+              ${BUTTON_URLS[i].map(btn => `
+              <div class="url-row">
+                <span class="url-btn-label">${btn.label}</span>
+                <input class="url-input" type="text" value="${btn.url}" onclick="event.stopPropagation()" onfocus="event.stopPropagation()" spellcheck="false" placeholder="URL 미정">
+              </div>`).join('')}
+            </div>` : ''}
             <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
           </div>
         </div>
