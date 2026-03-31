@@ -3137,18 +3137,87 @@
       if (saved === '1' && !cb.checked) cb.click();
     });
 
-    // 타이핑할 때마다 localStorage에 즉시 저장
+    // === 자동 저장 시스템 ===
+    let autoSaveTimer = null;
+
+    // 저장 상태 표시 UI
+    const saveStatus = document.createElement('div');
+    saveStatus.id = 'auto-save-status';
+    saveStatus.style.cssText = `
+      position: fixed; bottom: 72px; right: 24px; z-index: 9999;
+      background: rgba(0,0,0,0.75); color: white; border-radius: 8px;
+      padding: 6px 14px; font-size: 13px; font-weight: 600;
+      font-family: 'Noto Sans KR', sans-serif;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    `;
+    document.body.appendChild(saveStatus);
+
+    function showSaveStatus(msg, color = 'rgba(0,0,0,0.75)') {
+      saveStatus.textContent = msg;
+      saveStatus.style.background = color;
+      saveStatus.style.opacity = '1';
+      clearTimeout(saveStatus._hideTimer);
+      saveStatus._hideTimer = setTimeout(() => { saveStatus.style.opacity = '0'; }, 2000);
+    }
+
+    // 전체 데이터 수집
+    function collectChanges() {
+      const changes = {};
+      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
+      urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
+      titleEditables.forEach(el => { changes[el.dataset.titleKey] = el.innerHTML; });
+      document.querySelectorAll(".campaign-card").forEach((card, idx) => {
+        const sel = card.querySelector(".decision-btn.selected");
+        if (sel) {
+          if (sel.classList.contains("adopt")) changes["dec_" + idx] = "adopt";
+          else if (sel.classList.contains("modify")) changes["dec_" + idx] = "modify";
+          else if (sel.classList.contains("skip")) changes["dec_" + idx] = "skip";
+        }
+      });
+      return changes;
+    }
+
+    // 서버 저장
+    async function saveToServer(immediate = false) {
+      if (!immediate) showSaveStatus('저장 중...', 'rgba(100,100,100,0.85)');
+      try {
+        const res = await fetch(API_BASE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brand: BRAND, changes: collectChanges() }),
+        });
+        if (res.ok) {
+          showSaveStatus('✅ 저장됨', 'rgba(34,197,94,0.9)');
+          return true;
+        } else throw new Error('save failed');
+      } catch {
+        showSaveStatus('❌ 저장 실패', 'rgba(239,68,68,0.9)');
+        return false;
+      }
+    }
+
+    // 수정 후 2초 뒤 자동 저장
+    function scheduleAutoSave() {
+      clearTimeout(autoSaveTimer);
+      showSaveStatus('수정됨 (2초 후 저장)', 'rgba(100,100,100,0.75)');
+      autoSaveTimer = setTimeout(() => saveToServer(), 2000);
+    }
+
+    // 타이핑할 때마다 localStorage + 자동 저장 예약
     editables.forEach((el, idx) => {
       el.addEventListener('input', () => {
-        const _html = el.innerHTML.trim(); if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
+        const _html = el.innerHTML.trim();
+        if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
         el.style.outline = "2px solid #22c55e";
-        clearTimeout(el._saveTimer);
-        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+        clearTimeout(el._outlineTimer);
+        el._outlineTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+        scheduleAutoSave();
       });
     });
     urlInputs.forEach((el, idx) => {
       el.addEventListener('input', () => {
         localStorage.setItem(`alimtalk_${BRAND}_url_${idx}`, el.value);
+        scheduleAutoSave();
       });
     });
     titleEditables.forEach(el => {
@@ -3157,15 +3226,16 @@
         const _html = el.innerHTML.trim();
         if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_${key}`, _html);
         el.style.outline = "2px solid #22c55e";
-        clearTimeout(el._saveTimer);
-        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+        clearTimeout(el._outlineTimer);
+        el._outlineTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+        scheduleAutoSave();
       });
     });
 
-    // 팀 공유 버튼 생성
+    // 팀 공유 버튼 (즉시 저장용)
     const shareBtn = document.createElement('button');
     shareBtn.id = 'team-share-btn';
-    shareBtn.textContent = '팀 공유 저장';
+    shareBtn.textContent = '💾 저장';
     shareBtn.style.cssText = `
       position: fixed; bottom: 24px; right: 24px; z-index: 9999;
       background: #22c55e; color: white; border: none; border-radius: 12px;
@@ -3177,47 +3247,18 @@
     shareBtn.addEventListener('mouseleave', () => { shareBtn.style.background = '#22c55e'; });
 
     shareBtn.addEventListener('click', async () => {
+      clearTimeout(autoSaveTimer);
       shareBtn.disabled = true;
       shareBtn.textContent = '저장 중...';
       shareBtn.style.background = '#9ca3af';
-
-      const changes = {};
-      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
-      urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
-      document.querySelectorAll(".campaign-card").forEach((card, idx) => {
-        const sel = card.querySelector(".decision-btn.selected");
-        if (sel) {
-          if (sel.classList.contains("adopt")) changes["dec_" + idx] = "adopt";
-          else if (sel.classList.contains("modify")) changes["dec_" + idx] = "modify";
-          else if (sel.classList.contains("skip")) changes["dec_" + idx] = "skip";
-        }
-      });
-
-      try {
-        const res = await fetch(API_BASE, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ brand: BRAND, changes }),
-        });
-        if (res.ok) {
-          shareBtn.textContent = '✅ 저장 완료!';
-          shareBtn.style.background = '#22c55e';
-          setTimeout(() => {
-            shareBtn.textContent = '팀 공유 저장';
-            shareBtn.disabled = false;
-          }, 2000);
-        } else {
-          throw new Error('save failed');
-        }
-      } catch {
-        shareBtn.textContent = '❌ 저장 실패';
-        shareBtn.style.background = '#ef4444';
-        setTimeout(() => {
-          shareBtn.textContent = '팀 공유 저장';
-          shareBtn.style.background = '#22c55e';
-          shareBtn.disabled = false;
-        }, 2000);
-      }
+      const ok = await saveToServer(true);
+      shareBtn.textContent = ok ? '✅ 저장 완료!' : '❌ 저장 실패';
+      shareBtn.style.background = ok ? '#22c55e' : '#ef4444';
+      setTimeout(() => {
+        shareBtn.textContent = '💾 저장';
+        shareBtn.style.background = '#22c55e';
+        shareBtn.disabled = false;
+      }, 2000);
     });
 
     // 글자수 카운터
