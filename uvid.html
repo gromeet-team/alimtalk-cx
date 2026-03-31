@@ -657,8 +657,7 @@
   .alimtalk-title[contenteditable="true"]:focus,
   .alimtalk-subtitle[contenteditable="true"]:focus { outline: 2px solid #4A6FA5; }
 
-
-  /* Product Tab UI */
+  /* 제품 탭 */
   .product-tab-bar {
     display: flex;
     gap: 8px;
@@ -680,6 +679,7 @@
   .product-tab-btn.active { background: #4A6FA5; color: white; border-color: #4A6FA5; }
   .campaign-card .product-tab-content { display: none !important; }
   .campaign-card .product-tab-content.active { display: block !important; }
+
 </style>
 </head>
 <body>
@@ -983,44 +983,9 @@
         <div class="arrow-col">→</div>
         <div class="after">
           <div class="col-label">✅ NEW 캠페인</div>
-
-          <div class="product-tab-bar" onclick="event.stopPropagation()">
-            <button class="product-tab-btn active" onclick="switchProductTab(this, 'campaign-2b', 'pad')">☀️ 선크림·선패드</button>
-            <button class="product-tab-btn" onclick="switchProductTab(this, 'campaign-2b', 'mist')">💦 선미스트</button>
-          </div>
-          <div class="product-tab-content active" data-product="pad">
-            <div class="phone">
+          <div class="phone">
             <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" onclick="event.stopPropagation()">사용법 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
-            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
-              #{고객명}님, 드디어 도착했어요! ☀️<br>
-              <br>
-              📦 배송 완료 정보<br>
-              ▪️상품명 : #{상품명}<br>
-              ▪️송장번호 : #{송장번호}<br>
-              <br>
-              처음 사용하시기 전에<br>
-              이것만 기억해 주세요 🌟<br>
-              <br>
-              ✓ 엠보면으로 피부 결 따라 부드럽게 닦기<br>
-              ✓ 비면으로 스킨케어 + 자외선 차단 한 번에<br>
-              ✓ 사용 후 뚜껑 단단히 닫기<br>
-              <br>
-              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
-              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>
-              🕐 평일 10:00~17:00<br>
-              (점심 12:30~13:30 / 주말·공휴일 휴무)
-              <div class="btn-group">
-                <div class="btn primary">사용 가이드 보기</div>
-                <div class="btn">채널 추가하기</div>
-              </div>
-            </div>
-          </div>
-          </div>
-          <div class="product-tab-content" data-product="mist">
-            <div class="phone">
-            <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" onclick="event.stopPropagation()">첫 사용 팁 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2" onclick="event.stopPropagation()">첫 사용 팁 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
             <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
               #{고객명}님, 드디어 도착했어요! ☀️<br>
               <br>
@@ -1032,8 +997,7 @@
               이것만 기억해 주세요 🌟<br>
               <br>
               ✓ 외출 30분 전 충분히 도포<br>
-              ✓ 야외활동·땀 흘리실 때 → 2~3시간마다 덧바름<br>
-              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>
+              ✓ 2~3시간마다 덧바름 (이게 핵심이에요!)<br>
               ✓ 이마·콧등·광대 꼼꼼히<br>
               <br>
               오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
@@ -1045,7 +1009,6 @@
                 <div class="btn">채널 추가하기</div>
               </div>
             </div>
-          </div>
           </div>
           <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
             <div class="after-url-box" onclick="event.stopPropagation()">
@@ -1249,40 +1212,9 @@
         <div class="arrow-col">→</div>
         <div class="after">
           <div class="col-label">✅ AFTER</div>
-
-          <div class="product-tab-bar" onclick="event.stopPropagation()">
-            <button class="product-tab-btn active" onclick="switchProductTab(this, 'campaign-3', 'pad')">☀️ 선크림·선패드</button>
-            <button class="product-tab-btn" onclick="switchProductTab(this, 'campaign-3', 'mist')">💦 선미스트</button>
-          </div>
-          <div class="product-tab-content active" data-product="pad">
-            <div class="phone">
+          <div class="phone">
             <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" onclick="event.stopPropagation()">선패드 잘 쓰고 계신가요? ☀️</div><div class="alimtalk-title" contenteditable="true" onclick="event.stopPropagation()">구매확정하고 포인트 받기</div></div>
-            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
-              #{고객명}님,<br>
-              선패드 잘 활용하고 계신가요? ☀️<br>
-              <br>
-              뭉친 화장 지우고 자외선 차단까지 한 번에—<br>
-              이미 경험해 보셨죠? 😊<br>
-              <br>
-              혹시 불편하신 점 있으시면<br>
-              편하게 말씀해 주세요.<br>
-              괜찮으셨다면 구매확정도 부탁드려요! 🙏<br>
-              <br>
-              🕐 평일 10:00~17:00<br>
-              (점심 12:30~13:30 / 주말·공휴일 휴무)
-              <div class="btn-group">
-                <div class="btn primary">구매확정 하기</div>
-                <div class="btn">자주 묻는 질문</div>
-                <div class="btn">채널 추가하기</div>
-              </div>
-            </div>
-          </div>
-          </div>
-          <div class="product-tab-content" data-product="mist">
-            <div class="phone">
-            <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" onclick="event.stopPropagation()">선케어 잘 쓰고 계신가요?</div><div class="alimtalk-title" contenteditable="true" onclick="event.stopPropagation()">구매확정하고 포인트 받기</div></div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_4" onclick="event.stopPropagation()">선케어 잘 쓰고 계신가요?</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_4" onclick="event.stopPropagation()">구매확정하고 포인트 받기</div></div>
             <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
               #{고객명}님,<br>
               선케어 잘 쓰고 계신가요? ☀️<br>
@@ -1303,7 +1235,6 @@
                 <div class="btn">채널 추가하기</div>
               </div>
             </div>
-          </div>
           </div>
           <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
           <div class="after-url-box" onclick="event.stopPropagation()">
@@ -1378,36 +1309,9 @@
         <div class="arrow-col">→</div>
         <div class="after">
           <div class="col-label">✅ AFTER</div>
-
-          <div class="product-tab-bar" onclick="event.stopPropagation()">
-            <button class="product-tab-btn active" onclick="switchProductTab(this, 'campaign-4', 'pad')">☀️ 선크림·선패드</button>
-            <button class="product-tab-btn" onclick="switchProductTab(this, 'campaign-4', 'mist')">💦 선미스트</button>
-          </div>
-          <div class="product-tab-content active" data-product="pad">
-            <div class="phone">
+          <div class="phone">
             <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" onclick="event.stopPropagation()">일주일 지났어요, 어떠셨나요?</div><div class="alimtalk-title" contenteditable="true" onclick="event.stopPropagation()">후기 남기고 혜택 받기 ☀️</div></div>
-            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
-              #{고객명}님,<br>
-              선패드 잘 쓰고 계신가요? ☀️<br>
-              <br>
-              원하실 때 한 패드로 스킨케어+자외선 차단 완성—<br>
-              편하셨으면 좋겠어요.<br>
-              <br>
-              일주일 동안 써보신 솔직한 후기—<br>
-              좋은 점도, 아쉬운 점도 모두 환영해요.<br>
-              한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊
-              <div class="btn-group">
-                <div class="btn primary">리뷰 작성하기</div>
-                <div class="btn">채널 추가하기</div>
-              </div>
-            </div>
-          </div>
-          </div>
-          <div class="product-tab-content" data-product="mist">
-            <div class="phone">
-            <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" onclick="event.stopPropagation()">일주일 지났어요, 어떠셨나요?</div><div class="alimtalk-title" contenteditable="true" onclick="event.stopPropagation()">후기 남기고 혜택 받기</div></div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_5" onclick="event.stopPropagation()">일주일 지났어요, 어떠셨나요?</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_5" onclick="event.stopPropagation()">후기 남기고 혜택 받기</div></div>
             <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
               #{고객명}님,<br>
               덧바름 루틴 잘 쓰고 계신가요? ☀️<br>
@@ -1424,15 +1328,11 @@
               </div>
             </div>
           </div>
-          </div>
           <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
           <div class="after-url-box" onclick="event.stopPropagation()">
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">리뷰 작성하기</span>
-
-              <input type="text" class="url-input" value="" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
-=======
               <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 +7일 — 사용 경험이 축적된 적정 시점에 리뷰 단독 요청</div>
@@ -1642,9 +1542,6 @@
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">한달 후기 작성하기</span>
-
-              <input type="text" class="url-input" value="" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
-=======
               <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
             </div>
             <div class="url-note">배송 +30일 — 장기 사용 후기 + 사용팁 리마인드로 재구매 연결</div>
@@ -2390,7 +2287,6 @@
   }
 
   // 수정 필요 토글
-
   function switchProductTab(btn, campaignId, product) {
     if (event) event.stopPropagation();
     var bar = btn.closest('.product-tab-bar');
@@ -2441,7 +2337,7 @@
 
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "uvid";
-  const DATA_VERSION = "2026-03-30-v5";
+  const DATA_VERSION = "2026-03-27-v4";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -2471,20 +2367,11 @@
         const data = await res.json();
         editables.forEach((el, idx) => {
           const key = `ce_${idx}`;
-          const existingBtnGroup = el.querySelector('.btn-group');
-          const setContent = (html) => {
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
-            const savedBg = temp.querySelector('.btn-group');
-            if (savedBg) savedBg.remove();
-            el.innerHTML = temp.innerHTML;
-            if (existingBtnGroup) el.appendChild(existingBtnGroup);
-          };
-          if (data[key]) setContent(data[key]);
+          if (data[key]) el.innerHTML = data[key];
           else {
             // localStorage fallback
             const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (local && local.trim() && local.trim() !== '<br>') setContent(local);
+            if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
           }
         });
         urlInputs.forEach((el, idx) => {
@@ -2517,15 +2404,7 @@
         // 네트워크 오류 시 localStorage 사용
         editables.forEach((el, idx) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
-          if (s) {
-            const existingBtnGroup = el.querySelector('.btn-group');
-            const temp = document.createElement('div');
-            temp.innerHTML = s;
-            const savedBg = temp.querySelector('.btn-group');
-            if (savedBg) savedBg.remove();
-            el.innerHTML = temp.innerHTML;
-            if (existingBtnGroup) el.appendChild(existingBtnGroup);
-          }
+          if (s) el.innerHTML = s;
         });
         urlInputs.forEach((el, idx) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
@@ -2549,25 +2428,8 @@
 
     // 타이핑할 때마다 localStorage에 즉시 저장
     editables.forEach((el, idx) => {
-      // Enter 키 → <br> 처리 (브라우저 <div> 자동 삽입 방지)
-      el.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          document.execCommand('insertLineBreak');
-        }
-      });
       el.addEventListener('input', () => {
-        // <div> 태그가 삽입됐을 경우 <br>로 정규화
-        const raw = el.innerHTML;
-        const cleaned = raw.replace(/<div><br\s*\/?><\/div>/gi, '<br>').replace(/<div>(.*?)<\/div>/gi, '$1<br>');
-        if (cleaned !== raw) { el.innerHTML = cleaned; }
-
-        // btn-group 제외하고 저장
-        const clone = el.cloneNode(true);
-        const bg = clone.querySelector('.btn-group');
-        if (bg) bg.remove();
-        const _html = clone.innerHTML.trim();
-        if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
+        const _html = el.innerHTML.trim(); if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
         el.style.outline = "2px solid #22c55e";
         clearTimeout(el._saveTimer);
         el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
@@ -2609,12 +2471,7 @@
       shareBtn.style.background = '#9ca3af';
 
       const changes = {};
-      editables.forEach((el, idx) => {
-        const clone = el.cloneNode(true);
-        const bg = clone.querySelector('.btn-group');
-        if (bg) bg.remove();
-        changes[`ce_${idx}`] = clone.innerHTML;
-      });
+      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
       urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
       const titleChanges = {};
       titleEditables.forEach(el => {
