@@ -9,7 +9,7 @@
   "ce_7": "\n              #{고객명}님,<br>\n              유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br>\n              <br>\n              엑토인 성분이 자외선을 받을 때마다<br>\n              피부 세포막 수분을 조용히 지켜주고 있어요.<br>\n              한 달 꾸준히 쓰셨다면<br>\n              피부가 조금씩 달라지고 있을 거예요.<br>\n              <br>\n              💡 루틴 리마인드<br>\n              ✓ 외출 30분 전 도포<br>\n              ✓ 2~3시간마다 덧바름<br>\n              <br>\n              한 달간의 경험, 솔직한 후기 한 줄만 남겨주세요.<br>\n              좋았던 점, 아쉬운 점 모두 소중하게 읽을게요 😊\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">한달 후기 작성하기</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
   "ce_8": "\n              #{고객명}님,<br>\n              취소 요청 확인했어요.<br>\n              <br>\n              혹시 제품이 맞지 않으셨거나<br>\n              다른 이유가 있으셨다면<br>\n              말씀해 주시면 함께 방법을 찾아볼게요.<br>\n              <br>\n              편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">취소 현황 확인</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
   "ce_9": "\n              #{고객명}님,<br>\n              취소 처리 완료됐어요.<br>\n              <br>\n              💰 환불은 결제수단에 따라<br>\n              영업일 기준 3~5일 소요돼요.<br>\n              <br>\n              이번엔 인연이 닿지 않아 아쉬웠어요.<br>\n              어떤 점이 맞지 않으셨는지<br>\n              알려주시면 진심으로 참고할게요.\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">주문내역 확인</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
-  "ce_10": "\n              #{고객명}님,<br>\n              교환 요청 확인했어요.<br>\n              <br>\n              불편을 드려서 정말 죄송해요.<br>\n              최대한 빠르게 처리해 드릴게요.<br>\n              <br>\n              📦 교환 진행 안내<br>\n              ▪️① 택배 회수 (2~3영업일)<br>\n              ▪️② 상품 상태 확인<br>\n              ▪️③ 새 상품 발송 (확인 후 1~2영업일)<br>\n              <br>\n              진행 중 궁금한 점 있으시면<br>\n              언제든 편하게 연락 주세요.<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">교환 현황 확인</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
+  "ce_10": "<span style=\"background-color: rgb(255, 255, 255);\">#{고객명}님,반품 처리 완료됐습니다.</span><br><br><span style=\"background-color: rgb(255, 255, 255);\">💰 반품 정보</span><br><div><span style=\"background-color: rgb(255, 255, 255);\">▪️주문번호 : #{주문번호}</span><br><span style=\"background-color: rgb(255, 255, 255);\">▪️상품명 : #{상품명}</span><br><span style=\"background-color: rgb(255, 255, 255);\">▪️환불금액 : #{총결제금액}</span><br><br><span style=\"background-color: rgb(255, 255, 255);\">회수된 상품이 검수 완료되어</span><br><span style=\"background-color: rgb(255, 255, 255);\">반품이 정상적으로 승인 되었습니다.</span><br><div><br></div><div>불편하셨을 텐데 끝까지 기다려 주셔서 감사해요.</div>과정 중에 아쉬운 점이 있으셨다면<br aria-hidden=\"true\"><div>편하게 남겨주세요. 🙏</div><div>감사합니다.</div></div><div class=\"btn-group\">\n                <div class=\"btn primary\">교환 현황 확인</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
   "url_0": "https://new-m.pay.naver.com/",
   "url_1": "https://new-m.pay.naver.com/",
   "url_2": "",
@@ -92,7 +92,7 @@
     "title_11": "새 상품 출발했어요 🚚",
     "sub_12": "교환으로 더 빠르게 해결해요",
     "title_12": "끝까지 함께할게요",
-    "sub_13": "아쉬운 점 알려주세요",
-    "title_13": "아쉽지만, 또 만나요"
+    "sub_13": "반품완료",
+    "title_13": "아쉽지만, 또 만나요 💦"
   }
 }
