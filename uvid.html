@@ -983,10 +983,44 @@
         <div class="arrow-col">→</div>
         <div class="after">
           <div class="col-label">✅ NEW 캠페인</div>
-          <div class="phone">
+          <div class="product-tab-bar" onclick="event.stopPropagation()">
+            <button class="product-tab-btn active" onclick="switchProductTab(this, 'campaign-2b', 'pad')">☀️ 선크림·선패드</button>
+            <button class="product-tab-btn" onclick="switchProductTab(this, 'campaign-2b', 'mist')">💦 선미스트</button>
+          </div>
+          <div class="product-tab-content active" data-product="pad" style="display:block !important">
+            <div class="phone">
             <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2" onclick="event.stopPropagation()">첫 사용 팁 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
-            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2" onclick="event.stopPropagation()">사용법 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
+            <div class="msg white" contenteditable="true" data-title-key="msg_2b_pad" onclick="event.stopPropagation()">
+              #{고객명}님, 드디어 도착했어요! ☀️<br>
+              <br>
+              📦 배송 완료 정보<br>
+              ▪️상품명 : #{상품명}<br>
+              ▪️송장번호 : #{송장번호}<br>
+              <br>
+              처음 사용하시기 전에<br>
+              이것만 기억해 주세요 🌟<br>
+              <br>
+              ✓ 엠보면으로 피부 결 따라 부드럽게 닦기<br>
+              ✓ 비면으로 스킨케어 + 자외선 차단 한 번에<br>
+              ✓ 사용 후 뚜껑 단단히 닫기<br>
+              <br>
+              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
+              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">사용 가이드 보기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="product-tab-content" data-product="mist" style="display:none !important">
+            <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2b_mist" onclick="event.stopPropagation()">첫 사용 팁 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2b_mist" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
+            <div class="msg white" contenteditable="true" data-title-key="msg_2b_mist" onclick="event.stopPropagation()">
               #{고객명}님, 드디어 도착했어요! ☀️<br>
               <br>
               📦 배송 완료 정보<br>
@@ -997,7 +1031,8 @@
               이것만 기억해 주세요 🌟<br>
               <br>
               ✓ 외출 30분 전 충분히 도포<br>
-              ✓ 2~3시간마다 덧바름 (이게 핵심이에요!)<br>
+              ✓ 야외활동·땀 흘리실 때 → 2~3시간마다 덧바름<br>
+              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>
               ✓ 이마·콧등·광대 꼼꼼히<br>
               <br>
               오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
@@ -1009,6 +1044,7 @@
                 <div class="btn">채널 추가하기</div>
               </div>
             </div>
+          </div>
           </div>
           <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
             <div class="after-url-box" onclick="event.stopPropagation()">
