@@ -153,25 +153,50 @@
 
   .compare-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    grid-template-columns: 1fr 48px 1fr;
+    gap: 0;
     margin-bottom: 16px;
+    padding: 24px;
   }
   @media (max-width: 768px) {
-    .compare-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; padding: 12px; }
     .phone { width: 100%; }
+    .arrow-col { transform: rotate(90deg); }
   }
 
   .col-label {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 6px;
   }
-  .col-label.before { color: #dc2626; }
-  .col-label.after { color: #16a34a; }
+
+  .compare-before {
+    background: #fff5f5;
+    border: 1px solid #ffd4d4;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .compare-after {
+    background: #f0faf0;
+    border: 1px solid #c4e8c4;
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .compare-before .col-label { color: #c44; }
+  .compare-after .col-label { color: #2d7a2d; }
+
+  .arrow-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #aaa;
+  }
 
   .before-col {
     white-space: pre-wrap;
@@ -769,15 +794,16 @@ function renderCards() {
       </div>
       <div class="crm-body">
         <div class="compare-grid">
-          <div>
-            <div class="col-label before">❌ 현재 (BEFORE)</div>
+          <div class="compare-before">
+            <div class="col-label">❌ 현재 (BEFORE)</div>
             <div class="phone">
               <div class="kakao-header">카카오 알림톡</div>
               <div class="msg white before-col" id="before-crm-${num}">${beforeHtml}</div>
             </div>
           </div>
-          <div>
-            <div class="col-label after">✅ 개선안 (AFTER)</div>
+          <div class="arrow-col">→</div>
+          <div class="compare-after">
+            <div class="col-label">✅ 개선안 (AFTER)</div>
             <div class="phone">
               <div class="kakao-header">카카오 알림톡</div>
               <div class="msg white after-col" contenteditable="true" id="${ceId}"></div>
