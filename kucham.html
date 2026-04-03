@@ -2561,7 +2561,7 @@
 
   // 캠페인 순서 변경 시 idx 기반 캐시 충돌 방지
   (function() {
-    const CACHE_VERSION = "v5";
+    const CACHE_VERSION = "v6";
     const VER_KEY = `alimtalk_${BRAND}_cache_version`;
     if (localStorage.getItem(VER_KEY) !== CACHE_VERSION) {
       Object.keys(localStorage)
