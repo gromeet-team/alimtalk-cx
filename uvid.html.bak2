@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVID 알림톡 CX 개선안</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: #f3f5f9;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #2D4270 0%, #4A6FA5 100%);
+    color: white;
+    padding: 48px 40px;
+    text-align: center;
+  }
+  .header h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+  .header p { font-size: 15px; opacity: 0.85; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Summary Cards */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .summary-card .num { font-size: 32px; font-weight: 700; color: #4A6FA5; }
+  .summary-card .label { font-size: 13px; color: #666; margin-top: 4px; }
+
+  /* Section */
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 40px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4A6FA5;
+    color: #2D4270;
+  }
+
+  /* Campaign Card */
+  .campaign-card {
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .campaign-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    background: #fafbfd;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    user-select: none;
+  }
+  .campaign-header:hover { background: #f0f2f7; }
+  .campaign-header .left { display: flex; align-items: center; gap: 12px; }
+  .campaign-header .num-badge {
+    width: 32px; height: 32px;
+    background: #4A6FA5;
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 600;
+  }
+  .campaign-header .name { font-size: 16px; font-weight: 600; }
+  .campaign-header .timing {
+    font-size: 12px;
+    color: #888;
+    background: #f0f2f7;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .campaign-header .arrow {
+    font-size: 20px;
+    color: #999;
+    transition: transform 0.3s;
+  }
+  .campaign-card.open .campaign-header .arrow { transform: rotate(180deg); }
+
+  .campaign-body { display: none; padding: 0; }
+  .campaign-card.open .campaign-body { display: block; }
+
+  /* Comparison layout */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 48px 1fr;
+    gap: 0;
+    padding: 24px;
+  }
+
+  .before, .after {
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .before { background: #fff5f5; border: 1px solid #ffd4d4; }
+  .after { background: #f0faf0; border: 1px solid #c4e8c4; }
+
+  .col-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .before .col-label { color: #c44; }
+  .after .col-label { color: #2d7a2d; }
+
+  .arrow-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #4A6FA5;
+  }
+
+  /* Phone mockup */
+  .phone {
+    width: 320px;
+    margin: 0 auto;
+    background: #f7f7f2;
+    border-radius: 24px;
+    border: 2px solid #ddd;
+    padding: 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .phone .kakao-header {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    padding: 6px 0 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+  }
+  .phone .msg {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+    word-break: keep-all;
+  }
+  .phone .msg.white {
+    background: white;
+    border: 1px solid #e5e5e5;
+  }
+  .phone .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 8px;
+  }
+  .phone .btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 9px;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+  }
+  .phone .btn.primary {
+    background: #4A6FA5;
+    color: white;
+    border-color: #4A6FA5;
+  }
+
+  .good, .phone .good { background: #b7f0b7; padding: 1px 3px; border-radius: 2px; }
+  .highlight, .phone .highlight { background: #fff176; padding: 1px 3px; border-radius: 2px; }
+
+  /* Issues list */
+  .issues { margin-top: 12px; }
+  .issues li {
+    font-size: 12.5px;
+    color: #666;
+    margin-bottom: 4px;
+    list-style: none;
+    padding-left: 18px;
+    position: relative;
+  }
+  .issues li::before {
+    content: '•';
+    position: absolute;
+    left: 4px;
+    color: #c44;
+  }
+  .after .issues li::before { color: #2d7a2d; }
+
+  /* Impact badge */
+  .impact {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+  }
+  .impact.high { background: #ffe0e0; color: #c44; }
+  .impact.mid { background: #fff3d0; color: #b08800; }
+  .impact.low { background: #e0f0e0; color: #2d7a2d; }
+
+  /* Editable AFTER */
+  .after .msg[contenteditable="true"] {
+    outline: none;
+    border: 2px dashed transparent;
+    transition: border-color 0.2s;
+  }
+  .after .msg[contenteditable="true"]:focus {
+    border-color: #f59e0b;
+    background: #fffdf7;
+  }
+  .after .msg[contenteditable="true"]:hover:not(:focus) {
+    border-color: #e5e7eb;
+  }
+  .edit-hint {
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+    margin-top: 4px;
+  }
+  .char-counter { text-align: right; font-size: 11px; color: #999; padding: 2px 6px; margin-top: 2px; }
+  .char-counter.over { color: #ef4444; font-weight: 700; }
+
+  /* AFTER URL box */
+  .after-url-box {
+    margin: 8px 0 0 0;
+    padding: 12px 14px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .after-url-box .url-box-title {
+    font-weight: 600;
+    color: #15803d;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .after-url-box .url-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .after-url-box .url-btn-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #166534;
+    min-width: 100px;
+    white-space: nowrap;
+  }
+
+  .after-url-box .url-input {
+    color: #15803d;
+    border-color: #bbf7d0;
+    background: #f0fdf4;
+  }
+  .after-url-box .url-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34,197,94,0.15);
+    outline: none;
+  }
+  .after-url-box .url-note {
+    font-size: 10px;
+    color: #6b7280;
+    margin-top: 4px;
+    font-style: italic;
+  }
+
+  /* BEFORE URL box */
+  .before-url-box {
+    margin-top: 8px;
+    padding: 10px 12px;
+    background: #fff8f0;
+    border: 1px dashed #f59e0b;
+    border-radius: 8px;
+  }
+  .url-box-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 6px;
+  }
+  .url-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .url-row:last-child { margin-bottom: 0; }
+  .url-btn-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #78716c;
+    white-space: nowrap;
+    min-width: 100px;
+  }
+  .url-input {
+    flex: 1;
+    font-size: 11px;
+    padding: 4px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    color: #3b82f6;
+    background: white;
+    font-family: monospace;
+  }
+  .url-input:focus {
+    outline: none;
+    border-color: #f59e0b;
+    box-shadow: 0 0 0 2px rgba(245,158,11,0.15);
+  }
+  .url-input::placeholder { color: #ccc; }
+
+  /* 수정 필요 토글 */
+  .modify-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    margin-right: 16px;
+  }
+  .modify-toggle label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    cursor: pointer;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .modify-toggle input[type="checkbox"] { display: none; }
+  .modify-toggle .toggle-switch {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .modify-toggle .toggle-switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .modify-toggle input:checked + .toggle-switch { background: #f59e0b; }
+  .modify-toggle input:checked + .toggle-switch::after { transform: translateX(16px); }
+  .modify-toggle input:checked ~ label { color: #f59e0b; }
+  .campaign-card.needs-modify { border-left: 4px solid #f59e0b; }
+  .campaign-card.needs-modify .campaign-header { background: #fffbeb; }
+  .modify-count-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(245, 158, 11, 0.95);
+    color: white;
+    padding: 8px 24px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    z-index: 1001;
+    transition: transform 0.3s;
+    display: none;
+  }
+  .modify-count-bar.visible { display: block; }
+
+  /* Journey */
+  .journey {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 20px 24px;
+    overflow-x: auto;
+    background: #fafbfd;
+  }
+  .journey-step {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    min-width: 80px;
+    border: 1px solid #ddd;
+    background: white;
+  }
+  .journey-step.active { background: #4A6FA5; color: white; border-color: #4A6FA5; }
+  .journey-arrow { color: #999; font-size: 16px; flex-shrink: 0; }
+
+  /* Cross-brand navigation */
+  .top-nav {
+    background: #1a1a1a;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 1002;
+  }
+  .top-nav .logo {
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    margin-right: 8px;
+    text-decoration: none;
+  }
+  .top-nav .brand-btn {
+    padding: 5px 14px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    opacity: 0.7;
+    transition: all 0.3s;
+  }
+  .top-nav .brand-btn:hover { opacity: 1; }
+  .top-nav .brand-btn.active { opacity: 1; box-shadow: 0 0 0 2px white; }
+  .top-nav .brand-btn.foremong { background: #4a7c28; }
+  .top-nav .brand-btn.uvid { background: #4A6FA5; }
+  .top-nav .brand-btn.meariset { background: #FF6B35; }
+  .top-nav .brand-btn.kucham { background: #4b6584; }
+
+  /* ========== INTERACTIVE DECISION TOOLS ========== */
+  .decision-bar {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    align-items: center;
+  }
+  .decision-bar .status-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    margin-right: auto;
+  }
+  .decision-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1.5px solid #ddd;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+  }
+  .decision-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .decision-btn.adopt { border-color: #22c55e; color: #22c55e; }
+  .decision-btn.adopt:hover, .decision-btn.adopt.selected { background: #22c55e; color: white; }
+  .decision-btn.modify { border-color: #f59e0b; color: #f59e0b; }
+  .decision-btn.modify:hover, .decision-btn.modify.selected { background: #f59e0b; color: white; }
+  .decision-btn.skip { border-color: #94a3b8; color: #94a3b8; }
+  .decision-btn.skip:hover, .decision-btn.skip.selected { background: #94a3b8; color: white; }
+
+  .campaign-card.decided-adopt { border-left: 4px solid #22c55e; }
+  .campaign-card.decided-modify { border-left: 4px solid #f59e0b; }
+  .campaign-card.decided-skip { border-left: 4px solid #94a3b8; opacity: 0.7; }
+
+  /* Decision Summary floating bar */
+  .decision-summary {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 17, 23, 0.95);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 1000;
+    font-size: 13px;
+    transition: transform 0.3s;
+  }
+  .decision-summary.hidden { transform: translateY(100%); }
+  .decision-summary .count { display: flex; gap: 16px; flex: 1; }
+  .decision-summary .count span { display: flex; align-items: center; gap: 4px; }
+  .decision-summary .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot.green { background: #22c55e; }
+  .dot.yellow { background: #f59e0b; }
+  .dot.gray { background: #94a3b8; }
+  .export-btn {
+    padding: 8px 20px;
+    background: white;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .export-btn:hover { background: #f0f0f0; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px;
+    color: #999;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .comparison {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .arrow-col { transform: rotate(90deg); }
+    .phone { width: 100%; }
+
+    /* 모바일 캠페인 헤더 — 두 줄 구조 */
+    .campaign-header {
+      padding: 10px 12px;
+      flex-wrap: nowrap;
+      gap: 6px;
+      overflow: hidden;
+    }
+    .impact, .new-badge { font-size: 9px; padding: 1px 5px; }
+    .campaign-header .left {
+      flex: 1 1 auto;
+      gap: 8px;
+      min-width: 0;
+    }
+    .campaign-header .name {
+      font-size: 14px;
+      white-space: normal;
+      word-break: keep-all;
+    }
+    .campaign-header .num-badge {
+      width: 26px;
+      height: 26px;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+    .campaign-header .timing {
+      white-space: nowrap;
+      font-size: 11px;
+      padding: 3px 8px;
+    }
+    .campaign-header .arrow {
+      font-size: 16px;
+    }
+    .container { padding: 14px 10px; }
+    .section-title { font-size: 16px; }
+    .top-nav {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 8px 12px;
+      gap: 6px;
+    }
+    .top-nav::-webkit-scrollbar { display: none; }
+    .top-nav .logo { flex-shrink: 0; font-size: 12px; }
+    .top-nav .brand-btn { flex-shrink: 0; font-size: 11px; padding: 4px 10px; white-space: nowrap; }
+  }
+
+  /* 플로팅 수정필요 전체토글 버튼 (데스크탑+모바일 공통) */
+  #float-modify-btn {
+    display: block;
+    position: fixed;
+    bottom: 80px;
+    left: 24px;
+    z-index: 999;
+    padding: 10px 20px;
+    background: #f59e0b;
+    color: white;
+    border: none;
+    border-radius: 24px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    white-space: nowrap;
+  }
+  #float-modify-btn.all-on {
+    background: #ef4444;
+  }
+
+  .new-badge {
+    display: inline-block;
+    background: #e8a020;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+  }
+
+  /* 알림톡 타이틀/서브타이틀 박스 */
+  .alimtalk-title-box {
+    padding: 10px 14px 4px 14px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+  }
+  .alimtalk-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.4;
+    margin-bottom: 3px;
+  }
+  .alimtalk-subtitle {
+    font-size: 11px;
+    color: #888;
+    line-height: 1.4;
+  }
+  .alimtalk-title[contenteditable="true"],
+  .alimtalk-subtitle[contenteditable="true"] {
+    cursor: text;
+    border-radius: 3px;
+    transition: outline 0.2s;
+  }
+  .alimtalk-title[contenteditable="true"]:hover,
+  .alimtalk-subtitle[contenteditable="true"]:hover { outline: 1px dashed #bbb; }
+  .alimtalk-title[contenteditable="true"]:focus,
+  .alimtalk-subtitle[contenteditable="true"]:focus { outline: 2px solid #4A6FA5; }
+
+  /* 제품 탭 */
+  .product-tab-bar {
+    display: flex;
+    gap: 8px;
+    margin: 8px 0 12px;
+    padding: 0 4px;
+  }
+  .product-tab-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #ccd5e0;
+    background: white;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #555;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .product-tab-btn.active { background: #4A6FA5; color: white; border-color: #4A6FA5; }
+  .campaign-card .product-tab-content { display: none !important; }
+  .campaign-card .product-tab-content.active { display: block !important; }
+
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+    <a href="index.html" class="logo">🌿 알림톡 CX 개선안</a>
+    <a href="foremong.html" class="brand-btn foremong">🌿 Foremong</a>
+    <a href="uvid.html" class="brand-btn uvid active">☀️ UVID</a>
+    <a href="meariset.html" class="brand-btn meariset">📓 메아리셋</a>
+    <a href="kucham.html" class="brand-btn kucham">🧊 쿠참</a>
+</div>
+<div id="modify-count-bar" class="modify-count-bar"></div>
+<div class="header">
+  <h1>UVID 알림톡 CX 개선안</h1>
+  <p>선케어 전문 브랜드 · 11개 캠페인 · 2026-03-18</p>
+  <div style="margin-top:20px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+    <button id="toggle-all-btn" onclick="toggleAllCards()" style="
+      padding: 10px 24px; font-size: 14px; font-weight: 600;
+      border-radius: 8px; border: 2px solid rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.15); color: white; cursor: pointer;
+      transition: all 0.2s;
+    ">▼ 캠페인 전체 펼치기</button>
+    <button id="toggle-modify-btn" onclick="toggleAllModify()" style="
+      padding: 10px 24px; font-size: 14px; font-weight: 600;
+      border-radius: 8px; border: 2px solid rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.15); color: white; cursor: pointer;
+      transition: all 0.2s;
+    ">☑ 수정필요 전체 ON</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Summary -->
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="num">14</div>
+      <div class="label">전체 캠페인</div>
+    </div>
+    <div class="summary-card">
+      <div class="num">+3</div>
+      <div class="label">신규 캠페인 제안</div>
+    </div>
+    <div class="summary-card">
+      <div class="num">9</div>
+      <div class="label">주문/배송/리뷰</div>
+    </div>
+    <div class="summary-card">
+      <div class="num">5</div>
+      <div class="label">취소/교환/반품</div>
+    </div>
+  </div>
+
+  <!-- 캠페인별 메시지 -->
+  <div class="section-title">캠페인별 전 / 후 비교</div>
+
+  <!-- 1. 결제완료 -->
+  <div data-campaign="campaign-1" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">1</div>
+        <span class="name">결제완료</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-1" onchange="toggleModify('campaign-1', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-1').click();"></span>
+          <label for="modify-campaign-1" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">결제 직후</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+#{고객명}님의<br>
+주문이 정상적으로 완료되었습니다!<br><br>
+📦 주문 정보<br><br>
+▪️주문일 : #{주문일}<br>
+▪️상품명 : #{상품명}<br>
+▪️결제금액 : #{총결제금액}원<br><br>
+☀️ 유비드 선크림의 특별함 ☀️<br><br>
+✔ 자외선 차단 지수 SPF50+ PA++++<br>
+✔ 피부 자극 테스트 완료<br>
+✔ 무기자차 + 유기자차 하이브리드<br>
+✔ 백탁 없는 투명한 마무리감<br>
+✔ 유해성분 FREE<br><br>
+자외선으로부터 피부를 지켜드릴<br>
+유비드를 선택해 주셔서<br>
+진심으로 감사드립니다.<br>
+궁금한 점은 언제든 문의주세요!
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">주문내역 바로가기</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>결제 직후에 제품 스펙 5종 나열 — 정보 과부하</li>
+            <li>고객 니즈(주문 확인)보다 브랜드 홍보 비중이 높음</li>
+            <li>메시지가 길어 스크롤 필요</li>
+            <li>핵심 CTA(주문내역)가 2번 버튼</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_0" onclick="event.stopPropagation()">품질 체크 후 안전하게 보내드려요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_0" onclick="event.stopPropagation()">선택해 주셔서 감사해요 ☀️</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님, 주문해 주셨군요! ☀️<br>
+              <br>
+              주문이 잘 접수됐어요.<br>
+              출고 전 하나하나 꼼꼼히 확인하고<br>
+              안전하게 포장해서 보내드릴게요.<br>
+              <br>
+              📦 주문 정보<br>
+              ▪️주문일 : #{주문일}<br>
+              ▪️상품명 : #{상품명}<br>
+              ▪️결제금액 : #{총결제금액}원<br>
+              <br>
+              기다리시는 동안 궁금한 점 있으시면<br>
+              편하게 말씀해 주세요 😊<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">주문내역 확인하기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">주문내역 확인하기</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">결제 직후 — 주문 확인이 최우선, 브랜드 홍보는 배송시작으로 이동</div>
+          </div>
+          <ul class="issues">
+            <li>제품 스펙 제거 → 결제 확인에 집중</li>
+            <li>스크롤 없이 한눈에 읽히는 길이</li>
+            <li>핵심 CTA(주문내역) 1번 배치</li>
+            <li>브랜드 슬로건으로 감성 마무리</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-1', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-1', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-1', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 배송시작 -->
+  <div data-campaign="campaign-2" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">2</div>
+        <span class="name">배송시작</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-2" onchange="toggleModify('campaign-2', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-2').click();"></span>
+          <label for="modify-campaign-2" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">출고 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님!<br>
+유비드에서 주문하신 제품이<br>
+지금 막 출발했습니다!<br><br>
+🚚 배송 정보<br><br>
+▪️상품명 : #{상품명}<br>
+▪️주문번호 : #{주문번호}<br>
+▪️택배사 : #{배송회사}<br>
+▪️송장번호 : #{송장번호}<br><br>
+☀️ 유비드 선크림 사용 TIP ☀️<br><br>
+✔ 외출 30분 전 도포<br>
+✔ 2~3시간마다 덧바름<br>
+✔ 이마·콧등·광대 꼼꼼히<br><br>
+최고의 선케어 제품이 곧 도착합니다!<br>
+조금만 기다려주세요 😊
+              <div class="btn-group">
+                <div class="btn">배송조회 바로가기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>배송 알림에 사용 TIP이 혼재 — 시점 부적절</li>
+            <li>배송조회 버튼이 primary가 아님</li>
+            <li>도착 전 사용법은 관심도 낮음</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_1" onclick="event.stopPropagation()">곧 도착해요, 기다려 주세요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_1" onclick="event.stopPropagation()">지금 막 출발했어요 📦</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님!<br>
+              <br>
+              기다리셨죠? 드디어 출발했어요 🚚<br>
+              <br>
+              📦 배송 정보<br>
+              ▪️상품명 : #{상품명}<br>
+              ▪️주문번호 : #{주문번호}<br>
+              ▪️택배사 : #{배송회사}<br>
+              ▪️송장번호 : #{송장번호}<br>
+              <br>
+              평균 1~2일 이내 도착 예정이에요.<br>
+              도착하면 꼭 확인해 주세요 😊
+              <div class="btn-group">
+                <div class="btn primary">배송조회 하기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">배송조회 하기</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">배송 시점 — 배송 정보 전달에 집중, 사용 TIP은 배송완료 후로 이동</div>
+          </div>
+          <ul class="issues">
+            <li>배송 정보만 간결하게 전달</li>
+            <li>사용 TIP 제거 → 배송완료 후 시점으로 이동</li>
+            <li>핵심 CTA(배송조회) primary 1번 배치</li>
+            <li>품질 관리 한 줄로 신뢰감 부여</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-2', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-2', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-2', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 구매확정 유도 -->
+
+  <!-- 3. 배송완료 (NEW 추가) -->
+  <div data-campaign="campaign-2b" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge" style="background:#e8a020;">N</div>
+        <span class="name">배송완료</span>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modify-toggle" onclick="event.stopPropagation()">
+            <input type="checkbox" id="modify-campaign-2b" onchange="toggleModify('campaign-2b', this, event)">
+            <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-2b').click();"></span>
+            <label for="modify-campaign-2b" onclick="event.stopPropagation()">수정필요</label>
+          </div>
+        <span class="timing">배송 완료 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label" style="color:#999;">⬜ 기존: 없음</div>
+          <div style="text-align:center; padding:60px 20px; color:#999; font-size:14px;">
+            배송시작 → 구매확정(+3일) 사이<br>
+            <b>배송완료 터치포인트 부재</b><br><br>
+            도착 후 첫 사용 경험 연결 없음
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ NEW 캠페인</div>
+          <div class="product-tab-bar" onclick="event.stopPropagation()">
+            <button class="product-tab-btn active" onclick="switchProductTab(this, 'campaign-2b', 'pad')">선패드</button>
+            <button class="product-tab-btn" onclick="switchProductTab(this, 'campaign-2b', 'mist')">선크림·선미스트</button>
+          </div>
+          <div class="product-tab-content active" data-product="pad" style="display:block !important">
+            <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2" onclick="event.stopPropagation()">사용법 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
+            <div class="msg white" contenteditable="true" data-title-key="msg_2b_pad" onclick="event.stopPropagation()">
+              #{고객명}님, 드디어 도착했어요! ☀️<br>
+              <br>
+              📦 배송 완료 정보<br>
+              ▪️상품명 : #{상품명}<br>
+              ▪️송장번호 : #{송장번호}<br>
+              <br>
+              처음 사용하시기 전에<br>
+              이것만 기억해 주세요 🌟<br>
+              <br>
+              ✓ 엠보면으로 피부 결 따라 부드럽게 닦기<br>
+              ✓ 비면으로 스킨케어 + 자외선 차단 한 번에<br>
+              ✓ 사용 후 뚜껑 단단히 닫기<br>
+              <br>
+              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
+              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">사용 가이드 보기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="product-tab-content" data-product="mist" style="display:none !important">
+            <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2b_mist" onclick="event.stopPropagation()">첫 사용 팁 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2b_mist" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
+            <div class="msg white" contenteditable="true" data-title-key="msg_2b_mist" onclick="event.stopPropagation()">
+              #{고객명}님, 드디어 도착했어요! ☀️<br>
+              <br>
+              📦 배송 완료 정보<br>
+              ▪️상품명 : #{상품명}<br>
+              ▪️송장번호 : #{송장번호}<br>
+              <br>
+              처음 사용하시기 전에<br>
+              이것만 기억해 주세요 🌟<br>
+              <br>
+              ✓ 외출 30분 전 충분히 도포<br>
+              ✓ 야외활동 → 2~3시간마다 덧바름<br>
+              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>
+              ✓ 이마·콧등·광대 꼼꼼히<br>
+              <br>
+              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
+              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">사용 가이드 보기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+            <div class="after-url-box" onclick="event.stopPropagation()">
+              <div class="url-box-title">💡 제안 랜딩 URL</div>
+              <div class="url-row">
+                <span class="url-btn-label">사용 가이드 보기</span>
+                <input type="text" class="url-input" value="" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-row">
+                <span class="url-btn-label">채널 추가하기</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_xcdWxon" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-note">배송완료 — 첫 사용 팁으로 제품 만족도 향상</div>
+            </div>
+          <ul class="issues">
+            <li>배송완료 직후 첫 사용 팁 전달 → 만족도 향상</li>
+            <li>덧바름 루틴 안내로 효과 극대화</li>
+            <li>핵심 CTA(사용 가이드) 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-2b', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-2b', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-2b', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <div data-campaign="campaign-3" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">3</div>
+        <span class="name">구매확정 유도</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-3" onchange="toggleModify('campaign-3', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-3').click();"></span>
+          <label for="modify-campaign-3" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">배송완료 후</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님!<br>
+유비드 선크림 사용은 만족스러우신가요?<br><br>
+아직 구매확정을 하지 않으셨네요!<br>
+구매확정을 해주시면<br>
+저희에게 큰 힘이 됩니다. 🙏<br><br>
+⭐ 리뷰도 함께 남겨주세요! ⭐<br><br>
+소중한 후기를 남겨주시면<br>
+다른 고객님들에게도 큰 도움이 됩니다.<br><br>
+감사합니다!
+              <div class="btn-group">
+                <div class="btn">구매확정 하기</div>
+                <div class="btn">리뷰 작성하기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>구매확정 + 리뷰 요청이 혼재 → 두 목적 모두 약화</li>
+            <li>구매확정 버튼이 primary가 아님</li>
+            <li>"큰 힘이 됩니다" — 브랜드 중심 어조</li>
+            <li>리뷰는 별도 캠페인으로 분리 필요</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_4" onclick="event.stopPropagation()">선케어 잘 쓰고 계신가요?</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_4" onclick="event.stopPropagation()">구매확정하고 포인트 받기</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              선케어 잘 쓰고 계신가요? ☀️<br>
+              <br>
+              덧바름이 번거로우셨던 분들을 위해<br>
+              손에 안 묻히고, 메이크업 위에도 바로 칙칙—<br>
+              그 귀찮음을 조금이라도 덜어드리고 싶었어요.<br>
+              <br>
+              혹시 불편하신 점 있으시면<br>
+              편하게 말씀해 주세요.<br>
+              괜찮으셨다면 구매확정도 부탁드려요! 🙏<br>
+              <br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">구매확정 하기</div>
+                <div class="btn">자주 묻는 질문</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">구매확정 하기</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">구매확정에만 집중 — 리뷰는 별도 캠페인(+7일)으로 분리</div>
+          </div>
+          <ul class="issues">
+            <li>구매확정 단일 목적으로 집중</li>
+            <li>리뷰 요청 분리 → 각 캠페인 전환율 상승</li>
+            <li>핵심 CTA(구매확정) primary 1번 배치</li>
+            <li>FAQ 버튼으로 CS 선제 대응</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-3', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-3', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-3', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. 리뷰유도 -->
+  <div data-campaign="campaign-4" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">4</div>
+        <span class="name">리뷰유도</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-4" onchange="toggleModify('campaign-4', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-4').click();"></span>
+          <label for="modify-campaign-4" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">배송완료 +7일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+(구매확정 메시지에 리뷰 요청이<br>
+함께 포함되어 있던 구조)<br><br>
+별도의 리뷰 유도 캠페인이<br>
+존재하지 않았습니다.<br><br>
+구매확정과 리뷰가 하나의 메시지에<br>
+혼재되어 두 목적 모두 약화.
+              <div class="btn-group">
+                <div class="btn">구매확정 하기</div>
+                <div class="btn">리뷰 작성하기</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>별도 리뷰 캠페인 부재</li>
+            <li>구매확정에 리뷰가 끼어 두 목적 모두 약화</li>
+            <li>사용 후 적정 시점(+7일) 리뷰 요청 없음</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_5" onclick="event.stopPropagation()">일주일 지났어요, 어떠셨나요?</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_5" onclick="event.stopPropagation()">후기 남기고 혜택 받기</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              덧바름 루틴 잘 쓰고 계신가요? ☀️<br>
+              <br>
+              자외선 차단은 2~3시간마다 덧바를 때<br>
+              제대로 효과를 발휘한다는 거 아시죠?<br>
+              <br>
+              일주일 동안 써보신 솔직한 후기—<br>
+              좋은 점도, 아쉬운 점도 모두 환영해요.<br>
+              한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊
+              <div class="btn-group">
+                <div class="btn primary">리뷰 작성하기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">리뷰 작성하기</span>
+              <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">배송 +7일 — 사용 경험이 축적된 적정 시점에 리뷰 단독 요청</div>
+          </div>
+          <ul class="issues">
+            <li>리뷰 전용 캠페인 신설 (+7일 시점)</li>
+            <li>사용 경험 축적 후 요청 → 리뷰 품질 향상</li>
+            <li>포토/영상 혜택 안내로 전환율 강화</li>
+            <li>핵심 CTA(리뷰 작성) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-4', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-4', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-4', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 한달 사용 후기 -->
+
+  <!-- VOC 참여 유도 (NEW) -->
+  <div data-campaign="campaign-4b" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge" style="background:#e8a020;">N</div>
+        <span class="name">VOC 참여 유도</span>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modify-toggle" onclick="event.stopPropagation()">
+            <input type="checkbox" id="modify-campaign-4b" onchange="toggleModify('campaign-4b', this, event)">
+            <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-4b').click();"></span>
+            <label for="modify-campaign-4b" onclick="event.stopPropagation()">수정필요</label>
+          </div>
+        <span class="timing">배송완료 +14일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label" style="color:#999;">⬜ 기존: 없음</div>
+          <div style="text-align:center; padding:60px 20px; color:#999; font-size:14px;">
+            리뷰유도(+7일) → 한달리뷰(+30일) 사이<br>
+            <b>터치포인트 공백 (23일)</b><br><br>
+            VOC 인터뷰 참여 유도 없음
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ NEW 캠페인</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_6" onclick="event.stopPropagation()">잠깐, 여쭤봐도 될까요? 🙏</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_6" onclick="event.stopPropagation()">인터뷰하고 선물 받기 🎁</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님, 안녕하세요<br>
+              <br>
+              유비드 선크림 잘 사용하고 계실까요? 🙏<br>
+              <br>
+              사용하시면서 느끼신 점이 궁금해요.<br>
+              불편했던 점, 좋았던 점—<br>
+              솔직하게 들려주시면 실제로 반영하거든요.<br>
+              <br>
+              ✅ 약 10분 내외 간단 참여<br>
+              ✅ 고객님의 의견은 실제 개선에 반영됩니다<br>
+              <br>
+              🎁 참여해 주시면 소정의 선물을 드려요.<br>
+              <br>
+              편하신 시간으로 예약 부탁드립니다. 😊
+              <div class="btn-group">
+                <div class="btn primary">참여하고 혜택 받기</div>
+                <div class="btn">1:1 문의하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+            <div class="after-url-box" onclick="event.stopPropagation()">
+              <div class="url-box-title">💡 제안 랜딩 URL</div>
+              <div class="url-row">
+                <span class="url-btn-label">참여하고 혜택 받기</span>
+                <input type="text" class="url-input" value="https://whattime.co.kr/gromeet/meeting14" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-row">
+                <span class="url-btn-label">1:1 문의하기</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_xcdWxon/chat" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-note">VOC 인터뷰 — 고객 목소리 수집 + 선물로 참여율 극대화</div>
+            </div>
+          <ul class="issues">
+            <li>+7일 리뷰유도 이후 VOC 인터뷰 연결</li>
+            <li>선물 인센티브로 참여율 제고</li>
+            <li>실제 개선 반영 메시지로 신뢰도 강화</li>
+          </ul>
+        </div>
+      </div>
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-4b', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-4b', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-4b', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <div data-campaign="campaign-5" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">5</div>
+        <span class="name">한달 사용 후기</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-5" onchange="toggleModify('campaign-5', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-5').click();"></span>
+          <label for="modify-campaign-5" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">배송완료 +30일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+(한달 후기 전용 캠페인이<br>
+존재하지 않았습니다.)<br><br>
+리뷰 유도 메시지가<br>
+구매확정 직후 1회에 그쳐<br>
+장기 사용 후기를 수집하지 못함.
+            </div>
+          </div>
+          <ul class="issues">
+            <li>한달 후기 전용 캠페인 부재</li>
+            <li>장기 사용 후기 수집 불가</li>
+            <li>재구매 시점 리마인드 기회 상실</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+              <div class="kakao-header">카카오 알림톡</div>
+              <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_7" onclick="event.stopPropagation()">함께한 지 한 달이 됐네요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_7" onclick="event.stopPropagation()">한 달, 어떠셨나요?</div></div>
+              <div class="msg white" contenteditable="true" data-title-key="msg_5_mist" onclick="event.stopPropagation()">
+                #{고객명}님,<br>
+                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br>
+                <br>
+                엑토인 성분이 자외선을 받을 때마다<br>
+                피부 세포막 수분을 조용히 지켜주고 있어요.<br>
+                한 달 꾸준히 쓰셨다면<br>
+                피부가 조금씩 달라지고 있을 거예요.<br>
+                <br>
+                한 달간의 경험, 솔직한 후기 한 줄만 남겨주세요.<br>
+                좋았던 점, 아쉬운 점 모두 소중하게 읽을게요 😊
+                <div class="btn-group">
+                  <div class="btn primary">한달 후기 작성하기</div>
+                  <div class="btn">채널 추가하기</div>
+                </div>
+              </div>
+            </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">한달 후기 작성하기</span>
+              <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">배송 +30일 — 장기 사용 후기 + 사용팁 리마인드로 재구매 연결</div>
+          </div>
+          <ul class="issues">
+            <li>한달 후기 전용 캠페인 신설</li>
+            <li>장기 사용 데이터 기반 리뷰 수집</li>
+            <li>사용팁 리마인드로 제품 효과 극대화</li>
+            <li>재구매 시점 자연스러운 접점 확보</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-5', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-5', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-5', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. 취소요청 -->
+  <div data-campaign="campaign-6" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">6</div>
+        <span class="name">취소요청</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-6" onchange="toggleModify('campaign-6', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-6').click();"></span>
+          <label for="modify-campaign-6" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">취소 접수 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+고객님께서 요청하신 주문 취소가<br>
+정상적으로 접수되었습니다.<br><br>
+취소 접수 후 처리까지<br>
+영업일 기준 1~2일이 소요되며,<br>
+환불은 결제 수단에 따라<br>
+영업일 기준 3~5일 내 처리됩니다.<br><br>
+저희 유비드 제품으로<br>
+만족을 드리지 못해<br>
+진심으로 죄송한 말씀 드립니다.<br><br>
+혹시 다른 제품이나 용량으로<br>
+교환을 원하시면<br>
+언제든 말씀해 주세요.<br><br>
+고객님의 소중한 의견을 반영하여<br>
+더 나은 선케어를 만들어 나가겠습니다.<br>
+감사합니다.
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">취소 현황 확인</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>사과가 장황하고 반복적</li>
+            <li>핵심 정보(주문번호, 상품명) 누락</li>
+            <li>채널 추가가 1번 버튼 — CS 시점에 부적절</li>
+            <li>취소 현황 버튼이 primary가 아님</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_8" onclick="event.stopPropagation()">언제든 도와드릴게요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_8" onclick="event.stopPropagation()">취소 요청, 확인했어요</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              취소 요청 확인했어요.<br>
+              <br>
+              혹시 제품이 맞지 않으셨거나<br>
+              다른 이유가 있으셨다면<br>
+              말씀해 주시면 함께 방법을 찾아볼게요.<br>
+              <br>
+              편하게 말씀해 주세요 😊<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">취소 현황 확인</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">취소 현황 확인</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+          </div>
+          <ul class="issues">
+            <li>핵심 정보(주문번호/상품명/금액) 포함</li>
+            <li>간결한 사과 + 환불 절차 안내</li>
+            <li>핵심 CTA(취소 현황) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-6', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-6', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-6', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. 취소완료 -->
+  <div data-campaign="campaign-7" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">7</div>
+        <span class="name">취소완료</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-7" onchange="toggleModify('campaign-7', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-7').click();"></span>
+          <label for="modify-campaign-7" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">취소 완료 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+고객님께서 요청하신 주문 취소가<br>
+정상적으로 완료 처리되었습니다.<br><br>
+환불은 결제 수단에 따라<br>
+영업일 기준 3~5일 내 처리됩니다.<br>
+카드 결제의 경우 청구 취소,<br>
+무통장 입금의 경우 계좌 환불로<br>
+진행됩니다.<br><br>
+이번 거래 과정에서 불편을<br>
+드렸다면 진심으로 사과 드립니다.<br><br>
+고객님의 소중한 의견을 반영하여<br>
+더 나은 제품과 서비스로<br>
+반드시 보답하겠습니다.<br><br>
+다시 찾아주신다면<br>
+더욱 만족스러운 경험을<br>
+제공해 드리겠습니다.<br>
+감사합니다.
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">주문내역 확인</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>환불 방법 설명이 장황</li>
+            <li>사과 + 보답 + 감사 반복 → 메시지 길어짐</li>
+            <li>채널 추가가 1번 버튼</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_9" onclick="event.stopPropagation()">다음엔 더 좋은 경험으로</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_9" onclick="event.stopPropagation()">아쉽지만, 다음에 만나요</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              취소 처리 완료됐어요.<br>
+              <br>
+              💰 환불은 결제수단에 따라<br>
+              영업일 기준 3~5일 소요돼요.<br>
+              <br>
+              이번엔 인연이 닿지 않아 아쉬웠어요.<br>
+              어떤 점이 맞지 않으셨는지<br>
+              알려주시면 진심으로 참고할게요.
+              <div class="btn-group">
+                <div class="btn primary">주문내역 확인</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">주문내역 확인</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+          </div>
+          <ul class="issues">
+            <li>환불 안내 간결화</li>
+            <li>사과 1회 + 개선 약속으로 마무리</li>
+            <li>핵심 CTA(주문내역) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-7', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-7', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-7', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. 교환요청 -->
+  <div data-campaign="campaign-8" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">8</div>
+        <span class="name">교환요청</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-8" onchange="toggleModify('campaign-8', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-8').click();"></span>
+          <label for="modify-campaign-8" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">교환 접수 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+교환 요청이 정상적으로 접수되었습니다.<br><br>
+교환 사유를 확인하여<br>
+최대한 빠르게 처리해 드리겠습니다.<br><br>
+교환 절차 안내:<br>
+1. 택배 회수 접수 (1~2영업일)<br>
+2. 제품 회수 및 상태 확인<br>
+3. 새 상품 포장 및 발송<br>
+4. 고객님께 재배송<br><br>
+전체 소요 기간은<br>
+영업일 기준 5~7일 내외입니다.<br><br>
+고객님께 불편을 드려<br>
+정말 죄송한 말씀 드립니다.<br>
+동일한 일이 반복되지 않도록<br>
+품질 관리 기준을 더욱 강화하겠습니다.<br><br>
+추가 문의사항이 있으시면<br>
+언제든지 채널을 통해 연락주세요.
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">교환 현황 확인</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>교환 절차가 4단계로 장황</li>
+            <li>사과가 반복적이고 장문</li>
+            <li>채널 추가가 1번 버튼</li>
+            <li>교환 현황 버튼이 primary가 아님</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_10" onclick="event.stopPropagation()">새 제품으로 만족시켜 드려요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_10" onclick="event.stopPropagation()">바로 도와드릴게요</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              교환 요청 확인했어요.<br>
+              <br>
+              불편을 드려서 정말 죄송해요.<br>
+              최대한 빠르게 처리해 드릴게요.<br>
+              <br>
+              📦 교환 진행 안내<br>
+              ▪️① 택배 회수 (2~3영업일)<br>
+              ▪️② 상품 상태 확인<br>
+              ▪️③ 새 상품 발송 (확인 후 1~2영업일)<br>
+              <br>
+              진행 중 궁금한 점 있으시면<br>
+              언제든 편하게 연락 주세요.<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">교환 현황 확인</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">교환 현황 확인</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+          </div>
+          <ul class="issues">
+            <li>교환 절차 3단계로 간결화</li>
+            <li>사과 1회 + 개선 약속으로 충분</li>
+            <li>핵심 CTA(교환 현황) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-8', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-8', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-8', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 9. 교환완료 -->
+  <div data-campaign="campaign-9" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">9</div>
+        <span class="name">교환완료</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-9" onchange="toggleModify('campaign-9', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-9').click();"></span>
+          <label for="modify-campaign-9" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">교환 발송 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+교환 상품이 정상적으로 발송 처리되었습니다.<br><br>
+교환 배송 정보:<br>
+▪️상품명 : #{상품명}<br>
+▪️송장번호 : #{송장번호}<br>
+▪️택배사 : #{배송회사}<br><br>
+지역에 따라 평균 1~2일 이내<br>
+도착할 예정입니다.<br><br>
+이번 교환 과정에서<br>
+불편을 끼쳐드려 정말 죄송합니다.<br>
+유비드를 다시 한번 믿어주셔서<br>
+진심으로 감사드립니다.<br><br>
+새 제품이 도착하면<br>
+꼭 확인해 주시고,<br>
+혹시 또 문제가 있으시면<br>
+즉시 연락주세요.<br>
+끝까지 책임지겠습니다.
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">배송조회 하기</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>사과 + 감사 + 약속이 반복되어 장문</li>
+            <li>채널 추가가 1번 버튼</li>
+            <li>배송조회가 primary가 아님</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_11" onclick="event.stopPropagation()">기다려 주셔서 감사해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_11" onclick="event.stopPropagation()">새 상품 출발했어요 🚚</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              교환 상품이 발송됐어요! 🚚<br>
+              <br>
+              기다려 주셔서 진심으로 감사해요.<br>
+              <br>
+              📦 교환 배송 정보<br>
+              ▪️상품명 : #{상품명}<br>
+              ▪️송장번호 : #{송장번호}<br>
+              <br>
+              이번엔 불편함 없이<br>
+              처음보다 더 만족스러우시길 바라는 마음으로<br>
+              정성껏 검수하고 보내드렸어요 😊
+              <div class="btn-group">
+                <div class="btn primary">배송조회 하기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">배송조회 하기</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+          </div>
+          <ul class="issues">
+            <li>간결한 감사 + 배송 정보 전달</li>
+            <li>사과 반복 제거 → 긍정적 마무리</li>
+            <li>핵심 CTA(배송조회) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-9', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-9', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-9', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10. 반품요청 -->
+  <div data-campaign="campaign-10" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">10</div>
+        <span class="name">반품요청</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-10" onchange="toggleModify('campaign-10', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-10').click();"></span>
+          <label for="modify-campaign-10" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">반품 접수 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+반품 요청이 정상적으로 접수되었습니다.<br><br>
+반품 절차 안내:<br>
+1. 택배 회수 접수 (1~2영업일)<br>
+2. 제품 회수 및 상태 확인 (2~3영업일)<br>
+3. 환불 처리 (확인 후 3~7영업일)<br><br>
+전체 소요 기간은<br>
+영업일 기준 7~12일 내외입니다.<br><br>
+저희 유비드를 선택해 주신 고객님께<br>
+만족을 드리지 못해<br>
+마음이 매우 무겁습니다.<br><br>
+고객님의 소중한 피드백을 바탕으로<br>
+제품 품질을 더욱 개선하여<br>
+신뢰받는 브랜드가 되도록<br>
+최선을 다하겠습니다.<br><br>
+추가 문의사항은 언제든<br>
+채널을 통해 연락주세요.
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">반품 현황 확인</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>반품 절차가 장황하고 소요 기간이 길게 느껴짐</li>
+            <li>사과가 반복적이고 장문</li>
+            <li>채널 추가가 1번 버튼</li>
+            <li>반품 현황 버튼이 primary가 아님</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_12" onclick="event.stopPropagation()">교환으로 더 빠르게 해결해요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_12" onclick="event.stopPropagation()">끝까지 함께할게요</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              반품 요청 확인했어요.<br>
+              <br>
+              📦 반품 진행 안내<br>
+              ▪️① 택배 회수 (2~3영업일)<br>
+              ▪️② 상품 상태 확인<br>
+              ▪️③ 환불 처리 (3~7영업일)<br>
+              <br>
+              혹시 제품 불량이나 파손이셨다면<br>
+              반품보다 교환으로 더 빠르게 도와드릴 수 있어요.<br>
+              편하게 말씀해 주세요 😊<br>
+              🕐 평일 10:00~17:00<br>
+              (점심 12:30~13:30 / 주말·공휴일 휴무)
+              <div class="btn-group">
+                <div class="btn primary">반품 현황 확인</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">반품 현황 확인</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+          </div>
+          <ul class="issues">
+            <li>반품 절차 3단계로 간결화</li>
+            <li>사과 간결화 + 보답 약속으로 마무리</li>
+            <li>핵심 CTA(반품 현황) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-10', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-10', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-10', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11. 반품완료 -->
+  <div data-campaign="campaign-11" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">11</div>
+        <span class="name">반품완료</span>
+        <span class="impact mid">MED</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-11" onchange="toggleModify('campaign-11', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-11').click();"></span>
+          <label for="modify-campaign-11" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">반품 완료 시</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">❌ BEFORE</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+안녕하세요, #{고객명}님.<br>
+선케어 전문 브랜드 유비드(UVID)입니다.<br><br>
+반품이 정상적으로 완료 처리되었습니다.<br><br>
+환불은 결제 수단에 따라<br>
+영업일 기준 3~5일 내 처리됩니다.<br>
+카드 결제의 경우 청구 취소,<br>
+무통장 입금의 경우 계좌 환불로<br>
+진행됩니다.<br><br>
+제품 사용 및 반품 과정에서<br>
+불편하거나 아쉬운 점이 있으셨다면<br>
+언제든 말씀 부탁드립니다.<br><br>
+고객님의 소중한 피드백은<br>
+유비드가 더 나은 제품을 만드는<br>
+가장 중요한 밑거름이 됩니다.<br><br>
+다음에도 유비드를 찾아주신다면<br>
+더 나은 모습으로 보답드리겠습니다.<br>
+감사합니다.
+              <div class="btn-group">
+                <div class="btn">채널 추가하기</div>
+                <div class="btn">주문내역 확인</div>
+              </div>
+            </div>
+          </div>
+          <ul class="issues">
+            <li>환불 방법 설명이 장황</li>
+            <li>사과 + 피드백 요청 + 감사 반복</li>
+            <li>채널 추가가 1번 버튼</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_13" onclick="event.stopPropagation()">아쉬운 점 알려주세요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_13" onclick="event.stopPropagation()">아쉽지만, 또 만나요</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              반품 처리 완료됐어요.<br>
+              <br>
+              💰 환불은 결제수단에 따라<br>
+              영업일 기준 3~5일 소요돼요.<br>
+              <br>
+              기대에 못 미쳐서 정말 아쉬워요.<br>
+              어떤 점이 불편하셨는지 알려주시면<br>
+              다음 제품에 꼭 반영할게요.<br>
+              솔직하게 말씀해 주셔도 괜찮아요 😊
+              <div class="btn-group">
+                <div class="btn primary">주문내역 확인</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">주문내역 확인</span>
+              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+          </div>
+          <ul class="issues">
+            <li>환불 안내 간결화</li>
+            <li>피드백 요청 + 재방문 약속으로 마무리</li>
+            <li>핵심 CTA(주문내역) primary 1번 배치</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-11', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-11', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-11', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 고객 여정 맵 -->
+  <div class="section-title">고객 여정 (Customer Journey)</div>
+  <div class="journey" style="background:white; border-radius:12px; margin-bottom:24px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.06);">
+    <div class="journey-step active">결제완료</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">배송시작</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">구매확정</div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">리뷰유도<br><small>+7일</small></div>
+    <div class="journey-arrow">→</div>
+    <div class="journey-step active">한달 후기<br><small>+30일</small></div>
+    <div class="journey-arrow">|</div>
+    <div class="journey-step" style="background:#ffe0e0; border-color:#ffa0a0; color:#c44;">취소/교환/반품</div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">
+  UVID 알림톡 CX 개선안 · 2026-03-18
+</div>
+
+<script>
+  // Decision tracking
+  const decisions = {};
+
+  function decide(campaignId, type) {
+    decisions[campaignId] = type;
+    const card = document.querySelector(`[data-campaign="${campaignId}"]`);
+    if (!card) return;
+
+    card.classList.remove('decided-adopt', 'decided-modify', 'decided-skip');
+    card.classList.add('decided-' + type);
+
+    // Update buttons
+    card.querySelectorAll('.decision-btn').forEach(b => b.classList.remove('selected'));
+    card.querySelector(`.decision-btn.${type}`).classList.add('selected');
+
+    // If modify, focus the editable area
+    if (type === 'modify') {
+      const editable = card.querySelector('[contenteditable]');
+      if (editable) editable.focus();
+    }
+
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const vals = Object.values(decisions);
+    const adopt = vals.filter(v => v === 'adopt').length;
+    const modify = vals.filter(v => v === 'modify').length;
+    const skip = vals.filter(v => v === 'skip').length;
+    const total = adopt + modify + skip;
+
+    const bar = document.getElementById('decision-summary');
+    if (total > 0) {
+      bar.classList.remove('hidden');
+      document.getElementById('count-adopt').textContent = adopt;
+      document.getElementById('count-modify').textContent = modify;
+      document.getElementById('count-skip').textContent = skip;
+    } else {
+      bar.classList.add('hidden');
+    }
+  }
+
+  function exportDecisions() {
+    let result = '# 알림톡 CX 개선안 — 채택 결과\n\n';
+    result += `날짜: ${new Date().toLocaleDateString('ko-KR')}\n\n`;
+
+    document.querySelectorAll('[data-campaign]').forEach(card => {
+      const id = card.dataset.campaign;
+      const name = card.querySelector('.name')?.textContent || id;
+      const status = decisions[id] || '미결정';
+      const statusEmoji = status === 'adopt' ? '✅' : status === 'modify' ? '✏️' : status === 'skip' ? '⏭️' : '⬜';
+
+      result += `${statusEmoji} **${name}** — ${status === 'adopt' ? '채택' : status === 'modify' ? '수정 채택' : status === 'skip' ? '보류' : '미결정'}\n`;
+
+      if (status === 'modify' || status === 'adopt') {
+        const afterText = card.querySelector('.after [contenteditable]');
+        if (afterText) {
+          result += `> ${afterText.innerText.substring(0, 200).replace(/\n/g, '\n> ')}...\n`;
+        }
+      }
+      result += '\n';
+    });
+
+    // Copy to clipboard
+    navigator.clipboard.writeText(result).then(() => {
+      const btn = document.querySelector('.export-btn');
+      btn.textContent = '✓ 복사됨!';
+      setTimeout(() => btn.textContent = '📋 결과 복사', 2000);
+    });
+  }
+
+  // 수정 필요 토글
+  function applyTabVisibility(card) {
+    card.querySelectorAll('.product-tab-content').forEach(function(el) {
+      if (el.classList.contains('active')) {
+        el.style.setProperty('display', 'block', 'important');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+  }
+
+  function switchProductTab(btn, campaignId, product) {
+    if (event) event.stopPropagation();
+    var bar = btn.closest('.product-tab-bar');
+    bar.querySelectorAll('.product-tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var card = document.querySelector('[data-campaign="' + campaignId + '"]');
+    card.querySelectorAll('.product-tab-content').forEach(function(c) {
+      c.classList.remove('active');
+      c.style.setProperty('display', 'none', 'important');
+    });
+    var t = card.querySelector('.product-tab-content[data-product="' + product + '"]');
+    if (t) { t.classList.add('active'); t.style.setProperty('display', 'block', 'important'); }
+  }
+
+  // 탭 초기 상태 강제 적용 + 카드 열릴 때마다 재적용
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.product-tab-content').forEach(function(el) {
+      if (el.classList.contains('active')) {
+        el.style.setProperty('display', 'block', 'important');
+      } else {
+        el.style.setProperty('display', 'none', 'important');
+      }
+    });
+    // 캠페인 카드 토글 시 탭 상태 재적용
+    document.querySelectorAll('.campaign-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var card = this.closest('.campaign-card');
+        setTimeout(function() { applyTabVisibility(card); }, 10);
+      });
+    });
+  });
+
+  function toggleModify(campaignId, checkbox, event) {
+    event.stopPropagation();
+    const card = document.querySelector('[data-campaign="' + campaignId + '"]');
+    if (checkbox.checked) {
+      card.classList.add('needs-modify');
+    } else {
+      card.classList.remove('needs-modify');
+    }
+    // localStorage에 토글 상태 저장
+    localStorage.setItem(`alimtalk_uvid_modify_${campaignId}`, checkbox.checked ? '1' : '0');
+    updateModifyCount();
+  }
+
+  function updateModifyCount() {
+    const total = document.querySelectorAll('.campaign-card').length;
+    const needsModify = document.querySelectorAll('.campaign-card.needs-modify').length;
+    const bar = document.getElementById('modify-count-bar');
+    if (bar) {
+      if (needsModify > 0) {
+        bar.textContent = '⚠️ 수정 필요: ' + needsModify + '개 / 전체 ' + total + '개 캠페인';
+        bar.classList.add('visible');
+      } else {
+        bar.classList.remove('visible');
+      }
+    }
+  }
+
+  // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
+  const BRAND = "uvid";
+  const DATA_VERSION = "2026-03-27-v4";
+  const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // 버전 변경 시 localStorage 초기화 (오염 데이터 제거)
+    if (localStorage.getItem(`alimtalk_${BRAND}_data_version`) !== DATA_VERSION) {
+      const keysToRemove = [];
+      for (let k in localStorage) {
+        if (k.startsWith(`alimtalk_${BRAND}_`)) keysToRemove.push(k);
+      }
+      keysToRemove.forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(`alimtalk_${BRAND}_data_version`, DATA_VERSION);
+    }
+    // 클릭 이벤트 전파 차단
+    document.querySelectorAll('[contenteditable="true"], input, .before-url-box, .decision-bar').forEach(el => {
+      el.addEventListener('click', e => e.stopPropagation());
+    });
+
+    const editables = document.querySelectorAll('[contenteditable="true"]:not([data-title-key])');
+    const urlInputs = document.querySelectorAll('.url-input');
+    const titleEditables = document.querySelectorAll('[data-title-key]');
+
+    // GitHub에서 팀 공유 데이터 로드 (최신 버전)
+    async function loadTeamData() {
+      try {
+        const res = await fetch(`${API_BASE}?brand=${BRAND}`, { cache: 'no-store' });
+        if (!res.ok) return;
+        const data = await res.json();
+        editables.forEach((el, idx) => {
+          const key = `ce_${idx}`;
+          if (data[key]) el.innerHTML = data[key];
+          else {
+            // localStorage fallback
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
+          }
+        });
+        urlInputs.forEach((el, idx) => {
+          const key = `url_${idx}`;
+          if (data[key]) el.value = data[key];
+          else {
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local) el.value = local;
+          }
+        });
+        titleEditables.forEach(el => {
+          const key = el.dataset.titleKey;
+          if (data.titles && data.titles[key]) {
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (!local) el.innerHTML = data.titles[key];
+          }
+        });
+        titleEditables.forEach(el => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
+          if (s) el.innerHTML = s;
+        });
+        document.querySelectorAll(".campaign-card").forEach((card, idx) => {
+          const decVal = data["dec_" + idx];
+          if (decVal) {
+            const btn = card.querySelector(".decision-btn." + decVal);
+            if (btn) { btn.classList.add("selected"); card.classList.add("decided-" + decVal); }
+          }
+        });
+      } catch {
+        // 네트워크 오류 시 localStorage 사용
+        editables.forEach((el, idx) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
+          if (s) el.innerHTML = s;
+        });
+        urlInputs.forEach((el, idx) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
+          if (s) el.value = s;
+        });
+        titleEditables.forEach(el => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
+          if (s) el.innerHTML = s;
+        });
+      }
+    }
+
+    loadTeamData();
+
+    // 수정필요 토글 상태 복원 (localStorage)
+    document.querySelectorAll("input[id^=modify-campaign]").forEach(cb => {
+      const campaignId = cb.id.replace('modify-', '');
+      const saved = localStorage.getItem(`alimtalk_uvid_modify_${campaignId}`);
+      if (saved === '1' && !cb.checked) cb.click();
+    });
+
+    // 타이핑할 때마다 localStorage에 즉시 저장
+    editables.forEach((el, idx) => {
+      el.addEventListener('input', () => {
+        const _html = el.innerHTML.trim(); if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
+        el.style.outline = "2px solid #22c55e";
+        clearTimeout(el._saveTimer);
+        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+      });
+    });
+    urlInputs.forEach((el, idx) => {
+      el.addEventListener('input', () => {
+        localStorage.setItem(`alimtalk_${BRAND}_url_${idx}`, el.value);
+      });
+    });
+    titleEditables.forEach(el => {
+      el.addEventListener('input', () => {
+        const key = el.dataset.titleKey;
+        const _html = el.innerHTML.trim();
+        if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_${key}`, _html);
+        el.style.outline = "2px solid #4A6FA5";
+        clearTimeout(el._saveTimer);
+        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+      });
+    });
+
+    // 팀 공유 버튼 생성
+    const shareBtn = document.createElement('button');
+    shareBtn.id = 'team-share-btn';
+    shareBtn.textContent = '팀 공유 저장';
+    shareBtn.style.cssText = `
+      position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+      background: #22c55e; color: white; border: none; border-radius: 12px;
+      padding: 14px 24px; font-size: 15px; font-weight: 700;
+      cursor: pointer; box-shadow: 0 4px 16px rgba(34,197,94,0.4);
+      transition: all 0.2s; font-family: 'Noto Sans KR', sans-serif;
+    `;
+    shareBtn.addEventListener('mouseenter', () => { shareBtn.style.background = '#16a34a'; });
+    shareBtn.addEventListener('mouseleave', () => { shareBtn.style.background = '#22c55e'; });
+
+    shareBtn.addEventListener('click', async () => {
+      shareBtn.disabled = true;
+      shareBtn.textContent = '저장 중...';
+      shareBtn.style.background = '#9ca3af';
+
+      const changes = {};
+      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
+      urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
+      const titleChanges = {};
+      titleEditables.forEach(el => {
+        const key = el.dataset.titleKey;
+        const _html = el.innerHTML.trim();
+        if (_html && _html !== '<br>') titleChanges[key] = _html;
+      });
+      if (Object.keys(titleChanges).length > 0) changes.titles = titleChanges;
+      document.querySelectorAll(".campaign-card").forEach((card, idx) => {
+        const sel = card.querySelector(".decision-btn.selected");
+        if (sel) {
+          if (sel.classList.contains("adopt")) changes["dec_" + idx] = "adopt";
+          else if (sel.classList.contains("modify")) changes["dec_" + idx] = "modify";
+          else if (sel.classList.contains("skip")) changes["dec_" + idx] = "skip";
+        }
+      });
+
+      try {
+        const res = await fetch(API_BASE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ brand: BRAND, changes }),
+        });
+        if (res.ok) {
+          shareBtn.textContent = '✅ 저장 완료!';
+          shareBtn.style.background = '#22c55e';
+          setTimeout(() => {
+            shareBtn.textContent = '팀 공유 저장';
+            shareBtn.disabled = false;
+          }, 2000);
+        } else {
+          throw new Error('save failed');
+        }
+      } catch {
+        shareBtn.textContent = '❌ 저장 실패';
+        shareBtn.style.background = '#ef4444';
+        setTimeout(() => {
+          shareBtn.textContent = '팀 공유 저장';
+          shareBtn.style.background = '#22c55e';
+          shareBtn.disabled = false;
+        }, 2000);
+      }
+    });
+
+    // 글자수 카운터
+    document.querySelectorAll('.msg[contenteditable="true"]').forEach(msg => {
+      const counter = document.createElement('div');
+      counter.className = 'char-counter';
+      msg.parentNode.insertBefore(counter, msg.nextSibling);
+      const update = () => {
+        const len = msg.innerText.replace(/\n/g, '').length;
+        counter.textContent = len + ' / 1,000자';
+        counter.classList.toggle('over', len > 1000);
+      };
+      update();
+      msg.addEventListener('input', update);
+    });
+
+    document.body.appendChild(shareBtn);
+  });
+
+  function toggleAllCards() {
+    const cards = document.querySelectorAll(".campaign-card");
+    const btn = document.getElementById("toggle-all-btn");
+    const anyOpen = Array.from(cards).some(c => c.classList.contains("open"));
+    cards.forEach(c => {
+      if (anyOpen) c.classList.remove("open");
+      else c.classList.add("open");
+    });
+    btn.textContent = anyOpen ? "▼ 캠페인 전체 펼치기" : "▲ 전체 접기";
+  }
+
+  function toggleAllModify() {
+    const checkboxes = document.querySelectorAll("input[id^=modify-campaign]");
+    const allOn = Array.from(checkboxes).every(cb => cb.checked);
+    checkboxes.forEach(cb => {
+      if (allOn && cb.checked) cb.click();
+      else if (!allOn && !cb.checked) cb.click();
+    });
+    const newState = !allOn;
+    const label = newState ? "☒ 수정필요 전체 OFF" : "☑ 수정필요 전체 ON";
+    const floatLabel = newState ? "☒ 전체 OFF" : "☑ 전체 ON";
+    const btn = document.getElementById("toggle-modify-btn");
+    if (btn) btn.textContent = label;
+    const fb = document.getElementById("float-modify-btn");
+    if (fb) {
+      fb.textContent = floatLabel;
+      fb.classList.toggle("all-on", newState);
+    }
+  }
+</script>
+
+<!-- Decision Summary Bar -->
+<div id="decision-summary" class="decision-summary hidden">
+  <div class="count">
+    <span><span class="dot green"></span> 채택 <b id="count-adopt">0</b></span>
+    <span><span class="dot yellow"></span> 수정 <b id="count-modify">0</b></span>
+    <span><span class="dot gray"></span> 보류 <b id="count-skip">0</b></span>
+  </div>
+  <button class="export-btn" onclick="exportDecisions()">📋 결과 복사</button>
+</div>
+
+<button id="float-modify-btn" onclick="toggleAllModify()">☑ 수정필요 전체 ON</button>
+</body>
+</html>
