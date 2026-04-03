@@ -853,7 +853,7 @@
       <div class="label">기존 캠페인</div>
     </div>
     <div class="summary-card">
-      <div class="num">+7</div>
+      <div class="num">+6</div>
       <div class="label">신규 캠페인 제안</div>
     </div>
     <div class="summary-card">
@@ -1103,10 +1103,10 @@
               <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
             <div class="url-row">
-              <span class="url-btn-label">쿠참 채널 추가</span>
-              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <span class="url-btn-label">초기 세팅 가이드</span>
+              <input type="text" class="url-input" value="https://alimtalk-cx.vercel.app/kucham-faq.html" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
-            <div class="url-note">배송조회 네이버페이 유지</div>
+            <div class="url-note">배송조회 → 네이버페이 / 초기세팅 가이드 → FAQ</div>
           </div>
         </div>
       </div>
@@ -1246,114 +1246,12 @@
     </div>
   </div>
 
-  <!-- 4. 사용확인 (NEW) -->
-  <div data-campaign="campaign-4" class="campaign-card">
-    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
-      <div class="left">
-        <div class="num-badge">4</div>
-        <span class="name">사용확인(정품 등록)</span>
-        <span class="impact high">HIGH</span>
-        <span class="new-badge">NEW</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-          <div class="modify-toggle" onclick="event.stopPropagation()">
-            <input type="checkbox" id="modify-campaign-4" onchange="toggleModify('campaign-4', this, event)">
-            <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-4').click();"></span>
-            <label for="modify-campaign-4" onclick="event.stopPropagation()">수정필요</label>
-          </div>
-        <span class="timing">배송완료+3일</span>
-        <span class="arrow">▼</span>
-      </div>
-    </div>
-    <div class="campaign-body" onclick="event.stopPropagation()">
-      <div class="comparison">
-        <div class="before">
-          <div class="col-label">❌ BEFORE</div>
-          <div class="phone">
-            <div class="kakao-header">카카오 알림톡</div>
-            <div class="msg white" style="text-align:center; color:#999; padding:40px 14px;">
-              <div style="font-size:40px; margin-bottom:12px;">💭</div>
-              해당 시점에<br>발송되는 메시지가<br>없습니다<br><br>
-              <small style="color:#bbb;">(신규 캠페인 제안)</small>
-            </div>
-          </div>
-          <ul class="issues">
-            <li>배송완료 후 사용 확인 터치포인트 부재</li>
-            <li>초기 사용 문제 (소음, 얼음 크기) CS 집중 구간</li>
-            <li>선제 대응 없이 고객이 먼저 문의해야 하는 구조</li>
-          </ul>
-        </div>
-        <div class="arrow-col">→</div>
-        <div class="after">
-          <div class="col-label">✅ AFTER</div>
-          <div class="phone">
-            <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_3" onclick="event.stopPropagation()">얼음은 잘 만들어지고 있나요? 😊</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_3" onclick="event.stopPropagation()">kucham family 🧊 · 믿고 선택해 주셔서 감사해요</div></div>
-            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
-              #{고객명}님, 안녕하세요!<br>
-              쿠참 제빙기 설치는<br>
-              잘 되셨나요?<br><br>
-              🧊 <b>처음 사용 팁</b><br>
-              ▪️첫 얼음: 6분 내 9개 생산<br>
-              ▪️처음엔 크기가 고르지 않을 수 있음<br>
-              ▪️2~3일 연속 가동하면 안정되어 고른 크기로 생성됨<br>
-              ▪️ 평평한 곳에 설치해주세요<br><br>
-              💧 <b>물 부족 알림이 뜬다면?</b><br>
-              필터 세척 후 자동세척 3회<br>
-              작동해 보세요.<br><br>
-              해결되지 않으면<br>
-              고객센터로 문의 주시면<br>
-              책임지고 도와드리겠습니다.<br><br>
-              🔌 <b>직수 연결을 원하시면</b><br>
-              정수기 고객센터에 먼저 확인 후<br>
-              고객센터로 연락 부탁드려요.<br><br>
-              사용 중이신 정수기 업체에서<br>
-              연결이 어렵다면, 쿠참이 도와드릴게요.<br><br>
-              🕐 <b>상담 운영 시간</b><br>
-              평일 10:00 ~ 17:00 (주말,공휴일 휴무)<br>
-              (점심시간 12:30 ~ 13:30 )<br><br>
-              <span class="highlight">지금 바로 정품 등록을 완료해 주세요!</span>
-              <div class="btn-group" contenteditable="false">
-                <div class="btn primary" contenteditable="false">정품등록신청</div>
-                <div class="btn" contenteditable="false">문의하기</div>
-              </div>
-            </div>
-          </div>
-          <div class="edit-hint">📝 클릭하여 직접 수정할 수 있습니다</div>
-          <ul class="issues">
-            <li>사용 3일 차 — 초기 문제 발생 시점 선제 대응</li>
-            <li>자주 묻는 문제를 미리 안내하여 CS 감소</li>
-            <li>짧고 친근한 톤으로 관계 형성</li>
-          </ul>
-          <div class="after-url-box">
-            <div class="url-box-title">💡 제안 랜딩 URL</div>
-            <div class="url-row">
-              <span class="url-btn-label">정품등록신청</span>
-              <input type="text" class="url-input" value="https://register.kucham.kr" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
-            </div>
-            <div class="url-row">
-              <span class="url-btn-label">문의하기</span>
-              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
-            </div>
-            <div class="url-note">사용 3일차 — CS 선제 대응 + 정품등록 유도</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="decision-bar">
-        <span class="status-label">결정</span>
-        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-4', 'adopt')">✅ 채택</button>
-        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-4', 'modify')">✏️ 수정</button>
-        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-4', 'skip')">⏭️ 보류</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. 리뷰 유도 -->
+    <!-- 5. 리뷰 유도 -->
   <div data-campaign="campaign-5" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">5</div>
+        <div class="num-badge">4</div>
         <span class="name">리뷰 유도(배송+3일)</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1471,7 +1369,7 @@
   <div data-campaign="campaign-6" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">6</div>
+        <div class="num-badge">5</div>
         <span class="name">내돈내산 이벤트 (배송 +7)</span>
         <span class="impact high">HIGH</span>
       </div>
@@ -1588,7 +1486,7 @@
   <div data-campaign="campaign-7" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">7</div>
+        <div class="num-badge">6</div>
         <span class="name">VOC 참여 유도</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1669,7 +1567,7 @@
   <div data-campaign="campaign-8" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">8</div>
+        <div class="num-badge">7</div>
         <span class="name">한달 리뷰</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1765,7 +1663,7 @@
     <div data-campaign="campaign-9" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#c44;">9</div>
+        <div class="num-badge" style="background:#c44;">8</div>
         <span class="name">취소요청</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1866,7 +1764,7 @@
   <div data-campaign="campaign-10" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#c44;">10</div>
+        <div class="num-badge" style="background:#c44;">9</div>
         <span class="name">취소완료</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1978,7 +1876,7 @@
   <div data-campaign="campaign-11" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#e88a00;">11</div>
+        <div class="num-badge" style="background:#e88a00;">10</div>
         <span class="name">교환요청</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2094,7 +1992,7 @@
   <div data-campaign="campaign-12" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#e88a00;">12</div>
+        <div class="num-badge" style="background:#e88a00;">11</div>
         <span class="name">교환완료</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2205,7 +2103,7 @@
   <div data-campaign="campaign-13" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#7b61ff;">13</div>
+        <div class="num-badge" style="background:#7b61ff;">12</div>
         <span class="name">반품요청</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2331,7 +2229,7 @@
   <div data-campaign="campaign-14" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#7b61ff;">14</div>
+        <div class="num-badge" style="background:#7b61ff;">13</div>
         <span class="name">반품완료</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2431,10 +2329,14 @@
                 <input type="text" class="url-input" value="(의견 수집 폼 URL)" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
               </div>
               <div class="url-row">
+                <span class="url-btn-label">1:1 문의하기</span>
+                <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              </div>
+              <div class="url-row">
                 <span class="url-btn-label">쿠참 채널 추가</span>
                 <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
               </div>
-            <div class="url-note"></div>
+            <div class="url-note">1:1 문의 + 채널 추가 → 카카오채널 연결</div>
           </div>
         </div>
       </div>
@@ -2466,7 +2368,7 @@
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">결제완료</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;">주문확인 클릭</td></tr>
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">배송시작</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;">배송조회 클릭</td></tr>
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">배송완료</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>사용가이드 클릭</b></td></tr>
-        <tr style="background:#f0faf0;"><td style="padding:10px 12px; border-bottom:1px solid #eee;">사용확인 <small>(NEW)</small></td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;">CS 감소율</td></tr>
+        
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">구매확정 유도</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>구매확정율</b></td></tr>
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">리뷰 유도(배송+7일)</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>리뷰 작성율</b></td></tr>
         <tr><td style="padding:10px 12px; border-bottom:1px solid #eee;">한달 리뷰</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">측정 예정</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee; color:#999;">—</td><td style="text-align:center; padding:10px; border-bottom:1px solid #eee;"><b>한달 후기 작성율</b></td></tr>
@@ -2489,8 +2391,6 @@
     <div class="journey-step active">배송시작</div>
     <div class="journey-arrow">→</div>
     <div class="journey-step active">배송완료</div>
-    <div class="journey-arrow">→</div>
-    <div class="journey-step new-step">사용확인<br><small>+3일 NEW</small></div>
     <div class="journey-arrow">→</div>
     <div class="journey-step active">구매확정 유도<br><small>+7일</small></div>
     <div class="journey-arrow">→</div>
@@ -2533,8 +2433,8 @@
     </div>
     <div class="principle">
       <span class="tag" style="background:#e8a020;">구조</span>
-      <h3>사용확인 터치포인트 추가</h3>
-      <p>배송완료 +3일 "얼음은 잘 만들어지고 있나요?" 메시지 신설. 초기 사용 문제(소음, 얼음 크기) CS 선제 대응.</p>
+      <h3>초기 CS 선제 대응</h3>
+      <p>배송완료 메시지에 초기 사용 팁(2~3일 연속 가동, 평평한 설치 등) 선제 안내. 배송시작 시점에도 수령 후 안내 사전 예고 포함.</p>
     </div>
   </div>
 
@@ -2916,7 +2816,7 @@
   <div data-campaign="campaign-15" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#2d5016;">15</div>
+        <div class="num-badge" style="background:#2d5016;">14</div>
         <span class="name">정품등록 완료 알림</span>
         <span class="impact high">HIGH</span>
       </div>
@@ -2993,7 +2893,7 @@
   <div data-campaign="campaign-16" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#2d5016;">16</div>
+        <div class="num-badge" style="background:#2d5016;">15</div>
         <span class="name">AS만료 알림 (D-30)</span>
         <span class="impact mid">MID</span>
       </div>
