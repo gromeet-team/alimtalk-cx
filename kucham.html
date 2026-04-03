@@ -208,6 +208,7 @@
     font-size: 13px;
     color: #333;
     font-weight: 500;
+    cursor: pointer;
   }
   .phone .btn.primary {
     background: #4b6584;
@@ -2869,6 +2870,23 @@
       fb.classList.toggle("all-on", !allOn);
     }
   }
+
+  // 버튼 클릭 → URL 이동
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.phone .btn');
+    if (!btn) return;
+    e.stopPropagation();
+    const btnGroup = btn.closest('.btn-group');
+    if (!btnGroup) return;
+    const idx = Array.from(btnGroup.querySelectorAll('.btn')).indexOf(btn);
+    const col = btn.closest('.before') || btn.closest('.after');
+    if (!col) return;
+    const urlBox = col.querySelector('.before-url-box, .after-url-box');
+    if (!urlBox) return;
+    const inputs = urlBox.querySelectorAll('.url-input');
+    const url = inputs[idx] ? inputs[idx].value.trim() : '';
+    if (url && url !== '#') window.open(url, '_blank');
+  });
 </script>
 
 <!-- Decision Summary Bar -->
