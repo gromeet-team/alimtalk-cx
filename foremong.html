@@ -2332,7 +2332,6 @@
       const beforeSection = card.querySelector('.before');
       if (!beforeSection) return;
       const issuesList = beforeSection.querySelector('.issues');
-      if (!issuesList) return;
 
       const box = document.createElement('div');
       box.className = 'before-url-box';
@@ -2346,7 +2345,11 @@
         html += `<div class="url-row"><span class="url-btn-label">${label}</span><span class="url-display">${urlDisplay}</span></div>`;
       });
       box.innerHTML = html;
-      beforeSection.insertBefore(box, issuesList);
+      if (issuesList) {
+        beforeSection.insertBefore(box, issuesList);
+      } else {
+        beforeSection.appendChild(box);
+      }
     });
   });
 
