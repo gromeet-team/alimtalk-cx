@@ -1243,11 +1243,108 @@
   </div>
 
 
+  <!-- 4. 설치 확인 -->
+  <div data-campaign="campaign-4" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">4</div>
+        <span class="name">설치 확인</span>
+        <span class="impact high">HIGH</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+          <div class="modify-toggle" onclick="event.stopPropagation()">
+            <input type="checkbox" id="modify-campaign-4" onchange="toggleModify('campaign-4', this, event)">
+            <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-4').click();"></span>
+            <label for="modify-campaign-4" onclick="event.stopPropagation()">수정필요</label>
+          </div>
+        <span class="timing">배송완료+1일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)<br><br>
+              배송완료 이후 설치/초기세팅만 따로 확인하는
+              중간 캠페인이 없었습니다.
+            </div>
+          </div>
+          <ul class="issues">
+            <li>초기 세팅 안내가 배송완료 메시지에 과밀하게 들어감</li>
+            <li>설치 직후 고객이 다시 확인할 접점 부족</li>
+            <li>초반 사용문의가 CS로 바로 유입될 가능성</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_install_check" onclick="event.stopPropagation()">쿠참 제빙기, 첫 얼음까지 딱 3단계면 끝!</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_install_check" onclick="event.stopPropagation()">🧊시원한 얼음 라이프의 시작</div></div>
+            <div class="msg white" contenteditable="true" data-body-key="ce_install_check" onclick="event.stopPropagation()">
+              안녕하세요, #{고객명}님!<br>
+              쿠참 제빙기와 함께 더 시원한 일상을 만들 준비 되셨나요?<br><br>
+              최상의 얼음 상태를 위해 <b>초기 세팅 3단계</b>를 꼭 확인해 주세요!<br><br>
+              🎉 사용 전 꼭 확인해 주세요 🎉<br><br>
+              1️⃣ <b>평평한 곳에 설치</b><br>
+              냉매 안정을 위해 안착 후 2시간 뒤 가동을 권장합니다.<br><br>
+              2️⃣ <b>물탱크에 물 채우기</b><br>
+              깨끗한 생수나 정수를 가득 채워주세요.<br><br>
+              3️⃣ <b>2~3일 연속 가동</b><br>
+              처음 2~3회 만들어진 얼음은 버려주세요 (세척 목적)<br><br>
+              초반엔 얼음이 작을 수 있으나,<br>
+              가동을 유지하면 단단하고 투명한 얼음이 만들어집니다.<br><br>
+              혹시라도 제품 사용 관련 문의 사항 있으실 경우<br>
+              고객센터로 편하게 문의 부탁드립니다.<br><br>
+              🕐 <b>상담 운영 시간</b><br>
+              평일: 10:00 ~ 17:00 (주말, 공휴일 휴무)<br>
+              점심: 12:30 ~ 13:30
+              <div class="btn-group" contenteditable="false">
+                <div class="btn primary" contenteditable="false">사용가이드 보기</div>
+                <div class="btn" contenteditable="false">쿠참 채널 추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">📝 클릭하여 직접 수정할 수 있습니다</div>
+          <ul class="issues">
+            <li>배송완료와 리뷰유도 사이에 설치 확인 접점 추가</li>
+            <li>초기 세팅 3단계만 따로 재안내해 CS 선제 방지</li>
+            <li>사용가이드 1번 CTA로 바로 연결</li>
+          </ul>
+          <div class="after-url-box">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">사용가이드 보기</span>
+              <input type="text" class="url-input" data-url-key="url_install_check_1" value="https://kucham.kr/board/faq/g_faq.html" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">쿠참 채널 추가</span>
+              <input type="text" class="url-input" data-url-key="url_install_check_2" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+            </div>
+            <div class="url-note">사용가이드 → kucham.kr FAQ / 채널 추가 → 카카오채널</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-4', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-4', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-4', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+
     <!-- 5. 리뷰 유도 -->
   <div data-campaign="campaign-5" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">4</div>
+        <div class="num-badge">5</div>
         <span class="name">리뷰 유도(배송+3일)</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1360,7 +1457,7 @@
   <div data-campaign="campaign-6" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">5</div>
+        <div class="num-badge">6</div>
         <span class="name">내돈내산 이벤트 (배송 +7)</span>
         <span class="impact high">HIGH</span>
       </div>
@@ -1482,7 +1579,7 @@
   <div data-campaign="campaign-7" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">6</div>
+        <div class="num-badge">7</div>
         <span class="name">VOC 참여 유도</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1563,7 +1660,7 @@
   <div data-campaign="campaign-8" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge">7</div>
+        <div class="num-badge">8</div>
         <span class="name">한달 리뷰</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1659,7 +1756,7 @@
     <div data-campaign="campaign-9" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#c44;">8</div>
+        <div class="num-badge" style="background:#c44;">9</div>
         <span class="name">취소요청</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1760,7 +1857,7 @@
   <div data-campaign="campaign-10" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#c44;">9</div>
+        <div class="num-badge" style="background:#c44;">10</div>
         <span class="name">취소완료</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1872,7 +1969,7 @@
   <div data-campaign="campaign-11" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#e88a00;">10</div>
+        <div class="num-badge" style="background:#e88a00;">11</div>
         <span class="name">교환요청</span>
         <span class="impact mid">MID</span>
       </div>
@@ -1988,7 +2085,7 @@
   <div data-campaign="campaign-12" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#e88a00;">11</div>
+        <div class="num-badge" style="background:#e88a00;">12</div>
         <span class="name">교환완료</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2099,7 +2196,7 @@
   <div data-campaign="campaign-13" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#7b61ff;">12</div>
+        <div class="num-badge" style="background:#7b61ff;">13</div>
         <span class="name">반품요청</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2225,7 +2322,7 @@
   <div data-campaign="campaign-14" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#7b61ff;">13</div>
+        <div class="num-badge" style="background:#7b61ff;">14</div>
         <span class="name">반품완료</span>
         <span class="impact mid">MID</span>
       </div>
@@ -2553,7 +2650,7 @@
 
   // 캠페인 순서 변경 시 idx 기반 캐시 충돌 방지
   (function() {
-    const CACHE_VERSION = "v6";
+    const CACHE_VERSION = "v7";
     const VER_KEY = `alimtalk_${BRAND}_cache_version`;
     if (localStorage.getItem(VER_KEY) !== CACHE_VERSION) {
       Object.keys(localStorage)
@@ -2570,9 +2667,11 @@
       el.addEventListener('click', e => e.stopPropagation());
     });
 
-    const editables = document.querySelectorAll('[contenteditable="true"]:not([data-title-key])');
+    const editables = document.querySelectorAll('[contenteditable="true"]:not([data-title-key]):not([data-body-key])');
+    const keyedBodyEditables = document.querySelectorAll('[contenteditable="true"][data-body-key]');
     const titleEditables = document.querySelectorAll('[contenteditable="true"][data-title-key]');
-    const urlInputs = document.querySelectorAll('.url-input');
+    const urlInputs = document.querySelectorAll('.url-input:not([data-url-key])');
+    const keyedUrlInputs = document.querySelectorAll('.url-input[data-url-key]');
 
     // GitHub에서 팀 공유 데이터 로드 (최신 버전)
     async function loadTeamData() {
@@ -2585,6 +2684,14 @@
           if (data[key]) el.innerHTML = data[key];
           else {
             // localStorage fallback
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
+          }
+        });
+        keyedBodyEditables.forEach((el) => {
+          const key = el.dataset.bodyKey;
+          if (data[key]) el.innerHTML = data[key];
+          else {
             const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
             if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
           }
@@ -2605,6 +2712,14 @@
             if (local) el.value = local;
           }
         });
+        keyedUrlInputs.forEach((el) => {
+          const key = el.dataset.urlKey;
+          if (data[key]) el.value = data[key];
+          else {
+            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+            if (local) el.value = local;
+          }
+        });
         document.querySelectorAll(".campaign-card").forEach((card, idx) => {
           const decVal = data["dec_" + idx];
           if (decVal) {
@@ -2618,12 +2733,20 @@
           const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
           if (s) el.innerHTML = s;
         });
+        keyedBodyEditables.forEach((el) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.bodyKey}`);
+          if (s) el.innerHTML = s;
+        });
         titleEditables.forEach((el) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
           if (s) el.innerHTML = s;
         });
         urlInputs.forEach((el, idx) => {
           const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
+          if (s) el.value = s;
+        });
+        keyedUrlInputs.forEach((el) => {
+          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.urlKey}`);
           if (s) el.value = s;
         });
       }
@@ -2646,6 +2769,15 @@
         el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
       });
     });
+    keyedBodyEditables.forEach((el) => {
+      el.addEventListener('input', () => {
+        const _html = el.innerHTML.trim();
+        if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_${el.dataset.bodyKey}`, _html);
+        el.style.outline = "2px solid #22c55e";
+        clearTimeout(el._saveTimer);
+        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
+      });
+    });
     titleEditables.forEach((el) => {
       el.addEventListener('input', () => {
         const _html = el.innerHTML.trim();
@@ -2658,6 +2790,11 @@
     urlInputs.forEach((el, idx) => {
       el.addEventListener('input', () => {
         localStorage.setItem(`alimtalk_${BRAND}_url_${idx}`, el.value);
+      });
+    });
+    keyedUrlInputs.forEach((el) => {
+      el.addEventListener('input', () => {
+        localStorage.setItem(`alimtalk_${BRAND}_${el.dataset.urlKey}`, el.value);
       });
     });
 
@@ -2682,8 +2819,10 @@
 
       const changes = {};
       editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
+      keyedBodyEditables.forEach((el) => { changes[el.dataset.bodyKey] = el.innerHTML; });
       titleEditables.forEach((el) => { changes[el.dataset.titleKey] = el.innerHTML; });
       urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
+      keyedUrlInputs.forEach((el) => { changes[el.dataset.urlKey] = el.value; });
       document.querySelectorAll(".campaign-card").forEach((card, idx) => {
         const sel = card.querySelector(".decision-btn.selected");
         if (sel) {
@@ -2808,7 +2947,7 @@
   <div data-campaign="campaign-15" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#2d5016;">14</div>
+        <div class="num-badge" style="background:#2d5016;">15</div>
         <span class="name">정품등록 완료 알림</span>
         <span class="impact high">HIGH</span>
       </div>
@@ -2885,7 +3024,7 @@
   <div data-campaign="campaign-16" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
-        <div class="num-badge" style="background:#2d5016;">15</div>
+        <div class="num-badge" style="background:#2d5016;">16</div>
         <span class="name">AS만료 알림 (D-30)</span>
         <span class="impact mid">MID</span>
       </div>
