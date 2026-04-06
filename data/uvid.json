@@ -13,7 +13,7 @@
   "ce_11": "\n              #{고객명}님,<br>\n              교환 상품이 발송됐어요! 🚚<br>\n              <br>\n              기다려 주셔서 진심으로 감사해요.<br>\n              <br>\n              📦 교환 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              이번엔 불편함 없이<br>\n              처음보다 더 만족스러우시길 바라는 마음으로<br>\n              정성껏 검수하고 보내드렸어요 😊\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">배송조회 하기</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
   "ce_12": "\n              #{고객명}님,<br>\n              반품 요청 확인했어요.<br>\n              <br>\n              📦 반품 진행 안내<br>\n              ▪️① 택배 회수 (2~3영업일)<br>\n              ▪️② 상품 상태 확인<br>\n              ▪️③ 환불 처리 (3~7영업일)<br>\n              <br>\n              혹시 제품 불량이나 파손이셨다면<br>\n              반품보다 교환으로 더 빠르게 도와드릴 수 있어요.<br>\n              편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">반품 현황 확인</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
   "ce_13": "\n              #{고객명}님,<br>\n              반품 처리 완료됐어요.<br>\n              <br>\n              💰 환불은 결제수단에 따라<br>\n              영업일 기준 3~5일 소요돼요.<br>\n              <br>\n              기대에 못 미쳐서 정말 아쉬워요.<br>\n              어떤 점이 불편하셨는지 알려주시면<br>\n              다음 제품에 꼭 반영할게요.<br>\n              솔직하게 말씀해 주셔도 괜찮아요 😊\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">주문내역 확인</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
-  "ce_14": null,
+  "ce_14": "\n              #{고객명}님,<br>\n              유비드를 일상에서 어떻게 쓰고 계신지 궁금해요 ☀️<br>\n              <br>\n              사무실, 외출 전, 운동 전후처럼<br>\n              실제로 사용하시는 모습을<br>\n              개인 SNS나 커뮤니티에 솔직하게 공유해 주시면<br>\n              감사한 마음으로 후기 혜택을 드릴게요.<br>\n              <br>\n              ✅ 사진 2장 이상 또는 짧은 영상 1개<br>\n              ✅ 블로그 / 인스타 / 커뮤니티 중 1곳 업로드<br>\n              ✅ 2차 활용 동의 시 추가 혜택 안내 가능<br>\n              <br>\n              자세한 참여 조건은 아래 버튼에서 확인해 주세요 😊\n              <div class=\"btn-group\">\n                <div class=\"btn primary\">참여 안내 보기</div>\n                <div class=\"btn\">채널 추가하기</div>\n              </div>\n            ",
   "ce_15": null,
   "ce_16": null,
   "ce_17": null,
@@ -72,7 +72,9 @@
     "sub_12": "반품요청",
     "title_12": "확인하고 도와드릴게요",
     "sub_13": "반품완료",
-    "title_13": "아쉽지만, 또 만나요 💦"
+    "title_13": "아쉽지만, 또 만나요 💦",
+    "sub_14": "실사용 후기 공유하고 혜택 받아요",
+    "title_14": "내돈내산 후기 찾고 있어요 📸"
   },
   "url_0": "https://new-m.pay.naver.com/",
   "url_1": "https://new-m.pay.naver.com/",
@@ -93,5 +95,7 @@
   "url_16": "https://new-m.pay.naver.com/",
   "url_19": "https://register.uvid.co.kr/voc",
   "url_17": "https://new-m.pay.naver.com/",
-  "url_18": "https://new-m.pay.naver.com/"
+  "url_18": "https://new-m.pay.naver.com/",
+  "url_20": "",
+  "url_21": "http://pf.kakao.com/_xcdWxon"
 }
