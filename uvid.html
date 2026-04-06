@@ -274,6 +274,11 @@
     min-width: 100px;
     white-space: nowrap;
   }
+  .after-url-box .url-btn-label.linkable {
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
 
   .after-url-box .url-input {
     color: #15803d;
@@ -2322,6 +2327,7 @@
             if (btn) { btn.classList.add("selected"); card.classList.add("decided-" + decVal); }
           }
         });
+        bindPreviewButtonLinks();
       } catch {
         // 네트워크 오류 시 localStorage 사용
         editables.forEach((el, idx) => {
@@ -2336,6 +2342,7 @@
           const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
           if (s) el.innerHTML = s;
         });
+        bindPreviewButtonLinks();
       }
     }
 
@@ -2373,36 +2380,54 @@
       });
     });
 
-    // 미리보기 버튼 클릭 시 연결된 랜딩페이지 열기
-    const normalizeBtnText = (text) => (text || '').replace(/\s+/g, '').trim();
+    // 미리보기 버튼/랜딩 라벨 클릭 시 연결된 랜딩페이지 열기
+    function normalizeBtnText(text) {
+      return (text || '').replace(/\s+/g, '').trim();
+    }
 
-    document.querySelectorAll('.phone .btn').forEach(btn => {
-      btn.style.cursor = 'pointer';
-    });
-
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.phone .btn');
-      if (!btn) return;
-      if (btn.closest('.before')) return;
-
-      e.stopPropagation();
-
-      const card = btn.closest('.campaign-card');
-      if (!card) return;
-
-      const targetLabel = normalizeBtnText(btn.textContent);
+    function findMappedUrl(card, labelText) {
+      if (!card || !labelText) return '';
+      const targetLabel = normalizeBtnText(labelText);
       const rows = Array.from(card.querySelectorAll('.after-url-box .url-row'));
       const matchedRow = rows.find(row => {
         const label = row.querySelector('.url-btn-label');
         return normalizeBtnText(label?.textContent) === targetLabel;
       });
+      return matchedRow?.querySelector('.url-input')?.value?.trim() || '';
+    }
 
-      const input = matchedRow?.querySelector('.url-input');
-      const url = input?.value?.trim();
+    function openMappedUrl(card, labelText) {
+      const url = findMappedUrl(card, labelText);
       if (!url) return;
-
       window.open(url, '_blank', 'noopener,noreferrer');
-    });
+    }
+
+    function bindPreviewButtonLinks() {
+      document.querySelectorAll('.after .phone .btn').forEach(btn => {
+        btn.style.cursor = 'pointer';
+        btn.setAttribute('contenteditable', 'false');
+        if (btn.dataset.linkBound === '1') return;
+        btn.dataset.linkBound = '1';
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openMappedUrl(btn.closest('.campaign-card'), btn.textContent);
+        });
+      });
+
+      document.querySelectorAll('.after-url-box .url-btn-label').forEach(label => {
+        label.classList.add('linkable');
+        if (label.dataset.linkBound === '1') return;
+        label.dataset.linkBound = '1';
+        label.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          openMappedUrl(label.closest('.campaign-card'), label.textContent);
+        });
+      });
+    }
+
+    bindPreviewButtonLinks();
 
     // 팀 공유 버튼 생성
     const shareBtn = document.createElement('button');
