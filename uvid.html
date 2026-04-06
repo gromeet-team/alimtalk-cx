@@ -2373,6 +2373,37 @@
       });
     });
 
+    // 미리보기 버튼 클릭 시 연결된 랜딩페이지 열기
+    const normalizeBtnText = (text) => (text || '').replace(/\s+/g, '').trim();
+
+    document.querySelectorAll('.phone .btn').forEach(btn => {
+      btn.style.cursor = 'pointer';
+    });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.phone .btn');
+      if (!btn) return;
+      if (btn.closest('.before')) return;
+
+      e.stopPropagation();
+
+      const card = btn.closest('.campaign-card');
+      if (!card) return;
+
+      const targetLabel = normalizeBtnText(btn.textContent);
+      const rows = Array.from(card.querySelectorAll('.after-url-box .url-row'));
+      const matchedRow = rows.find(row => {
+        const label = row.querySelector('.url-btn-label');
+        return normalizeBtnText(label?.textContent) === targetLabel;
+      });
+
+      const input = matchedRow?.querySelector('.url-input');
+      const url = input?.value?.trim();
+      if (!url) return;
+
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+
     // 팀 공유 버튼 생성
     const shareBtn = document.createElement('button');
     shareBtn.id = 'team-share-btn';
