@@ -1414,8 +1414,9 @@
               좋은 점도, 아쉬운 점도 모두 환영합니다.
               
               <div class="btn-group" contenteditable="false">
-                <div class="btn primary" contenteditable="false">구매확정 하기</div>
-                <div class="btn" contenteditable="false">1:1 문의하기</div>
+                <div class="btn primary" contenteditable="false">리뷰작성하기</div>
+                <div class="btn" contenteditable="false">사은품 신청하기</div>
+                <div class="btn" contenteditable="false">쿠참 채널 추가</div>
               </div>
             </div>
           </div>
@@ -1430,14 +1431,18 @@
           <div class="after-url-box">
             <div class="url-box-title">💡 제안 랜딩 URL</div>
             <div class="url-row">
-              <span class="url-btn-label">구매확정 하기</span>
-              <input type="text" class="url-input" value="https://new-m.pay.naver.com/" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <span class="url-btn-label">리뷰작성하기</span>
+              <input type="text" class="url-input" value="https://shopping.naver.com/my/writable-reviews" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
             <div class="url-row">
-              <span class="url-btn-label">1:1 문의하기</span>
-              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <span class="url-btn-label">사은품 신청하기</span>
+              <input type="text" class="url-input" value="https://register.kucham.kr/review-claim" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
-            <div class="url-note">구매확정 → 네이버페이 / 1:1 문의 → 카카오채널</div>
+            <div class="url-row">
+              <span class="url-btn-label">쿠참 채널 추가</span>
+              <input type="text" class="url-input" data-url-key="url_campaign5_extra" value="https://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+            </div>
+            <div class="url-note">리뷰 → 네이버 리뷰 / 사은품 신청 → review-claim / 채널 추가 → 카카오채널</div>
           </div>
         </div>
       </div>
