@@ -2335,7 +2335,7 @@
 
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "uvid";
-  const DATA_VERSION = "2026-04-08-v6";
+  const DATA_VERSION = "2026-04-08-v7";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -2398,6 +2398,7 @@
             if (btn) { btn.classList.add("selected"); card.classList.add("decided-" + decVal); }
           }
         });
+        normalizeEditableButtons();
         bindPreviewButtonLinks();
       } catch {
         // 네트워크 오류 시 localStorage 사용
@@ -2413,6 +2414,7 @@
           const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
           if (s) el.innerHTML = s;
         });
+        normalizeEditableButtons();
         bindPreviewButtonLinks();
       }
     }
@@ -2473,18 +2475,16 @@
       window.open(url, '_blank', 'noopener,noreferrer');
     }
 
-    function bindPreviewButtonLinks() {
-      document.querySelectorAll('.after .phone .btn').forEach(btn => {
-        btn.style.cursor = 'pointer';
-        btn.setAttribute('contenteditable', 'false');
-        if (btn.dataset.linkBound === '1') return;
-        btn.dataset.linkBound = '1';
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          openMappedUrl(btn.closest('.campaign-card'), btn.textContent);
-        });
+    function normalizeEditableButtons() {
+      document.querySelectorAll('.after .msg[contenteditable="true"] .btn').forEach(btn => {
+        btn.removeAttribute('contenteditable');
+        btn.removeAttribute('data-link-bound');
+        btn.style.cursor = 'text';
       });
+    }
+
+    function bindPreviewButtonLinks() {
+      normalizeEditableButtons();
 
       document.querySelectorAll('.after-url-box .url-btn-label').forEach(label => {
         label.classList.add('linkable');
