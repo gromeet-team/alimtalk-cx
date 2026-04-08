@@ -995,29 +995,19 @@
           <div class="product-tab-content active" data-product="pad" style="display:block !important">
             <div class="phone">
             <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2" onclick="event.stopPropagation()">사용법 꼭 확인해요 ☀️</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2" onclick="event.stopPropagation()">드디어 도착했어요 ☀️</div></div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_2" onclick="event.stopPropagation()">첫 사용 팁 꼭 확인해요&nbsp;</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_2" onclick="event.stopPropagation()">드디어 도착했어요</div></div>
             <div class="msg white" contenteditable="true" data-title-key="msg_2b_pad" onclick="event.stopPropagation()">
-              #{고객명}님, 드디어 도착했어요! ☀️<br>
+              <b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div><div><br></div><span style="background-color: rgb(255, 255, 255);">#{고객명}님의 상품이</span><br style="background-color: rgb(255, 255, 255);"><span style="background-color: rgb(255, 255, 255);">배송 완료되었습니다!</span><br>
+              <br><span style="background-color: rgb(255, 255, 255);">📦 배송 완료 정보</span><br style="background-color: rgb(255, 255, 255);"><span style="background-color: rgb(255, 255, 255);">▪️상품명 : #{상품명}</span><br style="background-color: rgb(255, 255, 255);"><span style="background-color: rgb(255, 255, 255);">▪️송장번호 : #{송장번호}</span><br>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<div>사용하시기 전에<div><div>이것만 기억해 주세요 🌟<br>
               <br>
-              📦 배송 완료 정보<br>
-              ▪️상품명 : #{상품명}<br>
-              ▪️송장번호 : #{송장번호}<br>
-              <br>
-              처음 사용하시기 전에<br>
-              이것만 기억해 주세요 🌟<br>
-              <br>
-              ✓ 엠보면으로 피부 결 따라 부드럽게 닦기<br>
-              ✓ 비면으로 스킨케어 + 자외선 차단 한 번에<br>
-              ✓ 사용 후 뚜껑 단단히 닫기<br>
-              <br>
-              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>
-              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>
-              🕐 평일 10:00~17:00<br>
-              (점심 12:30~13:30 / 주말·공휴일 휴무)
-              <div class="btn-group">
+              ✓ 개봉 후 6개월 이내 사용<br>
+              ✓ 앰플이 패드에 고르게 스며들도록</div><div>&nbsp; &nbsp;용기를 1분 정도 뒤집어 놓은 후 사용<br>
+              ✓ 사용 후 뚜껑 단단히 닫기<br>✓ 실리콘 리드 제거 후에는 밀봉 기능이 없어<br data-start="139" data-end="142">
+ 내용물이 샐 수 있으니,<br data-start="156" data-end="159">
+ 살짝 기울이거나 패드 방향을 바꿔 사용</div><div><br></div><div>
+              오늘부터 자외선 걱정 없는 하루 시작하세요.<br><div class="btn-group">
                 <div class="btn primary">채널 추가하기</div>
-              </div>
-            </div>
+              </div></div></div></div>
           </div>
           </div>
           <div class="product-tab-content" data-product="mist" style="display:none !important">
@@ -1055,6 +1045,10 @@
               <div class="url-row">
                 <span class="url-btn-label">채널 추가하기</span>
                 <input type="text" class="url-input" value="http://pf.kakao.com/_xcdWxon" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+              </div>
+              <div class="url-row" style="display:none;">
+                <span class="url-btn-label">의견 남기기</span>
+                <input type="text" class="url-input" value="https://register.uvid.co.kr/voc" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
               </div>
               <div class="url-note">배송완료 — 첫 사용 팁으로 제품 만족도 향상</div>
             </div>
@@ -2350,7 +2344,7 @@
 
   // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
   const BRAND = "uvid";
-  const DATA_VERSION = "2026-03-27-v4";
+  const DATA_VERSION = "2026-04-08-v5";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 
   document.addEventListener('DOMContentLoaded', function() {
