@@ -538,7 +538,7 @@ const BUTTON_URLS = [
     { label: "메아리셋 채널 추가", url: "http://pf.kakao.com/_RWKhX" }
   ],
   [ // 13주 (D+84)
-    { label: "시즌2 시작하기", url: "" },
+    { label: "새로운 90일 시작하기", url: "https://buly.kr/BeLv5qQ" },
     { label: "메아리셋 채널 추가", url: "http://pf.kakao.com/_RWKhX" }
   ],
 ];
@@ -777,6 +777,40 @@ const BRAND = "meariset";
 const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
 const decisions = {};
 
+function getButtonLabelFallback(cardIndex, buttonIndex) {
+  return BUTTON_URLS?.[cardIndex]?.[buttonIndex]?.label || `버튼 ${buttonIndex + 1}`;
+}
+
+function extractAfterButtonLabels(editableEl) {
+  if (!editableEl) return [];
+
+  return Array.from(editableEl.querySelectorAll('.btn-group .btn, .btn-group a.btn'))
+    .map(btn => btn.textContent.replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+}
+
+function syncUrlLabelsForCard(card) {
+  if (!card) return;
+
+  const editable = card.querySelector('.after-col[contenteditable="true"]');
+  const urlRows = card.querySelectorAll('.after-url-box .url-row');
+  if (!editable || !urlRows.length) return;
+
+  const cardIndex = Number(card.dataset.cardIndex || -1);
+  const buttonLabels = extractAfterButtonLabels(editable);
+
+  urlRows.forEach((row, rowIndex) => {
+    const labelEl = row.querySelector('.url-btn-label');
+    if (!labelEl) return;
+
+    labelEl.textContent = buttonLabels[rowIndex] || getButtonLabelFallback(cardIndex, rowIndex);
+  });
+}
+
+function syncAllUrlLabels() {
+  document.querySelectorAll('.crm-card').forEach(syncUrlLabelsForCard);
+}
+
 // Render CRM cards
 function renderCards() {
   const container = document.getElementById('crm-cards');
@@ -790,7 +824,7 @@ function renderCards() {
     const beforeHtml = msg.before.replace(/\n/g, '<br>');
 
     return `
-    <div class="crm-card" data-campaign="${campaignId}">
+    <div class="crm-card" data-campaign="${campaignId}" data-card-index="${i}">
       <div class="crm-header" onclick="toggleCard(this.parentElement)">
         <span class="badge badge-day">D+${msg.day}</span>
         ${typeBadge}
@@ -822,8 +856,8 @@ function renderCards() {
             ${BUTTON_URLS[i] && BUTTON_URLS[i].length ? `
             <div class="after-url-box" onclick="event.stopPropagation()">
               <div class="url-box-title">💡 제안 랜딩 URL</div>
-              ${BUTTON_URLS[i].map(btn => `
-              <div class="url-row">
+              ${BUTTON_URLS[i].map((btn, btnIndex) => `
+              <div class="url-row" data-url-index="${btnIndex}">
                 <span class="url-btn-label">${btn.label}</span>
                 <input class="url-input" type="text" value="${btn.url}" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" onfocus="event.stopPropagation()" spellcheck="false" placeholder="URL 미정" style="cursor:pointer;">
               </div>`).join('')}
@@ -950,12 +984,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   const editables = document.querySelectorAll('[contenteditable="true"]');
+  syncAllUrlLabels();
 
   // Load team data from GitHub API
   async function loadTeamData() {
     try {
       const res = await fetch(`${API_BASE}?brand=${BRAND}`, { cache: 'no-store' });
-      if (!res.ok) return;
+      if (!res.ok) throw new Error('load failed');
       const data = await res.json();
       editables.forEach((el, idx) => {
         const key = `ce_${idx + 10}`;
@@ -964,12 +999,14 @@ document.addEventListener('DOMContentLoaded', function() {
           const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
           if (local) el.innerHTML = local;
         }
+        syncUrlLabelsForCard(el.closest('.crm-card'));
       });
     } catch {
       editables.forEach((el, idx) => {
         const key = `ce_${idx + 10}`;
         const s = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
         if (s) el.innerHTML = s;
+        syncUrlLabelsForCard(el.closest('.crm-card'));
       });
     }
   }
@@ -987,6 +1024,7 @@ document.addEventListener('DOMContentLoaded', function() {
   editables.forEach((el, idx) => {
     el.addEventListener('input', () => {
       const key = `ce_${idx + 10}`;
+      syncUrlLabelsForCard(el.closest('.crm-card'));
       localStorage.setItem(`alimtalk_${BRAND}_${key}`, el.innerHTML);
       el.style.outline = "2px solid #22c55e";
       clearTimeout(el._saveTimer);
