@@ -1347,6 +1347,94 @@
     </div>
   </div>
 
+  <!-- NEW. 내돈내산유도 -->
+  <div data-campaign="campaign-12" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge" style="background:#e8a020;">N</div>
+        <span class="name">내돈내산유도</span>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-12" onchange="toggleModify('campaign-12', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-12').click();"></span>
+          <label for="modify-campaign-12" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">배송완료 +21일</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label" style="color:#999;">⬜ 기존: 없음</div>
+          <div style="text-align:center; padding:60px 20px; color:#999; font-size:14px;">
+            배송완료 +21일 이후<br>
+            <b>실사용 콘텐츠를 외부 채널로 확장하는</b><br>
+            <b>내돈내산 유도 캠페인 부재</b><br><br>
+            2차 활용 가능한 UGC 수급 구조 없음
+          </div>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ NEW 캠페인</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_14" onclick="event.stopPropagation()">실사용 후기 공유하고 혜택 받아요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_14" onclick="event.stopPropagation()">내돈내산 후기 찾고 있어요 📸</div></div>
+            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
+              #{고객명}님,<br>
+              유비드를 일상에서 어떻게 쓰고 계신지 궁금해요 ☀️<br>
+              <br>
+              사무실, 외출 전, 운동 전후처럼<br>
+              실제로 사용하시는 모습을<br>
+              개인 SNS나 커뮤니티에 솔직하게 공유해 주시면<br>
+              감사한 마음으로 후기 혜택을 드릴게요.<br>
+              <br>
+              ✅ 사진 2장 이상 또는 짧은 영상 1개<br>
+              ✅ 블로그 / 인스타 / 커뮤니티 중 1곳 업로드<br>
+              ✅ 2차 활용 동의 시 추가 혜택 안내 가능<br>
+              <br>
+              자세한 참여 조건은 아래 버튼에서 확인해 주세요 😊
+              <div class="btn-group">
+                <div class="btn primary">참여하고 혜택 받기</div>
+                <div class="btn">채널 추가하기</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
+          <div class="after-url-box" onclick="event.stopPropagation()">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">참여하고 혜택 받기</span>
+              <input type="text" class="url-input" value="https://register.uvid.co.kr/review-claim/naedon" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">채널 추가하기</span>
+              <input type="text" class="url-input" value="http://pf.kakao.com/_xcdWxon" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
+            </div>
+            <div class="url-note">내돈내산 이벤트 → register.uvid.co.kr/review-claim/naedon</div>
+          </div>
+          <ul class="issues">
+            <li>배송완료 +21일 시점 외부 채널 확장용 캠페인 신설</li>
+            <li>실사용 사진/영상 수급 문구 + 2차 활용 동의 문맥 선반영</li>
+            <li>기존 캠페인 인덱스 보호 위해 하단 신규 추가</li>
+            <li>전용 랜딩 확정 전까지 다른 캠페인 URL에 영향 없음</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-12', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-12', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-12', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
+
+
   <div data-campaign="campaign-5" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
@@ -2073,93 +2161,6 @@
         <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-11', 'adopt')">✅ 채택</button>
         <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-11', 'modify')">✏️ 수정</button>
         <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-11', 'skip')">⏭️ 보류</button>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- NEW. 내돈내산유도 -->
-  <div data-campaign="campaign-12" class="campaign-card">
-    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
-      <div class="left">
-        <div class="num-badge" style="background:#e8a020;">N</div>
-        <span class="name">내돈내산유도</span>
-        <span class="new-badge">NEW</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="modify-toggle" onclick="event.stopPropagation()">
-          <input type="checkbox" id="modify-campaign-12" onchange="toggleModify('campaign-12', this, event)">
-          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-12').click();"></span>
-          <label for="modify-campaign-12" onclick="event.stopPropagation()">수정필요</label>
-        </div>
-        <span class="timing">배송완료 +21일</span>
-        <span class="arrow">▼</span>
-      </div>
-    </div>
-    <div class="campaign-body" onclick="event.stopPropagation()">
-      <div class="comparison">
-        <div class="before">
-          <div class="col-label" style="color:#999;">⬜ 기존: 없음</div>
-          <div style="text-align:center; padding:60px 20px; color:#999; font-size:14px;">
-            배송완료 +21일 이후<br>
-            <b>실사용 콘텐츠를 외부 채널로 확장하는</b><br>
-            <b>내돈내산 유도 캠페인 부재</b><br><br>
-            2차 활용 가능한 UGC 수급 구조 없음
-          </div>
-        </div>
-        <div class="arrow-col">→</div>
-        <div class="after">
-          <div class="col-label">✅ NEW 캠페인</div>
-          <div class="phone">
-            <div class="kakao-header">카카오 알림톡</div>
-            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_14" onclick="event.stopPropagation()">실사용 후기 공유하고 혜택 받아요</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_14" onclick="event.stopPropagation()">내돈내산 후기 찾고 있어요 📸</div></div>
-            <div class="msg white" contenteditable="true" onclick="event.stopPropagation()">
-              #{고객명}님,<br>
-              유비드를 일상에서 어떻게 쓰고 계신지 궁금해요 ☀️<br>
-              <br>
-              사무실, 외출 전, 운동 전후처럼<br>
-              실제로 사용하시는 모습을<br>
-              개인 SNS나 커뮤니티에 솔직하게 공유해 주시면<br>
-              감사한 마음으로 후기 혜택을 드릴게요.<br>
-              <br>
-              ✅ 사진 2장 이상 또는 짧은 영상 1개<br>
-              ✅ 블로그 / 인스타 / 커뮤니티 중 1곳 업로드<br>
-              ✅ 2차 활용 동의 시 추가 혜택 안내 가능<br>
-              <br>
-              자세한 참여 조건은 아래 버튼에서 확인해 주세요 😊
-              <div class="btn-group">
-                <div class="btn primary">참여하고 혜택 받기</div>
-                <div class="btn">채널 추가하기</div>
-              </div>
-            </div>
-          </div>
-          <div class="edit-hint">✏️ 클릭하여 직접 수정할 수 있습니다</div>
-          <div class="after-url-box" onclick="event.stopPropagation()">
-            <div class="url-box-title">💡 제안 랜딩 URL</div>
-            <div class="url-row">
-              <span class="url-btn-label">참여하고 혜택 받기</span>
-              <input type="text" class="url-input" value="https://register.uvid.co.kr/review-claim/naedon" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
-            </div>
-            <div class="url-row">
-              <span class="url-btn-label">채널 추가하기</span>
-              <input type="text" class="url-input" value="http://pf.kakao.com/_xcdWxon" placeholder="URL 입력" spellcheck="false" onclick="event.stopPropagation()" onfocus="event.stopPropagation()">
-            </div>
-            <div class="url-note">내돈내산 이벤트 → register.uvid.co.kr/review-claim/naedon</div>
-          </div>
-          <ul class="issues">
-            <li>배송완료 +21일 시점 외부 채널 확장용 캠페인 신설</li>
-            <li>실사용 사진/영상 수급 문구 + 2차 활용 동의 문맥 선반영</li>
-            <li>기존 캠페인 인덱스 보호 위해 하단 신규 추가</li>
-            <li>전용 랜딩 확정 전까지 다른 캠페인 URL에 영향 없음</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="decision-bar">
-        <span class="status-label">결정</span>
-        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-12', 'adopt')">✅ 채택</button>
-        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-12', 'modify')">✏️ 수정</button>
-        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-12', 'skip')">⏭️ 보류</button>
       </div>
     </div>
   </div>
