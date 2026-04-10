@@ -1579,6 +1579,92 @@
     </div>
   </div>
 
+  <!-- 6-1. 적립금 만료 알림 -->
+  <div data-campaign="campaign-reward-expiry" class="campaign-card">
+    <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
+      <div class="left">
+        <div class="num-badge">6-1</div>
+        <span class="name">적립금 만료 알림(D-30)</span>
+        <span class="impact mid">MID</span>
+        <span class="new-badge">NEW</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="modify-toggle" onclick="event.stopPropagation()">
+          <input type="checkbox" id="modify-campaign-reward-expiry" onchange="toggleModify('campaign-reward-expiry', this, event)">
+          <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-reward-expiry').click();"></span>
+          <label for="modify-campaign-reward-expiry" onclick="event.stopPropagation()">수정필요</label>
+        </div>
+        <span class="timing">적립금 만료 D-30</span>
+        <span class="arrow">▼</span>
+      </div>
+    </div>
+    <div class="campaign-body" onclick="event.stopPropagation()">
+      <div class="comparison">
+        <div class="before">
+          <div class="col-label">📋 기존</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="msg white">
+              (발송 없음)
+            </div>
+          </div>
+          <ul class="issues">
+            <li>후기 이벤트 적립금 만료 전 리마인드 부재</li>
+            <li>혜택 소멸 시점 전 재방문 접점 없음</li>
+            <li>적립금 사용 유도를 놓치기 쉬움</li>
+          </ul>
+        </div>
+        <div class="arrow-col">→</div>
+        <div class="after">
+          <div class="col-label">✅ AFTER</div>
+          <div class="phone">
+            <div class="kakao-header">카카오 알림톡</div>
+            <div class="alimtalk-title-box"><div class="alimtalk-subtitle" contenteditable="true" data-title-key="sub_reward_expiry" onclick="event.stopPropagation()">남겨주신 후기가 만든 혜택이에요 💙</div><div class="alimtalk-title" contenteditable="true" data-title-key="title_reward_expiry" onclick="event.stopPropagation()">적립금 만료 전에 꼭 사용해 주세요</div></div>
+            <div class="msg white" contenteditable="true" data-body-key="body_reward_expiry" onclick="event.stopPropagation()">
+              #{고객명}님, 남겨주신 소중한 후기 덕분에 많은 분들께 큰 도움이 되었어요! :ice_cube:<br>
+              <br>
+              감사한 마음을 담아 지급해드린 적립금이 30일 후 소멸될 예정이에요.<br>
+              <br>
+              로그인 → 마이페이지에서 확인 후 결제 시 바로 사용 하실 수 있어요.<br>
+              <br>
+              소멸 후에는 복구가 어려우니<br>
+              기간 내 꼭 사용해주세요 :blush:
+              <div class="btn-group" contenteditable="false">
+                <div class="btn primary" contenteditable="false">적립금 사용하기</div>
+                <div class="btn" contenteditable="false">쿠참 채널 추가</div>
+              </div>
+            </div>
+          </div>
+          <div class="edit-hint">📝 클릭하여 직접 수정할 수 있습니다</div>
+          <ul class="issues">
+            <li>후기 보상 적립금 사용을 만료 전에 리마인드</li>
+            <li>혜택 소멸 전에 즉시 행동할 이유 제공</li>
+            <li>채널 추가 버튼 유지로 문의 동선 확보</li>
+          </ul>
+          <div class="after-url-box">
+            <div class="url-box-title">💡 제안 랜딩 URL</div>
+            <div class="url-row">
+              <span class="url-btn-label">적립금 사용하기</span>
+              <input type="text" class="url-input" data-url-key="url_reward_expiry_use" value="https://kucham.kr/" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+            </div>
+            <div class="url-row">
+              <span class="url-btn-label">쿠참 채널 추가</span>
+              <input type="text" class="url-input" data-url-key="url_reward_expiry_channel" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+            </div>
+            <div class="url-note">적립금 사용 → kucham.kr / 채널 추가 → 카카오채널</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="decision-bar">
+        <span class="status-label">결정</span>
+        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-reward-expiry', 'adopt')">✅ 채택</button>
+        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-reward-expiry', 'modify')">✏️ 수정</button>
+        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-reward-expiry', 'skip')">⏭️ 보류</button>
+      </div>
+    </div>
+  </div>
+
   <!-- 7. VOC 참여 유도 -->
   <div data-campaign="campaign-7" class="campaign-card">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
@@ -2552,9 +2638,11 @@
 <script>
   // Decision tracking
   const decisions = {};
+  const decisionStorageKey = (campaignId) => `dec_${campaignId}`;
 
   function decide(campaignId, type) {
     decisions[campaignId] = type;
+    localStorage.setItem(`alimtalk_${BRAND}_${decisionStorageKey(campaignId)}`, type);
     const card = document.querySelector(`[data-campaign="${campaignId}"]`);
     if (!card) return;
 
@@ -2725,12 +2813,18 @@
           }
         });
         document.querySelectorAll(".campaign-card").forEach((card, idx) => {
-          const decVal = data["dec_" + idx];
+          const campaignId = card.dataset.campaign;
+          const decVal = data[decisionStorageKey(campaignId)] || data["dec_" + idx] || localStorage.getItem(`alimtalk_${BRAND}_${decisionStorageKey(campaignId)}`) || localStorage.getItem(`alimtalk_${BRAND}_dec_${idx}`);
           if (decVal) {
             const btn = card.querySelector(".decision-btn." + decVal);
-            if (btn) { btn.classList.add("selected"); card.classList.add("decided-" + decVal); }
+            if (btn) {
+              decisions[campaignId] = decVal;
+              btn.classList.add("selected");
+              card.classList.add("decided-" + decVal);
+            }
           }
         });
+        updateSummary();
       } catch {
         // 네트워크 오류 시 localStorage 사용
         editables.forEach((el, idx) => {
@@ -2753,6 +2847,19 @@
           const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.urlKey}`);
           if (s) el.value = s;
         });
+        document.querySelectorAll(".campaign-card").forEach((card, idx) => {
+          const campaignId = card.dataset.campaign;
+          const decVal = localStorage.getItem(`alimtalk_${BRAND}_${decisionStorageKey(campaignId)}`) || localStorage.getItem(`alimtalk_${BRAND}_dec_${idx}`);
+          if (decVal) {
+            const btn = card.querySelector(".decision-btn." + decVal);
+            if (btn) {
+              decisions[campaignId] = decVal;
+              btn.classList.add("selected");
+              card.classList.add("decided-" + decVal);
+            }
+          }
+        });
+        updateSummary();
       }
     }
 
@@ -2827,12 +2934,13 @@
       titleEditables.forEach((el) => { changes[el.dataset.titleKey] = el.innerHTML; });
       urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
       keyedUrlInputs.forEach((el) => { changes[el.dataset.urlKey] = el.value; });
-      document.querySelectorAll(".campaign-card").forEach((card, idx) => {
+      document.querySelectorAll(".campaign-card").forEach((card) => {
         const sel = card.querySelector(".decision-btn.selected");
+        const campaignId = card.dataset.campaign;
         if (sel) {
-          if (sel.classList.contains("adopt")) changes["dec_" + idx] = "adopt";
-          else if (sel.classList.contains("modify")) changes["dec_" + idx] = "modify";
-          else if (sel.classList.contains("skip")) changes["dec_" + idx] = "skip";
+          if (sel.classList.contains("adopt")) changes[decisionStorageKey(campaignId)] = "adopt";
+          else if (sel.classList.contains("modify")) changes[decisionStorageKey(campaignId)] = "modify";
+          else if (sel.classList.contains("skip")) changes[decisionStorageKey(campaignId)] = "skip";
         }
       });
 
