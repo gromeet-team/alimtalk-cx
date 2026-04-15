@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UVID UV 카메라 이벤트 | 신청 랜딩 MVP</title>
+  <meta name="description" content="유비드 UV 카메라 이벤트 신청 랜딩 MVP. 이벤트 안내, 패키지 선택, 신청 절차, FAQ를 한 번에 확인하세요.">
+  <meta property="og:title" content="UVID UV 카메라 이벤트 | 신청 랜딩 MVP">
+  <meta property="og:description" content="이벤트 안내부터 패키지 신청까지 한 페이지에서 확인할 수 있는 고객용 랜딩 초안입니다.">
+  <meta property="og:type" content="website">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap');
+
+    :root {
+      --bg: #f3f5f9;
+      --surface: #ffffff;
+      --surface-soft: #f8fbff;
+      --text: #172033;
+      --muted: #5f6b84;
+      --line: #dde5f1;
+      --brand: #4A6FA5;
+      --brand-deep: #2D4270;
+      --brand-soft: #e9f1ff;
+      --accent: #88b4ff;
+      --success: #18794e;
+      --success-bg: #edf9f1;
+      --warning: #b36b00;
+      --warning-bg: #fff6e7;
+      --shadow: 0 10px 32px rgba(21, 39, 75, 0.10);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --container: 1160px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(17, 24, 39, 0.90);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .top-nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      min-width: 0;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--brand) 100%);
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(136, 180, 255, 0.35);
+    }
+    .brand-text strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    .brand-text span {
+      display: block;
+      font-size: 11px;
+      opacity: 0.74;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 100%);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(74, 111, 165, 0.26);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      border-color: rgba(255,255,255,0.20);
+    }
+    .btn-light {
+      background: #fff;
+      color: var(--brand-deep);
+      border-color: var(--line);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #223253 0%, #2D4270 35%, #4A6FA5 100%);
+      color: #fff;
+      padding: 76px 0 54px;
+    }
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+    .hero::before {
+      width: 340px;
+      height: 340px;
+      right: -90px;
+      top: -120px;
+      background: radial-gradient(circle, #d8e7ff 0%, transparent 72%);
+    }
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      left: -60px;
+      bottom: -110px;
+      background: radial-gradient(circle, #9bc0ff 0%, transparent 70%);
+    }
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .hero h1 {
+      font-size: 48px;
+      line-height: 1.16;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+    .hero p.lead {
+      font-size: 18px;
+      opacity: 0.92;
+      max-width: 720px;
+      margin-bottom: 24px;
+    }
+    .hero-points {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-point {
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 14px;
+    }
+    .hero-point strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .hero-caption {
+      font-size: 13px;
+      opacity: 0.78;
+    }
+
+    .hero-panel {
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 18px 40px rgba(12, 23, 46, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .hero-panel h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .hero-panel p {
+      font-size: 14px;
+      opacity: 0.88;
+    }
+    .tier-mini-list {
+      display: grid;
+      gap: 12px;
+    }
+    .tier-mini {
+      padding: 16px;
+      background: rgba(255,255,255,0.10);
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+    .tier-mini .label {
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .tier-mini strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .tier-mini ul {
+      list-style: none;
+      display: grid;
+      gap: 4px;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    .section {
+      padding: 72px 0;
+    }
+    .section-header {
+      max-width: 720px;
+      margin-bottom: 30px;
+    }
+    .section-header .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .section-header h2 {
+      font-size: 34px;
+      line-height: 1.22;
+      margin-bottom: 10px;
+      color: var(--brand-deep);
+    }
+    .section-header p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .grid-3,
+    .grid-2 {
+      display: grid;
+      gap: 18px;
+    }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+    .card.soft {
+      background: var(--surface-soft);
+    }
+    .icon-pill {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--brand-soft) 0%, #d5e6ff 100%);
+      color: var(--brand-deep);
+      font-size: 22px;
+      font-weight: 700;
+    }
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: var(--brand-deep);
+    }
+    .card p,
+    .card li {
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .card ul {
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .card li::before {
+      content: '•';
+      color: var(--brand);
+      font-weight: 800;
+      margin-right: 8px;
+    }
+
+    .tier-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .tier-card.featured {
+      border-color: rgba(74, 111, 165, 0.42);
+      box-shadow: 0 16px 36px rgba(74, 111, 165, 0.16);
+    }
+    .tier-card .badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--brand-deep);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .tier-card .sub {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand-deep);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .tier-card .tier-title {
+      font-size: 30px;
+      line-height: 1.2;
+      color: var(--brand-deep);
+      font-weight: 800;
+    }
+    .tier-card .summary {
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .tier-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .tier-meta-box {
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: #f6f9ff;
+      border: 1px solid #dbe7f7;
+    }
+    .tier-meta-box span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .tier-meta-box strong {
+      font-size: 15px;
+      color: var(--brand-deep);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .flow-step {
+      position: relative;
+      padding: 24px;
+      background: var(--surface);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .flow-step .step-no {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 100%);
+      color: #fff;
+      font-weight: 800;
+    }
+    .flow-step h3 {
+      font-size: 20px;
+      color: var(--brand-deep);
+      margin-bottom: 8px;
+    }
+
+    .cta-band {
+      padding: 30px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #20304e 0%, #324d7e 48%, #4A6FA5 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      box-shadow: 0 18px 40px rgba(32, 48, 78, 0.18);
+    }
+    .cta-band h3 {
+      font-size: 28px;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+    .cta-band p {
+      opacity: 0.88;
+      font-size: 15px;
+      max-width: 720px;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 14px;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      background: #fff;
+      border: 0;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--brand-deep);
+    }
+    .faq-question span:last-child {
+      flex-shrink: 0;
+      font-size: 22px;
+      color: var(--brand);
+      transition: transform 0.2s ease;
+    }
+    .faq-item.open .faq-question span:last-child {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 22px 22px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .apply-wrap {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .apply-side {
+      display: grid;
+      gap: 18px;
+    }
+    .info-block {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .info-block h3 {
+      font-size: 22px;
+      color: var(--brand-deep);
+      margin-bottom: 12px;
+    }
+    .info-block ol,
+    .info-block ul {
+      display: grid;
+      gap: 10px;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .note-chip {
+      display: inline-flex;
+      margin-top: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--warning-bg);
+      color: var(--warning);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .form-card h3 {
+      font-size: 28px;
+      color: var(--brand-deep);
+      margin-bottom: 8px;
+    }
+    .form-card > p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+    .field.full {
+      grid-column: 1 / -1;
+    }
+    .field label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--brand-deep);
+    }
+    .required {
+      color: #dc2626;
+      margin-left: 4px;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: var(--text);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    .field textarea {
+      min-height: 136px;
+      resize: vertical;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 4px rgba(74, 111, 165, 0.12);
+    }
+    .help {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .consent-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      background: #f7f9fd;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      margin-top: 2px;
+    }
+    .consent-row input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--brand);
+      flex-shrink: 0;
+    }
+    .consent-row label {
+      font-size: 14px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .form-feedback,
+    .success-box {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .form-feedback.show {
+      display: block;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+    }
+    .success-box.show {
+      display: block;
+      background: var(--success-bg);
+      border: 1px solid #b7e0c8;
+      color: var(--success);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .meta-card {
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+    }
+    .meta-card h3 {
+      font-size: 22px;
+      color: var(--brand-deep);
+      margin-bottom: 10px;
+    }
+    .meta-card ul {
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .meta-card li::before {
+      content: '•';
+      color: var(--brand);
+      margin-right: 8px;
+      font-weight: 800;
+    }
+    .meta-card code {
+      padding: 2px 7px;
+      border-radius: 8px;
+      background: #eef3fb;
+      color: var(--brand-deep);
+      font-size: 13px;
+    }
+    .meta-card.warning {
+      background: #fffaf3;
+    }
+
+    .internal-note {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: #eef5ff;
+      border: 1px dashed #9bbcf1;
+      color: var(--brand-deep);
+      font-size: 14px;
+    }
+    .internal-note strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .footer {
+      padding: 32px 0 56px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .mobile-sticky-cta {
+      display: none;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .apply-wrap,
+      .grid-2,
+      .meta-grid {
+        grid-template-columns: 1fr;
+      }
+      .grid-3,
+      .flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .hero h1 {
+        font-size: 40px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .top-nav-inner,
+      .container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .top-nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .nav-actions {
+        width: 100%;
+      }
+      .nav-actions .btn {
+        flex: 1;
+      }
+      .hero {
+        padding: 54px 0 42px;
+      }
+      .hero h1 {
+        font-size: 32px;
+      }
+      .hero p.lead,
+      .section-header p {
+        font-size: 15px;
+      }
+      .hero-points,
+      .grid-3,
+      .flow,
+      .tier-meta,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .section {
+        padding: 56px 0;
+      }
+      .section-header h2 {
+        font-size: 28px;
+      }
+      .cta-band {
+        padding: 24px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .cta-band h3 {
+        font-size: 24px;
+      }
+      .form-card {
+        padding: 22px;
+      }
+      .faq-question {
+        font-size: 16px;
+        padding: 18px;
+      }
+      .faq-answer {
+        padding: 0 18px 18px;
+      }
+      .mobile-sticky-cta {
+        display: block;
+        position: sticky;
+        bottom: 0;
+        z-index: 25;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        background: rgba(243,245,249,0.94);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(45,66,112,0.08);
+      }
+      .mobile-sticky-cta .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <div class="brand-lockup">
+        <span class="brand-mark">☀️</span>
+        <div class="brand-text">
+          <strong>UVID UV 카메라 이벤트</strong>
+          <span>고객용 신청 랜딩 MVP</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <a href="#packages" class="btn btn-secondary">패키지 보기</a>
+        <a href="#apply" class="btn btn-light">지금 신청하기</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">UV 카메라 이벤트 신청 안내</div>
+        <h1>유비드 UV 카메라 이벤트,<br>한 페이지에서 바로 확인하고 신청하세요</h1>
+        <p class="lead">
+          본 페이지는 고객이 이벤트 내용을 쉽게 이해하고 신청할 수 있도록 만든 1차 MVP입니다.
+          참여 조건, 리워드 패키지, 신청 흐름, FAQ를 먼저 확인한 뒤 원하는 패키지로 신청할 수 있습니다.
+        </p>
+        <div class="hero-points">
+          <div class="hero-point">
+            <strong>선택 가능한 2개 패키지</strong>
+            유비드 180일 패키지 / 유비드 360일 패키지 중 목적에 맞게 선택
+          </div>
+          <div class="hero-point">
+            <strong>간단한 신청 구조</strong>
+            기본 정보와 채널 정보만 입력하면 운영팀 후속 안내가 가능하도록 설계
+          </div>
+          <div class="hero-point">
+            <strong>고객용 설명 중심</strong>
+            이벤트 소개, 신청 순서, FAQ를 먼저 보여줘 이탈을 줄이는 구조
+          </div>
+          <div class="hero-point">
+            <strong>추후 운영 확장 가능</strong>
+            CTA 링크, 제출 엔드포인트, 추적 설정은 운영 환경에 맞춰 교체 가능
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="#apply" class="btn btn-primary">이벤트 신청하기</a>
+          <a href="#faq" class="btn btn-secondary">FAQ 먼저 보기</a>
+        </div>
+        <p class="hero-caption">※ 실제 혜택/세부 운영 조건은 최종 운영안에 맞춰 업데이트할 수 있도록 구성한 랜딩 초안입니다.</p>
+      </div>
+
+      <aside class="hero-panel">
+        <div>
+          <h2>빠르게 핵심만 보면</h2>
+          <p>고객이 맨 위에서 바로 이해할 수 있도록 핵심 정보만 압축했습니다.</p>
+        </div>
+        <div class="tier-mini-list">
+          <div class="tier-mini">
+            <span class="label">패키지 A</span>
+            <strong>유비드 180일 패키지</strong>
+            <ul>
+              <li>단기 운영/테스트 성격에 맞춘 기본 선택지</li>
+              <li>신청 후 운영팀이 순차 확인 및 안내</li>
+            </ul>
+          </div>
+          <div class="tier-mini">
+            <span class="label">패키지 B</span>
+            <strong>유비드 360일 패키지</strong>
+            <ul>
+              <li>보다 긴 운영 주기와 누적 활용을 고려한 선택지</li>
+              <li>상세 조건은 신청 접수 후 개별 안내 가능</li>
+            </ul>
+          </div>
+        </div>
+        <!-- 운영 메모: 아래 CTA는 추후 공식몰/신청 폼/상담 채널 URL로 교체 -->
+        <a href="#apply" class="btn btn-primary">신청 폼으로 이동</a>
+      </aside>
+    </div>
+  </section>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag">왜 이 이벤트인가</span>
+          <h2>고객이 망설이지 않도록, 이해 포인트를 먼저 정리했습니다</h2>
+          <p>이벤트를 처음 보는 고객도 “무엇을 하는지 / 어떤 패키지가 있는지 / 어떻게 신청하는지”를 바로 파악할 수 있게 구성했습니다.</p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="icon-pill">01</div>
+            <h3>한눈에 이해되는 구조</h3>
+            <p>길고 복잡한 설명 대신 핵심 혜택과 신청 흐름을 먼저 보여줘 첫 이탈을 줄이는 데 초점을 맞췄습니다.</p>
+          </article>
+          <article class="card">
+            <div class="icon-pill">02</div>
+            <h3>패키지 선택이 쉬움</h3>
+            <p>180일 / 360일 두 가지 선택지만 분리해, 고객이 본인 상황에 맞는 옵션을 빠르게 고를 수 있도록 했습니다.</p>
+          </article>
+          <article class="card">
+            <div class="icon-pill">03</div>
+            <h3>운영 확장에 유리</h3>
+            <p>정적 HTML 기반이라 빠르게 열어볼 수 있고, 추후 폼 연결·추적·공식몰 링크 교체도 가볍게 확장할 수 있습니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="packages">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag">리워드 패키지</span>
+          <h2>두 가지 패키지 중 원하는 방향으로 신청하세요</h2>
+          <p>현재는 고객이 패키지 차이를 이해할 수 있도록 설명형 카드로 정리했습니다. 실제 구성/조건은 운영 확정안 기준으로 문구 교체가 가능합니다.</p>
+        </div>
+        <div class="grid-2">
+          <article class="card tier-card">
+            <span class="sub">기본 선택지</span>
+            <div>
+              <h3 class="tier-title">유비드 180일 패키지</h3>
+              <p class="summary">짧은 운영 주기 또는 가볍게 시작하고 싶은 고객에게 적합한 기본형 패키지 안내 영역입니다.</p>
+            </div>
+            <div class="tier-meta">
+              <div class="tier-meta-box">
+                <span>추천 대상</span>
+                <strong>가볍게 시작하고 싶은 고객</strong>
+              </div>
+              <div class="tier-meta-box">
+                <span>운영 방향</span>
+                <strong>기본형 / 단기 안내 중심</strong>
+              </div>
+            </div>
+            <ul>
+              <li>신청 후 운영팀이 접수 내용을 확인합니다.</li>
+              <li>이벤트 참여 가능 여부 및 후속 절차를 순차 안내합니다.</li>
+              <li>필요 시 추가 정보 요청 또는 개별 연락이 진행될 수 있습니다.</li>
+            </ul>
+            <a href="#apply" class="btn btn-primary">180일 패키지 신청하기</a>
+          </article>
+
+          <article class="card tier-card featured">
+            <span class="badge">추천 노출</span>
+            <span class="sub">확장 선택지</span>
+            <div>
+              <h3 class="tier-title">유비드 360일 패키지</h3>
+              <p class="summary">보다 긴 운영 주기와 누적 활용을 고려하는 고객에게 맞춘 확장형 패키지 안내 영역입니다.</p>
+            </div>
+            <div class="tier-meta">
+              <div class="tier-meta-box">
+                <span>추천 대상</span>
+                <strong>장기 운영을 고려하는 고객</strong>
+              </div>
+              <div class="tier-meta-box">
+                <span>운영 방향</span>
+                <strong>확장형 / 장기 활용 중심</strong>
+              </div>
+            </div>
+            <ul>
+              <li>운영 주기와 활용 범위를 더 길게 보고 싶은 고객용 선택지입니다.</li>
+              <li>세부 구성, 적용 범위, 추가 조건은 신청 접수 후 개별 안내 가능합니다.</li>
+              <li>패키지 선택 고민 시 신청 메모란에 희망 방향을 남길 수 있습니다.</li>
+            </ul>
+            <a href="#apply" class="btn btn-primary">360일 패키지 신청하기</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag">신청 흐름</span>
+          <h2>신청은 4단계로 간단하게 진행됩니다</h2>
+          <p>고객이 신청 전에 절차를 예측할 수 있어야 전환이 올라갑니다. 그래서 과정도 짧고 분명하게 정리했습니다.</p>
+        </div>
+        <div class="flow">
+          <article class="flow-step">
+            <div class="step-no">1</div>
+            <h3>이벤트 확인</h3>
+            <p>이벤트 소개와 패키지 차이를 읽고, 본인에게 맞는 방향을 먼저 정합니다.</p>
+          </article>
+          <article class="flow-step">
+            <div class="step-no">2</div>
+            <h3>패키지 선택</h3>
+            <p>유비드 180일 패키지 또는 유비드 360일 패키지 중 원하는 선택지를 고릅니다.</p>
+          </article>
+          <article class="flow-step">
+            <div class="step-no">3</div>
+            <h3>신청서 작성</h3>
+            <p>이름, 연락처, SNS/URL, 메모 등 기본 정보를 입력하고 개인정보 동의 후 신청합니다.</p>
+          </article>
+          <article class="flow-step">
+            <div class="step-no">4</div>
+            <h3>운영팀 안내</h3>
+            <p>접수 완료 후 운영팀이 내용을 검토하고, 이후 진행 절차를 개별 안내합니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band">
+          <div>
+            <h3>신청 의사가 있다면,<br>아래 폼에서 바로 접수할 수 있습니다</h3>
+            <p>지금은 MVP 단계라 간단한 폼 구조로 되어 있으며, 추후 실제 운영용 폼/상담 채널/API와 연결해 확장할 수 있습니다.</p>
+          </div>
+          <a href="#apply" class="btn btn-light">지금 신청하기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag">FAQ</span>
+          <h2>고객이 가장 먼저 궁금해할 질문을 모았습니다</h2>
+          <p>실제 고객 문의에 맞춰 문구를 다듬을 수 있도록, 현재는 안전한 범위의 기본 답변 구조로 넣어두었습니다.</p>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button class="faq-question" type="button">
+              <span>이 이벤트는 어떤 고객을 위한 페이지인가요?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              유비드 UV 카메라 이벤트에 관심 있는 고객이 이벤트 내용을 먼저 이해하고 신청까지 이어질 수 있도록 구성한 고객용 랜딩 페이지입니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>180일 패키지와 360일 패키지는 어떻게 선택하면 되나요?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              가볍게 시작하거나 기본형 운영이 맞다면 180일 패키지, 보다 긴 운영 주기나 확장형 안내가 필요하다면 360일 패키지를 선택하는 방식으로 안내하고 있습니다. 최종 세부 조건은 운영팀이 확인 후 개별 안내할 수 있습니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>신청하면 바로 확정되나요?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              현재 구조상 신청 접수 후 운영팀 확인 단계가 한 번 더 있습니다. 접수 완료 후 후속 절차를 순차적으로 안내하는 흐름을 기준으로 설계했습니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>SNS 계정이나 URL은 왜 받나요?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              이벤트 운영 시 확인이 필요한 채널 정보를 미리 받을 수 있도록 폼 항목을 넣었습니다. 운영 정책에 따라 해당 항목은 선택/필수 여부를 조정할 수 있습니다.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>실제 신청 데이터는 어디로 저장되나요?</span>
+              <span>+</span>
+            </button>
+            <div class="faq-answer">
+              현재 페이지는 정적 MVP라서 실제 저장 API는 연결되어 있지 않습니다. 추후 운영 환경에 맞춰 Google Form, Typeform, 서버 API 등 원하는 방식으로 연결할 수 있게 구조만 미리 준비해 두었습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="apply">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag">신청하기</span>
+          <h2>희망 패키지를 선택하고 신청서를 남겨 주세요</h2>
+          <p>운영팀 연결 전 단계의 가벼운 신청 폼입니다. 실제 운영 연결 시 제출 대상과 문구만 바꾸면 바로 전환용으로 사용할 수 있습니다.</p>
+        </div>
+
+        <div class="apply-wrap">
+          <div class="apply-side">
+            <div class="info-block">
+              <h3>신청 전에 확인해 주세요</h3>
+              <ol>
+                <li>희망 패키지(180일 / 360일)를 먼저 선택해 주세요.</li>
+                <li>연락 가능한 정보와 확인 가능한 채널 URL을 입력해 주세요.</li>
+                <li>상세 조건 문의나 요청사항은 메모란에 남기면 운영팀 검토에 도움이 됩니다.</li>
+              </ol>
+              <span class="note-chip">운영 메모: 실제 제출 엔드포인트 연결 전까지는 데모 제출만 동작</span>
+            </div>
+
+            <div class="info-block">
+              <h3>이 페이지의 역할</h3>
+              <ul>
+                <li>공식몰 또는 광고 랜딩에서 유입된 고객의 첫 이해를 돕는 안내 페이지</li>
+                <li>이벤트 설명 + 신청 CTA + 폼 제출까지 한 화면에서 이어지는 구조</li>
+                <li>추후 실운영 시 상담톡, 폼 서비스, 서버 API 중 어떤 방식으로도 연결 가능</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <h3>이벤트 신청서</h3>
+            <p>필수 항목만 작성해 주세요. 정상 제출 시 화면 내 성공 메시지가 노출됩니다.</p>
+
+            <!-- 운영 메모: 추후 action/API 연결 시 이 폼의 submit 로직만 교체하면 됩니다. -->
+            <form id="applicationForm" novalidate>
+              <div class="form-grid">
+                <div class="field">
+                  <label for="applicantName">이름<span class="required">*</span></label>
+                  <input id="applicantName" name="applicantName" type="text" placeholder="이름을 입력해 주세요" required>
+                </div>
+                <div class="field">
+                  <label for="contact">연락처<span class="required">*</span></label>
+                  <input id="contact" name="contact" type="text" placeholder="휴대폰 번호 또는 연락 가능한 정보" required>
+                </div>
+                <div class="field full">
+                  <label for="snsUrl">SNS 계정 / URL</label>
+                  <input id="snsUrl" name="snsUrl" type="url" placeholder="인스타그램, 블로그, 유튜브, 쇼핑몰 URL 등">
+                  <p class="help">선택 항목입니다. 운영 확인에 필요한 채널이 있다면 입력해 주세요.</p>
+                </div>
+                <div class="field full">
+                  <label for="packageType">희망 패키지<span class="required">*</span></label>
+                  <select id="packageType" name="packageType" required>
+                    <option value="">패키지를 선택해 주세요</option>
+                    <option value="유비드 180일 패키지">유비드 180일 패키지</option>
+                    <option value="유비드 360일 패키지">유비드 360일 패키지</option>
+                  </select>
+                </div>
+                <div class="field full">
+                  <label for="notes">추가 메모</label>
+                  <textarea id="notes" name="notes" placeholder="희망 일정, 문의 사항, 운영팀이 알면 좋은 내용을 자유롭게 적어 주세요"></textarea>
+                </div>
+                <div class="field full">
+                  <div class="consent-row">
+                    <input id="consent" name="consent" type="checkbox" required>
+                    <label for="consent">이벤트 신청 접수 및 후속 안내를 위해 입력한 정보를 운영 목적 범위에서 활용하는 것에 동의합니다.<span class="required">*</span></label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary">신청서 제출하기</button>
+                <a href="#packages" class="btn btn-light">패키지 다시 보기</a>
+              </div>
+
+              <div id="formFeedback" class="form-feedback" role="alert"></div>
+              <div id="successBox" class="success-box" role="status"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="tag">Meta 이벤트 placeholder</span>
+          <h2>추적은 가볍게: PageView + SubmitApplication만</h2>
+          <p>현재 MVP 기준으로 Meta 이벤트 전략은 최대한 단순하게 두는 게 안전합니다. 페이지 조회와 실제 신청 완료만 남기고, 과한 제품 이벤트는 넣지 않는 방향입니다.</p>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-card">
+            <h3>허용 이벤트</h3>
+            <ul>
+              <li>페이지 진입 시 <code>PageView</code> placeholder 호출</li>
+              <li>폼이 유효성 검사를 통과하고 성공 상태가 표시된 뒤 <code>SubmitApplication</code> placeholder 호출</li>
+              <li>실제 Pixel ID 및 서버 전송 로직은 운영 환경에서만 연결</li>
+            </ul>
+          </div>
+          <div class="meta-card warning">
+            <h3>이번 MVP에서 제외</h3>
+            <ul>
+              <li><code>ViewContent</code> 사용 안 함</li>
+              <li><code>content_ids</code> 전달 안 함</li>
+              <li>패키지 선택, FAQ 클릭 등 중간 행동은 일단 추적하지 않음</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="internal-note">
+          <strong>내부 메모 — 추천 공식 경로</strong>
+          향후 <code>uvid.co.kr</code> 공식몰에서 연결할 최적 경로는 <code>/event/uv-camera</code> 입니다. 이벤트 성격이 명확하고, 추후 다른 이벤트가 생겨도 <code>/event/...</code> 체계로 확장하기 쉽습니다.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="mobile-sticky-cta">
+    <a href="#apply" class="btn btn-primary">지금 신청하기</a>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      UVID UV 카메라 이벤트 신청 랜딩 MVP · 정적 HTML 초안
+    </div>
+  </footer>
+
+  <script>
+    const form = document.getElementById('applicationForm');
+    const feedback = document.getElementById('formFeedback');
+    const successBox = document.getElementById('successBox');
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    function showError(message) {
+      feedback.textContent = message;
+      feedback.classList.add('show');
+      successBox.classList.remove('show');
+    }
+
+    function showSuccess(message) {
+      successBox.textContent = message;
+      successBox.classList.add('show');
+      feedback.classList.remove('show');
+    }
+
+    // 운영 메모: 실서비스 적용 시 실제 Meta Pixel / CAPI 호출로 교체
+    function trackPageViewPlaceholder() {
+      console.log('[Meta Placeholder] PageView');
+    }
+
+    // 운영 메모: 실제 성공 제출 이후에만 SubmitApplication 호출
+    function trackSubmitApplicationPlaceholder(payload) {
+      console.log('[Meta Placeholder] SubmitApplication', payload);
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      trackPageViewPlaceholder();
+    });
+
+    faqItems.forEach(function (item) {
+      const button = item.querySelector('.faq-question');
+      button.addEventListener('click', function () {
+        item.classList.toggle('open');
+      });
+    });
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const applicantName = form.applicantName.value.trim();
+      const contact = form.contact.value.trim();
+      const packageType = form.packageType.value.trim();
+      const snsUrl = form.snsUrl.value.trim();
+      const notes = form.notes.value.trim();
+      const consent = form.consent.checked;
+
+      if (!applicantName) {
+        showError('이름을 입력해 주세요.');
+        form.applicantName.focus();
+        return;
+      }
+
+      if (!contact) {
+        showError('연락 가능한 정보를 입력해 주세요.');
+        form.contact.focus();
+        return;
+      }
+
+      if (!packageType) {
+        showError('희망 패키지를 선택해 주세요.');
+        form.packageType.focus();
+        return;
+      }
+
+      if (!consent) {
+        showError('개인정보 활용 동의 후 제출할 수 있습니다.');
+        form.consent.focus();
+        return;
+      }
+
+      // 운영 메모: 실제 연동 시 여기서 fetch('/api/...') 또는 외부 폼 제출로 교체
+      const payload = {
+        applicantName,
+        contact,
+        packageType,
+        snsUrl,
+        notes
+      };
+
+      showSuccess('신청이 접수되었습니다. 운영팀이 확인 후 순차적으로 안내드릴 예정입니다.');
+      trackSubmitApplicationPlaceholder(payload);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
