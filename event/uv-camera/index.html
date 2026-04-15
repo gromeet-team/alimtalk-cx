@@ -4,55 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UVID UV 카메라 이벤트 | 유비드 패키지 신청</title>
-  <meta name="description" content="UV 카메라 이벤트에 참여하고 유비드 180일 패키지 또는 360일 패키지를 받아보세요. 간단한 신청 후 개별 안내드립니다.">
+  <meta name="description" content="UV 카메라 이벤트에 참여하고 유비드 180일 패키지 또는 360일 패키지 혜택을 받아보세요.">
   <meta property="og:title" content="UVID UV 카메라 이벤트 | 유비드 패키지 신청">
-  <meta property="og:description" content="UV 카메라 테스트 후 유비드 패키지를 받아보는 이벤트. 간단히 신청하고 개별 안내를 받아보세요.">
+  <meta property="og:description" content="UV 카메라로 직접 확인하고 유비드 180일 또는 360일 패키지를 신청해 보세요.">
   <meta property="og:type" content="website">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
 
     :root {
-      --bg: #f7f2eb;
-      --surface: rgba(255, 255, 255, 0.88);
+      --bg: #f8f2eb;
+      --bg-strong: #fffaf5;
+      --surface: rgba(255, 255, 255, 0.92);
       --surface-strong: #ffffff;
-      --ink: #1f1b18;
-      --muted: #6d645c;
-      --line: rgba(76, 61, 49, 0.10);
-      --brand: #1f2430;
-      --brand-soft: #2f3748;
-      --accent: #bb9469;
-      --accent-soft: #efe2d4;
-      --success: #156a3d;
-      --success-bg: #e9f7ef;
-      --danger: #b42318;
-      --danger-bg: #fef3f2;
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-      --shadow: 0 18px 50px rgba(30, 23, 18, 0.08);
-      --container: 1100px;
+      --ink: #1f1916;
+      --muted: #6f645b;
+      --line: rgba(38, 28, 20, 0.08);
+      --line-strong: rgba(38, 28, 20, 0.14);
+      --brand: #231f2a;
+      --brand-2: #353040;
+      --gold: #c79a67;
+      --gold-soft: #f4e6d8;
+      --gold-deep: #9d7449;
+      --success: #12673a;
+      --success-bg: #eaf7ef;
+      --danger: #bc2d1f;
+      --danger-bg: #fff1ef;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --shadow-soft: 0 18px 50px rgba(42, 28, 16, 0.08);
+      --shadow-strong: 0 28px 70px rgba(33, 25, 20, 0.16);
+      --container: 1080px;
     }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: 'Noto Sans KR', sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.7), transparent 36%),
-        linear-gradient(180deg, #fbf8f4 0%, var(--bg) 100%);
       color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.9) 0%, transparent 34%),
+        linear-gradient(180deg, #fdf9f4 0%, var(--bg) 50%, #f6efe8 100%);
       line-height: 1.5;
       word-break: keep-all;
     }
 
     a { color: inherit; text-decoration: none; }
-    button, input, select, textarea { font: inherit; }
+    button, input, select { font: inherit; }
 
     .shell {
       width: min(100%, var(--container));
       margin: 0 auto;
-      padding: 0 20px;
+      padding: 0 18px;
     }
 
     .header {
@@ -65,10 +70,10 @@
       gap: 10px;
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.62);
-      border: 1px solid rgba(31, 27, 24, 0.06);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 10px 30px rgba(31, 27, 24, 0.05);
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(35,31,42,0.06);
+      box-shadow: 0 10px 24px rgba(35,31,42,0.05);
+      backdrop-filter: blur(10px);
     }
 
     .brand-mark {
@@ -78,31 +83,32 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #f1dbc4 0%, #bb9469 100%);
+      background: linear-gradient(135deg, #f6ddc5 0%, #c79a67 100%);
       color: #fff;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       letter-spacing: 0.08em;
     }
 
-    .brand span {
+    .brand span:last-child {
       font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      color: var(--brand);
     }
 
     .hero {
-      padding: 18px 0 28px;
+      padding: 16px 0 22px;
     }
 
     .hero-card {
       position: relative;
       overflow: hidden;
-      padding: 28px 22px 22px;
+      padding: 22px;
       border-radius: 34px;
-      background: linear-gradient(145deg, rgba(28, 32, 42, 0.98) 0%, rgba(39, 45, 58, 0.96) 56%, rgba(51, 58, 73, 0.93) 100%);
+      background: linear-gradient(150deg, #26212d 0%, #312c3c 52%, #42374a 100%);
       color: #fff;
-      box-shadow: 0 28px 60px rgba(25, 22, 19, 0.16);
+      box-shadow: var(--shadow-strong);
+      isolation: isolate;
     }
 
     .hero-card::before,
@@ -111,22 +117,23 @@
       position: absolute;
       border-radius: 999px;
       pointer-events: none;
+      z-index: 0;
     }
 
     .hero-card::before {
-      width: 280px;
-      height: 280px;
+      width: 260px;
+      height: 260px;
       top: -120px;
       right: -80px;
-      background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 72%);
     }
 
     .hero-card::after {
-      width: 180px;
-      height: 180px;
-      bottom: -70px;
-      left: -40px;
-      background: radial-gradient(circle, rgba(187,148,105,0.24) 0%, transparent 75%);
+      width: 220px;
+      height: 220px;
+      left: -50px;
+      bottom: -80px;
+      background: radial-gradient(circle, rgba(199,154,103,0.30) 0%, transparent 74%);
     }
 
     .hero-grid {
@@ -134,35 +141,35 @@
       z-index: 1;
       display: grid;
       gap: 18px;
+      align-items: start;
     }
 
     .eyebrow {
       display: inline-flex;
-      width: fit-content;
       align-items: center;
       gap: 8px;
-      margin-bottom: 14px;
+      width: fit-content;
       padding: 8px 12px;
       border-radius: 999px;
       background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.02em;
     }
 
     h1 {
-      margin: 0;
-      font-size: clamp(2.1rem, 8vw, 4.4rem);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
+      margin: 14px 0 0;
+      font-size: clamp(2.35rem, 9vw, 4.9rem);
+      line-height: 1.04;
+      letter-spacing: -0.05em;
     }
 
     .hero-copy {
-      margin: 16px 0 0;
-      max-width: 520px;
-      color: rgba(255,255,255,0.82);
+      margin: 14px 0 0;
+      max-width: 480px;
       font-size: 15px;
+      color: rgba(255,255,255,0.82);
     }
 
     .hero-actions {
@@ -173,183 +180,234 @@
       align-items: center;
     }
 
-    .hero-note {
-      font-size: 13px;
-      color: rgba(255,255,255,0.62);
-    }
-
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 54px;
-      padding: 0 22px;
-      border-radius: 999px;
+      min-height: 56px;
+      padding: 0 24px;
       border: 0;
-      font-weight: 700;
+      border-radius: 999px;
       cursor: pointer;
-      transition: transform 0.18s ease, opacity 0.18s ease;
+      font-weight: 800;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
     }
 
-    .btn:hover { transform: translateY(-1px); }
+    .btn:hover {
+      transform: translateY(-1px);
+    }
 
     .btn-primary {
-      background: linear-gradient(135deg, #f3e1cf 0%, #c39a6f 100%);
+      background: linear-gradient(135deg, #f4e1ce 0%, #c79a67 100%);
       color: var(--brand);
-      box-shadow: 0 18px 30px rgba(187, 148, 105, 0.18);
+      box-shadow: 0 18px 36px rgba(199,154,103,0.22);
     }
 
-    .btn-secondary {
-      background: rgba(255,255,255,0.12);
-      color: #fff;
+    .btn-select {
+      width: 100%;
+      min-height: 50px;
+      background: rgba(35,31,42,0.05);
+      color: var(--brand);
+      border: 1px solid rgba(35,31,42,0.08);
+      box-shadow: none;
+    }
+
+    .hero-note {
+      font-size: 13px;
+      color: rgba(255,255,255,0.64);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 360px;
+      border-radius: 28px;
+      padding: 22px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04)),
+        radial-gradient(circle at top right, rgba(255,255,255,0.30), transparent 32%),
+        linear-gradient(145deg, rgba(243,228,212,0.26) 0%, rgba(199,154,103,0.14) 45%, rgba(255,255,255,0.06) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero-visual::before {
+      content: '';
+      position: absolute;
+      inset: 14px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.20);
+      opacity: 0.8;
+    }
+
+    .hero-visual-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      border-radius: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px;
+    }
+
+    .hero-visual-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .visual-chip {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.14);
       border: 1px solid rgba(255,255,255,0.14);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.92);
     }
 
-    .hero-bottom {
-      margin-top: 22px;
+    .visual-glow {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.08) 64%, transparent 72%);
+      filter: blur(1px);
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+
+    .hero-visual-copy {
       display: grid;
-      gap: 14px;
+      gap: 8px;
+      align-self: flex-end;
+    }
+
+    .hero-visual-copy strong {
+      font-size: clamp(1.55rem, 6.4vw, 2.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-visual-copy span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .section {
+      padding: 16px 0 0;
+    }
+
+    .section-card {
+      padding: 22px;
+      border-radius: 30px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(35,31,42,0.06);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(12px);
+    }
+
+    .section-head {
+      margin-bottom: 16px;
+    }
+
+    .kicker {
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--gold-deep);
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 6vw, 3rem);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+      color: var(--brand);
+    }
+
+    .section-head p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: var(--muted);
     }
 
     .reward-grid,
     .steps,
-    .placeholder-grid,
-    .faq-grid,
-    .apply-grid {
+    .faq-grid {
       display: grid;
       gap: 14px;
     }
 
     .reward-card,
     .step-card,
-    .placeholder-card,
     .faq-item,
-    .apply-copy,
     .form-card {
-      border-radius: var(--radius-xl);
-      background: var(--surface);
+      border-radius: 24px;
+      background: rgba(255,255,255,0.9);
       border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 36px rgba(32, 22, 18, 0.06);
     }
 
     .reward-card {
       padding: 20px;
-      color: var(--ink);
+      display: grid;
+      gap: 12px;
     }
 
-    .reward-label {
+    .reward-tag {
       display: inline-flex;
       width: fit-content;
-      padding: 6px 10px;
+      padding: 7px 11px;
       border-radius: 999px;
-      background: var(--accent-soft);
+      background: var(--gold-soft);
       color: var(--brand);
       font-size: 11px;
       font-weight: 800;
-      letter-spacing: 0.06em;
-    }
-
-    .reward-card h2 {
-      margin: 14px 0 6px;
-      font-size: 24px;
-      line-height: 1.2;
-      color: var(--brand);
-      letter-spacing: -0.03em;
-    }
-
-    .reward-value {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .reward-card p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .placeholder-card {
-      position: relative;
-      overflow: hidden;
-      min-height: 250px;
-      padding: 22px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.84), rgba(255,255,255,0.72)),
-        linear-gradient(135deg, rgba(239,226,212,0.9), rgba(255,255,255,0.4));
-    }
-
-    .placeholder-card::before {
-      content: '';
-      position: absolute;
-      inset: 14px;
-      border-radius: 22px;
-      border: 1px dashed rgba(31, 27, 24, 0.14);
-    }
-
-    .placeholder-card strong,
-    .placeholder-card span {
-      position: relative;
-      z-index: 1;
-      display: block;
-    }
-
-    .placeholder-card strong {
-      font-size: 15px;
       letter-spacing: 0.08em;
-      color: var(--brand);
     }
 
-    .placeholder-card span {
-      margin-top: 8px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .section {
-      padding: 18px 0 0;
-    }
-
-    .section-head {
-      margin-bottom: 14px;
-    }
-
-    .section-head .kicker {
-      display: inline-block;
-      margin-bottom: 10px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-    }
-
-    .section-head h2 {
+    .reward-card h3 {
       margin: 0;
-      font-size: clamp(1.7rem, 5.6vw, 2.8rem);
-      line-height: 1.14;
+      font-size: 1.6rem;
+      line-height: 1.12;
       letter-spacing: -0.04em;
       color: var(--brand);
     }
 
-    .section-head p {
-      margin: 10px 0 0;
-      max-width: 540px;
+    .reward-value {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--gold-deep);
+    }
+
+    .reward-card p {
+      margin: 0;
+      font-size: 14px;
       color: var(--muted);
-      font-size: 15px;
     }
 
     .step-card {
-      padding: 18px;
+      padding: 20px;
+      display: grid;
+      gap: 12px;
     }
 
     .step-no {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
       background: var(--brand);
       color: #fff;
       font-size: 14px;
@@ -357,196 +415,17 @@
     }
 
     .step-card h3 {
-      margin: 14px 0 8px;
-      font-size: 18px;
-      color: var(--brand);
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.2;
       letter-spacing: -0.03em;
+      color: var(--brand);
     }
 
     .step-card p {
       margin: 0;
-      color: var(--muted);
       font-size: 14px;
-    }
-
-    .apply-grid {
-      align-items: start;
-    }
-
-    .apply-copy,
-    .form-card {
-      padding: 22px;
-    }
-
-    .apply-copy p {
-      margin: 0;
       color: var(--muted);
-      font-size: 15px;
-    }
-
-    .mini-list {
-      display: grid;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .mini-item {
-      padding: 14px 16px;
-      border-radius: var(--radius-md);
-      background: rgba(255,255,255,0.74);
-      border: 1px solid rgba(31,27,24,0.06);
-    }
-
-    .mini-item strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
-      color: var(--brand);
-    }
-
-    .mini-item span {
-      display: block;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .form-card h3 {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1.2;
-      color: var(--brand);
-      letter-spacing: -0.03em;
-    }
-
-    .form-card > p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .form-grid {
-      display: grid;
-      gap: 14px;
-      margin-top: 22px;
-    }
-
-    .field {
-      display: grid;
-      gap: 8px;
-    }
-
-    .field label {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--brand);
-    }
-
-    .required { color: var(--danger); }
-
-    .field input,
-    .field select,
-    .field textarea {
-      width: 100%;
-      border: 1px solid rgba(31,27,24,0.10);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.96);
-      padding: 15px 16px;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.18s ease, box-shadow 0.18s ease;
-    }
-
-    .field textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .field input:focus,
-    .field select:focus,
-    .field textarea:focus {
-      border-color: rgba(187,148,105,0.8);
-      box-shadow: 0 0 0 4px rgba(187,148,105,0.14);
-    }
-
-    .field small {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .consent {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      padding: 16px;
-      border-radius: 18px;
-      background: #fbf8f4;
-      border: 1px solid rgba(31,27,24,0.07);
-    }
-
-    .consent input {
-      width: 18px;
-      height: 18px;
-      margin-top: 2px;
-      accent-color: var(--brand);
-      flex-shrink: 0;
-    }
-
-    .consent label {
-      color: var(--muted);
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    .form-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
-    }
-
-    .form-actions .btn {
-      min-width: 150px;
-    }
-
-    .ghost-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 54px;
-      padding: 0 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(31,27,24,0.10);
-      background: rgba(255,255,255,0.9);
-      color: var(--brand);
-      font-weight: 700;
-    }
-
-    .form-feedback,
-    .success-box {
-      display: none;
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .form-feedback.show {
-      display: block;
-      background: var(--danger-bg);
-      border: 1px solid rgba(180, 35, 24, 0.18);
-      color: var(--danger);
-    }
-
-    .success-box.show {
-      display: block;
-      background: var(--success-bg);
-      border: 1px solid rgba(21, 106, 61, 0.18);
-      color: var(--success);
-    }
-
-    .faq-grid {
-      margin-top: 14px;
     }
 
     .faq-item {
@@ -571,10 +450,10 @@
 
     .faq-item summary::after {
       content: '+';
-      flex-shrink: 0;
       font-size: 20px;
-      color: var(--accent);
+      color: var(--gold-deep);
       transition: transform 0.18s ease;
+      flex-shrink: 0;
     }
 
     .faq-item[open] summary::after {
@@ -583,15 +462,136 @@
 
     .faq-item p {
       margin: 0 0 18px;
-      color: var(--muted);
       font-size: 14px;
+      color: var(--muted);
+    }
+
+    .form-card {
+      padding: 22px;
+    }
+
+    .form-card h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 6vw, 2.5rem);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+      color: var(--brand);
+    }
+
+    .form-card > p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    .required {
+      color: var(--danger);
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(35,31,42,0.10);
+      background: rgba(255,255,255,0.98);
+      color: var(--ink);
+      padding: 15px 16px;
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .field input:focus,
+    .field select:focus {
+      border-color: rgba(199,154,103,0.85);
+      box-shadow: 0 0 0 4px rgba(199,154,103,0.14);
+    }
+
+    .field small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 18px;
+      background: #fbf7f2;
+      border: 1px solid rgba(35,31,42,0.07);
+    }
+
+    .consent input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--brand);
+      flex-shrink: 0;
+    }
+
+    .consent label {
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .form-actions {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .form-actions .btn {
+      width: 100%;
+    }
+
+    .form-feedback,
+    .success-box {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .form-feedback.show {
+      display: block;
+      background: var(--danger-bg);
+      border: 1px solid rgba(188,45,31,0.18);
+      color: var(--danger);
+    }
+
+    .success-box.show {
+      display: block;
+      background: var(--success-bg);
+      border: 1px solid rgba(18,103,58,0.18);
+      color: var(--success);
     }
 
     .footer {
-      padding: 32px 0 108px;
+      padding: 30px 0 104px;
+      text-align: center;
       color: var(--muted);
       font-size: 12px;
-      text-align: center;
     }
 
     .mobile-cta {
@@ -601,7 +601,7 @@
       bottom: 0;
       z-index: 30;
       padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-      background: linear-gradient(180deg, rgba(247,242,235,0) 0%, rgba(247,242,235,0.92) 20%, rgba(247,242,235,0.98) 100%);
+      background: linear-gradient(180deg, rgba(248,242,235,0) 0%, rgba(248,242,235,0.92) 24%, rgba(248,242,235,0.98) 100%);
       backdrop-filter: blur(12px);
     }
 
@@ -611,20 +611,27 @@
 
     @media (min-width: 760px) {
       .shell { padding: 0 28px; }
-      .header { padding-top: 24px; }
-      .hero { padding-top: 22px; }
-      .hero-card { padding: 42px; }
-      .hero-grid { grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; align-items: center; }
-      .hero-copy { font-size: 17px; }
-      .hero-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .header { padding-top: 22px; }
+      .hero { padding-top: 20px; }
+      .hero-card { padding: 34px; }
+      .hero-grid {
+        grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1fr);
+        gap: 24px;
+        align-items: center;
+      }
+      .hero-visual { min-height: 500px; }
+      .section-card,
+      .form-card { padding: 28px; }
+      .reward-grid,
+      .steps,
+      .faq-grid { gap: 16px; }
       .reward-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .placeholder-grid { grid-template-columns: 1.25fr 0.95fr; }
-      .apply-grid { grid-template-columns: 0.9fr 1.1fr; gap: 18px; }
       .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .field.full { grid-column: 1 / -1; }
+      .form-actions .btn { width: auto; min-width: 220px; }
       .mobile-cta { display: none; }
-      .footer { padding-bottom: 42px; }
+      .footer { padding-bottom: 44px; }
     }
   </style>
 </head>
@@ -644,56 +651,57 @@
         <div class="hero-card">
           <div class="hero-grid">
             <div>
-              <div class="eyebrow">유비드 패키지 증정 이벤트</div>
-              <h1>UV 카메라로 직접 확인하고,<br>유비드 패키지를 받아보세요</h1>
-              <p class="hero-copy">
-                신청은 간단하게. 선정되신 분께 유비드 180일 패키지 또는 360일 패키지를 제공해드립니다.
-              </p>
+              <div class="eyebrow">유비드 패키지 이벤트</div>
+              <h1>UV 카메라로 확인하고,<br>유비드를 경험하세요</h1>
+              <p class="hero-copy">간단 신청 후 선정 시 유비드 180일 또는 360일 패키지를 제공해 드립니다.</p>
               <div class="hero-actions">
-                <a href="#apply" class="btn btn-primary">이벤트 신청하기</a>
+                <a href="#apply" class="btn btn-primary">지금 신청하기</a>
                 <span class="hero-note">신청 후 개별 안내</span>
               </div>
             </div>
 
-            <div class="placeholder-card" aria-label="메인 비주얼 자리">
-              <strong>MAIN IMAGE / VIDEO</strong>
-              <span>엘렌이 교체할 메인 비주얼 영역</span>
+            <div class="hero-visual" aria-label="UVID AI 영상 및 제품 비주얼">
+              <div class="hero-visual-inner">
+                <div class="hero-visual-top">
+                  <span class="visual-chip">UVID AI 영상</span>
+                  <span class="visual-glow" aria-hidden="true"></span>
+                </div>
+                <div class="hero-visual-copy">
+                  <strong>AI 영상 ·<br>제품 비주얼</strong>
+                  <span>광채를 더 선명하게 보여줄 UVID 메인 장면</span>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="hero-bottom">
-            <div class="reward-grid">
-              <article class="reward-card">
-                <span class="reward-label">REWARD 01</span>
-                <h2>유비드 180일 패키지</h2>
-                <div class="reward-value">150,000원 상당</div>
-                <p>가볍게 시작하고 싶은 분께 추천드리는 리워드입니다.</p>
-              </article>
-              <article class="reward-card">
-                <span class="reward-label">REWARD 02</span>
-                <h2>유비드 360일 패키지</h2>
-                <div class="reward-value">300,000원 상당</div>
-                <p>더 길게 경험해보고 싶은 분께 추천드리는 리워드입니다.</p>
-              </article>
-            </div>
+    <section class="section" id="reward">
+      <div class="shell">
+        <div class="section-card">
+          <div class="section-head">
+            <span class="kicker">REWARD</span>
+            <h2>원하는 혜택을 선택하세요</h2>
+            <p>선택 후 바로 신청할 수 있어요.</p>
+          </div>
 
-            <div class="steps" aria-label="참여 방법">
-              <article class="step-card">
-                <span class="step-no">1</span>
-                <h3>신청하기</h3>
-                <p>기본 정보와 희망 패키지만 입력해 주세요.</p>
-              </article>
-              <article class="step-card">
-                <span class="step-no">2</span>
-                <h3>확인하기</h3>
-                <p>운영팀이 신청 내용을 순차적으로 확인합니다.</p>
-              </article>
-              <article class="step-card">
-                <span class="step-no">3</span>
-                <h3>안내받기</h3>
-                <p>선정 시 개별 연락으로 자세히 안내드립니다.</p>
-              </article>
-            </div>
+          <div class="reward-grid">
+            <article class="reward-card">
+              <span class="reward-tag">CHOICE 01</span>
+              <h3>유비드 180일 패키지</h3>
+              <div class="reward-value">150,000원 상당</div>
+              <p>가볍게 시작하고 싶은 분께.</p>
+              <button type="button" class="btn btn-select package-select" data-package="유비드 180일 패키지">이 혜택으로 신청</button>
+            </article>
+
+            <article class="reward-card">
+              <span class="reward-tag">CHOICE 02</span>
+              <h3>유비드 360일 패키지</h3>
+              <div class="reward-value">300,000원 상당</div>
+              <p>더 길게 경험하고 싶은 분께.</p>
+              <button type="button" class="btn btn-select package-select" data-package="유비드 360일 패키지">이 혜택으로 신청</button>
+            </article>
           </div>
         </div>
       </div>
@@ -701,14 +709,58 @@
 
     <section class="section">
       <div class="shell">
-        <div class="placeholder-grid">
-          <div class="placeholder-card" aria-label="제품 컷 자리">
-            <strong>PRODUCT CUT</strong>
-            <span>패키지 컷 또는 UV 카메라 결과 이미지 자리</span>
+        <div class="section-card">
+          <div class="section-head">
+            <span class="kicker">HOW TO</span>
+            <h2>참여는 3단계면 충분해요</h2>
           </div>
-          <div class="placeholder-card" aria-label="숏폼 영상 자리">
-            <strong>SHORT VIDEO</strong>
-            <span>짧은 리액션 영상 또는 사용 컷 자리</span>
+
+          <div class="steps">
+            <article class="step-card">
+              <span class="step-no">1</span>
+              <h3>신청하기</h3>
+              <p>정보를 간단히 남겨 주세요.</p>
+            </article>
+
+            <article class="step-card">
+              <span class="step-no">2</span>
+              <h3>확인하기</h3>
+              <p>신청 내용을 순차적으로 확인합니다.</p>
+            </article>
+
+            <article class="step-card">
+              <span class="step-no">3</span>
+              <h3>안내받기</h3>
+              <p>선정 시 개별 안내드립니다.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-card">
+          <div class="section-head">
+            <span class="kicker">FAQ</span>
+            <h2>자주 묻는 질문</h2>
+          </div>
+
+          <div class="faq-grid">
+            <details class="faq-item" open>
+              <summary>누가 신청할 수 있나요?</summary>
+              <p>UV 카메라 이벤트에 관심 있는 분이라면 신청하실 수 있습니다.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>패키지는 어떻게 선택하나요?</summary>
+              <p>180일 또는 360일 패키지 중 원하는 혜택을 선택해 주세요.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary>신청 후 바로 확정되나요?</summary>
+              <p>아니요. 확인 후 선정 여부와 이후 절차를 개별 안내드립니다.</p>
+            </details>
           </div>
         </div>
       </div>
@@ -716,119 +768,52 @@
 
     <section class="section" id="apply">
       <div class="shell">
-        <div class="section-head">
-          <span class="kicker">APPLY</span>
-          <h2>원하는 패키지를 선택하고<br>지금 신청해 주세요</h2>
-          <p>필수 항목만 남긴 가벼운 신청 폼입니다.</p>
-        </div>
+        <div class="form-card">
+          <h2>이벤트 신청</h2>
+          <p>필수 정보만 입력해 주세요.</p>
 
-        <div class="apply-grid">
-          <div class="apply-copy">
-            <p>
-              신청만 남겨주시면 됩니다. 복잡한 설명 없이,
-              필요한 정보만 확인한 뒤 개별 안내드릴게요.
-            </p>
+          <form id="applicationForm" novalidate>
+            <div class="form-grid">
+              <div class="field">
+                <label for="applicantName">이름 <span class="required">*</span></label>
+                <input id="applicantName" name="applicantName" type="text" placeholder="이름을 입력해 주세요" required>
+              </div>
 
-            <div class="mini-list">
-              <div class="mini-item">
-                <strong>유비드 180일 패키지</strong>
-                <span>150,000원 상당</span>
+              <div class="field">
+                <label for="contact">연락처 <span class="required">*</span></label>
+                <input id="contact" name="contact" type="text" inputmode="tel" placeholder="휴대폰 번호를 입력해 주세요" required>
               </div>
-              <div class="mini-item">
-                <strong>유비드 360일 패키지</strong>
-                <span>300,000원 상당</span>
+
+              <div class="field full">
+                <label for="packageType">희망 패키지 <span class="required">*</span></label>
+                <select id="packageType" name="packageType" required>
+                  <option value="">패키지를 선택해 주세요</option>
+                  <option value="유비드 180일 패키지">유비드 180일 패키지</option>
+                  <option value="유비드 360일 패키지">유비드 360일 패키지</option>
+                </select>
               </div>
-              <div class="mini-item">
-                <strong>안내 방식</strong>
-                <span>신청 완료 후 순차적으로 개별 연락</span>
+
+              <div class="field full">
+                <label for="snsUrl">SNS 계정 / URL</label>
+                <input id="snsUrl" name="snsUrl" type="url" placeholder="인스타그램, 블로그, 유튜브 등 링크를 입력해 주세요">
+                <small>선택 항목입니다.</small>
+              </div>
+
+              <div class="field full">
+                <div class="consent">
+                  <input id="consent" name="consent" type="checkbox" required>
+                  <label for="consent">이벤트 신청 접수 및 후속 안내를 위해 입력한 정보를 운영 목적 범위에서 활용하는 것에 동의합니다. <span class="required">*</span></label>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="form-card">
-            <h3>이벤트 신청서</h3>
-            <p>정상 제출 시 이 페이지 안에서 접수 완료 메시지가 표시됩니다.</p>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">신청 완료하기</button>
+            </div>
 
-            <form id="applicationForm" novalidate>
-              <div class="form-grid">
-                <div class="field">
-                  <label for="applicantName">이름 <span class="required">*</span></label>
-                  <input id="applicantName" name="applicantName" type="text" placeholder="이름을 입력해 주세요" required>
-                </div>
-
-                <div class="field">
-                  <label for="contact">연락처 <span class="required">*</span></label>
-                  <input id="contact" name="contact" type="text" inputmode="tel" placeholder="휴대폰 번호를 입력해 주세요" required>
-                </div>
-
-                <div class="field full">
-                  <label for="snsUrl">SNS 계정 / URL</label>
-                  <input id="snsUrl" name="snsUrl" type="url" placeholder="인스타그램, 블로그, 유튜브 등 링크를 입력해 주세요">
-                  <small>선택 항목입니다.</small>
-                </div>
-
-                <div class="field full">
-                  <label for="packageType">희망 패키지 <span class="required">*</span></label>
-                  <select id="packageType" name="packageType" required>
-                    <option value="">패키지를 선택해 주세요</option>
-                    <option value="유비드 180일 패키지">유비드 180일 패키지</option>
-                    <option value="유비드 360일 패키지">유비드 360일 패키지</option>
-                  </select>
-                </div>
-
-                <div class="field full">
-                  <label for="notes">추가 메모</label>
-                  <textarea id="notes" name="notes" placeholder="남기고 싶은 내용이 있다면 자유롭게 적어 주세요"></textarea>
-                </div>
-
-                <div class="field full">
-                  <div class="consent">
-                    <input id="consent" name="consent" type="checkbox" required>
-                    <label for="consent">이벤트 신청 접수 및 후속 안내를 위해 입력한 정보를 운영 목적 범위에서 활용하는 것에 동의합니다. <span class="required">*</span></label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary">신청서 제출하기</button>
-                <a href="#top" class="ghost-link">위로 보기</a>
-              </div>
-
-              <div id="formFeedback" class="form-feedback" role="alert"></div>
-              <div id="successBox" class="success-box" role="status"></div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-head">
-          <span class="kicker">FAQ</span>
-          <h2>자주 묻는 질문</h2>
-        </div>
-
-        <div class="faq-grid">
-          <details class="faq-item" open>
-            <summary>누가 신청할 수 있나요?</summary>
-            <p>UV 카메라 이벤트에 관심 있는 분이라면 신청하실 수 있습니다. 접수 후 운영팀이 순차적으로 확인해 드립니다.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>패키지는 어떻게 선택하면 되나요?</summary>
-            <p>가볍게 시작하고 싶다면 180일 패키지, 더 길게 경험해보고 싶다면 360일 패키지를 선택해 주세요.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>신청하면 바로 확정되나요?</summary>
-            <p>아니요. 신청 내용을 확인한 뒤 선정 여부와 이후 절차를 개별 안내드립니다.</p>
-          </details>
-
-          <details class="faq-item">
-            <summary>지금 바로 결제가 필요한가요?</summary>
-            <p>아니요. 현재 페이지는 이벤트 신청 접수를 위한 랜딩이며, 자세한 진행은 별도로 안내드립니다.</p>
-          </details>
+            <div id="formFeedback" class="form-feedback" role="alert"></div>
+            <div id="successBox" class="success-box" role="status"></div>
+          </form>
         </div>
       </div>
     </section>
@@ -836,7 +821,7 @@
 
   <div class="mobile-cta">
     <div class="shell">
-      <a href="#apply" class="btn btn-primary">이벤트 신청하기</a>
+      <a href="#apply" class="btn btn-primary">지금 신청하기</a>
     </div>
   </div>
 
@@ -848,6 +833,7 @@
     const form = document.getElementById('applicationForm');
     const feedback = document.getElementById('formFeedback');
     const successBox = document.getElementById('successBox');
+    const packageSelectButtons = document.querySelectorAll('.package-select');
 
     function showError(message) {
       feedback.textContent = message;
@@ -861,31 +847,40 @@
       feedback.classList.remove('show');
     }
 
-    // Meta placeholder strategy
-    // Allowed: PageView on page load
-    // Allowed: SubmitApplication only after successful submit
-    // Not used: ViewContent
-    // Not used: content_ids
-    function trackPageViewPlaceholder() {
-      console.log('[Meta Placeholder] PageView');
+    function clearMessages() {
+      feedback.classList.remove('show');
+      successBox.classList.remove('show');
     }
 
-    function trackSubmitApplicationPlaceholder(payload) {
-      console.log('[Meta Placeholder] SubmitApplication', payload);
+    function trackPageView() {
+      console.log('[Meta] PageView');
+    }
+
+    function trackSubmitApplication(payload) {
+      console.log('[Meta] SubmitApplication', payload);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-      trackPageViewPlaceholder();
+      trackPageView();
+    });
+
+    packageSelectButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const packageType = button.dataset.package;
+        form.packageType.value = packageType;
+        clearMessages();
+        document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
     });
 
     form.addEventListener('submit', function (event) {
       event.preventDefault();
+      clearMessages();
 
       const applicantName = form.applicantName.value.trim();
       const contact = form.contact.value.trim();
-      const snsUrl = form.snsUrl.value.trim();
       const packageType = form.packageType.value.trim();
-      const notes = form.notes.value.trim();
+      const snsUrl = form.snsUrl.value.trim();
       const consent = form.consent.checked;
 
       if (!applicantName) {
@@ -915,13 +910,12 @@
       const payload = {
         applicantName,
         contact,
-        snsUrl,
         packageType,
-        notes
+        snsUrl
       };
 
       showSuccess('신청이 접수되었습니다. 선정 여부와 이후 절차는 개별 안내드립니다.');
-      trackSubmitApplicationPlaceholder(payload);
+      trackSubmitApplication(payload);
       form.reset();
     });
   </script>
