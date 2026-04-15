@@ -12,19 +12,18 @@
     @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap');
 
     :root {
-      --bg: #f8f2eb;
-      --bg-strong: #fffaf5;
+      --bg: #f7f1ea;
       --surface: rgba(255, 255, 255, 0.92);
       --surface-strong: #ffffff;
-      --ink: #1f1916;
-      --muted: #6f645b;
+      --ink: #201915;
+      --muted: #6f645a;
       --line: rgba(38, 28, 20, 0.08);
       --line-strong: rgba(38, 28, 20, 0.14);
       --brand: #231f2a;
-      --brand-2: #353040;
+      --brand-2: #393241;
       --gold: #c79a67;
-      --gold-soft: #f4e6d8;
-      --gold-deep: #9d7449;
+      --gold-soft: #f4e4d3;
+      --gold-deep: #946a40;
       --success: #12673a;
       --success-bg: #eaf7ef;
       --danger: #bc2d1f;
@@ -32,9 +31,9 @@
       --radius-xl: 30px;
       --radius-lg: 24px;
       --radius-md: 18px;
-      --shadow-soft: 0 18px 50px rgba(42, 28, 16, 0.08);
-      --shadow-strong: 0 28px 70px rgba(33, 25, 20, 0.16);
-      --container: 1080px;
+      --shadow-soft: 0 18px 44px rgba(34, 25, 18, 0.07);
+      --shadow-strong: 0 28px 68px rgba(33, 25, 20, 0.15);
+      --container: 1060px;
     }
 
     * { box-sizing: border-box; }
@@ -45,9 +44,9 @@
       font-family: 'Noto Sans KR', sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(circle at top left, rgba(255,255,255,0.9) 0%, transparent 34%),
-        linear-gradient(180deg, #fdf9f4 0%, var(--bg) 50%, #f6efe8 100%);
-      line-height: 1.5;
+        radial-gradient(circle at top left, rgba(255,255,255,0.88) 0%, transparent 30%),
+        linear-gradient(180deg, #fcf8f3 0%, var(--bg) 48%, #f5eee7 100%);
+      line-height: 1.55;
       word-break: keep-all;
     }
 
@@ -70,34 +69,34 @@
       gap: 10px;
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.72);
       border: 1px solid rgba(35,31,42,0.06);
-      box-shadow: 0 10px 24px rgba(35,31,42,0.05);
+      box-shadow: 0 8px 24px rgba(35,31,42,0.05);
       backdrop-filter: blur(10px);
     }
 
     .brand-mark {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #f6ddc5 0%, #c79a67 100%);
+      background: linear-gradient(135deg, #f5dcc2 0%, #c79a67 100%);
       color: #fff;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.08em;
     }
 
     .brand span:last-child {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--brand);
     }
 
     .hero {
-      padding: 16px 0 22px;
+      padding: 14px 0 20px;
     }
 
     .hero-card {
@@ -105,7 +104,7 @@
       overflow: hidden;
       padding: 22px;
       border-radius: 34px;
-      background: linear-gradient(150deg, #26212d 0%, #312c3c 52%, #42374a 100%);
+      background: linear-gradient(155deg, #25212b 0%, #2f2a39 52%, #403649 100%);
       color: #fff;
       box-shadow: var(--shadow-strong);
       isolation: isolate;
@@ -121,8 +120,8 @@
     }
 
     .hero-card::before {
-      width: 260px;
-      height: 260px;
+      width: 240px;
+      height: 240px;
       top: -120px;
       right: -80px;
       background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 72%);
@@ -131,9 +130,9 @@
     .hero-card::after {
       width: 220px;
       height: 220px;
-      left: -50px;
-      bottom: -80px;
-      background: radial-gradient(circle, rgba(199,154,103,0.30) 0%, transparent 74%);
+      left: -70px;
+      bottom: -90px;
+      background: radial-gradient(circle, rgba(199,154,103,0.28) 0%, transparent 74%);
     }
 
     .hero-grid {
@@ -149,34 +148,62 @@
       align-items: center;
       gap: 8px;
       width: fit-content;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 999px;
       background: rgba(255,255,255,0.10);
       border: 1px solid rgba(255,255,255,0.14);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.03em;
     }
 
     h1 {
       margin: 14px 0 0;
-      font-size: clamp(2.35rem, 9vw, 4.9rem);
-      line-height: 1.04;
+      font-size: clamp(2rem, 8vw, 4.25rem);
+      line-height: 1.08;
       letter-spacing: -0.05em;
     }
 
     .hero-copy {
-      margin: 14px 0 0;
-      max-width: 480px;
-      font-size: 15px;
+      margin: 12px 0 0;
+      max-width: 460px;
+      font-size: 14px;
       color: rgba(255,255,255,0.82);
+    }
+
+    .hero-points {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hero-point {
+      display: grid;
+      gap: 3px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .hero-point strong {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.65);
+    }
+
+    .hero-point span {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.45;
     }
 
     .hero-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 22px;
+      gap: 10px;
+      margin-top: 18px;
       align-items: center;
     }
 
@@ -184,75 +211,69 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 56px;
-      padding: 0 24px;
+      min-height: 52px;
+      padding: 0 22px;
       border: 0;
       border-radius: 999px;
       cursor: pointer;
       font-weight: 800;
-      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-    }
+    .btn:hover { transform: translateY(-1px); }
 
     .btn-primary {
-      background: linear-gradient(135deg, #f4e1ce 0%, #c79a67 100%);
+      background: linear-gradient(135deg, #f3e0cd 0%, #c79a67 100%);
       color: var(--brand);
-      box-shadow: 0 18px 36px rgba(199,154,103,0.22);
+      box-shadow: 0 16px 34px rgba(199,154,103,0.22);
     }
 
     .btn-select {
       width: 100%;
-      min-height: 50px;
-      background: rgba(35,31,42,0.05);
+      min-height: 48px;
+      background: rgba(35,31,42,0.04);
       color: var(--brand);
       border: 1px solid rgba(35,31,42,0.08);
       box-shadow: none;
     }
 
     .hero-note {
-      font-size: 13px;
-      color: rgba(255,255,255,0.64);
+      font-size: 12px;
+      color: rgba(255,255,255,0.66);
     }
 
     .hero-visual {
       position: relative;
-      min-height: 360px;
+      min-height: 320px;
+      padding: 18px;
       border-radius: 28px;
-      padding: 22px;
       background:
-        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04)),
-        radial-gradient(circle at top right, rgba(255,255,255,0.30), transparent 32%),
-        linear-gradient(145deg, rgba(243,228,212,0.26) 0%, rgba(199,154,103,0.14) 45%, rgba(255,255,255,0.06) 100%);
+        linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.03)),
+        radial-gradient(circle at top right, rgba(255,255,255,0.28), transparent 34%),
+        linear-gradient(145deg, rgba(243,228,212,0.24) 0%, rgba(199,154,103,0.12) 46%, rgba(255,255,255,0.05) 100%);
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
-      display: flex;
-      align-items: stretch;
     }
 
     .hero-visual::before {
       content: '';
       position: absolute;
-      inset: 14px;
+      inset: 12px;
       border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.20);
-      opacity: 0.8;
+      border: 1px solid rgba(255,255,255,0.18);
+      opacity: 0.82;
     }
 
     .hero-visual-inner {
       position: relative;
       z-index: 1;
-      width: 100%;
-      border-radius: 22px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 6px;
+      height: 100%;
+      display: grid;
+      gap: 14px;
+      align-content: space-between;
     }
 
-    .hero-visual-top {
+    .hero-visual-head {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -263,240 +284,317 @@
       display: inline-flex;
       align-items: center;
       width: fit-content;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border-radius: 999px;
       background: rgba(255,255,255,0.14);
       border: 1px solid rgba(255,255,255,0.14);
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       color: rgba(255,255,255,0.92);
     }
 
     .visual-glow {
-      width: 72px;
-      height: 72px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.08) 64%, transparent 72%);
-      filter: blur(1px);
+      background: radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.10) 62%, transparent 72%);
       opacity: 0.9;
       flex-shrink: 0;
     }
 
+    .visual-stage {
+      position: relative;
+      min-height: 180px;
+      border-radius: 24px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.02) 100%);
+      border: 1px solid rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+
+    .visual-stage::before {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -20px;
+      top: 16px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244,225,206,0.62) 0%, rgba(199,154,103,0.08) 58%, transparent 72%);
+    }
+
+    .visual-stage::after {
+      content: '';
+      position: absolute;
+      inset: auto 18px 18px auto;
+      width: 120px;
+      height: 140px;
+      border-radius: 26px 26px 30px 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(239,223,207,0.58));
+      box-shadow: 0 18px 30px rgba(15, 11, 18, 0.18);
+      opacity: 0.92;
+    }
+
+    .visual-frame {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 10px;
+      max-width: 220px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(18, 15, 24, 0.30);
+      border: 1px solid rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+    }
+
+    .visual-frame span {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+      color: rgba(255,255,255,0.68);
+    }
+
+    .visual-frame strong {
+      font-size: clamp(1.35rem, 5.8vw, 2rem);
+      line-height: 1.14;
+      letter-spacing: -0.04em;
+    }
+
+    .visual-frame small {
+      font-size: 12px;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.5;
+    }
+
     .hero-visual-copy {
       display: grid;
-      gap: 8px;
-      align-self: flex-end;
+      gap: 5px;
     }
 
     .hero-visual-copy strong {
-      font-size: clamp(1.55rem, 6.4vw, 2.35rem);
-      line-height: 1.08;
-      letter-spacing: -0.05em;
+      font-size: 18px;
+      line-height: 1.24;
+      letter-spacing: -0.03em;
     }
 
     .hero-visual-copy span {
-      font-size: 13px;
-      color: rgba(255,255,255,0.72);
+      font-size: 12px;
+      color: rgba(255,255,255,0.68);
     }
 
     .section {
-      padding: 16px 0 0;
+      padding: 14px 0 0;
     }
 
-    .section-card {
-      padding: 22px;
+    .section-card,
+    .form-card {
+      padding: 20px;
       border-radius: 30px;
-      background: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.74);
       border: 1px solid rgba(35,31,42,0.06);
       box-shadow: var(--shadow-soft);
       backdrop-filter: blur(12px);
     }
 
     .section-head {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .kicker {
       display: inline-block;
-      margin-bottom: 8px;
-      font-size: 12px;
+      margin-bottom: 7px;
+      font-size: 11px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       color: var(--gold-deep);
     }
 
-    .section-head h2 {
+    .section-head h2,
+    .form-card h2 {
       margin: 0;
-      font-size: clamp(1.65rem, 6vw, 3rem);
-      line-height: 1.12;
-      letter-spacing: -0.05em;
-      color: var(--brand);
-    }
-
-    .section-head p {
-      margin: 8px 0 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .reward-grid,
-    .steps,
-    .faq-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .reward-card,
-    .step-card,
-    .faq-item,
-    .form-card {
-      border-radius: 24px;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 36px rgba(32, 22, 18, 0.06);
-    }
-
-    .reward-card {
-      padding: 20px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .reward-tag {
-      display: inline-flex;
-      width: fit-content;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: var(--gold-soft);
-      color: var(--brand);
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-    }
-
-    .reward-card h3 {
-      margin: 0;
-      font-size: 1.6rem;
-      line-height: 1.12;
+      font-size: clamp(1.45rem, 6vw, 2.45rem);
+      line-height: 1.18;
       letter-spacing: -0.04em;
       color: var(--brand);
     }
 
-    .reward-value {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--gold-deep);
-    }
-
-    .reward-card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .step-card {
-      padding: 20px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .step-no {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--brand);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .step-card h3 {
-      margin: 0;
-      font-size: 1.15rem;
-      line-height: 1.2;
-      letter-spacing: -0.03em;
-      color: var(--brand);
-    }
-
-    .step-card p {
-      margin: 0;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .faq-item {
-      padding: 4px 18px;
-      background: rgba(255,255,255,0.82);
-    }
-
-    .faq-item summary {
-      list-style: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 18px 0;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--brand);
-    }
-
-    .faq-item summary::-webkit-details-marker { display: none; }
-
-    .faq-item summary::after {
-      content: '+';
-      font-size: 20px;
-      color: var(--gold-deep);
-      transition: transform 0.18s ease;
-      flex-shrink: 0;
-    }
-
-    .faq-item[open] summary::after {
-      transform: rotate(45deg);
-    }
-
-    .faq-item p {
-      margin: 0 0 18px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    .form-card {
-      padding: 22px;
-    }
-
-    .form-card h2 {
-      margin: 0;
-      font-size: clamp(1.65rem, 6vw, 2.5rem);
-      line-height: 1.12;
-      letter-spacing: -0.05em;
-      color: var(--brand);
-    }
-
+    .section-head p,
     .form-card > p {
       margin: 8px 0 0;
       font-size: 14px;
       color: var(--muted);
     }
 
+    .quick-layout {
+      display: grid;
+      gap: 14px;
+    }
+
+    .reward-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .reward-card,
+    .step-card,
+    .guide-item {
+      border-radius: 24px;
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 36px rgba(32, 22, 18, 0.06);
+    }
+
+    .reward-card {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .reward-tag {
+      display: inline-flex;
+      width: fit-content;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--gold-soft);
+      color: var(--brand);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.10em;
+    }
+
+    .reward-card h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      color: var(--brand);
+    }
+
+    .reward-value {
+      font-size: 0.96rem;
+      font-weight: 800;
+      color: var(--gold-deep);
+    }
+
+    .reward-card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step-card {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .step-no {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--brand);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .step-card h3 {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+      color: var(--brand);
+    }
+
+    .step-card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .guide-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .guide-item {
+      padding: 16px 18px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .guide-item strong {
+      font-size: 13px;
+      color: var(--brand);
+    }
+
+    .guide-item span {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .form-card {
+      background: rgba(255,255,255,0.82);
+    }
+
+    .form-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .summary-chip,
+    .selected-package {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: #fbf7f2;
+      border: 1px solid rgba(35,31,42,0.07);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .selected-package {
+      display: none;
+      margin-top: 12px;
+      background: rgba(199,154,103,0.10);
+      color: var(--brand);
+      border-color: rgba(199,154,103,0.24);
+    }
+
+    .selected-package.show {
+      display: inline-flex;
+    }
+
     .form-grid {
       display: grid;
       gap: 14px;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
     .field {
       display: grid;
-      gap: 8px;
+      gap: 7px;
     }
 
     .field label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--brand);
     }
@@ -512,7 +610,7 @@
       border: 1px solid rgba(35,31,42,0.10);
       background: rgba(255,255,255,0.98);
       color: var(--ink);
-      padding: 15px 16px;
+      padding: 14px 15px;
       outline: none;
       transition: border-color 0.18s ease, box-shadow 0.18s ease;
     }
@@ -532,7 +630,7 @@
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      padding: 16px;
+      padding: 15px;
       border-radius: 18px;
       background: #fbf7f2;
       border: 1px solid rgba(35,31,42,0.07);
@@ -547,13 +645,14 @@
     }
 
     .consent label {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted);
       cursor: pointer;
+      line-height: 1.6;
     }
 
     .form-actions {
-      margin-top: 18px;
+      margin-top: 16px;
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -569,8 +668,9 @@
       margin-top: 14px;
       padding: 14px 16px;
       border-radius: 16px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
+      line-height: 1.55;
     }
 
     .form-feedback.show {
@@ -588,7 +688,7 @@
     }
 
     .footer {
-      padding: 30px 0 104px;
+      padding: 28px 0 104px;
       text-align: center;
       color: var(--muted);
       font-size: 12px;
@@ -601,7 +701,7 @@
       bottom: 0;
       z-index: 30;
       padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
-      background: linear-gradient(180deg, rgba(248,242,235,0) 0%, rgba(248,242,235,0.92) 24%, rgba(248,242,235,0.98) 100%);
+      background: linear-gradient(180deg, rgba(247,241,234,0) 0%, rgba(247,241,234,0.92) 26%, rgba(247,241,234,0.98) 100%);
       backdrop-filter: blur(12px);
     }
 
@@ -612,24 +712,52 @@
     @media (min-width: 760px) {
       .shell { padding: 0 28px; }
       .header { padding-top: 22px; }
-      .hero { padding-top: 20px; }
-      .hero-card { padding: 34px; }
+      .hero { padding-top: 18px; }
+      .hero-card { padding: 32px; }
       .hero-grid {
-        grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1fr);
+        grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1fr);
         gap: 24px;
         align-items: center;
       }
-      .hero-visual { min-height: 500px; }
+      .hero-points {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .hero-visual {
+        min-height: 450px;
+        padding: 22px;
+      }
+      .visual-stage {
+        min-height: 270px;
+      }
       .section-card,
-      .form-card { padding: 28px; }
-      .reward-grid,
-      .steps,
-      .faq-grid { gap: 16px; }
-      .reward-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .field.full { grid-column: 1 / -1; }
-      .form-actions .btn { width: auto; min-width: 220px; }
+      .form-card {
+        padding: 28px;
+      }
+      .quick-layout {
+        gap: 18px;
+      }
+      .reward-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .steps {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .guide-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .field.full {
+        grid-column: 1 / -1;
+      }
+      .form-actions .btn {
+        width: auto;
+        min-width: 220px;
+      }
       .mobile-cta { display: none; }
       .footer { padding-bottom: 44px; }
     }
@@ -652,23 +780,48 @@
           <div class="hero-grid">
             <div>
               <div class="eyebrow">유비드 패키지 이벤트</div>
-              <h1>UV 카메라로 확인하고,<br>유비드를 경험하세요</h1>
-              <p class="hero-copy">간단 신청 후 선정 시 유비드 180일 또는 360일 패키지를 제공해 드립니다.</p>
+              <h1>UV 카메라로 보고,<br>유비드 패키지 받기</h1>
+              <p class="hero-copy">무엇인지, 무엇을 받는지, 어떻게 참여하는지 한눈에 이해할 수 있게 정리했어요. 간단 신청 후 선정 시 유비드 패키지를 제공해 드립니다.</p>
+
+              <div class="hero-points">
+                <div class="hero-point">
+                  <strong>무엇인지</strong>
+                  <span>UV 카메라 이벤트 참여 신청 페이지</span>
+                </div>
+                <div class="hero-point">
+                  <strong>무엇을 받는지</strong>
+                  <span>유비드 180일 또는 360일 패키지 혜택</span>
+                </div>
+                <div class="hero-point">
+                  <strong>얼마나 쉬운지</strong>
+                  <span>패키지 선택 → 신청 → 개별 안내</span>
+                </div>
+              </div>
+
               <div class="hero-actions">
-                <a href="#apply" class="btn btn-primary">지금 신청하기</a>
-                <span class="hero-note">신청 후 개별 안내</span>
+                <a href="#apply" class="btn btn-primary">30초 신청하기</a>
+                <span class="hero-note">신청은 간단하게, 안내는 개별로 진행됩니다.</span>
               </div>
             </div>
 
             <div class="hero-visual" aria-label="UVID AI 영상 및 제품 비주얼">
               <div class="hero-visual-inner">
-                <div class="hero-visual-top">
-                  <span class="visual-chip">UVID AI 영상</span>
+                <div class="hero-visual-head">
+                  <span class="visual-chip">UVID AI VISUAL</span>
                   <span class="visual-glow" aria-hidden="true"></span>
                 </div>
+
+                <div class="visual-stage">
+                  <div class="visual-frame">
+                    <span>FUTURE SCENE</span>
+                    <strong>AI 영상 ·<br>제품 비주얼</strong>
+                    <small>광채와 피부 표현을 우아하게 보여줄 UVID 메인 장면 영역</small>
+                  </div>
+                </div>
+
                 <div class="hero-visual-copy">
-                  <strong>AI 영상 ·<br>제품 비주얼</strong>
-                  <span>광채를 더 선명하게 보여줄 UVID 메인 장면</span>
+                  <strong>큰 비주얼은 유지하고, 더 차분하게.</strong>
+                  <span>프로덕트·AI 영상 메인 컷이 들어올 영역을 비례감 있게 정리했습니다.</span>
                 </div>
               </div>
             </div>
@@ -681,86 +834,64 @@
       <div class="shell">
         <div class="section-card">
           <div class="section-head">
-            <span class="kicker">REWARD</span>
-            <h2>원하는 혜택을 선택하세요</h2>
-            <p>선택 후 바로 신청할 수 있어요.</p>
+            <span class="kicker">EASY PARTICIPATION</span>
+            <h2>혜택 선택 후,<br>간단히 신청하세요</h2>
+            <p>먼저 원하는 패키지를 고르고, 필요한 정보만 남기면 끝입니다.</p>
           </div>
 
-          <div class="reward-grid">
-            <article class="reward-card">
-              <span class="reward-tag">CHOICE 01</span>
-              <h3>유비드 180일 패키지</h3>
-              <div class="reward-value">150,000원 상당</div>
-              <p>가볍게 시작하고 싶은 분께.</p>
-              <button type="button" class="btn btn-select package-select" data-package="유비드 180일 패키지">이 혜택으로 신청</button>
-            </article>
+          <div class="quick-layout">
+            <div class="reward-grid">
+              <article class="reward-card">
+                <span class="reward-tag">CHOICE 01</span>
+                <h3>유비드 180일 패키지</h3>
+                <div class="reward-value">150,000원 상당</div>
+                <p>부담 없이 시작해 보고 싶은 분께 잘 맞는 패키지예요.</p>
+                <button type="button" class="btn btn-select package-select" data-package="유비드 180일 패키지">이 혜택으로 신청</button>
+              </article>
 
-            <article class="reward-card">
-              <span class="reward-tag">CHOICE 02</span>
-              <h3>유비드 360일 패키지</h3>
-              <div class="reward-value">300,000원 상당</div>
-              <p>더 길게 경험하고 싶은 분께.</p>
-              <button type="button" class="btn btn-select package-select" data-package="유비드 360일 패키지">이 혜택으로 신청</button>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
+              <article class="reward-card">
+                <span class="reward-tag">CHOICE 02</span>
+                <h3>유비드 360일 패키지</h3>
+                <div class="reward-value">300,000원 상당</div>
+                <p>더 충분히 경험하고 싶은 분께 추천하는 패키지예요.</p>
+                <button type="button" class="btn btn-select package-select" data-package="유비드 360일 패키지">이 혜택으로 신청</button>
+              </article>
+            </div>
 
-    <section class="section">
-      <div class="shell">
-        <div class="section-card">
-          <div class="section-head">
-            <span class="kicker">HOW TO</span>
-            <h2>참여는 3단계면 충분해요</h2>
-          </div>
+            <div class="steps" aria-label="참여 3단계">
+              <article class="step-card">
+                <span class="step-no">1</span>
+                <h3>패키지 선택</h3>
+                <p>원하는 혜택을 먼저 고르면 신청이 더 빠르게 진행돼요.</p>
+              </article>
 
-          <div class="steps">
-            <article class="step-card">
-              <span class="step-no">1</span>
-              <h3>신청하기</h3>
-              <p>정보를 간단히 남겨 주세요.</p>
-            </article>
+              <article class="step-card">
+                <span class="step-no">2</span>
+                <h3>간단 정보 입력</h3>
+                <p>이름, 연락처, 희망 패키지만 입력하면 신청 준비가 끝나요.</p>
+              </article>
 
-            <article class="step-card">
-              <span class="step-no">2</span>
-              <h3>확인하기</h3>
-              <p>신청 내용을 순차적으로 확인합니다.</p>
-            </article>
-
-            <article class="step-card">
-              <span class="step-no">3</span>
-              <h3>안내받기</h3>
-              <p>선정 시 개별 안내드립니다.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="shell">
-        <div class="section-card">
-          <div class="section-head">
-            <span class="kicker">FAQ</span>
-            <h2>자주 묻는 질문</h2>
+              <article class="step-card">
+                <span class="step-no">3</span>
+                <h3>개별 안내 받기</h3>
+                <p>확인 후 선정 여부와 이후 절차를 순차적으로 안내드립니다.</p>
+              </article>
+            </div>
           </div>
 
-          <div class="faq-grid">
-            <details class="faq-item" open>
-              <summary>누가 신청할 수 있나요?</summary>
-              <p>UV 카메라 이벤트에 관심 있는 분이라면 신청하실 수 있습니다.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>패키지는 어떻게 선택하나요?</summary>
-              <p>180일 또는 360일 패키지 중 원하는 혜택을 선택해 주세요.</p>
-            </details>
-
-            <details class="faq-item">
-              <summary>신청 후 바로 확정되나요?</summary>
-              <p>아니요. 확인 후 선정 여부와 이후 절차를 개별 안내드립니다.</p>
-            </details>
+          <div class="guide-list" aria-label="안내 사항">
+            <div class="guide-item">
+              <strong>무엇을 하나요?</strong>
+              <span>UV 카메라 이벤트 참여 신청을 받습니다.</span>
+            </div>
+            <div class="guide-item">
+              <strong>무엇을 받나요?</strong>
+              <span>선정 시 유비드 180일 또는 360일 패키지를 제공합니다.</span>
+            </div>
+            <div class="guide-item">
+              <strong>어렵지 않나요?</strong>
+              <span>아니요. 짧은 폼만 작성하면 참여 신청이 완료됩니다.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -769,8 +900,15 @@
     <section class="section" id="apply">
       <div class="shell">
         <div class="form-card">
-          <h2>이벤트 신청</h2>
-          <p>필수 정보만 입력해 주세요.</p>
+          <h2>30초 신청</h2>
+          <p>필수 정보만 남겨 주세요. SNS 링크는 선택 항목이라 더 가볍게 신청할 수 있어요.</p>
+
+          <div class="form-summary" aria-label="신청 안내 요약">
+            <span class="summary-chip">필수 3개: 이름 · 연락처 · 희망 패키지</span>
+            <span class="summary-chip">SNS 링크는 선택</span>
+          </div>
+
+          <div id="selectedPackage" class="selected-package" role="status" aria-live="polite"></div>
 
           <form id="applicationForm" novalidate>
             <div class="form-grid">
@@ -833,6 +971,7 @@
     const form = document.getElementById('applicationForm');
     const feedback = document.getElementById('formFeedback');
     const successBox = document.getElementById('successBox');
+    const selectedPackage = document.getElementById('selectedPackage');
     const packageSelectButtons = document.querySelectorAll('.package-select');
 
     function showError(message) {
@@ -852,25 +991,42 @@
       successBox.classList.remove('show');
     }
 
+    function updateSelectedPackageLabel(packageType) {
+      if (!packageType) {
+        selectedPackage.textContent = '';
+        selectedPackage.classList.remove('show');
+        return;
+      }
+
+      selectedPackage.textContent = '선택한 혜택: ' + packageType;
+      selectedPackage.classList.add('show');
+    }
+
     function trackPageView() {
       console.log('[Meta] PageView');
     }
 
-    function trackSubmitApplication(payload) {
-      console.log('[Meta] SubmitApplication', payload);
+    function trackSubmitApplication() {
+      console.log('[Meta] SubmitApplication');
     }
 
     document.addEventListener('DOMContentLoaded', function () {
       trackPageView();
+      updateSelectedPackageLabel(form.packageType.value.trim());
     });
 
     packageSelectButtons.forEach(function (button) {
       button.addEventListener('click', function () {
         const packageType = button.dataset.package;
         form.packageType.value = packageType;
+        updateSelectedPackageLabel(packageType);
         clearMessages();
         document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
+    });
+
+    form.packageType.addEventListener('change', function () {
+      updateSelectedPackageLabel(form.packageType.value.trim());
     });
 
     form.addEventListener('submit', function (event) {
@@ -880,7 +1036,6 @@
       const applicantName = form.applicantName.value.trim();
       const contact = form.contact.value.trim();
       const packageType = form.packageType.value.trim();
-      const snsUrl = form.snsUrl.value.trim();
       const consent = form.consent.checked;
 
       if (!applicantName) {
@@ -907,16 +1062,10 @@
         return;
       }
 
-      const payload = {
-        applicantName,
-        contact,
-        packageType,
-        snsUrl
-      };
-
       showSuccess('신청이 접수되었습니다. 선정 여부와 이후 절차는 개별 안내드립니다.');
-      trackSubmitApplication(payload);
+      trackSubmitApplication();
       form.reset();
+      updateSelectedPackageLabel('');
     });
   </script>
 </body>
