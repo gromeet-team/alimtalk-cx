@@ -73,8 +73,8 @@
     "title_11": "새 상품 출발했어요 🚚",
     "sub_12": "반품 요청",
     "title_12": "확인하고 도와드릴게요",
-    "sub_13": "아쉬운 점 알려주세요",
-    "title_13": "아쉽지만, 또 만나요"
+    "sub_13": "반품완료",
+    "title_13": "아쉽지만, 또 만나요 💦"
   },
   "url_0": "https://new-m.pay.naver.com/",
   "url_1": "https://new-m.pay.naver.com/",
@@ -257,7 +257,7 @@
       "headerName": "반품완료",
       "timing": "반품 완료 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              반품 처리 완료됐어요.<br>\n<br>\n              💰 환불은 결제수단에 따라<br>\n              영업일 기준 3~5일 소요돼요.<br>\n<br>\n              기대에 못 미쳐서 정말 아쉬워요.<br>\n              어떤 점이 불편하셨는지 알려주시면<br>\n              다음 제품에 꼭 반영할게요.<br>\n              솔직하게 말씀해 주셔도 괜찮아요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 반품 처리 완료됐습니다.\n\n💰 반품 정보\n▪️주문번호 : #{주문번호}\n▪️상품명 : #{상품명}\n▪️환불금액 : #{총결제금액}\n\n회수된 상품이 검수 완료되어\n반품이 정상적으로 승인되었습니다.\n\n불편하셨을 텐데 끝까지 기다려 주셔서 감사해요.\n과정 중에 아쉬운 점이 있으셨다면\n편하게 남겨주세요. 🙏\n감사합니다.</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
