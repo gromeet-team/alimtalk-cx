@@ -103,9 +103,9 @@
     "campaign-2",
     "campaign-2b",
     "campaign-3",
+    "campaign-12",
     "campaign-4",
     "campaign-4b",
-    "campaign-12",
     "campaign-5",
     "campaign-6",
     "campaign-7",
@@ -129,7 +129,7 @@
       "headerName": "배송시작",
       "timing": "출고 시",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">지금 #{고객명}님의 피부를 위해\n전력 질주 중입니다! 🏃‍♂️💨</span><br>\n<br>\n              📦 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️주문번호 : #{주문번호}<br>\n              ▪️택배사 : #{배송회사}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br><span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">조금만 더 기다려 주세요!\n지역에 따라 1~3일 이내 도착 예정입니다\n도착하면 꼭 확인해 주세요 😊</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">지금 #{고객명}님의 피부를 위해\n전력 질주 중입니다! 🏃‍♂️💨</span><br>\n<br>\n              📦 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️주문번호 : #{주문번호}<br>\n              ▪️택배사 : #{배송회사}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br><span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">조금만 더 기다려 주세요!\n지역에 따라 1~3일 이내 도착 예정입니다\n도착하면 꼭 확인해 주세요 😊</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
@@ -158,6 +158,17 @@
         "1": "https://smartstore.naver.com/uvid/notice/list?cp=1"
       }
     },
+    "campaign-12": {
+      "headerName": "카메라 이벤트 유도",
+      "timing": "배송완료 +1일",
+      "messages": {
+        "0": "#{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n<br>\n              현재 UV 카메라 이벤트 신청을 받고 있어요.<br>\n              전용 카메라로 선케어 도포 전후를 비교하고<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n<br>\n              ✅ 선케어 도포 전/후 비교 촬영<br>\n              ✅ 신청 순서대로 참여 일정 개별 안내<br>\n              ✅ 참여 고객 대상 별도 혜택 안내<br>\n<br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">카메라 이벤트 신청하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
+      },
+      "urls": {
+        "0": "http://pf.kakao.com/_xcdWxon/chat",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      }
+    },
     "campaign-4": {
       "headerName": "리뷰유도",
       "timing": "배송완료 +7일",
@@ -178,17 +189,6 @@
       "urls": {
         "0": "https://whattime.co.kr/gromeet/meeting14",
         "1": "http://pf.kakao.com/_xcdWxon/chat"
-      }
-    },
-    "campaign-12": {
-      "headerName": "카메라 이벤트 유도",
-      "timing": "배송완료 +1일",
-      "messages": {
-        "0": "#{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n<br>\n              현재 UV 카메라 이벤트 신청을 받고 있어요.<br>\n              전용 카메라로 선케어 도포 전후를 비교하고<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n<br>\n              ✅ 선케어 도포 전/후 비교 촬영<br>\n              ✅ 신청 순서대로 참여 일정 개별 안내<br>\n              ✅ 참여 고객 대상 별도 혜택 안내<br>\n<br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">카메라 이벤트 신청하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
-      },
-      "urls": {
-        "0": "http://pf.kakao.com/_xcdWxon/chat",
-        "1": "http://pf.kakao.com/_xcdWxon"
       }
     },
     "campaign-5": {
