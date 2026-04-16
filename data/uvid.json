@@ -69,7 +69,7 @@
     "title_9": "아쉽지만, 다음에 만나요",
     "sub_10": "새 제품으로 만족시켜 드려요",
     "title_10": "상황 확인 후 교환해 드려요",
-    "sub_11": "기다려 주셔서 감사해요 ☀️",
+    "sub_11": "기다려 주셔서 감사해요&nbsp;",
     "title_11": "새 상품 출발했어요 🚚",
     "sub_12": "교환으로 더 빠르게 해결해요",
     "title_12": "끝까지 함께할게요",
@@ -237,7 +237,7 @@
       "headerName": "교환완료",
       "timing": "교환 발송 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              교환 상품이 발송됐어요! 🚚<br>\n<br>\n              기다려 주셔서 진심으로 감사해요.<br>\n<br>\n              📦 교환 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br>\n              이번엔 불편함 없이<br>\n              처음보다 더 만족스러우시길 바라는 마음으로<br>\n              정성껏 검수하고 보내드렸어요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 교환 상품이 발송됐습니다!\n\n📦 교환 배송 정보\n▪️상품명 : #{상품명}\n▪️송장번호 : #{송장번호}\n\n포장까지 완벽히 검수 후, 보내드렸습니다.\n\n조금만 더 기다려 주세요\n이번엔 꼭 만족하실 거예요 💛</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
