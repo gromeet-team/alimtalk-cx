@@ -749,6 +749,102 @@
   .campaign-card .product-tab-content { display: none !important; }
   .campaign-card .product-tab-content.active { display: block !important; }
 
+  .message-editor {
+    margin: 0 0 12px;
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #d1fae5;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+  .message-editor-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .message-editor-heading strong {
+    font-size: 12px;
+    color: #166534;
+  }
+  .message-editor-heading span {
+    font-size: 11px;
+    color: #6b7280;
+  }
+  .message-editor-field {
+    margin-bottom: 10px;
+  }
+  .message-editor-field:last-child {
+    margin-bottom: 0;
+  }
+  .message-editor-label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #166534;
+  }
+  .message-editor-rich,
+  .message-editor-input {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background: #fff;
+    color: #111827;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .message-editor-rich {
+    min-height: 44px;
+    padding: 10px 12px;
+    cursor: text;
+  }
+  .message-editor-body {
+    min-height: 150px;
+  }
+  .message-editor-input {
+    padding: 9px 12px;
+  }
+  .message-editor-rich:focus,
+  .message-editor-input:focus {
+    border-color: #22c55e;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+    outline: none;
+  }
+  .message-editor-button-grid {
+    display: grid;
+    gap: 8px;
+  }
+  .message-editor-button-row {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+    gap: 8px;
+  }
+  .message-editor-help {
+    margin-top: 8px;
+    font-size: 10px;
+    color: #6b7280;
+  }
+  .structured-preview {
+    pointer-events: none;
+    opacity: 0.98;
+  }
+  .structured-preview .btn {
+    cursor: default !important;
+  }
+  .after-url-box.editor-hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .message-editor-button-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -2256,13 +2352,23 @@
 
 <script>
   const BRAND = "uvid";
-  const DATA_VERSION = "2026-04-16-v10";
+  const DATA_VERSION = "2026-04-16-v11";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
+  const BUTTON_URL_FALLBACKS = {
+    '채널추가하기': 'http://pf.kakao.com/_xcdWxon',
+    '1:1문의하기': 'http://pf.kakao.com/_xcdWxon/chat',
+    '자주묻는질문': 'https://smartstore.naver.com/uvid/notice/list?cp=1',
+    '의견남기기': 'https://register.uvid.co.kr/voc',
+  };
   const decisions = {};
   let draggedCampaignCard = null;
 
   function getCampaignLocalKey(campaignId, field) {
     return `alimtalk_${BRAND}_campaign_${campaignId}_${field}`;
+  }
+
+  function getDefaultButtonUrl(labelText) {
+    return BUTTON_URL_FALLBACKS[normalizeBtnText(labelText)] || '';
   }
 
   function getCampaignOrderLocalKey() {
@@ -2541,6 +2647,262 @@
     });
   }
 
+  function getCampaignContentLocalKey(campaignId, msgIdx) {
+    return getCampaignLocalKey(campaignId, `content_${msgIdx}`);
+  }
+
+  function safeJsonParse(raw) {
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  }
+
+  function buildButtonHtml(buttons) {
+    const normalized = (buttons || []).filter(btn => (btn?.label || '').trim());
+    if (!normalized.length) return '';
+
+    const group = document.createElement('div');
+    group.className = 'btn-group';
+
+    normalized.forEach((btn, idx) => {
+      const buttonEl = document.createElement('div');
+      buttonEl.className = `btn${btn.primary || idx === 0 ? ' primary' : ''}`;
+      buttonEl.textContent = (btn.label || '').trim();
+      group.appendChild(buttonEl);
+    });
+
+    return group.outerHTML;
+  }
+
+  function composeMessageHtml(bodyHtml, buttons) {
+    const body = (bodyHtml || '').trim();
+    const buttonsHtml = buildButtonHtml(buttons);
+    if (!body) return buttonsHtml;
+    return buttonsHtml ? `${body}${buttonsHtml}` : body;
+  }
+
+  function getCardUrlMap(card) {
+    const map = new Map();
+    Array.from(card.querySelectorAll('.after-url-box .url-row')).forEach(row => {
+      const label = normalizeBtnText(row.querySelector('.url-btn-label')?.textContent || '');
+      const url = row.querySelector('.url-input')?.value?.trim() || '';
+      if (label && !map.has(label)) map.set(label, url);
+    });
+    return map;
+  }
+
+  function parseMessageContent(html, urlMap = new Map()) {
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = html || '';
+
+    const buttonGroup = wrapper.querySelector('.btn-group');
+    const buttons = buttonGroup
+      ? Array.from(buttonGroup.querySelectorAll('.btn')).map((btn, idx) => ({
+          label: (btn.textContent || '').trim(),
+          url: urlMap.get(normalizeBtnText(btn.textContent || '')) || getDefaultButtonUrl(btn.textContent || '') || '',
+          primary: btn.classList.contains('primary') || idx === 0,
+        }))
+      : [];
+
+    if (buttonGroup) buttonGroup.remove();
+
+    return {
+      bodyHtml: wrapper.innerHTML.trim(),
+      buttons,
+    };
+  }
+
+  function getStructuredEditorState(editor) {
+    const subtitle = editor.querySelector('.message-editor-subtitle')?.innerHTML?.trim() || '';
+    const title = editor.querySelector('.message-editor-title')?.innerHTML?.trim() || '';
+    const bodyHtml = editor.querySelector('.message-editor-body')?.innerHTML?.trim() || '';
+    const buttons = Array.from(editor.querySelectorAll('.message-editor-button-row')).map((row, idx) => ({
+      label: row.querySelector('.message-editor-button-label')?.value?.trim() || '',
+      url: row.querySelector('.message-editor-button-url')?.value?.trim() || '',
+      primary: row.dataset.primary === '1' || idx === 0,
+    })).filter(btn => btn.label || btn.url);
+
+    return { subtitle, title, bodyHtml, buttons };
+  }
+
+  function syncStructuredEditor(editor, options = {}) {
+    const { persist = true } = options;
+    const card = editor.closest('.campaign-card');
+    if (!card) return;
+
+    const msgIdx = Number(editor.dataset.msgIndex);
+    const msgEl = getCampaignMessages(card)[msgIdx];
+    if (!msgEl) return;
+
+    const campaignId = card.dataset.campaign;
+    const phone = msgEl.closest('.phone');
+    const subtitleEl = phone?.querySelector('.alimtalk-subtitle[data-title-key]');
+    const titleEl = phone?.querySelector('.alimtalk-title[data-title-key]');
+    const state = getStructuredEditorState(editor);
+    const messageHtml = composeMessageHtml(state.bodyHtml, state.buttons);
+
+    if (subtitleEl) {
+      subtitleEl.innerHTML = state.subtitle;
+      if (persist && subtitleEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${subtitleEl.dataset.titleKey}`, state.subtitle);
+    }
+
+    if (titleEl) {
+      titleEl.innerHTML = state.title;
+      if (persist && titleEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${titleEl.dataset.titleKey}`, state.title);
+    }
+
+    msgEl.innerHTML = messageHtml;
+
+    if (persist) {
+      localStorage.setItem(getCampaignLocalKey(campaignId, `msg_${msgIdx}`), messageHtml);
+      localStorage.setItem(getCampaignContentLocalKey(campaignId, msgIdx), JSON.stringify({
+        bodyHtml: state.bodyHtml,
+        buttons: state.buttons,
+      }));
+      if (msgEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${msgEl.dataset.titleKey}`, messageHtml);
+    }
+
+    pulseSavedOutline(editor.querySelector('.message-editor-body'), '#22c55e');
+  }
+
+  function applyStructuredEditorState(editor, state, options = {}) {
+    if (!editor) return;
+    const normalizedButtons = (state?.buttons?.length ? state.buttons : [{ label: '', url: '', primary: true }]).map((btn, idx) => ({
+      label: btn?.label || '',
+      url: btn?.url || '',
+      primary: btn?.primary ?? idx === 0,
+    }));
+
+    const buttonsGrid = editor.querySelector('.message-editor-button-grid');
+    buttonsGrid.innerHTML = '';
+
+    normalizedButtons.forEach((btn, idx) => {
+      const row = document.createElement('div');
+      row.className = 'message-editor-button-row';
+      row.dataset.primary = btn.primary || idx === 0 ? '1' : '0';
+      row.innerHTML = `
+        <div class="message-editor-field">
+          <label class="message-editor-label">버튼${normalizedButtons.length > 1 ? ` ${idx + 1}` : ''}</label>
+          <input type="text" class="message-editor-input message-editor-button-label" spellcheck="false" value="${(btn.label || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}">
+        </div>
+        <div class="message-editor-field">
+          <label class="message-editor-label">랜딩페이지${normalizedButtons.length > 1 ? ` ${idx + 1}` : ''}</label>
+          <input type="text" class="message-editor-input message-editor-button-url" spellcheck="false" value="${(btn.url || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}">
+        </div>
+      `;
+      buttonsGrid.appendChild(row);
+    });
+
+    editor.querySelector('.message-editor-subtitle').innerHTML = state?.subtitle || '';
+    editor.querySelector('.message-editor-title').innerHTML = state?.title || '';
+    editor.querySelector('.message-editor-body').innerHTML = state?.bodyHtml || '';
+
+    syncStructuredEditor(editor, { persist: options.persist !== false });
+  }
+
+  function buildStructuredEditorState(card, msgEl, campaignData) {
+    const msgIdx = Number(msgEl.dataset.campaignFieldIndex || 0);
+    const phone = msgEl.closest('.phone');
+    const subtitleEl = phone?.querySelector('.alimtalk-subtitle[data-title-key]');
+    const titleEl = phone?.querySelector('.alimtalk-title[data-title-key]');
+    const localContent = safeJsonParse(localStorage.getItem(getCampaignContentLocalKey(card.dataset.campaign, msgIdx)));
+    const savedContent = campaignData?.content?.[msgIdx] || campaignData?.content?.[String(msgIdx)] || null;
+    const parsedPreview = parseMessageContent(msgEl.innerHTML, getCardUrlMap(card));
+    const rawButtons = localContent?.buttons || savedContent?.buttons || parsedPreview.buttons || [];
+    const buttons = rawButtons.map((btn, idx) => {
+      const fallbackUrl = getDefaultButtonUrl(btn?.label || '');
+      const normalizedLabel = normalizeBtnText(btn?.label || '');
+      const shouldForceFallback = ['채널추가하기', '1:1문의하기', '자주묻는질문', '의견남기기'].includes(normalizedLabel);
+      return {
+        label: btn?.label || '',
+        url: shouldForceFallback ? (fallbackUrl || btn?.url || '') : (btn?.url || fallbackUrl || ''),
+        primary: btn?.primary ?? idx === 0,
+      };
+    });
+
+    return {
+      subtitle: subtitleEl?.innerHTML || '',
+      title: titleEl?.innerHTML || '',
+      bodyHtml: localContent?.bodyHtml || savedContent?.bodyHtml || parsedPreview.bodyHtml || '',
+      buttons,
+    };
+  }
+
+  function createStructuredEditor(card, msgEl) {
+    const msgIdx = Number(msgEl.dataset.campaignFieldIndex || 0);
+    const phone = msgEl.closest('.phone');
+    if (!phone || phone.dataset.structuredEditorReady === '1') return;
+
+    phone.dataset.structuredEditorReady = '1';
+    phone.classList.add('structured-preview');
+
+    const product = msgEl.closest('.product-tab-content')?.dataset.product;
+    const note = card.querySelector('.after-url-box .url-note')?.textContent?.trim() || '';
+    const editor = document.createElement('div');
+    editor.className = 'message-editor';
+    editor.dataset.msgIndex = String(msgIdx);
+    editor.innerHTML = `
+      <div class="message-editor-heading">
+        <strong>${product ? `편집 양식 · ${product}` : '편집 양식'}</strong>
+        <span>서브타이틀 → 타이틀 → 본문 → 버튼 → 랜딩페이지</span>
+      </div>
+      <div class="message-editor-field">
+        <label class="message-editor-label">서브타이틀</label>
+        <div class="message-editor-rich message-editor-subtitle" contenteditable="true"></div>
+      </div>
+      <div class="message-editor-field">
+        <label class="message-editor-label">타이틀</label>
+        <div class="message-editor-rich message-editor-title" contenteditable="true"></div>
+      </div>
+      <div class="message-editor-field">
+        <label class="message-editor-label">본문</label>
+        <div class="message-editor-rich message-editor-body" contenteditable="true"></div>
+      </div>
+      <div class="message-editor-button-grid"></div>
+      ${note ? `<div class="message-editor-help">${note}</div>` : ''}
+    `;
+
+    phone.parentNode.insertBefore(editor, phone);
+
+    editor.querySelectorAll('[contenteditable="true"]').forEach(field => {
+      ['click', 'mousedown', 'mouseup', 'focus'].forEach(evt => {
+        field.addEventListener(evt, e => e.stopPropagation());
+      });
+      field.addEventListener('input', () => syncStructuredEditor(editor));
+      field.addEventListener('paste', e => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        document.execCommand('insertText', false, text);
+      });
+    });
+
+    editor.addEventListener('input', e => {
+      if (e.target.matches('.message-editor-button-label, .message-editor-button-url')) syncStructuredEditor(editor);
+    });
+
+    return editor;
+  }
+
+  function initStructuredEditors() {
+    getCampaignCards().forEach(card => {
+      getCampaignMessages(card).forEach(msgEl => createStructuredEditor(card, msgEl));
+      const urlBox = card.querySelector('.after-url-box');
+      if (urlBox) urlBox.classList.add('editor-hidden');
+    });
+  }
+
+  function refreshStructuredEditors(card, campaignData) {
+    getCampaignMessages(card).forEach(msgEl => {
+      const msgIdx = Number(msgEl.dataset.campaignFieldIndex || 0);
+      const editor = card.querySelector(`.message-editor[data-msg-index="${msgIdx}"]`);
+      if (!editor) return;
+      applyStructuredEditorState(editor, buildStructuredEditorState(card, msgEl, campaignData), { persist: false });
+    });
+  }
+
   function setupHeaderEditing(card) {
     const editableConfig = [
       { el: getCampaignNameEl(card), field: 'header_name', color: '#4A6FA5' },
@@ -2704,6 +3066,8 @@
       const localDecision = localStorage.getItem(getCampaignLocalKey(campaignId, 'decision'));
       const savedDecision = localDecision || campaignData.decision || data[`dec_${card.dataset.legacyDecisionIndex}`];
       if (savedDecision) setDecisionState(card, savedDecision);
+
+      refreshStructuredEditors(card, campaignData);
     });
 
     titleEditables.forEach(el => {
@@ -2712,6 +3076,10 @@
       const team = data.titles?.[key];
       if (local) el.innerHTML = local;
       else if (team) el.innerHTML = team;
+    });
+
+    getCampaignCards().forEach(card => {
+      refreshStructuredEditors(card, data.campaigns?.[card.dataset.campaign] || {});
     });
 
     normalizeEditableButtons();
@@ -2735,15 +3103,31 @@
         timing: getSanitizedInlineText(getCampaignTimingEl(card)),
         messages: {},
         urls: {},
+        content: {},
       };
 
       getCampaignMessages(card).forEach((el, idx) => {
-        campaignChanges.messages[idx] = el.innerHTML;
+        const editor = card.querySelector(`.message-editor[data-msg-index="${idx}"]`);
+        if (editor) {
+          const state = getStructuredEditorState(editor);
+          campaignChanges.content[idx] = {
+            bodyHtml: state.bodyHtml,
+            buttons: state.buttons,
+          };
+          campaignChanges.messages[idx] = composeMessageHtml(state.bodyHtml, state.buttons);
+          state.buttons.forEach((btn, buttonIdx) => {
+            campaignChanges.urls[Object.keys(campaignChanges.urls).length] = btn.url || '';
+          });
+        } else {
+          campaignChanges.messages[idx] = el.innerHTML;
+        }
       });
 
-      getCampaignUrlInputs(card).forEach((el, idx) => {
-        campaignChanges.urls[idx] = el.value;
-      });
+      if (!Object.keys(campaignChanges.urls).length) {
+        getCampaignUrlInputs(card).forEach((el, idx) => {
+          campaignChanges.urls[idx] = el.value;
+        });
+      }
 
       const selected = card.querySelector('.decision-btn.selected');
       if (selected?.classList.contains('adopt')) campaignChanges.decision = 'adopt';
@@ -2761,7 +3145,7 @@
   }
 
   function appendCharacterCounters() {
-    document.querySelectorAll('.msg[contenteditable="true"]').forEach(msg => {
+    document.querySelectorAll('.message-editor-body[contenteditable="true"]').forEach(msg => {
       if (msg.parentNode.querySelector('.char-counter')) return;
       const counter = document.createElement('div');
       counter.className = 'char-counter';
@@ -2788,6 +3172,10 @@
 
     ensureCampaignList();
     markLegacyIndices();
+    initStructuredEditors();
+    document.querySelectorAll('.edit-hint').forEach(el => {
+      el.textContent = '✏️ 위 편집 양식에서 수정하면 아래 미리보기에 바로 반영됩니다';
+    });
 
     document.querySelectorAll('.product-tab-content').forEach(function(el) {
       if (el.classList.contains('active')) el.style.setProperty('display', 'block', 'important');

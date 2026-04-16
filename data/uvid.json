@@ -46,12 +46,12 @@
     "title_0": "선택해 주셔서 감사해요 ☀️",
     "sub_1": "곧 도착해요, 기다려 주세요",
     "title_1": "지금 막 출발했어요 📦",
-    "sub_2": "첫 사용 팁 꼭 확인해요&nbsp;",
+    "sub_2": "첫 사용 팁 꼭 확인해요 ",
     "title_2": "드디어 도착했어요",
-    "msg_2b_pad": "<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div>",
+    "msg_2b_pad": "\n<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div><div><br/></div><div>#{고객명}님의 상품이</div><div>배송 완료되었습니다!</div><div><br/></div><div>📦 배송 완료 정보</div><div>▪️상품명 : #{상품명}</div><div>▪️송장번호 : #{송장번호}</div><div><br/></div><div>사용하시기 전에</div><div>이것만 기억해 주세요 🌟</div><div><br/></div><div>✓ 개봉 후 6개월 이내 사용</div><div>✓ 앰플이 패드에 고르게 스며들도록</div><div>✓ 용기를 1분 정도 뒤집어 놓은 후 사용</div><div>✓ 사용 후 뚜껑 단단히 닫기</div><div>✓ 실리콘 리드 제거 후에는 내용물이 샐 수 있으니 살짝 기울이거나 패드 방향을 바꿔 사용</div><div><br/></div><div>오늘부터 자외선 걱정 없는 하루 시작하세요.</div><div class=\"btn-group\"><div class=\"btn primary\">채널 추가하기</div></div>\n",
     "sub_2b_mist": "첫 사용 팁 꼭 확인해요 ☀️",
     "title_2b_mist": "드디어 도착했어요 ☀️",
-    "msg_2b_mist": "#{고객명}님, 드디어 도착했어요! ☀️<br>\n              <br>\n              📦 배송 완료 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              처음 사용하시기 전에<br>\n              이것만 기억해 주세요 🌟<br>\n              <br>\n              ✓ 외출 30분 전 충분히 도포<br>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>\n              ✓ 이마·콧등·광대 꼼꼼히<br>\n              <br>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div></div>",
+    "msg_2b_mist": "\n              #{고객명}님, 드디어 도착했어요! ☀️<br/>\n<br/>\n              📦 배송 완료 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              처음 사용하시기 전에<br/>\n              이것만 기억해 주세요 🌟<br/>\n<br/>\n              ✓ 외출 30분 전 충분히 도포<br/>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br/>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br/>\n              ✓ 이마·콧등·광대 꼼꼼히<br/>\n<br/>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br/>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">채널 추가하기</div>\n</div>\n",
     "sub_4": "선케어 잘 쓰고 계신가요?",
     "title_4": "구매확정하고 포인트 받기",
     "sub_5": "일주일 지났어요, 어떠셨나요?<div style=\"font-size:12px;font-weight:600;color:#8b5cf6;margin-top:4px;\">적립금 2천원 지급</div>",
@@ -62,7 +62,7 @@
     "title_14": "UV 카메라 이벤트 신청 안내 📷",
     "sub_7": "함께한 지 한 달이 됐네요 ☀️<div style=\"font-size:12px;font-weight:600;color:#8b5cf6;margin-top:4px;\">적립금 5천원 지급</div>",
     "title_7": "한 달 사용 후기 부탁드려요",
-    "msg_5_mist": "#{고객명}님,<br>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br>\n                <br>\n                한 달 동안 사용해 보시면서<br>\n                어떤 점이 좋았는지, 아쉬웠는지<br>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br>\n                <br>\n                짧게라도 장기 사용 후기를 남겨주시면<br>\n                다른 고객님들께도 큰 도움이 되고<br>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊\n                <div class=\"btn-group\">\n                  <div class=\"btn primary\" style=\"cursor: text;\">한달 후기 작성하기</div></div>",
+    "msg_5_mist": "\n                #{고객명}님,<br/>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br/>\n<br/>\n                한 달 동안 사용해 보시면서<br/>\n                어떤 점이 좋았는지, 아쉬웠는지<br/>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br/>\n<br/>\n                짧게라도 장기 사용 후기를 남겨주시면<br/>\n                다른 고객님들께도 큰 도움이 되고<br/>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊\n                <div class=\"btn-group\">\n<div class=\"btn primary\">한달 후기 작성하기</div>\n<div class=\"btn\">적립금 신청하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n",
     "sub_8": "언제든 도와드릴게요",
     "title_8": "취소 요청, 확인했어요",
     "sub_9": "다음엔 더 좋은 경험으로",
@@ -103,9 +103,9 @@
     "campaign-2",
     "campaign-2b",
     "campaign-3",
-    "campaign-12",
     "campaign-4",
     "campaign-4b",
+    "campaign-12",
     "campaign-5",
     "campaign-6",
     "campaign-7",
@@ -119,149 +119,428 @@
       "headerName": "결제완료",
       "timing": "결제 직후",
       "messages": {
-        "0": "\n              #{고객명}님, 주문해 주셨군요! ☀️<br>\n              <br>\n              주문이 잘 접수됐어요.<br>\n              출고 전 하나하나 꼼꼼히 확인하고<br>\n              안전하게 포장해서 보내드릴게요.<br>\n              <br>\n              📦 주문 정보<br>\n              ▪️주문일 : #{주문일}<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️결제금액 : #{총결제금액}원<br>\n              <br>\n              기다리시는 동안 궁금한 점 있으시면<br>\n              편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              "
+        "0": "\n              #{고객명}님, 주문해 주셨군요! ☀️<br/>\n<br/>\n              주문이 잘 접수됐어요.<br/>\n              출고 전 하나하나 꼼꼼히 확인하고<br/>\n              안전하게 포장해서 보내드릴게요.<br/>\n<br/>\n              📦 주문 정보<br/>\n              ▪️주문일 : #{주문일}<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️결제금액 : #{총결제금액}원<br/>\n<br/>\n              기다리시는 동안 궁금한 점 있으시면<br/>\n              편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">주문내역 확인하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
-        "0": "https://new-m.pay.naver.com/"
+        "0": "https://new-m.pay.naver.com/",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님, 주문해 주셨군요! ☀️<br/>\n<br/>\n              주문이 잘 접수됐어요.<br/>\n              출고 전 하나하나 꼼꼼히 확인하고<br/>\n              안전하게 포장해서 보내드릴게요.<br/>\n<br/>\n              📦 주문 정보<br/>\n              ▪️주문일 : #{주문일}<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️결제금액 : #{총결제금액}원<br/>\n<br/>\n              기다리시는 동안 궁금한 점 있으시면<br/>\n              편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)",
+          "buttons": [
+            {
+              "label": "주문내역 확인하기",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-2": {
       "headerName": "배송시작",
       "timing": "출고 시",
       "messages": {
-        "0": "\n              #{고객명}님!<br>\n              <br>\n              기다리셨죠? 드디어 출발했어요 🚚<br>\n              <br>\n              📦 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️주문번호 : #{주문번호}<br>\n              ▪️택배사 : #{배송회사}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              평균 1~2일 이내 도착 예정이에요.<br>\n              도착하면 꼭 확인해 주세요 😊\n              "
+        "0": "\n              #{고객명}님!<br/>\n<br/>\n              기다리셨죠? 드디어 출발했어요 🚚<br/>\n<br/>\n              📦 배송 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️주문번호 : #{주문번호}<br/>\n              ▪️택배사 : #{배송회사}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              평균 1~2일 이내 도착 예정이에요.<br/>\n              도착하면 꼭 확인해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\">배송조회 하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
-        "0": "https://new-m.pay.naver.com/"
+        "0": "https://new-m.pay.naver.com/",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님!<br/>\n<br/>\n              기다리셨죠? 드디어 출발했어요 🚚<br/>\n<br/>\n              📦 배송 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️주문번호 : #{주문번호}<br/>\n              ▪️택배사 : #{배송회사}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              평균 1~2일 이내 도착 예정이에요.<br/>\n              도착하면 꼭 확인해 주세요 😊",
+          "buttons": [
+            {
+              "label": "배송조회 하기",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-2b": {
       "headerName": "배송완료",
       "timing": "배송 완료 시",
       "messages": {
-        "0": "<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div>",
-        "1": "#{고객명}님, 드디어 도착했어요! ☀️<br>\n              <br>\n              📦 배송 완료 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              처음 사용하시기 전에<br>\n              이것만 기억해 주세요 🌟<br>\n              <br>\n              ✓ 외출 30분 전 충분히 도포<br>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>\n              ✓ 이마·콧등·광대 꼼꼼히<br>\n              <br>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div></div>"
+        "0": "\n<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div><div><br/></div><div>#{고객명}님의 상품이</div><div>배송 완료되었습니다!</div><div><br/></div><div>📦 배송 완료 정보</div><div>▪️상품명 : #{상품명}</div><div>▪️송장번호 : #{송장번호}</div><div><br/></div><div>사용하시기 전에</div><div>이것만 기억해 주세요 🌟</div><div><br/></div><div>✓ 개봉 후 6개월 이내 사용</div><div>✓ 앰플이 패드에 고르게 스며들도록</div><div>✓ 용기를 1분 정도 뒤집어 놓은 후 사용</div><div>✓ 사용 후 뚜껑 단단히 닫기</div><div>✓ 실리콘 리드 제거 후에는 내용물이 샐 수 있으니 살짝 기울이거나 패드 방향을 바꿔 사용</div><div><br/></div><div>오늘부터 자외선 걱정 없는 하루 시작하세요.</div><div class=\"btn-group\"><div class=\"btn primary\">채널 추가하기</div></div>\n",
+        "1": "\n              #{고객명}님, 드디어 도착했어요! ☀️<br/>\n<br/>\n              📦 배송 완료 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              처음 사용하시기 전에<br/>\n              이것만 기억해 주세요 🌟<br/>\n<br/>\n              ✓ 외출 30분 전 충분히 도포<br/>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br/>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br/>\n              ✓ 이마·콧등·광대 꼼꼼히<br/>\n<br/>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br/>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "http://pf.kakao.com/_xcdWxon",
-        "1": "https://register.uvid.co.kr/voc"
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div><div><br/></div><div>#{고객명}님의 상품이</div><div>배송 완료되었습니다!</div><div><br/></div><div>📦 배송 완료 정보</div><div>▪️상품명 : #{상품명}</div><div>▪️송장번호 : #{송장번호}</div><div><br/></div><div>사용하시기 전에</div><div>이것만 기억해 주세요 🌟</div><div><br/></div><div>✓ 개봉 후 6개월 이내 사용</div><div>✓ 앰플이 패드에 고르게 스며들도록</div><div>✓ 용기를 1분 정도 뒤집어 놓은 후 사용</div><div>✓ 사용 후 뚜껑 단단히 닫기</div><div>✓ 실리콘 리드 제거 후에는 내용물이 샐 수 있으니 살짝 기울이거나 패드 방향을 바꿔 사용</div><div><br/></div><div>오늘부터 자외선 걱정 없는 하루 시작하세요.</div>",
+          "buttons": [
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": true
+            }
+          ]
+        },
+        "1": {
+          "bodyHtml": "#{고객명}님, 드디어 도착했어요! ☀️<br/>\n<br/>\n              📦 배송 완료 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              처음 사용하시기 전에<br/>\n              이것만 기억해 주세요 🌟<br/>\n<br/>\n              ✓ 외출 30분 전 충분히 도포<br/>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br/>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br/>\n              ✓ 이마·콧등·광대 꼼꼼히<br/>\n<br/>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br/>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)",
+          "buttons": [
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": true
+            }
+          ]
+        }
       }
     },
     "campaign-3": {
       "headerName": "구매확정 유도",
       "timing": "배송완료 후",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              선케어 잘 쓰고 계신가요? ☀️<br>\n              <br>\n              덧바름이 번거로우셨던 분들을 위해<br>\n              손에 안 묻히고, 메이크업 위에도 바로 칙칙—<br>\n              그 귀찮음을 조금이라도 덜어드리고 싶었어요.<br>\n              <br>\n              혹시 불편하신 점 있으시면<br>\n              편하게 말씀해 주세요.<br>\n              괜찮으셨다면 구매확정도 부탁드려요! 🙏<br>\n              <br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              "
+        "0": "\n              #{고객명}님,<br/>\n              선케어 잘 쓰고 계신가요? ☀️<br/>\n<br/>\n              덧바름이 번거로우셨던 분들을 위해<br/>\n              손에 안 묻히고, 메이크업 위에도 바로 칙칙—<br/>\n              그 귀찮음을 조금이라도 덜어드리고 싶었어요.<br/>\n<br/>\n              혹시 불편하신 점 있으시면<br/>\n              편하게 말씀해 주세요.<br/>\n              괜찮으셨다면 구매확정도 부탁드려요! 🙏<br/>\n<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">구매확정 하기</div>\n<div class=\"btn\">자주 묻는 질문</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
-        "1": "https://smartstore.naver.com/uvid/notice/list?cp=1"
-      }
-    },
-    "campaign-12": {
-      "headerName": "카메라 이벤트 유도",
-      "timing": "배송완료 +1일",
-      "messages": {
-        "0": "\n              #{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n              <br>\n              현재 UV 카메라 이벤트에 참여하시면<br>\n              전용 카메라로 선케어 도포 전후를&nbsp;<div>비교해 보실 수 있습니다!<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n              <br>\n              ✅ 선케어 도포 과정 촬영<br>\n              ✅ 신청 순서대로 참여 프로세스 안내<br>\n              ✅ 참여 고객 대상 혜택 지급<br>\n              <br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              </div>"
+        "1": "https://smartstore.naver.com/uvid/notice/list?cp=1",
+        "2": "http://pf.kakao.com/_xcdWxon"
       },
-      "urls": {
-        "0": "http://pf.kakao.com/_xcdWxon/chat",
-        "1": "http://pf.kakao.com/_xcdWxon"
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              선케어 잘 쓰고 계신가요? ☀️<br/>\n<br/>\n              덧바름이 번거로우셨던 분들을 위해<br/>\n              손에 안 묻히고, 메이크업 위에도 바로 칙칙—<br/>\n              그 귀찮음을 조금이라도 덜어드리고 싶었어요.<br/>\n<br/>\n              혹시 불편하신 점 있으시면<br/>\n              편하게 말씀해 주세요.<br/>\n              괜찮으셨다면 구매확정도 부탁드려요! 🙏<br/>\n<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)",
+          "buttons": [
+            {
+              "label": "구매확정 하기",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "자주 묻는 질문",
+              "url": "https://smartstore.naver.com/uvid/notice/list?cp=1",
+              "primary": false
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-4": {
       "headerName": "리뷰유도",
       "timing": "배송완료 +7일",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              덧바름 루틴 잘 쓰고 계신가요? ☀️<br>\n              <br>\n              자외선 차단은 2~3시간마다 덧바를 때<br>\n              제대로 효과를 발휘한다는 거 아시죠?<br>\n              <br>\n              일주일 동안 써보신 솔직한 후기—<br>\n              좋은 점도, 아쉬운 점도 모두 환영해요.<br>\n              한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊\n              "
+        "0": "\n              #{고객명}님,<br/>\n              덧바름 루틴 잘 쓰고 계신가요? ☀️<br/>\n<br/>\n              자외선 차단은 2~3시간마다 덧바를 때<br/>\n              제대로 효과를 발휘한다는 거 아시죠?<br/>\n<br/>\n              일주일 동안 써보신 솔직한 후기—<br/>\n              좋은 점도, 아쉬운 점도 모두 환영해요.<br/>\n              한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\">포토리뷰 남기기</div>\n<div class=\"btn\">적립금 신청하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://shopping.naver.com/my/writable-reviews",
-        "1": "https://register.uvid.co.kr/review-claim/week"
+        "1": "https://register.uvid.co.kr/review-claim/week",
+        "2": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              덧바름 루틴 잘 쓰고 계신가요? ☀️<br/>\n<br/>\n              자외선 차단은 2~3시간마다 덧바를 때<br/>\n              제대로 효과를 발휘한다는 거 아시죠?<br/>\n<br/>\n              일주일 동안 써보신 솔직한 후기—<br/>\n              좋은 점도, 아쉬운 점도 모두 환영해요.<br/>\n              한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊",
+          "buttons": [
+            {
+              "label": "포토리뷰 남기기",
+              "url": "https://shopping.naver.com/my/writable-reviews",
+              "primary": true
+            },
+            {
+              "label": "적립금 신청하기",
+              "url": "https://register.uvid.co.kr/review-claim/week",
+              "primary": false
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-4b": {
       "headerName": "VOC 참여 유도",
       "timing": "배송완료 +14일",
       "messages": {
-        "0": "\n              #{고객명}님, 안녕하세요<br>\n              <br>\n              유비드 선크림 잘 사용하고 계실까요? 🙏<br>\n              <br>\n              사용하시면서 느끼신 점이 궁금해요.<br>\n              불편했던 점, 좋았던 점—<br>\n              솔직하게 들려주시면 실제로 반영하거든요.<br>\n              <br>\n              ✅ 약 10분 내외 간단 참여<br>\n              ✅ 고객님의 의견은 실제 개선에 반영됩니다<br>\n              <br>\n              🎁 참여해 주시면 소정의 선물을 드려요.<br>\n              <br>\n              편하신 시간으로 예약 부탁드립니다. 😊\n              "
+        "0": "\n              #{고객명}님, 안녕하세요<br/>\n<br/>\n              유비드 선크림 잘 사용하고 계실까요? 🙏<br/>\n<br/>\n              사용하시면서 느끼신 점이 궁금해요.<br/>\n              불편했던 점, 좋았던 점—<br/>\n              솔직하게 들려주시면 실제로 반영하거든요.<br/>\n<br/>\n              ✅ 약 10분 내외 간단 참여<br/>\n              ✅ 고객님의 의견은 실제 개선에 반영됩니다<br/>\n<br/>\n              🎁 참여해 주시면 소정의 선물을 드려요.<br/>\n<br/>\n              편하신 시간으로 예약 부탁드립니다. 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\">참여하고 혜택 받기</div>\n<div class=\"btn\">1:1 문의하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://whattime.co.kr/gromeet/meeting14",
         "1": "http://pf.kakao.com/_xcdWxon/chat"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님, 안녕하세요<br/>\n<br/>\n              유비드 선크림 잘 사용하고 계실까요? 🙏<br/>\n<br/>\n              사용하시면서 느끼신 점이 궁금해요.<br/>\n              불편했던 점, 좋았던 점—<br/>\n              솔직하게 들려주시면 실제로 반영하거든요.<br/>\n<br/>\n              ✅ 약 10분 내외 간단 참여<br/>\n              ✅ 고객님의 의견은 실제 개선에 반영됩니다<br/>\n<br/>\n              🎁 참여해 주시면 소정의 선물을 드려요.<br/>\n<br/>\n              편하신 시간으로 예약 부탁드립니다. 😊",
+          "buttons": [
+            {
+              "label": "참여하고 혜택 받기",
+              "url": "https://whattime.co.kr/gromeet/meeting14",
+              "primary": true
+            },
+            {
+              "label": "1:1 문의하기",
+              "url": "http://pf.kakao.com/_xcdWxon/chat",
+              "primary": false
+            }
+          ]
+        }
+      }
+    },
+    "campaign-12": {
+      "headerName": "카메라 이벤트 유도",
+      "timing": "배송완료 +1일",
+      "messages": {
+        "0": "\n              #{고객명}님,<br/>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br/>\n<br/>\n              현재 UV 카메라 이벤트 신청을 받고 있어요.<br/>\n              전용 카메라로 선케어 도포 전후를 비교해 보고<br/>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br/>\n<br/>\n              ✅ 선케어 도포 전/후 비교 촬영<br/>\n              ✅ 신청 순서대로 참여 일정 개별 안내<br/>\n              ✅ 참여 고객 대상 별도 혜택 안내<br/>\n<br/>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\">카메라 이벤트 신청하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
+      },
+      "urls": {
+        "0": "http://pf.kakao.com/_xcdWxon/chat",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br/>\n<br/>\n              현재 UV 카메라 이벤트 신청을 받고 있어요.<br/>\n              전용 카메라로 선케어 도포 전후를 비교해 보고<br/>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br/>\n<br/>\n              ✅ 선케어 도포 전/후 비교 촬영<br/>\n              ✅ 신청 순서대로 참여 일정 개별 안내<br/>\n              ✅ 참여 고객 대상 별도 혜택 안내<br/>\n<br/>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊",
+          "buttons": [
+            {
+              "label": "카메라 이벤트 신청하기",
+              "url": "http://pf.kakao.com/_xcdWxon/chat",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-5": {
       "headerName": "한달 사용 후기",
       "timing": "배송완료 +30일",
       "messages": {
-        "0": "#{고객명}님,<br>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br>\n                <br>\n                한 달 동안 사용해 보시면서<br>\n                어떤 점이 좋았는지, 아쉬웠는지<br>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br>\n                <br>\n                짧게라도 장기 사용 후기를 남겨주시면<br>\n                다른 고객님들께도 큰 도움이 되고<br>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊\n                <div class=\"btn-group\">\n                  <div class=\"btn primary\" style=\"cursor: text;\">한달 후기 작성하기</div></div>"
+        "0": "\n                #{고객명}님,<br/>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br/>\n<br/>\n                한 달 동안 사용해 보시면서<br/>\n                어떤 점이 좋았는지, 아쉬웠는지<br/>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br/>\n<br/>\n                짧게라도 장기 사용 후기를 남겨주시면<br/>\n                다른 고객님들께도 큰 도움이 되고<br/>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊\n                <div class=\"btn-group\">\n<div class=\"btn primary\">한달 후기 작성하기</div>\n<div class=\"btn\">적립금 신청하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://shopping.naver.com/my/writable-reviews",
-        "1": "https://register.uvid.co.kr/review-claim/month"
+        "1": "https://register.uvid.co.kr/review-claim/month",
+        "2": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br/>\n<br/>\n                한 달 동안 사용해 보시면서<br/>\n                어떤 점이 좋았는지, 아쉬웠는지<br/>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br/>\n<br/>\n                짧게라도 장기 사용 후기를 남겨주시면<br/>\n                다른 고객님들께도 큰 도움이 되고<br/>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊",
+          "buttons": [
+            {
+              "label": "한달 후기 작성하기",
+              "url": "https://shopping.naver.com/my/writable-reviews",
+              "primary": true
+            },
+            {
+              "label": "적립금 신청하기",
+              "url": "https://register.uvid.co.kr/review-claim/month",
+              "primary": false
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-6": {
       "headerName": "취소요청",
       "timing": "취소 접수 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              취소 요청 확인했어요.<br>\n              <br>\n              혹시 제품이 맞지 않으셨거나<br>\n              다른 이유가 있으셨다면<br>\n              말씀해 주시면 함께 방법을 찾아볼게요.<br>\n              <br>\n              편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              "
+        "0": "\n              #{고객명}님,<br/>\n              취소 요청 확인했어요.<br/>\n<br/>\n              혹시 제품이 맞지 않으셨거나<br/>\n              다른 이유가 있으셨다면<br/>\n              말씀해 주시면 함께 방법을 찾아볼게요.<br/>\n<br/>\n              편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">취소 현황 확인</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
-        "0": "https://new-m.pay.naver.com/"
+        "0": "https://new-m.pay.naver.com/",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              취소 요청 확인했어요.<br/>\n<br/>\n              혹시 제품이 맞지 않으셨거나<br/>\n              다른 이유가 있으셨다면<br/>\n              말씀해 주시면 함께 방법을 찾아볼게요.<br/>\n<br/>\n              편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)",
+          "buttons": [
+            {
+              "label": "취소 현황 확인",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-7": {
       "headerName": "취소완료",
       "timing": "취소 완료 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              취소 처리 완료됐어요.<br>\n              <br>\n              💰 환불은 결제수단에 따라<br>\n              영업일 기준 3~5일 소요돼요.<br>\n              <br>\n              이번엔 인연이 닿지 않아 아쉬웠어요.<br>\n              어떤 점이 맞지 않으셨는지<br>\n              알려주시면 진심으로 참고할게요.\n              "
+        "0": "\n              #{고객명}님,<br/>\n              취소 처리 완료됐어요.<br/>\n<br/>\n              💰 환불은 결제수단에 따라<br/>\n              영업일 기준 3~5일 소요돼요.<br/>\n<br/>\n              이번엔 인연이 닿지 않아 아쉬웠어요.<br/>\n              어떤 점이 맞지 않으셨는지<br/>\n              알려주시면 진심으로 참고할게요.\n              <div class=\"btn-group\">\n<div class=\"btn primary\">주문내역 확인</div>\n<div class=\"btn\">의견 남기기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
-        "1": "https://register.uvid.co.kr/voc"
+        "1": "https://register.uvid.co.kr/voc",
+        "2": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              취소 처리 완료됐어요.<br/>\n<br/>\n              💰 환불은 결제수단에 따라<br/>\n              영업일 기준 3~5일 소요돼요.<br/>\n<br/>\n              이번엔 인연이 닿지 않아 아쉬웠어요.<br/>\n              어떤 점이 맞지 않으셨는지<br/>\n              알려주시면 진심으로 참고할게요.",
+          "buttons": [
+            {
+              "label": "주문내역 확인",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "의견 남기기",
+              "url": "https://register.uvid.co.kr/voc",
+              "primary": false
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-8": {
       "headerName": "교환요청",
       "timing": "교환 접수 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              교환 요청 확인했어요.<br>\n              <br>\n              불편을 드려서 정말 죄송해요.<br>\n              최대한 빠르게 처리해 드릴게요.<br>\n              <br>\n              📦 교환 진행 안내<br>\n              ▪️① 택배 회수 (2~3영업일)<br>\n              ▪️② 상품 상태 확인<br>\n              ▪️③ 새 상품 발송 (확인 후 1~2영업일)<br>\n              <br>\n              진행 중 궁금한 점 있으시면<br>\n              언제든 편하게 연락 주세요.<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              "
+        "0": "\n              #{고객명}님,<br/>\n              교환 요청 확인했어요.<br/>\n<br/>\n              불편을 드려서 정말 죄송해요.<br/>\n              최대한 빠르게 처리해 드릴게요.<br/>\n<br/>\n              📦 교환 진행 안내<br/>\n              ▪️① 택배 회수 (2~3영업일)<br/>\n              ▪️② 상품 상태 확인<br/>\n              ▪️③ 새 상품 발송 (확인 후 1~2영업일)<br/>\n<br/>\n              진행 중 궁금한 점 있으시면<br/>\n              언제든 편하게 연락 주세요.<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">교환 현황 확인</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
-        "0": "https://new-m.pay.naver.com/"
+        "0": "https://new-m.pay.naver.com/",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              교환 요청 확인했어요.<br/>\n<br/>\n              불편을 드려서 정말 죄송해요.<br/>\n              최대한 빠르게 처리해 드릴게요.<br/>\n<br/>\n              📦 교환 진행 안내<br/>\n              ▪️① 택배 회수 (2~3영업일)<br/>\n              ▪️② 상품 상태 확인<br/>\n              ▪️③ 새 상품 발송 (확인 후 1~2영업일)<br/>\n<br/>\n              진행 중 궁금한 점 있으시면<br/>\n              언제든 편하게 연락 주세요.<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)",
+          "buttons": [
+            {
+              "label": "교환 현황 확인",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-9": {
       "headerName": "교환완료",
       "timing": "교환 발송 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              교환 상품이 발송됐어요! 🚚<br>\n              <br>\n              기다려 주셔서 진심으로 감사해요.<br>\n              <br>\n              📦 교환 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              이번엔 불편함 없이<br>\n              처음보다 더 만족스러우시길 바라는 마음으로<br>\n              정성껏 검수하고 보내드렸어요 😊\n              "
+        "0": "\n              #{고객명}님,<br/>\n              교환 상품이 발송됐어요! 🚚<br/>\n<br/>\n              기다려 주셔서 진심으로 감사해요.<br/>\n<br/>\n              📦 교환 배송 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              이번엔 불편함 없이<br/>\n              처음보다 더 만족스러우시길 바라는 마음으로<br/>\n              정성껏 검수하고 보내드렸어요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\">배송조회 하기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
-        "0": "https://new-m.pay.naver.com/"
+        "0": "https://new-m.pay.naver.com/",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              교환 상품이 발송됐어요! 🚚<br/>\n<br/>\n              기다려 주셔서 진심으로 감사해요.<br/>\n<br/>\n              📦 교환 배송 정보<br/>\n              ▪️상품명 : #{상품명}<br/>\n              ▪️송장번호 : #{송장번호}<br/>\n<br/>\n              이번엔 불편함 없이<br/>\n              처음보다 더 만족스러우시길 바라는 마음으로<br/>\n              정성껏 검수하고 보내드렸어요 😊",
+          "buttons": [
+            {
+              "label": "배송조회 하기",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-10": {
       "headerName": "반품요청",
       "timing": "반품 접수 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              반품 요청 확인했어요.<br>\n              <br>\n              📦 반품 진행 안내<br>\n              ▪️① 택배 회수 (2~3영업일)<br>\n              ▪️② 상품 상태 확인<br>\n              ▪️③ 환불 처리 (3~7영업일)<br>\n              <br>\n              혹시 제품 불량이나 파손이셨다면<br>\n              반품보다 교환으로 더 빠르게 도와드릴 수 있어요.<br>\n              편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              "
+        "0": "\n              #{고객명}님,<br/>\n              반품 요청 확인했어요.<br/>\n<br/>\n              📦 반품 진행 안내<br/>\n              ▪️① 택배 회수 (2~3영업일)<br/>\n              ▪️② 상품 상태 확인<br/>\n              ▪️③ 환불 처리 (3~7영업일)<br/>\n<br/>\n              혹시 제품 불량이나 파손이셨다면<br/>\n              반품보다 교환으로 더 빠르게 도와드릴 수 있어요.<br/>\n              편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\">반품 현황 확인</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
-        "0": "https://new-m.pay.naver.com/"
+        "0": "https://new-m.pay.naver.com/",
+        "1": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              반품 요청 확인했어요.<br/>\n<br/>\n              📦 반품 진행 안내<br/>\n              ▪️① 택배 회수 (2~3영업일)<br/>\n              ▪️② 상품 상태 확인<br/>\n              ▪️③ 환불 처리 (3~7영업일)<br/>\n<br/>\n              혹시 제품 불량이나 파손이셨다면<br/>\n              반품보다 교환으로 더 빠르게 도와드릴 수 있어요.<br/>\n              편하게 말씀해 주세요 😊<br/>\n              🕐 평일 10:00~17:00<br/>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)",
+          "buttons": [
+            {
+              "label": "반품 현황 확인",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     },
     "campaign-11": {
       "headerName": "반품완료",
       "timing": "반품 완료 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              반품 처리 완료됐어요.<br>\n              <br>\n              💰 환불은 결제수단에 따라<br>\n              영업일 기준 3~5일 소요돼요.<br>\n              <br>\n              기대에 못 미쳐서 정말 아쉬워요.<br>\n              어떤 점이 불편하셨는지 알려주시면<br>\n              다음 제품에 꼭 반영할게요.<br>\n              솔직하게 말씀해 주셔도 괜찮아요 😊\n              "
+        "0": "\n              #{고객명}님,<br/>\n              반품 처리 완료됐어요.<br/>\n<br/>\n              💰 환불은 결제수단에 따라<br/>\n              영업일 기준 3~5일 소요돼요.<br/>\n<br/>\n              기대에 못 미쳐서 정말 아쉬워요.<br/>\n              어떤 점이 불편하셨는지 알려주시면<br/>\n              다음 제품에 꼭 반영할게요.<br/>\n              솔직하게 말씀해 주셔도 괜찮아요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\">주문내역 확인</div>\n<div class=\"btn\">의견 남기기</div>\n<div class=\"btn\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
-        "1": "https://register.uvid.co.kr/voc"
+        "1": "https://register.uvid.co.kr/voc",
+        "2": "http://pf.kakao.com/_xcdWxon"
+      },
+      "content": {
+        "0": {
+          "bodyHtml": "#{고객명}님,<br/>\n              반품 처리 완료됐어요.<br/>\n<br/>\n              💰 환불은 결제수단에 따라<br/>\n              영업일 기준 3~5일 소요돼요.<br/>\n<br/>\n              기대에 못 미쳐서 정말 아쉬워요.<br/>\n              어떤 점이 불편하셨는지 알려주시면<br/>\n              다음 제품에 꼭 반영할게요.<br/>\n              솔직하게 말씀해 주셔도 괜찮아요 😊",
+          "buttons": [
+            {
+              "label": "주문내역 확인",
+              "url": "https://new-m.pay.naver.com/",
+              "primary": true
+            },
+            {
+              "label": "의견 남기기",
+              "url": "https://register.uvid.co.kr/voc",
+              "primary": false
+            },
+            {
+              "label": "채널 추가하기",
+              "url": "http://pf.kakao.com/_xcdWxon",
+              "primary": false
+            }
+          ]
+        }
       }
     }
   }
