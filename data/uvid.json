@@ -43,7 +43,7 @@
   "ce_41": null,
   "titles": {
     "sub_0": "품질 체크 후 안전하게 보내드려요",
-    "title_0": "선택해 주셔서 감사해요 ☀️",
+    "title_0": "선택해 주셔서 감사합니다.",
     "sub_1": "곧 도착해요, 기다려 주세요",
     "title_1": "지금 막 출발했어요 📦",
     "sub_2": "첫 사용 팁 꼭 확인해요&nbsp;",
@@ -206,7 +206,7 @@
       "headerName": "취소요청",
       "timing": "취소 접수 시",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님,\n주문 취소 요청이 접수되었습니다.\n\n📦 주문 취소 정보\n▪️주문번호 : #{주문번호}\n▪️상품명 : #{상품명}\n▪️결제금액 : #{총결제금액}원\n\n제품이 출고된 경우에는\n취소 처리가 어려울 수 있습니다.\n\n출고가 이미 진행된 경우,\n상품 수령 후 반품으로 안내드릴 수 있는 점\n너그러이 양해 부탁드립니다.\n\n🕐 평일 10:00~17:00\n(주말·공휴일 휴무)</span><br><div class=\"btn-group\">\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님,\n주문 취소 요청이 접수되었습니다.\n\n📦 주문 취소 정보\n▪️주문번호 : #{주문번호}\n▪️상품명 : #{상품명}\n▪️결제금액 : #{총결제금액}원\n\n제품이 출고된 경우에는\n취소 처리가 어려울 수 있습니다.\n\n출고가 이미 진행된 경우,\n상품 수령 후 반품으로 안내드릴 수 있는 점\n너그러이 양해 부탁드립니다.\n\n🕐 평일 10:00~17:00\n(주말·공휴일 휴무)</span><br><div class=\"btn-group\">\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
@@ -216,7 +216,7 @@
       "headerName": "취소완료",
       "timing": "취소 완료 시",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">취소가 정상적으로 완료되었습니다.\n\n💰 환불 안내\n▪️결제수단 : #{결제수단}\n▪️환불 예상 : 약 3~7 영업일\n\n짧은 인연이었지만\n다음 기회에 다시 찾아주시면\n감사의 마음을 드리겠습니다.\n\n선택해 주신 것만으로도 감사합니다.\n아쉬운 점을 말씀해 주시면 꼭 참고할게요.\n다음에 더 좋은 경험으로 찾아올게요✨</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">취소가 정상적으로 완료되었습니다.\n\n💰 환불 안내\n▪️결제수단 : #{결제수단}\n▪️환불 예상 : 약 3~7 영업일\n\n짧은 인연이었지만\n다음 기회에 다시 찾아주시면\n감사의 마음을 드리겠습니다.\n\n선택해 주신 것만으로도 감사합니다.\n아쉬운 점을 말씀해 주시면 꼭 참고할게요.\n다음에 더 좋은 경험으로 찾아올게요✨</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
@@ -237,7 +237,7 @@
       "headerName": "교환완료",
       "timing": "교환 발송 시",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 교환 상품이 발송됐습니다!\n\n📦 교환 배송 정보\n▪️상품명 : #{상품명}\n▪️송장번호 : #{송장번호}\n\n포장까지 완벽히 검수 후, 보내드렸습니다.\n\n조금만 더 기다려 주세요\n이번엔 꼭 만족하실 거예요 💛</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 교환 상품이 발송됐습니다!\n\n📦 교환 배송 정보\n▪️상품명 : #{상품명}\n▪️송장번호 : #{송장번호}\n\n포장까지 완벽히 검수 후, 보내드렸습니다.\n\n조금만 더 기다려 주세요\n이번엔 꼭 만족하실 거예요 💛</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
@@ -247,7 +247,7 @@
       "headerName": "반품요청",
       "timing": "반품 접수 시",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 반품 요청 접수했어요.\n\n📦 반품 진행 안내\n▪️수거 → 입고 확인 → 환불 처리\n▪️예상 소요 : 입고 확인 후 5~7 영업일\n\n끝까지 책임감 있게 처리해 드릴게요.\n불량이나 편하게 말씀해 주세요 😊\n\n혹시 고객센터 연결이 안 되셨나요?\n접수 내용 확인 후 빠르게 연락드리겠습니다.\n📞 고객센터 번호 : 1833-3920\n\n🕐 평일 10:00~17:00\n(주말·공휴일 휴무)</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">반품 현황 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 반품 요청 접수했어요.\n\n📦 반품 진행 안내\n▪️수거 → 입고 확인 → 환불 처리\n▪️예상 소요 : 입고 확인 후 5~7 영업일\n\n끝까지 책임감 있게 처리해 드릴게요.\n불량이나 편하게 말씀해 주세요 😊\n\n혹시 고객센터 연결이 안 되셨나요?\n접수 내용 확인 후 빠르게 연락드리겠습니다.\n📞 고객센터 번호 : 1833-3920\n\n🕐 평일 10:00~17:00\n(주말·공휴일 휴무)</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">반품 현황 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
@@ -257,7 +257,7 @@
       "headerName": "반품완료",
       "timing": "반품 완료 시",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 반품 처리 완료됐습니다.\n\n💰 반품 정보\n▪️주문번호 : #{주문번호}\n▪️상품명 : #{상품명}\n▪️환불금액 : #{총결제금액}\n\n회수된 상품이 검수 완료되어\n반품이 정상적으로 승인되었습니다.\n\n불편하셨을 텐데 끝까지 기다려 주셔서 감사해요.\n과정 중에 아쉬운 점이 있으셨다면\n편하게 남겨주세요. 🙏\n감사합니다.</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 반품 처리 완료됐습니다.\n\n💰 반품 정보\n▪️주문번호 : #{주문번호}\n▪️상품명 : #{상품명}\n▪️환불금액 : #{총결제금액}\n\n회수된 상품이 검수 완료되어\n반품이 정상적으로 승인되었습니다.\n\n불편하셨을 텐데 끝까지 기다려 주셔서 감사해요.\n과정 중에 아쉬운 점이 있으셨다면\n편하게 남겨주세요. 🙏\n감사합니다.</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
