@@ -316,11 +316,19 @@
     box-shadow: 0 0 0 2px #4A6FA5 inset;
     transform: translateY(-1px);
   }
+  .after {
+    display: flex;
+    flex-direction: column;
+  }
+  .after .phone { order: 1; }
+  .after .after-url-box { order: 2; }
+  .after .edit-hint { order: 3; }
+  .after .issues { order: 4; }
   .edit-hint {
     font-size: 11px;
     color: #999;
     text-align: center;
-    margin-top: 4px;
+    margin-top: 6px;
   }
   .char-counter { text-align: right; font-size: 11px; color: #999; padding: 6px 0 0; margin-top: 4px; }
   .char-counter.over { color: #ef4444; font-weight: 700; }
@@ -3171,7 +3179,7 @@
     markLegacyIndices();
 
     document.querySelectorAll('.edit-hint').forEach(el => {
-      el.textContent = '✏️ 알림톡 미리보기 안에서 바로 수정하고, URL은 아래에서 입력하세요';
+      el.textContent = '✏️ 클릭하여 직접 수정할 수 있습니다';
     });
 
     document.querySelectorAll('.product-tab-content').forEach(function(el) {
