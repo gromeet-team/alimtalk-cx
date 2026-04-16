@@ -129,7 +129,7 @@
       "headerName": "배송시작",
       "timing": "출고 시",
       "messages": {
-        "0": "\n              #{고객명}님!<br>\n<br>\n              기다리셨죠? 드디어 출발했어요 🚚<br>\n<br>\n              📦 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️주문번호 : #{주문번호}<br>\n              ▪️택배사 : #{배송회사}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br>\n              평균 1~2일 이내 도착 예정이에요.<br>\n              도착하면 꼭 확인해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">지금 #{고객명}님의 피부를 위해\n전력 질주 중입니다! 🏃‍♂️💨</span><br>\n<br>\n              📦 배송 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️주문번호 : #{주문번호}<br>\n              ▪️택배사 : #{배송회사}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br><span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">조금만 더 기다려 주세요!\n지역에 따라 1~3일 이내 도착 예정입니다\n도착하면 꼭 확인해 주세요 😊</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">배송조회 하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
