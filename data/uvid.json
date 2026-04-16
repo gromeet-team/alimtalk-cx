@@ -68,7 +68,7 @@
     "sub_9": "다음엔 더 좋은 경험으로",
     "title_9": "아쉽지만, 다음에 만나요",
     "sub_10": "새 제품으로 만족시켜 드려요",
-    "title_10": "바로 도와드릴게요",
+    "title_10": "상황 확인 후 교환해 드려요",
     "sub_11": "기다려 주셔서 감사해요 ☀️",
     "title_11": "새 상품 출발했어요 🚚",
     "sub_12": "교환으로 더 빠르게 해결해요",
@@ -227,7 +227,7 @@
       "headerName": "교환요청",
       "timing": "교환 접수 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              교환 요청 확인했어요.<br>\n<br>\n              불편을 드려서 정말 죄송해요.<br>\n              최대한 빠르게 처리해 드릴게요.<br>\n<br>\n              📦 교환 진행 안내<br>\n              ▪️① 택배 회수 (2~3영업일)<br>\n              ▪️② 상품 상태 확인<br>\n              ▪️③ 새 상품 발송 (확인 후 1~2영업일)<br>\n<br>\n              진행 중 궁금한 점 있으시면<br>\n              언제든 편하게 연락 주세요.<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">교환 현황 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">#{고객명}님, 교환 요청 접수했어요.\n\n📦 교환 진행 안내\n▪️수거 → 입고 확인 → 교환 발송\n▪️예상 소요 : 영업일 기준 3~7일\n\n불편을 드려서 정말 죄송해요.\n이번에는 불편함 없이\n만족스럽게 사용하실 수 있도록\n더욱 노력할게요 🙏\n\n혹시 고객센터 연결이 안 되셨나요?\n접수 내용 확인 후 빠르게 연락드리겠습니다.\n📞 고객센터 번호 : 1833-3920\n\n🕐 평일 10:00~17:00\n(주말·공휴일 휴무)</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">교환 현황 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/"
