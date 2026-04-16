@@ -289,17 +289,32 @@
   .impact.low { background: #e0f0e0; color: #2d7a2d; }
 
   /* Editable AFTER */
-  .after .msg[contenteditable="true"] {
+  .after .msg {
     outline: none;
     border: 2px dashed transparent;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, background 0.2s;
   }
-  .after .msg[contenteditable="true"]:focus {
-    border-color: #f59e0b;
-    background: #fffdf7;
-  }
-  .after .msg[contenteditable="true"]:hover:not(:focus) {
+  .after .msg:hover {
     border-color: #e5e7eb;
+  }
+  .after .msg .msg-body[contenteditable="true"] {
+    outline: none;
+    border-radius: 8px;
+    cursor: text;
+    min-height: 120px;
+  }
+  .after .msg .msg-body[contenteditable="true"]:focus {
+    background: #fffdf7;
+    box-shadow: inset 0 0 0 2px #f59e0b;
+  }
+  .after .msg .btn[contenteditable="true"] {
+    cursor: text;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .after .msg .btn[contenteditable="true"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #4A6FA5 inset;
+    transform: translateY(-1px);
   }
   .edit-hint {
     font-size: 11px;
@@ -307,7 +322,7 @@
     text-align: center;
     margin-top: 4px;
   }
-  .char-counter { text-align: right; font-size: 11px; color: #999; padding: 2px 6px; margin-top: 2px; }
+  .char-counter { text-align: right; font-size: 11px; color: #999; padding: 6px 0 0; margin-top: 4px; }
   .char-counter.over { color: #ef4444; font-weight: 700; }
 
   /* AFTER URL box */
@@ -327,16 +342,27 @@
   }
   .after-url-box .url-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 8px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+  }
+  .after-url-box .url-label-stack {
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   .after-url-box .url-btn-label {
     font-size: 11px;
     font-weight: 600;
     color: #166534;
-    min-width: 100px;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: keep-all;
+  }
+  .after-url-box .url-meta {
+    font-size: 10px;
+    font-weight: 600;
+    color: #16a34a;
   }
   .after-url-box .url-btn-label.linkable {
     cursor: pointer;
@@ -749,99 +775,23 @@
   .campaign-card .product-tab-content { display: none !important; }
   .campaign-card .product-tab-content.active { display: block !important; }
 
-  .message-editor {
-    margin: 0 0 12px;
-    padding: 14px;
-    background: #ffffff;
-    border: 1px solid #d1fae5;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-  }
-  .message-editor-heading {
+  .after .msg .btn-group {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-  .message-editor-heading strong {
-    font-size: 12px;
-    color: #166534;
-  }
-  .message-editor-heading span {
-    font-size: 11px;
-    color: #6b7280;
-  }
-  .message-editor-field {
-    margin-bottom: 10px;
-  }
-  .message-editor-field:last-child {
-    margin-bottom: 0;
-  }
-  .message-editor-label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 11px;
-    font-weight: 700;
-    color: #166534;
-  }
-  .message-editor-rich,
-  .message-editor-input {
-    width: 100%;
-    border: 1px solid #cbd5e1;
-    border-radius: 10px;
-    background: #fff;
-    color: #111827;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-size: 13px;
-    line-height: 1.55;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .message-editor-rich {
-    min-height: 44px;
-    padding: 10px 12px;
-    cursor: text;
-  }
-  .message-editor-body {
-    min-height: 150px;
-  }
-  .message-editor-input {
-    padding: 9px 12px;
-  }
-  .message-editor-rich:focus,
-  .message-editor-input:focus {
-    border-color: #22c55e;
-    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
-    outline: none;
-  }
-  .message-editor-button-grid {
-    display: grid;
-    gap: 8px;
-  }
-  .message-editor-button-row {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
-    gap: 8px;
-  }
-  .message-editor-help {
+    flex-direction: column;
+    gap: 4px;
     margin-top: 8px;
-    font-size: 10px;
-    color: #6b7280;
   }
-  .structured-preview {
-    pointer-events: none;
-    opacity: 0.98;
-  }
-  .structured-preview .btn {
-    cursor: default !important;
-  }
-  .after-url-box.editor-hidden {
-    display: none;
+  .after .msg .btn {
+    user-select: text;
   }
 
   @media (max-width: 768px) {
-    .message-editor-button-row {
-      grid-template-columns: 1fr;
+    .after-url-box .url-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .after-url-box .url-label-stack {
+      min-width: 0;
     }
   }
 
@@ -2354,6 +2304,10 @@
   const BRAND = "uvid";
   const DATA_VERSION = "2026-04-16-v11";
   const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
+  const PRODUCT_LABELS = {
+    pad: '선패드',
+    mist: '선크림·선미스트',
+  };
   const BUTTON_URL_FALLBACKS = {
     '채널추가하기': 'http://pf.kakao.com/_xcdWxon',
     '1:1문의하기': 'http://pf.kakao.com/_xcdWxon/chat',
@@ -2397,7 +2351,7 @@
   }
 
   function getCampaignMessages(card) {
-    return Array.from(card.querySelectorAll('.after .msg[contenteditable="true"]'));
+    return Array.from(card.querySelectorAll('.after .msg'));
   }
 
   function getCampaignUrlInputs(card) {
@@ -2423,6 +2377,33 @@
     el._saveTimer = setTimeout(() => { el.style.outline = ''; }, 800);
   }
 
+  function safeJsonParse(raw) {
+    if (!raw) return null;
+    try {
+      return JSON.parse(raw);
+    } catch {
+      return null;
+    }
+  }
+
+  function insertPlainText(text) {
+    if (document.queryCommandSupported && document.queryCommandSupported('insertText')) {
+      document.execCommand('insertText', false, text);
+      return;
+    }
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount) return;
+    selection.deleteFromDocument();
+    selection.getRangeAt(0).insertNode(document.createTextNode(text));
+    selection.collapseToEnd();
+  }
+
+  function stopInlinePropagation(el) {
+    ['click', 'mousedown', 'mouseup', 'focus'].forEach(evt => {
+      el.addEventListener(evt, e => e.stopPropagation());
+    });
+  }
+
   function markLegacyIndices() {
     getCampaignCards().forEach((card, idx) => {
       card.dataset.legacyDecisionIndex = String(idx);
@@ -2434,11 +2415,16 @@
       });
     });
 
-    document.querySelectorAll('.after .msg[contenteditable="true"]').forEach((el, idx) => {
+    document.querySelectorAll('.after .msg').forEach((el, idx) => {
       el.dataset.legacyMsgIndex = String(idx);
     });
     document.querySelectorAll('.after-url-box .url-input').forEach((el, idx) => {
       el.dataset.legacyUrlIndex = String(idx);
+    });
+    getCampaignCards().forEach(card => {
+      card.dataset.legacyUrlIndices = JSON.stringify(
+        Array.from(card.querySelectorAll('.after-url-box .url-input')).map(el => el.dataset.legacyUrlIndex || '')
+      );
     });
   }
 
@@ -2500,7 +2486,7 @@
     setDecisionState(card, type);
 
     if (type === 'modify') {
-      const editable = card.querySelector('.after [contenteditable]');
+      const editable = card.querySelector('.after .msg .msg-body, .after .alimtalk-subtitle, .after .alimtalk-title');
       if (editable) editable.focus();
     }
 
@@ -2540,7 +2526,7 @@
       result += `${statusEmoji} **${name}** — ${status === 'adopt' ? '채택' : status === 'modify' ? '수정 채택' : status === 'skip' ? '보류' : '미결정'}\n`;
 
       if (status === 'modify' || status === 'adopt') {
-        const afterText = card.querySelector('.after [contenteditable]');
+        const afterText = card.querySelector('.after .msg .msg-body') || card.querySelector('.after .msg');
         if (afterText) {
           result += `> ${afterText.innerText.substring(0, 200).replace(/\n/g, '\n> ')}...\n`;
         }
@@ -2608,58 +2594,6 @@
     return (text || '').replace(/\s+/g, '').trim();
   }
 
-  function findMappedUrl(card, labelText) {
-    if (!card || !labelText) return '';
-    const targetLabel = normalizeBtnText(labelText);
-    const rows = Array.from(card.querySelectorAll('.after-url-box .url-row'));
-    const matchedRow = rows.find(row => {
-      const label = row.querySelector('.url-btn-label');
-      return normalizeBtnText(label?.textContent) === targetLabel;
-    });
-    return matchedRow?.querySelector('.url-input')?.value?.trim() || '';
-  }
-
-  function openMappedUrl(card, labelText) {
-    const url = findMappedUrl(card, labelText);
-    if (!url) return;
-    window.open(url, '_blank', 'noopener,noreferrer');
-  }
-
-  function normalizeEditableButtons() {
-    document.querySelectorAll('.after .msg[contenteditable="true"] .btn').forEach(btn => {
-      btn.removeAttribute('contenteditable');
-      btn.removeAttribute('data-link-bound');
-      btn.style.cursor = 'text';
-    });
-  }
-
-  function bindPreviewButtonLinks() {
-    normalizeEditableButtons();
-    document.querySelectorAll('.after-url-box .url-btn-label').forEach(label => {
-      label.classList.add('linkable');
-      if (label.dataset.linkBound === '1') return;
-      label.dataset.linkBound = '1';
-      label.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        openMappedUrl(label.closest('.campaign-card'), label.textContent);
-      });
-    });
-  }
-
-  function getCampaignContentLocalKey(campaignId, msgIdx) {
-    return getCampaignLocalKey(campaignId, `content_${msgIdx}`);
-  }
-
-  function safeJsonParse(raw) {
-    if (!raw) return null;
-    try {
-      return JSON.parse(raw);
-    } catch {
-      return null;
-    }
-  }
-
   function buildButtonHtml(buttons) {
     const normalized = (buttons || []).filter(btn => (btn?.label || '').trim());
     if (!normalized.length) return '';
@@ -2684,25 +2618,16 @@
     return buttonsHtml ? `${body}${buttonsHtml}` : body;
   }
 
-  function getCardUrlMap(card) {
-    const map = new Map();
-    Array.from(card.querySelectorAll('.after-url-box .url-row')).forEach(row => {
-      const label = normalizeBtnText(row.querySelector('.url-btn-label')?.textContent || '');
-      const url = row.querySelector('.url-input')?.value?.trim() || '';
-      if (label && !map.has(label)) map.set(label, url);
-    });
-    return map;
-  }
-
-  function parseMessageContent(html, urlMap = new Map()) {
+  function parseMessageContent(html) {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = html || '';
 
+    wrapper.querySelectorAll('.char-counter').forEach(el => el.remove());
     const buttonGroup = wrapper.querySelector('.btn-group');
     const buttons = buttonGroup
       ? Array.from(buttonGroup.querySelectorAll('.btn')).map((btn, idx) => ({
           label: (btn.textContent || '').trim(),
-          url: urlMap.get(normalizeBtnText(btn.textContent || '')) || getDefaultButtonUrl(btn.textContent || '') || '',
+          url: getDefaultButtonUrl(btn.textContent || '') || '',
           primary: btn.classList.contains('primary') || idx === 0,
         }))
       : [];
@@ -2715,192 +2640,269 @@
     };
   }
 
-  function getStructuredEditorState(editor) {
-    const subtitle = editor.querySelector('.message-editor-subtitle')?.innerHTML?.trim() || '';
-    const title = editor.querySelector('.message-editor-title')?.innerHTML?.trim() || '';
-    const bodyHtml = editor.querySelector('.message-editor-body')?.innerHTML?.trim() || '';
-    const buttons = Array.from(editor.querySelectorAll('.message-editor-button-row')).map((row, idx) => ({
-      label: row.querySelector('.message-editor-button-label')?.value?.trim() || '',
-      url: row.querySelector('.message-editor-button-url')?.value?.trim() || '',
-      primary: row.dataset.primary === '1' || idx === 0,
-    })).filter(btn => btn.label || btn.url);
-
-    return { subtitle, title, bodyHtml, buttons };
+  function getProductLabel(msgEl) {
+    const product = msgEl.closest('.product-tab-content')?.dataset.product;
+    return PRODUCT_LABELS[product] || '';
   }
 
-  function syncStructuredEditor(editor, options = {}) {
-    const { persist = true } = options;
-    const card = editor.closest('.campaign-card');
-    if (!card) return;
-
-    const msgIdx = Number(editor.dataset.msgIndex);
-    const msgEl = getCampaignMessages(card)[msgIdx];
-    if (!msgEl) return;
-
-    const campaignId = card.dataset.campaign;
-    const phone = msgEl.closest('.phone');
-    const subtitleEl = phone?.querySelector('.alimtalk-subtitle[data-title-key]');
-    const titleEl = phone?.querySelector('.alimtalk-title[data-title-key]');
-    const state = getStructuredEditorState(editor);
-    const messageHtml = composeMessageHtml(state.bodyHtml, state.buttons);
-
-    if (subtitleEl) {
-      subtitleEl.innerHTML = state.subtitle;
-      if (persist && subtitleEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${subtitleEl.dataset.titleKey}`, state.subtitle);
-    }
-
-    if (titleEl) {
-      titleEl.innerHTML = state.title;
-      if (persist && titleEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${titleEl.dataset.titleKey}`, state.title);
-    }
-
-    msgEl.innerHTML = messageHtml;
-
-    if (persist) {
-      localStorage.setItem(getCampaignLocalKey(campaignId, `msg_${msgIdx}`), messageHtml);
-      localStorage.setItem(getCampaignContentLocalKey(campaignId, msgIdx), JSON.stringify({
-        bodyHtml: state.bodyHtml,
-        buttons: state.buttons,
-      }));
-      if (msgEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${msgEl.dataset.titleKey}`, messageHtml);
-    }
-
-    pulseSavedOutline(editor.querySelector('.message-editor-body'), '#22c55e');
+  function getIndexedValue(source, index) {
+    if (!source) return null;
+    if (Object.prototype.hasOwnProperty.call(source, index)) return source[index];
+    if (Object.prototype.hasOwnProperty.call(source, String(index))) return source[String(index)];
+    return null;
   }
 
-  function applyStructuredEditorState(editor, state, options = {}) {
-    if (!editor) return;
-    const normalizedButtons = (state?.buttons?.length ? state.buttons : [{ label: '', url: '', primary: true }]).map((btn, idx) => ({
-      label: btn?.label || '',
-      url: btn?.url || '',
-      primary: btn?.primary ?? idx === 0,
-    }));
-
-    const buttonsGrid = editor.querySelector('.message-editor-button-grid');
-    buttonsGrid.innerHTML = '';
-
-    normalizedButtons.forEach((btn, idx) => {
-      const row = document.createElement('div');
-      row.className = 'message-editor-button-row';
-      row.dataset.primary = btn.primary || idx === 0 ? '1' : '0';
-      row.innerHTML = `
-        <div class="message-editor-field">
-          <label class="message-editor-label">버튼${normalizedButtons.length > 1 ? ` ${idx + 1}` : ''}</label>
-          <input type="text" class="message-editor-input message-editor-button-label" spellcheck="false" value="${(btn.label || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}">
-        </div>
-        <div class="message-editor-field">
-          <label class="message-editor-label">랜딩페이지${normalizedButtons.length > 1 ? ` ${idx + 1}` : ''}</label>
-          <input type="text" class="message-editor-input message-editor-button-url" spellcheck="false" value="${(btn.url || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}">
-        </div>
-      `;
-      buttonsGrid.appendChild(row);
-    });
-
-    editor.querySelector('.message-editor-subtitle').innerHTML = state?.subtitle || '';
-    editor.querySelector('.message-editor-title').innerHTML = state?.title || '';
-    editor.querySelector('.message-editor-body').innerHTML = state?.bodyHtml || '';
-
-    syncStructuredEditor(editor, { persist: options.persist !== false });
+  function getLegacyUrlValue(card, allData, flatIndex) {
+    const legacyIndices = safeJsonParse(card.dataset.legacyUrlIndices) || [];
+    const key = legacyIndices[flatIndex];
+    if (key === undefined || key === null || key === '') return null;
+    return allData?.[`url_${key}`] ?? null;
   }
 
-  function buildStructuredEditorState(card, msgEl, campaignData) {
-    const msgIdx = Number(msgEl.dataset.campaignFieldIndex || 0);
-    const phone = msgEl.closest('.phone');
-    const subtitleEl = phone?.querySelector('.alimtalk-subtitle[data-title-key]');
-    const titleEl = phone?.querySelector('.alimtalk-title[data-title-key]');
-    const localContent = safeJsonParse(localStorage.getItem(getCampaignContentLocalKey(card.dataset.campaign, msgIdx)));
-    const savedContent = campaignData?.content?.[msgIdx] || campaignData?.content?.[String(msgIdx)] || null;
-    const parsedPreview = parseMessageContent(msgEl.innerHTML, getCardUrlMap(card));
-    const rawButtons = localContent?.buttons || savedContent?.buttons || parsedPreview.buttons || [];
-    const buttons = rawButtons.map((btn, idx) => {
-      const fallbackUrl = getDefaultButtonUrl(btn?.label || '');
-      const normalizedLabel = normalizeBtnText(btn?.label || '');
-      const shouldForceFallback = ['채널추가하기', '1:1문의하기', '자주묻는질문', '의견남기기'].includes(normalizedLabel);
+  function getUrlInputByFlatIndex(card, flatIndex) {
+    return card.querySelector(`.after-url-box .url-row[data-flat-index="${flatIndex}"] .url-input`);
+  }
+
+  function getUrlValueByFlatIndex(card, flatIndex) {
+    return getUrlInputByFlatIndex(card, flatIndex)?.value?.trim() || '';
+  }
+
+  function serializePreviewMessage(card, msgEl) {
+    const bodyEl = msgEl.querySelector('.msg-body');
+    const fallback = parseMessageContent(msgEl.innerHTML);
+    const bodyHtml = bodyEl ? bodyEl.innerHTML.trim() : fallback.bodyHtml;
+    const buttons = Array.from(msgEl.querySelectorAll('.btn-group .btn')).map((btn, idx) => {
+      const flatIndex = btn.dataset.flatButtonIndex || idx;
+      const urlInput = getUrlInputByFlatIndex(card, flatIndex);
       return {
-        label: btn?.label || '',
-        url: shouldForceFallback ? (fallbackUrl || btn?.url || '') : (btn?.url || fallbackUrl || ''),
-        primary: btn?.primary ?? idx === 0,
+        label: getSanitizedInlineText(btn),
+        url: urlInput ? urlInput.value.trim() : (getDefaultButtonUrl(btn.textContent || '') || ''),
+        primary: btn.classList.contains('primary') || idx === 0,
       };
-    });
+    }).filter(btn => btn.label || btn.url);
 
     return {
-      subtitle: subtitleEl?.innerHTML || '',
-      title: titleEl?.innerHTML || '',
-      bodyHtml: localContent?.bodyHtml || savedContent?.bodyHtml || parsedPreview.bodyHtml || '',
-      buttons,
+      bodyHtml,
+      buttons: buttons.length ? buttons : fallback.buttons,
     };
   }
 
-  function createStructuredEditor(card, msgEl) {
+  function persistMessageState(card, msgEl, options = {}) {
+    const { pulseTarget = null } = options;
+    const campaignId = card.dataset.campaign;
     const msgIdx = Number(msgEl.dataset.campaignFieldIndex || 0);
-    const phone = msgEl.closest('.phone');
-    if (!phone || phone.dataset.structuredEditorReady === '1') return;
+    const state = serializePreviewMessage(card, msgEl);
+    const messageHtml = composeMessageHtml(state.bodyHtml, state.buttons);
 
-    phone.dataset.structuredEditorReady = '1';
-    phone.classList.add('structured-preview');
+    localStorage.setItem(getCampaignLocalKey(campaignId, `msg_${msgIdx}`), messageHtml);
+    localStorage.setItem(getCampaignContentLocalKey(campaignId, msgIdx), JSON.stringify({
+      bodyHtml: state.bodyHtml,
+      buttons: state.buttons,
+    }));
+    if (msgEl.dataset.titleKey) localStorage.setItem(`alimtalk_${BRAND}_${msgEl.dataset.titleKey}`, messageHtml);
 
-    const product = msgEl.closest('.product-tab-content')?.dataset.product;
-    const note = card.querySelector('.after-url-box .url-note')?.textContent?.trim() || '';
-    const editor = document.createElement('div');
-    editor.className = 'message-editor';
-    editor.dataset.msgIndex = String(msgIdx);
-    editor.innerHTML = `
-      <div class="message-editor-heading">
-        <strong>${product ? `편집 양식 · ${product}` : '편집 양식'}</strong>
-        <span>서브타이틀 → 타이틀 → 본문 → 버튼 → 랜딩페이지</span>
-      </div>
-      <div class="message-editor-field">
-        <label class="message-editor-label">서브타이틀</label>
-        <div class="message-editor-rich message-editor-subtitle" contenteditable="true"></div>
-      </div>
-      <div class="message-editor-field">
-        <label class="message-editor-label">타이틀</label>
-        <div class="message-editor-rich message-editor-title" contenteditable="true"></div>
-      </div>
-      <div class="message-editor-field">
-        <label class="message-editor-label">본문</label>
-        <div class="message-editor-rich message-editor-body" contenteditable="true"></div>
-      </div>
-      <div class="message-editor-button-grid"></div>
-      ${note ? `<div class="message-editor-help">${note}</div>` : ''}
-    `;
+    if (pulseTarget) pulseSavedOutline(pulseTarget, '#22c55e');
+  }
 
-    phone.parentNode.insertBefore(editor, phone);
+  function persistAllMessages(card) {
+    getCampaignMessages(card).forEach(msgEl => persistMessageState(card, msgEl));
+  }
 
-    editor.querySelectorAll('[contenteditable="true"]').forEach(field => {
-      ['click', 'mousedown', 'mouseup', 'focus'].forEach(evt => {
-        field.addEventListener(evt, e => e.stopPropagation());
+  function collectButtonDescriptors(card) {
+    const messages = getCampaignMessages(card);
+    const totalMessages = messages.length;
+    const descriptors = [];
+    let flatIndex = 0;
+
+    messages.forEach((msgEl, msgIdx) => {
+      const productLabel = getProductLabel(msgEl);
+      const buttons = Array.from(msgEl.querySelectorAll('.btn-group .btn'));
+      buttons.forEach((btnEl, buttonIdx) => {
+        btnEl.dataset.flatButtonIndex = String(flatIndex);
+        btnEl.dataset.msgIndex = String(msgIdx);
+        btnEl.dataset.buttonIndex = String(buttonIdx);
+        descriptors.push({
+          flatIndex,
+          msgIdx,
+          buttonIdx,
+          btnEl,
+          productLabel,
+          showMeta: totalMessages > 1,
+          label: getSanitizedInlineText(btnEl) || `버튼 ${flatIndex + 1}`,
+        });
+        flatIndex += 1;
       });
-      field.addEventListener('input', () => syncStructuredEditor(editor));
-      field.addEventListener('paste', e => {
+    });
+
+    return descriptors;
+  }
+
+  function openMappedUrlByFlatIndex(card, flatIndex) {
+    const url = getUrlValueByFlatIndex(card, flatIndex);
+    if (!url) return;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function ensureUrlRows(card, options = {}) {
+    const { campaignData = {}, allData = {} } = options;
+    const urlBox = card.querySelector('.after-url-box');
+    if (!urlBox) return;
+
+    const previousValues = new Map(
+      Array.from(urlBox.querySelectorAll('.url-row')).map((row, idx) => [row.dataset.flatIndex || String(idx), row.querySelector('.url-input')?.value || ''])
+    );
+    const titleText = urlBox.dataset.boxTitle || urlBox.querySelector('.url-box-title')?.textContent?.trim() || '💡 제안 랜딩 URL';
+    const noteText = urlBox.dataset.boxNote || urlBox.querySelector('.url-note')?.textContent?.trim() || '';
+    urlBox.dataset.boxTitle = titleText;
+    urlBox.dataset.boxNote = noteText;
+
+    const descriptors = collectButtonDescriptors(card);
+    const campaignId = card.dataset.campaign;
+
+    urlBox.innerHTML = '';
+
+    const titleEl = document.createElement('div');
+    titleEl.className = 'url-box-title';
+    titleEl.textContent = titleText;
+    urlBox.appendChild(titleEl);
+
+    descriptors.forEach(descriptor => {
+      const row = document.createElement('div');
+      row.className = 'url-row';
+      row.dataset.flatIndex = String(descriptor.flatIndex);
+      row.dataset.msgIndex = String(descriptor.msgIdx);
+      row.dataset.buttonIndex = String(descriptor.buttonIdx);
+
+      const labelStack = document.createElement('div');
+      labelStack.className = 'url-label-stack';
+
+      const label = document.createElement('span');
+      label.className = 'url-btn-label linkable';
+      label.dataset.flatIndex = String(descriptor.flatIndex);
+      label.textContent = descriptor.label;
+      label.addEventListener('click', e => {
         e.preventDefault();
-        const text = (e.clipboardData || window.clipboardData).getData('text');
-        document.execCommand('insertText', false, text);
+        e.stopPropagation();
+        openMappedUrlByFlatIndex(card, descriptor.flatIndex);
       });
+      labelStack.appendChild(label);
+
+      if (descriptor.showMeta && descriptor.productLabel) {
+        const meta = document.createElement('span');
+        meta.className = 'url-meta';
+        meta.textContent = descriptor.productLabel;
+        labelStack.appendChild(meta);
+      }
+
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'url-input';
+      input.placeholder = 'URL 입력';
+      input.spellcheck = false;
+      const localValue = localStorage.getItem(getCampaignLocalKey(campaignId, `url_${descriptor.flatIndex}`));
+      const campaignValue = getIndexedValue(campaignData.urls, descriptor.flatIndex);
+      const legacyValue = getLegacyUrlValue(card, allData, descriptor.flatIndex);
+      const previousValue = previousValues.has(String(descriptor.flatIndex))
+        ? previousValues.get(String(descriptor.flatIndex))
+        : null;
+      const fallbackValue = getDefaultButtonUrl(descriptor.label) || '';
+      input.value = localValue !== null
+        ? localValue
+        : campaignValue !== null
+          ? campaignValue
+          : legacyValue !== null
+            ? legacyValue
+            : previousValue !== null
+              ? previousValue
+              : fallbackValue;
+      stopInlinePropagation(input);
+      input.addEventListener('input', () => {
+        localStorage.setItem(getCampaignLocalKey(campaignId, `url_${descriptor.flatIndex}`), input.value);
+        persistAllMessages(card);
+      });
+
+      row.appendChild(labelStack);
+      row.appendChild(input);
+      urlBox.appendChild(row);
     });
 
-    editor.addEventListener('input', e => {
-      if (e.target.matches('.message-editor-button-label, .message-editor-button-url')) syncStructuredEditor(editor);
-    });
-
-    return editor;
+    if (noteText) {
+      const note = document.createElement('div');
+      note.className = 'url-note';
+      note.textContent = noteText;
+      urlBox.appendChild(note);
+    }
   }
 
-  function initStructuredEditors() {
-    getCampaignCards().forEach(card => {
-      getCampaignMessages(card).forEach(msgEl => createStructuredEditor(card, msgEl));
-      const urlBox = card.querySelector('.after-url-box');
-      if (urlBox) urlBox.classList.add('editor-hidden');
+  function bindMessageBody(card, msgEl, bodyEl) {
+    bodyEl.setAttribute('contenteditable', 'true');
+    bodyEl.setAttribute('spellcheck', 'false');
+    stopInlinePropagation(bodyEl);
+    bodyEl.addEventListener('paste', e => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      insertPlainText(text);
+    });
+    bodyEl.addEventListener('input', () => {
+      persistMessageState(card, msgEl, { pulseTarget: bodyEl });
+      appendCharacterCounters();
+    });
+    bodyEl.addEventListener('blur', () => {
+      if (!bodyEl.innerHTML.trim()) bodyEl.innerHTML = '<br>';
+      persistMessageState(card, msgEl);
+      appendCharacterCounters();
     });
   }
 
-  function refreshStructuredEditors(card, campaignData) {
-    getCampaignMessages(card).forEach(msgEl => {
-      const msgIdx = Number(msgEl.dataset.campaignFieldIndex || 0);
-      const editor = card.querySelector(`.message-editor[data-msg-index="${msgIdx}"]`);
-      if (!editor) return;
-      applyStructuredEditorState(editor, buildStructuredEditorState(card, msgEl, campaignData), { persist: false });
+  function bindMessageButton(card, msgEl, btnEl) {
+    btnEl.setAttribute('contenteditable', 'true');
+    btnEl.setAttribute('spellcheck', 'false');
+    stopInlinePropagation(btnEl);
+    btnEl.addEventListener('keydown', e => {
+      e.stopPropagation();
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        btnEl.blur();
+      }
     });
+    btnEl.addEventListener('paste', e => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text').replace(/\n+/g, ' ');
+      insertPlainText(text);
+    });
+    btnEl.addEventListener('input', () => {
+      ensureUrlRows(card);
+      persistMessageState(card, msgEl, { pulseTarget: btnEl });
+    });
+    btnEl.addEventListener('blur', () => {
+      btnEl.textContent = getSanitizedInlineText(btnEl);
+      ensureUrlRows(card);
+      persistMessageState(card, msgEl);
+    });
+  }
+
+  function preparePreviewMessage(card, msgEl) {
+    const state = msgEl.querySelector('.msg-body')
+      ? serializePreviewMessage(card, msgEl)
+      : parseMessageContent(msgEl.innerHTML);
+    const bodyHtml = state.bodyHtml || '<br>';
+
+    msgEl.removeAttribute('contenteditable');
+    msgEl.innerHTML = `<div class="msg-body">${bodyHtml}</div>${buildButtonHtml(state.buttons)}`;
+
+    const bodyEl = msgEl.querySelector('.msg-body');
+    if (bodyEl) bindMessageBody(card, msgEl, bodyEl);
+    msgEl.querySelectorAll('.btn-group .btn').forEach(btnEl => bindMessageButton(card, msgEl, btnEl));
+  }
+
+  function hydrateCardPreview(card, options = {}) {
+    getCampaignMessages(card).forEach(msgEl => preparePreviewMessage(card, msgEl));
+    ensureUrlRows(card, options);
+    appendCharacterCounters();
+  }
+
+  function getCampaignContentLocalKey(campaignId, msgIdx) {
+    return getCampaignLocalKey(campaignId, `content_${msgIdx}`);
   }
 
   function setupHeaderEditing(card) {
@@ -2915,9 +2917,7 @@
       el.setAttribute('spellcheck', 'false');
       el.classList.add('header-editable');
 
-      ['click', 'mousedown', 'mouseup', 'focus'].forEach(evt => {
-        el.addEventListener(evt, e => e.stopPropagation());
-      });
+      stopInlinePropagation(el);
 
       el.addEventListener('keydown', e => {
         e.stopPropagation();
@@ -2934,7 +2934,7 @@
       el.addEventListener('paste', e => {
         e.preventDefault();
         const text = (e.clipboardData || window.clipboardData).getData('text');
-        document.execCommand('insertText', false, text);
+        insertPlainText(text.replace(/\n+/g, ' '));
       });
 
       el.addEventListener('input', () => {
@@ -3049,25 +3049,16 @@
 
       getCampaignMessages(card).forEach((el, idx) => {
         const local = localStorage.getItem(getCampaignLocalKey(campaignId, `msg_${idx}`));
-        const campaignValue = campaignData.messages?.[idx];
+        const campaignValue = campaignData.messages?.[idx] || campaignData.messages?.[String(idx)];
         const legacyValue = data[`ce_${el.dataset.legacyMsgIndex}`];
-        const nextValue = local || campaignValue || legacyValue;
+        const titleValue = el.dataset.titleKey ? (localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`) || data.titles?.[el.dataset.titleKey]) : '';
+        const nextValue = local || campaignValue || legacyValue || titleValue;
         if (nextValue && nextValue.trim() && nextValue.trim() !== '<br>') el.innerHTML = nextValue;
-      });
-
-      getCampaignUrlInputs(card).forEach((el, idx) => {
-        const local = localStorage.getItem(getCampaignLocalKey(campaignId, `url_${idx}`));
-        const campaignValue = campaignData.urls?.[idx];
-        const legacyValue = data[`url_${el.dataset.legacyUrlIndex}`];
-        const nextValue = local || campaignValue || legacyValue;
-        if (typeof nextValue === 'string' && nextValue.length > 0) el.value = nextValue;
       });
 
       const localDecision = localStorage.getItem(getCampaignLocalKey(campaignId, 'decision'));
       const savedDecision = localDecision || campaignData.decision || data[`dec_${card.dataset.legacyDecisionIndex}`];
       if (savedDecision) setDecisionState(card, savedDecision);
-
-      refreshStructuredEditors(card, campaignData);
     });
 
     titleEditables.forEach(el => {
@@ -3079,11 +3070,12 @@
     });
 
     getCampaignCards().forEach(card => {
-      refreshStructuredEditors(card, data.campaigns?.[card.dataset.campaign] || {});
+      hydrateCardPreview(card, {
+        campaignData: data.campaigns?.[card.dataset.campaign] || {},
+        allData: data,
+      });
     });
 
-    normalizeEditableButtons();
-    bindPreviewButtonLinks();
     updateSummary();
   }
 
@@ -3093,6 +3085,14 @@
       const key = el.dataset.titleKey;
       const html = el.innerHTML.trim();
       if (html && html !== '<br>') titleChanges[key] = html;
+    });
+
+    document.querySelectorAll('.after .msg[data-title-key]').forEach(msgEl => {
+      const key = msgEl.dataset.titleKey;
+      const card = msgEl.closest('.campaign-card');
+      const state = serializePreviewMessage(card, msgEl);
+      const html = composeMessageHtml(state.bodyHtml, state.buttons);
+      if (key && html && html !== '<br>') titleChanges[key] = html;
     });
 
     const campaigns = {};
@@ -3106,28 +3106,19 @@
         content: {},
       };
 
-      getCampaignMessages(card).forEach((el, idx) => {
-        const editor = card.querySelector(`.message-editor[data-msg-index="${idx}"]`);
-        if (editor) {
-          const state = getStructuredEditorState(editor);
-          campaignChanges.content[idx] = {
-            bodyHtml: state.bodyHtml,
-            buttons: state.buttons,
-          };
-          campaignChanges.messages[idx] = composeMessageHtml(state.bodyHtml, state.buttons);
-          state.buttons.forEach((btn, buttonIdx) => {
-            campaignChanges.urls[Object.keys(campaignChanges.urls).length] = btn.url || '';
-          });
-        } else {
-          campaignChanges.messages[idx] = el.innerHTML;
-        }
-      });
-
-      if (!Object.keys(campaignChanges.urls).length) {
-        getCampaignUrlInputs(card).forEach((el, idx) => {
-          campaignChanges.urls[idx] = el.value;
+      let urlIndex = 0;
+      getCampaignMessages(card).forEach((msgEl, idx) => {
+        const state = serializePreviewMessage(card, msgEl);
+        campaignChanges.content[idx] = {
+          bodyHtml: state.bodyHtml,
+          buttons: state.buttons,
+        };
+        campaignChanges.messages[idx] = composeMessageHtml(state.bodyHtml, state.buttons);
+        state.buttons.forEach(btn => {
+          campaignChanges.urls[urlIndex] = btn.url || '';
+          urlIndex += 1;
         });
-      }
+      });
 
       const selected = card.querySelector('.decision-btn.selected');
       if (selected?.classList.contains('adopt')) campaignChanges.decision = 'adopt';
@@ -3145,18 +3136,24 @@
   }
 
   function appendCharacterCounters() {
-    document.querySelectorAll('.message-editor-body[contenteditable="true"]').forEach(msg => {
-      if (msg.parentNode.querySelector('.char-counter')) return;
-      const counter = document.createElement('div');
-      counter.className = 'char-counter';
-      msg.parentNode.insertBefore(counter, msg.nextSibling);
+    document.querySelectorAll('.after .msg .msg-body[contenteditable="true"]').forEach(body => {
+      const msg = body.closest('.msg');
+      if (!msg) return;
+      let counter = msg.querySelector('.char-counter');
+      if (!counter) {
+        counter = document.createElement('div');
+        counter.className = 'char-counter';
+        msg.appendChild(counter);
+      }
       const update = () => {
-        const len = msg.innerText.replace(/\n/g, '').length;
+        const len = body.innerText.replace(/\n/g, '').length;
         counter.textContent = len + ' / 1,000자';
         counter.classList.toggle('over', len > 1000);
       };
       update();
-      msg.addEventListener('input', update);
+      if (body.dataset.counterBound === '1') return;
+      body.dataset.counterBound = '1';
+      body.addEventListener('input', update);
     });
   }
 
@@ -3172,9 +3169,9 @@
 
     ensureCampaignList();
     markLegacyIndices();
-    initStructuredEditors();
+
     document.querySelectorAll('.edit-hint').forEach(el => {
-      el.textContent = '✏️ 위 편집 양식에서 수정하면 아래 미리보기에 바로 반영됩니다';
+      el.textContent = '✏️ 알림톡 미리보기 안에서 바로 수정하고, URL은 아래에서 입력하세요';
     });
 
     document.querySelectorAll('.product-tab-content').forEach(function(el) {
@@ -3189,36 +3186,20 @@
       });
     });
 
-    document.querySelectorAll('[contenteditable="true"], input, .before-url-box, .decision-bar').forEach(el => {
-      el.addEventListener('click', e => e.stopPropagation());
+    getCampaignCards().forEach(card => {
+      setupHeaderEditing(card);
+      hydrateCardPreview(card);
     });
-
-    const titleEditables = Array.from(document.querySelectorAll('[data-title-key]'));
-    const editables = getCampaignCards().flatMap(card => getCampaignMessages(card));
-    const urlInputs = getCampaignCards().flatMap(card => getCampaignUrlInputs(card));
-
-    getCampaignCards().forEach(card => setupHeaderEditing(card));
     initCampaignSort();
 
-    editables.forEach(el => {
-      const card = el.closest('.campaign-card');
-      const idx = el.dataset.campaignFieldIndex;
-      el.addEventListener('input', () => {
-        const html = el.innerHTML.trim();
-        if (html && html !== '<br>') localStorage.setItem(getCampaignLocalKey(card.dataset.campaign, `msg_${idx}`), html);
-        pulseSavedOutline(el, '#22c55e');
-      });
-    });
-
-    urlInputs.forEach(el => {
-      const card = el.closest('.campaign-card');
-      const idx = el.dataset.campaignFieldIndex;
-      el.addEventListener('input', () => {
-        localStorage.setItem(getCampaignLocalKey(card.dataset.campaign, `url_${idx}`), el.value);
-      });
-    });
-
+    const titleEditables = Array.from(document.querySelectorAll('.alimtalk-subtitle[data-title-key], .alimtalk-title[data-title-key]'));
     titleEditables.forEach(el => {
+      stopInlinePropagation(el);
+      el.addEventListener('paste', e => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        insertPlainText(text);
+      });
       el.addEventListener('input', () => {
         const key = el.dataset.titleKey;
         const html = el.innerHTML.trim();
@@ -3228,7 +3209,6 @@
     });
 
     loadTeamData(titleEditables);
-    bindPreviewButtonLinks();
 
     document.querySelectorAll('input[id^=modify-campaign]').forEach(cb => {
       const campaignId = cb.id.replace('modify-', '');
