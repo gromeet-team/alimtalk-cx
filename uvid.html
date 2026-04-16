@@ -62,6 +62,11 @@
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
+  #campaign-list { display: flex; flex-direction: column; }
+  .campaign-card.dragging {
+    opacity: 0.55;
+    box-shadow: 0 18px 36px rgba(45,66,112,0.18);
+  }
   .campaign-header {
     display: flex;
     align-items: center;
@@ -73,7 +78,14 @@
     user-select: none;
   }
   .campaign-header:hover { background: #f0f2f7; }
-  .campaign-header .left { display: flex; align-items: center; gap: 12px; }
+  .campaign-header .left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    flex-wrap: wrap;
+  }
   .campaign-header .num-badge {
     width: 32px; height: 32px;
     background: #4A6FA5;
@@ -89,6 +101,41 @@
     background: #f0f2f7;
     padding: 4px 12px;
     border-radius: 20px;
+  }
+  .drag-handle {
+    border: none;
+    background: #e2e8f0;
+    color: #64748b;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    cursor: grab;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  .drag-handle:active { cursor: grabbing; }
+  .header-editable {
+    cursor: text;
+    border-radius: 8px;
+    padding: 2px 6px;
+    transition: background 0.2s, outline-color 0.2s;
+  }
+  .header-editable:hover { background: rgba(255,255,255,0.65); }
+  .header-editable:focus {
+    outline: 2px solid rgba(74,111,165,0.35);
+    background: white;
+  }
+  .campaign-header .name.header-editable {
+    max-width: min(340px, 100%);
+    word-break: keep-all;
+  }
+  .campaign-header .timing.header-editable {
+    min-width: 92px;
+    text-align: center;
   }
   .campaign-header .arrow {
     font-size: 20px;
@@ -2191,24 +2238,146 @@
 </div>
 
 <script>
-  // Decision tracking
+  const BRAND = "uvid";
+  const DATA_VERSION = "2026-04-16-v9";
+  const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
   const decisions = {};
+  let draggedCampaignCard = null;
 
-  function decide(campaignId, type) {
+  function getCampaignLocalKey(campaignId, field) {
+    return `alimtalk_${BRAND}_campaign_${campaignId}_${field}`;
+  }
+
+  function getCampaignOrderLocalKey() {
+    return `alimtalk_${BRAND}_campaign_order`;
+  }
+
+  function getCampaignList() {
+    return document.getElementById('campaign-list');
+  }
+
+  function ensureCampaignList() {
+    let list = getCampaignList();
+    if (list) return list;
+    const firstCard = document.querySelector('.campaign-card');
+    if (!firstCard) return null;
+    list = document.createElement('div');
+    list.id = 'campaign-list';
+    firstCard.parentNode.insertBefore(list, firstCard);
+    Array.from(document.querySelectorAll('.campaign-card')).forEach(card => list.appendChild(card));
+    return list;
+  }
+
+  function getCampaignCards() {
+    const list = getCampaignList();
+    return Array.from((list || document).querySelectorAll('.campaign-card'));
+  }
+
+  function getCampaignMessages(card) {
+    return Array.from(card.querySelectorAll('.after .msg[contenteditable="true"]'));
+  }
+
+  function getCampaignUrlInputs(card) {
+    return Array.from(card.querySelectorAll('.after-url-box .url-input'));
+  }
+
+  function getCampaignNameEl(card) {
+    return card.querySelector('.campaign-header .name');
+  }
+
+  function getCampaignTimingEl(card) {
+    return card.querySelector('.campaign-header .timing');
+  }
+
+  function getSanitizedInlineText(el) {
+    return (el?.innerText || el?.textContent || '').replace(/\s*\n+\s*/g, ' ').replace(/\s{2,}/g, ' ').trim();
+  }
+
+  function pulseSavedOutline(el, color) {
+    if (!el) return;
+    el.style.outline = `2px solid ${color}`;
+    clearTimeout(el._saveTimer);
+    el._saveTimer = setTimeout(() => { el.style.outline = ''; }, 800);
+  }
+
+  function markLegacyIndices() {
+    getCampaignCards().forEach((card, idx) => {
+      card.dataset.legacyDecisionIndex = String(idx);
+      getCampaignMessages(card).forEach((el, msgIdx) => {
+        el.dataset.campaignFieldIndex = String(msgIdx);
+      });
+      getCampaignUrlInputs(card).forEach((el, urlIdx) => {
+        el.dataset.campaignFieldIndex = String(urlIdx);
+      });
+    });
+
+    document.querySelectorAll('.after .msg[contenteditable="true"]').forEach((el, idx) => {
+      el.dataset.legacyMsgIndex = String(idx);
+    });
+    document.querySelectorAll('.after-url-box .url-input').forEach((el, idx) => {
+      el.dataset.legacyUrlIndex = String(idx);
+    });
+  }
+
+  function loadCampaignOrderFromLocal() {
+    try {
+      const raw = localStorage.getItem(getCampaignOrderLocalKey());
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function getCurrentCampaignOrder() {
+    return getCampaignCards().map(card => card.dataset.campaign).filter(Boolean);
+  }
+
+  function saveCampaignOrderToLocal() {
+    localStorage.setItem(getCampaignOrderLocalKey(), JSON.stringify(getCurrentCampaignOrder()));
+  }
+
+  function applyCampaignOrder(order) {
+    if (!Array.isArray(order) || order.length === 0) return;
+    const list = ensureCampaignList();
+    if (!list) return;
+
+    const cards = Array.from(list.querySelectorAll('.campaign-card'));
+    const cardMap = new Map(cards.map(card => [card.dataset.campaign, card]));
+
+    order.forEach(id => {
+      const card = cardMap.get(id);
+      if (card) list.appendChild(card);
+    });
+
+    cards.forEach(card => {
+      if (!order.includes(card.dataset.campaign)) list.appendChild(card);
+    });
+  }
+
+  function setDecisionState(card, type) {
+    if (!card || !type) return;
+
+    const campaignId = card.dataset.campaign;
     decisions[campaignId] = type;
-    const card = document.querySelector(`[data-campaign="${campaignId}"]`);
-    if (!card) return;
+    localStorage.setItem(getCampaignLocalKey(campaignId, 'decision'), type);
 
     card.classList.remove('decided-adopt', 'decided-modify', 'decided-skip');
     card.classList.add('decided-' + type);
 
-    // Update buttons
-    card.querySelectorAll('.decision-btn').forEach(b => b.classList.remove('selected'));
-    card.querySelector(`.decision-btn.${type}`).classList.add('selected');
+    card.querySelectorAll('.decision-btn').forEach(btn => btn.classList.remove('selected'));
+    const selectedBtn = card.querySelector(`.decision-btn.${type}`);
+    if (selectedBtn) selectedBtn.classList.add('selected');
+  }
 
-    // If modify, focus the editable area
+  function decide(campaignId, type) {
+    const card = document.querySelector(`[data-campaign="${campaignId}"]`);
+    if (!card) return;
+
+    setDecisionState(card, type);
+
     if (type === 'modify') {
-      const editable = card.querySelector('[contenteditable]');
+      const editable = card.querySelector('.after [contenteditable]');
       if (editable) editable.focus();
     }
 
@@ -2223,6 +2392,8 @@
     const total = adopt + modify + skip;
 
     const bar = document.getElementById('decision-summary');
+    if (!bar) return;
+
     if (total > 0) {
       bar.classList.remove('hidden');
       document.getElementById('count-adopt').textContent = adopt;
@@ -2237,9 +2408,9 @@
     let result = '# 알림톡 CX 개선안 — 채택 결과\n\n';
     result += `날짜: ${new Date().toLocaleDateString('ko-KR')}\n\n`;
 
-    document.querySelectorAll('[data-campaign]').forEach(card => {
+    getCampaignCards().forEach(card => {
       const id = card.dataset.campaign;
-      const name = card.querySelector('.name')?.textContent || id;
+      const name = getSanitizedInlineText(getCampaignNameEl(card)) || id;
       const status = decisions[id] || '미결정';
       const statusEmoji = status === 'adopt' ? '✅' : status === 'modify' ? '✏️' : status === 'skip' ? '⏭️' : '⬜';
 
@@ -2254,15 +2425,14 @@
       result += '\n';
     });
 
-    // Copy to clipboard
     navigator.clipboard.writeText(result).then(() => {
       const btn = document.querySelector('.export-btn');
+      if (!btn) return;
       btn.textContent = '✓ 복사됨!';
       setTimeout(() => btn.textContent = '📋 결과 복사', 2000);
     });
   }
 
-  // 수정 필요 토글
   function applyTabVisibility(card) {
     card.querySelectorAll('.product-tab-content').forEach(function(el) {
       if (el.classList.contains('active')) {
@@ -2287,33 +2457,12 @@
     if (t) { t.classList.add('active'); t.style.setProperty('display', 'block', 'important'); }
   }
 
-  // 탭 초기 상태 강제 적용 + 카드 열릴 때마다 재적용
-  document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.product-tab-content').forEach(function(el) {
-      if (el.classList.contains('active')) {
-        el.style.setProperty('display', 'block', 'important');
-      } else {
-        el.style.setProperty('display', 'none', 'important');
-      }
-    });
-    // 캠페인 카드 토글 시 탭 상태 재적용
-    document.querySelectorAll('.campaign-header').forEach(function(header) {
-      header.addEventListener('click', function() {
-        var card = this.closest('.campaign-card');
-        setTimeout(function() { applyTabVisibility(card); }, 10);
-      });
-    });
-  });
-
   function toggleModify(campaignId, checkbox, event) {
     event.stopPropagation();
     const card = document.querySelector('[data-campaign="' + campaignId + '"]');
-    if (checkbox.checked) {
-      card.classList.add('needs-modify');
-    } else {
-      card.classList.remove('needs-modify');
-    }
-    // localStorage에 토글 상태 저장
+    if (!card) return;
+    if (checkbox.checked) card.classList.add('needs-modify');
+    else card.classList.remove('needs-modify');
     localStorage.setItem(`alimtalk_uvid_modify_${campaignId}`, checkbox.checked ? '1' : '0');
     updateModifyCount();
   }
@@ -2322,23 +2471,295 @@
     const total = document.querySelectorAll('.campaign-card').length;
     const needsModify = document.querySelectorAll('.campaign-card.needs-modify').length;
     const bar = document.getElementById('modify-count-bar');
-    if (bar) {
-      if (needsModify > 0) {
-        bar.textContent = '⚠️ 수정 필요: ' + needsModify + '개 / 전체 ' + total + '개 캠페인';
-        bar.classList.add('visible');
-      } else {
-        bar.classList.remove('visible');
-      }
+    if (!bar) return;
+
+    if (needsModify > 0) {
+      bar.textContent = '⚠️ 수정 필요: ' + needsModify + '개 / 전체 ' + total + '개 캠페인';
+      bar.classList.add('visible');
+    } else {
+      bar.classList.remove('visible');
     }
   }
 
-  // 알림톡 편집 저장 시스템 (localStorage 즉시 + 팀 공유 버튼)
-  const BRAND = "uvid";
-  const DATA_VERSION = "2026-04-16-v8";
-  const API_BASE = "https://hyunvis.vercel.app/api/alimtalk-save";
+  function normalizeBtnText(text) {
+    return (text || '').replace(/\s+/g, '').trim();
+  }
+
+  function findMappedUrl(card, labelText) {
+    if (!card || !labelText) return '';
+    const targetLabel = normalizeBtnText(labelText);
+    const rows = Array.from(card.querySelectorAll('.after-url-box .url-row'));
+    const matchedRow = rows.find(row => {
+      const label = row.querySelector('.url-btn-label');
+      return normalizeBtnText(label?.textContent) === targetLabel;
+    });
+    return matchedRow?.querySelector('.url-input')?.value?.trim() || '';
+  }
+
+  function openMappedUrl(card, labelText) {
+    const url = findMappedUrl(card, labelText);
+    if (!url) return;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
+  function normalizeEditableButtons() {
+    document.querySelectorAll('.after .msg[contenteditable="true"] .btn').forEach(btn => {
+      btn.removeAttribute('contenteditable');
+      btn.removeAttribute('data-link-bound');
+      btn.style.cursor = 'text';
+    });
+  }
+
+  function bindPreviewButtonLinks() {
+    normalizeEditableButtons();
+    document.querySelectorAll('.after-url-box .url-btn-label').forEach(label => {
+      label.classList.add('linkable');
+      if (label.dataset.linkBound === '1') return;
+      label.dataset.linkBound = '1';
+      label.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openMappedUrl(label.closest('.campaign-card'), label.textContent);
+      });
+    });
+  }
+
+  function setupHeaderEditing(card) {
+    const editableConfig = [
+      { el: getCampaignNameEl(card), field: 'header_name', color: '#4A6FA5' },
+      { el: getCampaignTimingEl(card), field: 'timing', color: '#4A6FA5' },
+    ];
+
+    editableConfig.forEach(({ el, field, color }) => {
+      if (!el) return;
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('spellcheck', 'false');
+      el.classList.add('header-editable');
+
+      ['click', 'mousedown', 'mouseup', 'focus'].forEach(evt => {
+        el.addEventListener(evt, e => e.stopPropagation());
+      });
+
+      el.addEventListener('keydown', e => {
+        e.stopPropagation();
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          el.blur();
+        }
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          el.blur();
+        }
+      });
+
+      el.addEventListener('paste', e => {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text');
+        document.execCommand('insertText', false, text);
+      });
+
+      el.addEventListener('input', () => {
+        localStorage.setItem(getCampaignLocalKey(card.dataset.campaign, field), getSanitizedInlineText(el));
+        pulseSavedOutline(el, color);
+      });
+
+      el.addEventListener('blur', () => {
+        const clean = getSanitizedInlineText(el);
+        el.textContent = clean;
+        if (clean) localStorage.setItem(getCampaignLocalKey(card.dataset.campaign, field), clean);
+      });
+    });
+  }
+
+  function createDragHandle(card) {
+    const left = card.querySelector('.campaign-header .left');
+    if (!left) return null;
+    const existing = left.querySelector('.drag-handle');
+    if (existing) return existing;
+
+    const handle = document.createElement('button');
+    handle.type = 'button';
+    handle.className = 'drag-handle';
+    handle.draggable = true;
+    handle.title = '드래그해서 카드 순서를 변경하세요';
+    handle.setAttribute('aria-label', '드래그해서 카드 순서를 변경하세요');
+    handle.innerHTML = '⋮⋮';
+    handle.addEventListener('click', e => e.stopPropagation());
+    handle.addEventListener('mousedown', e => e.stopPropagation());
+    left.insertBefore(handle, left.firstChild);
+    return handle;
+  }
+
+  function getDragAfterElement(container, clientY) {
+    const visibleCards = Array.from(container.querySelectorAll('.campaign-card:not(.dragging)')).filter(card => card.offsetParent !== null);
+    return visibleCards.reduce((closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = clientY - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return { offset, element: child };
+      }
+      return closest;
+    }, { offset: Number.NEGATIVE_INFINITY }).element;
+  }
+
+  function initCampaignSort() {
+    const list = ensureCampaignList();
+    if (!list) return;
+
+    getCampaignCards().forEach(card => {
+      const handle = createDragHandle(card);
+      if (!handle) return;
+
+      handle.addEventListener('dragstart', e => {
+        draggedCampaignCard = card;
+        card.classList.add('dragging');
+        if (e.dataTransfer) {
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', card.dataset.campaign || '');
+        }
+      });
+
+      handle.addEventListener('dragend', () => {
+        if (!draggedCampaignCard) return;
+        draggedCampaignCard.classList.remove('dragging');
+        draggedCampaignCard = null;
+        saveCampaignOrderToLocal();
+      });
+    });
+
+    list.addEventListener('dragover', e => {
+      if (!draggedCampaignCard) return;
+      e.preventDefault();
+      const afterElement = getDragAfterElement(list, e.clientY);
+      if (!afterElement) list.appendChild(draggedCampaignCard);
+      else if (afterElement !== draggedCampaignCard) list.insertBefore(draggedCampaignCard, afterElement);
+    });
+
+    list.addEventListener('drop', e => {
+      if (!draggedCampaignCard) return;
+      e.preventDefault();
+      saveCampaignOrderToLocal();
+    });
+  }
+
+  async function loadTeamData(titleEditables) {
+    let data = {};
+    try {
+      const res = await fetch(`${API_BASE}?brand=${BRAND}`, { cache: 'no-store' });
+      if (res.ok) data = await res.json();
+    } catch {
+      data = {};
+    }
+
+    const savedOrder = Array.isArray(data.campaignOrder) && data.campaignOrder.length
+      ? data.campaignOrder
+      : loadCampaignOrderFromLocal();
+    if (savedOrder.length) applyCampaignOrder(savedOrder);
+
+    getCampaignCards().forEach(card => {
+      const campaignId = card.dataset.campaign;
+      const campaignData = data.campaigns?.[campaignId] || {};
+
+      const nameEl = getCampaignNameEl(card);
+      const timingEl = getCampaignTimingEl(card);
+      const localName = localStorage.getItem(getCampaignLocalKey(campaignId, 'header_name'));
+      const localTiming = localStorage.getItem(getCampaignLocalKey(campaignId, 'timing'));
+
+      if (nameEl) nameEl.textContent = localName || campaignData.headerName || nameEl.textContent.trim();
+      if (timingEl) timingEl.textContent = localTiming || campaignData.timing || timingEl.textContent.trim();
+
+      getCampaignMessages(card).forEach((el, idx) => {
+        const local = localStorage.getItem(getCampaignLocalKey(campaignId, `msg_${idx}`));
+        const campaignValue = campaignData.messages?.[idx];
+        const legacyValue = data[`ce_${el.dataset.legacyMsgIndex}`];
+        const nextValue = local || campaignValue || legacyValue;
+        if (nextValue && nextValue.trim() && nextValue.trim() !== '<br>') el.innerHTML = nextValue;
+      });
+
+      getCampaignUrlInputs(card).forEach((el, idx) => {
+        const local = localStorage.getItem(getCampaignLocalKey(campaignId, `url_${idx}`));
+        const campaignValue = campaignData.urls?.[idx];
+        const legacyValue = data[`url_${el.dataset.legacyUrlIndex}`];
+        const nextValue = local || campaignValue || legacyValue;
+        if (typeof nextValue === 'string' && nextValue.length > 0) el.value = nextValue;
+      });
+
+      const localDecision = localStorage.getItem(getCampaignLocalKey(campaignId, 'decision'));
+      const savedDecision = localDecision || campaignData.decision || data[`dec_${card.dataset.legacyDecisionIndex}`];
+      if (savedDecision) setDecisionState(card, savedDecision);
+    });
+
+    titleEditables.forEach(el => {
+      const key = el.dataset.titleKey;
+      const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
+      const team = data.titles?.[key];
+      if (local) el.innerHTML = local;
+      else if (team) el.innerHTML = team;
+    });
+
+    normalizeEditableButtons();
+    bindPreviewButtonLinks();
+    updateSummary();
+  }
+
+  function buildShareChanges(titleEditables) {
+    const titleChanges = {};
+    titleEditables.forEach(el => {
+      const key = el.dataset.titleKey;
+      const html = el.innerHTML.trim();
+      if (html && html !== '<br>') titleChanges[key] = html;
+    });
+
+    const campaigns = {};
+    getCampaignCards().forEach(card => {
+      const campaignId = card.dataset.campaign;
+      const campaignChanges = {
+        headerName: getSanitizedInlineText(getCampaignNameEl(card)),
+        timing: getSanitizedInlineText(getCampaignTimingEl(card)),
+        messages: {},
+        urls: {},
+      };
+
+      getCampaignMessages(card).forEach((el, idx) => {
+        campaignChanges.messages[idx] = el.innerHTML;
+      });
+
+      getCampaignUrlInputs(card).forEach((el, idx) => {
+        campaignChanges.urls[idx] = el.value;
+      });
+
+      const selected = card.querySelector('.decision-btn.selected');
+      if (selected?.classList.contains('adopt')) campaignChanges.decision = 'adopt';
+      if (selected?.classList.contains('modify')) campaignChanges.decision = 'modify';
+      if (selected?.classList.contains('skip')) campaignChanges.decision = 'skip';
+
+      campaigns[campaignId] = campaignChanges;
+    });
+
+    return {
+      campaignOrder: getCurrentCampaignOrder(),
+      campaigns,
+      titles: titleChanges,
+    };
+  }
+
+  function appendCharacterCounters() {
+    document.querySelectorAll('.msg[contenteditable="true"]').forEach(msg => {
+      if (msg.parentNode.querySelector('.char-counter')) return;
+      const counter = document.createElement('div');
+      counter.className = 'char-counter';
+      msg.parentNode.insertBefore(counter, msg.nextSibling);
+      const update = () => {
+        const len = msg.innerText.replace(/\n/g, '').length;
+        counter.textContent = len + ' / 1,000자';
+        counter.classList.toggle('over', len > 1000);
+      };
+      update();
+      msg.addEventListener('input', update);
+    });
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // 버전 변경 시 localStorage 초기화 (오염 데이터 제거)
     if (localStorage.getItem(`alimtalk_${BRAND}_data_version`) !== DATA_VERSION) {
       const keysToRemove = [];
       for (let k in localStorage) {
@@ -2347,159 +2768,69 @@
       keysToRemove.forEach(k => localStorage.removeItem(k));
       localStorage.setItem(`alimtalk_${BRAND}_data_version`, DATA_VERSION);
     }
-    // 클릭 이벤트 전파 차단
+
+    ensureCampaignList();
+    markLegacyIndices();
+
+    document.querySelectorAll('.product-tab-content').forEach(function(el) {
+      if (el.classList.contains('active')) el.style.setProperty('display', 'block', 'important');
+      else el.style.setProperty('display', 'none', 'important');
+    });
+
+    document.querySelectorAll('.campaign-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var card = this.closest('.campaign-card');
+        setTimeout(function() { applyTabVisibility(card); }, 10);
+      });
+    });
+
     document.querySelectorAll('[contenteditable="true"], input, .before-url-box, .decision-bar').forEach(el => {
       el.addEventListener('click', e => e.stopPropagation());
     });
 
-    const editables = document.querySelectorAll('[contenteditable="true"]:not([data-title-key])');
-    const urlInputs = document.querySelectorAll('.url-input');
-    const titleEditables = document.querySelectorAll('[data-title-key]');
+    const titleEditables = Array.from(document.querySelectorAll('[data-title-key]'));
+    const editables = getCampaignCards().flatMap(card => getCampaignMessages(card));
+    const urlInputs = getCampaignCards().flatMap(card => getCampaignUrlInputs(card));
 
-    // GitHub에서 팀 공유 데이터 로드 (최신 버전)
-    async function loadTeamData() {
-      try {
-        const res = await fetch(`${API_BASE}?brand=${BRAND}`, { cache: 'no-store' });
-        if (!res.ok) return;
-        const data = await res.json();
-        editables.forEach((el, idx) => {
-          const key = `ce_${idx}`;
-          if (data[key]) el.innerHTML = data[key];
-          else {
-            // localStorage fallback
-            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (local && local.trim() && local.trim() !== '<br>') el.innerHTML = local;
-          }
-        });
-        urlInputs.forEach((el, idx) => {
-          const key = `url_${idx}`;
-          if (data[key]) el.value = data[key];
-          else {
-            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (local) el.value = local;
-          }
-        });
-        titleEditables.forEach(el => {
-          const key = el.dataset.titleKey;
-          if (data.titles && data.titles[key]) {
-            const local = localStorage.getItem(`alimtalk_${BRAND}_${key}`);
-            if (!local) el.innerHTML = data.titles[key];
-          }
-        });
-        titleEditables.forEach(el => {
-          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
-          if (s) el.innerHTML = s;
-        });
-        document.querySelectorAll(".campaign-card").forEach((card, idx) => {
-          const decVal = data["dec_" + idx];
-          if (decVal) {
-            const btn = card.querySelector(".decision-btn." + decVal);
-            if (btn) { btn.classList.add("selected"); card.classList.add("decided-" + decVal); }
-          }
-        });
-        normalizeEditableButtons();
-        bindPreviewButtonLinks();
-      } catch {
-        // 네트워크 오류 시 localStorage 사용
-        editables.forEach((el, idx) => {
-          const s = localStorage.getItem(`alimtalk_${BRAND}_ce_${idx}`);
-          if (s) el.innerHTML = s;
-        });
-        urlInputs.forEach((el, idx) => {
-          const s = localStorage.getItem(`alimtalk_${BRAND}_url_${idx}`);
-          if (s) el.value = s;
-        });
-        titleEditables.forEach(el => {
-          const s = localStorage.getItem(`alimtalk_${BRAND}_${el.dataset.titleKey}`);
-          if (s) el.innerHTML = s;
-        });
-        normalizeEditableButtons();
-        bindPreviewButtonLinks();
-      }
-    }
+    getCampaignCards().forEach(card => setupHeaderEditing(card));
+    initCampaignSort();
 
-    loadTeamData();
+    editables.forEach(el => {
+      const card = el.closest('.campaign-card');
+      const idx = el.dataset.campaignFieldIndex;
+      el.addEventListener('input', () => {
+        const html = el.innerHTML.trim();
+        if (html && html !== '<br>') localStorage.setItem(getCampaignLocalKey(card.dataset.campaign, `msg_${idx}`), html);
+        pulseSavedOutline(el, '#22c55e');
+      });
+    });
 
-    // 수정필요 토글 상태 복원 (localStorage)
-    document.querySelectorAll("input[id^=modify-campaign]").forEach(cb => {
+    urlInputs.forEach(el => {
+      const card = el.closest('.campaign-card');
+      const idx = el.dataset.campaignFieldIndex;
+      el.addEventListener('input', () => {
+        localStorage.setItem(getCampaignLocalKey(card.dataset.campaign, `url_${idx}`), el.value);
+      });
+    });
+
+    titleEditables.forEach(el => {
+      el.addEventListener('input', () => {
+        const key = el.dataset.titleKey;
+        const html = el.innerHTML.trim();
+        if (html && html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_${key}`, html);
+        pulseSavedOutline(el, '#4A6FA5');
+      });
+    });
+
+    loadTeamData(titleEditables);
+    bindPreviewButtonLinks();
+
+    document.querySelectorAll('input[id^=modify-campaign]').forEach(cb => {
       const campaignId = cb.id.replace('modify-', '');
       const saved = localStorage.getItem(`alimtalk_uvid_modify_${campaignId}`);
       if (saved === '1' && !cb.checked) cb.click();
     });
 
-    // 타이핑할 때마다 localStorage에 즉시 저장
-    editables.forEach((el, idx) => {
-      el.addEventListener('input', () => {
-        const _html = el.innerHTML.trim(); if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_ce_${idx}`, _html);
-        el.style.outline = "2px solid #22c55e";
-        clearTimeout(el._saveTimer);
-        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
-      });
-    });
-    urlInputs.forEach((el, idx) => {
-      el.addEventListener('input', () => {
-        localStorage.setItem(`alimtalk_${BRAND}_url_${idx}`, el.value);
-      });
-    });
-    titleEditables.forEach(el => {
-      el.addEventListener('input', () => {
-        const key = el.dataset.titleKey;
-        const _html = el.innerHTML.trim();
-        if (_html && _html !== '<br>') localStorage.setItem(`alimtalk_${BRAND}_${key}`, _html);
-        el.style.outline = "2px solid #4A6FA5";
-        clearTimeout(el._saveTimer);
-        el._saveTimer = setTimeout(() => { el.style.outline = ""; }, 800);
-      });
-    });
-
-    // 미리보기 버튼/랜딩 라벨 클릭 시 연결된 랜딩페이지 열기
-    function normalizeBtnText(text) {
-      return (text || '').replace(/\s+/g, '').trim();
-    }
-
-    function findMappedUrl(card, labelText) {
-      if (!card || !labelText) return '';
-      const targetLabel = normalizeBtnText(labelText);
-      const rows = Array.from(card.querySelectorAll('.after-url-box .url-row'));
-      const matchedRow = rows.find(row => {
-        const label = row.querySelector('.url-btn-label');
-        return normalizeBtnText(label?.textContent) === targetLabel;
-      });
-      return matchedRow?.querySelector('.url-input')?.value?.trim() || '';
-    }
-
-    function openMappedUrl(card, labelText) {
-      const url = findMappedUrl(card, labelText);
-      if (!url) return;
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-
-    function normalizeEditableButtons() {
-      document.querySelectorAll('.after .msg[contenteditable="true"] .btn').forEach(btn => {
-        btn.removeAttribute('contenteditable');
-        btn.removeAttribute('data-link-bound');
-        btn.style.cursor = 'text';
-      });
-    }
-
-    function bindPreviewButtonLinks() {
-      normalizeEditableButtons();
-
-      document.querySelectorAll('.after-url-box .url-btn-label').forEach(label => {
-        label.classList.add('linkable');
-        if (label.dataset.linkBound === '1') return;
-        label.dataset.linkBound = '1';
-        label.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          openMappedUrl(label.closest('.campaign-card'), label.textContent);
-        });
-      });
-    }
-
-    bindPreviewButtonLinks();
-
-    // 팀 공유 버튼 생성
     const shareBtn = document.createElement('button');
     shareBtn.id = 'team-share-btn';
     shareBtn.textContent = '팀 공유 저장';
@@ -2517,25 +2848,9 @@
       shareBtn.disabled = true;
       shareBtn.textContent = '저장 중...';
       shareBtn.style.background = '#9ca3af';
+      saveCampaignOrderToLocal();
 
-      const changes = {};
-      editables.forEach((el, idx) => { changes[`ce_${idx}`] = el.innerHTML; });
-      urlInputs.forEach((el, idx) => { changes[`url_${idx}`] = el.value; });
-      const titleChanges = {};
-      titleEditables.forEach(el => {
-        const key = el.dataset.titleKey;
-        const _html = el.innerHTML.trim();
-        if (_html && _html !== '<br>') titleChanges[key] = _html;
-      });
-      if (Object.keys(titleChanges).length > 0) changes.titles = titleChanges;
-      document.querySelectorAll(".campaign-card").forEach((card, idx) => {
-        const sel = card.querySelector(".decision-btn.selected");
-        if (sel) {
-          if (sel.classList.contains("adopt")) changes["dec_" + idx] = "adopt";
-          else if (sel.classList.contains("modify")) changes["dec_" + idx] = "modify";
-          else if (sel.classList.contains("skip")) changes["dec_" + idx] = "skip";
-        }
-      });
+      const changes = buildShareChanges(titleEditables);
 
       try {
         const res = await fetch(API_BASE, {
@@ -2543,16 +2858,15 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ brand: BRAND, changes }),
         });
-        if (res.ok) {
-          shareBtn.textContent = '✅ 저장 완료!';
-          shareBtn.style.background = '#22c55e';
-          setTimeout(() => {
-            shareBtn.textContent = '팀 공유 저장';
-            shareBtn.disabled = false;
-          }, 2000);
-        } else {
-          throw new Error('save failed');
-        }
+
+        if (!res.ok) throw new Error('save failed');
+
+        shareBtn.textContent = '✅ 저장 완료!';
+        shareBtn.style.background = '#22c55e';
+        setTimeout(() => {
+          shareBtn.textContent = '팀 공유 저장';
+          shareBtn.disabled = false;
+        }, 2000);
       } catch {
         shareBtn.textContent = '❌ 저장 실패';
         shareBtn.style.background = '#ef4444';
@@ -2564,50 +2878,37 @@
       }
     });
 
-    // 글자수 카운터
-    document.querySelectorAll('.msg[contenteditable="true"]').forEach(msg => {
-      const counter = document.createElement('div');
-      counter.className = 'char-counter';
-      msg.parentNode.insertBefore(counter, msg.nextSibling);
-      const update = () => {
-        const len = msg.innerText.replace(/\n/g, '').length;
-        counter.textContent = len + ' / 1,000자';
-        counter.classList.toggle('over', len > 1000);
-      };
-      update();
-      msg.addEventListener('input', update);
-    });
-
+    appendCharacterCounters();
     document.body.appendChild(shareBtn);
   });
 
   function toggleAllCards() {
-    const cards = document.querySelectorAll(".campaign-card");
-    const btn = document.getElementById("toggle-all-btn");
-    const anyOpen = Array.from(cards).some(c => c.classList.contains("open"));
+    const cards = document.querySelectorAll('.campaign-card');
+    const btn = document.getElementById('toggle-all-btn');
+    const anyOpen = Array.from(cards).some(c => c.classList.contains('open'));
     cards.forEach(c => {
-      if (anyOpen) c.classList.remove("open");
-      else c.classList.add("open");
+      if (anyOpen) c.classList.remove('open');
+      else c.classList.add('open');
     });
-    btn.textContent = anyOpen ? "▼ 캠페인 전체 펼치기" : "▲ 전체 접기";
+    if (btn) btn.textContent = anyOpen ? '▼ 캠페인 전체 펼치기' : '▲ 전체 접기';
   }
 
   function toggleAllModify() {
-    const checkboxes = document.querySelectorAll("input[id^=modify-campaign]");
+    const checkboxes = document.querySelectorAll('input[id^=modify-campaign]');
     const allOn = Array.from(checkboxes).every(cb => cb.checked);
     checkboxes.forEach(cb => {
       if (allOn && cb.checked) cb.click();
       else if (!allOn && !cb.checked) cb.click();
     });
     const newState = !allOn;
-    const label = newState ? "☒ 수정필요 전체 OFF" : "☑ 수정필요 전체 ON";
-    const floatLabel = newState ? "☒ 전체 OFF" : "☑ 전체 ON";
-    const btn = document.getElementById("toggle-modify-btn");
+    const label = newState ? '☒ 수정필요 전체 OFF' : '☑ 수정필요 전체 ON';
+    const floatLabel = newState ? '☒ 전체 OFF' : '☑ 전체 ON';
+    const btn = document.getElementById('toggle-modify-btn');
     if (btn) btn.textContent = label;
-    const fb = document.getElementById("float-modify-btn");
+    const fb = document.getElementById('float-modify-btn');
     if (fb) {
       fb.textContent = floatLabel;
-      fb.classList.toggle("all-on", newState);
+      fb.classList.toggle('all-on', newState);
     }
   }
 </script>
