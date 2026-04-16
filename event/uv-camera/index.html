@@ -63,6 +63,12 @@
       padding: 18px 0 0;
     }
 
+    .header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
     .brand {
       display: inline-flex;
       align-items: center;
@@ -73,6 +79,35 @@
       border: 1px solid rgba(35,31,42,0.06);
       box-shadow: 0 8px 24px rgba(35,31,42,0.05);
       backdrop-filter: blur(10px);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .header-tab {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(35,31,42,0.08);
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(35,31,42,0.05);
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+
+    .header-tab:hover {
+      transform: translateY(-1px);
+      border-color: rgba(35,31,42,0.16);
+      background: rgba(255,255,255,0.96);
     }
 
     .brand-mark {
@@ -712,6 +747,12 @@
     @media (min-width: 760px) {
       .shell { padding: 0 28px; }
       .header { padding-top: 22px; }
+      .header-nav { gap: 10px; }
+      .header-tab {
+        min-height: 42px;
+        padding: 0 18px;
+        font-size: 13px;
+      }
       .hero { padding-top: 18px; }
       .hero-card { padding: 32px; }
       .hero-grid {
@@ -765,11 +806,16 @@
 </head>
 <body id="top">
   <header class="header">
-    <div class="shell">
+    <div class="shell header-inner">
       <div class="brand">
         <span class="brand-mark">UV</span>
         <span>UVID UV 카메라 이벤트</span>
       </div>
+      <nav class="header-nav" aria-label="페이지 탭">
+        <a href="#top" class="header-tab">소개</a>
+        <a href="#reward" class="header-tab">혜택</a>
+        <a href="#apply" class="header-tab">신청</a>
+      </nav>
     </div>
   </header>
 
