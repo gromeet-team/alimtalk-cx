@@ -184,7 +184,7 @@
       "headerName": "카메라 이벤트 유도",
       "timing": "배송완료 +1일",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n<br>\n              현재 UV 카메라 이벤트 신청을 받고 있어요.<br>\n              전용 카메라로 선케어 도포 전후를 비교해 보고<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n<br>\n              ✅ 선케어 도포 전/후 비교 촬영<br>\n              ✅ 신청 순서대로 참여 일정 개별 안내<br>\n              ✅ 참여 고객 대상 별도 혜택 안내<br>\n<br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">카메라 이벤트 신청하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "\n              #{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n<br>\n              현재 UV 카메라 이벤트 신청을 받고 있어요.<br>\n              전용 카메라로 선케어 도포 전후를 비교하고<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n<br>\n              ✅ 선케어 도포 전/후 비교 촬영<br>\n              ✅ 신청 순서대로 참여 일정 개별 안내<br>\n              ✅ 참여 고객 대상 별도 혜택 안내<br>\n<br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">카메라 이벤트 신청하기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "http://pf.kakao.com/_xcdWxon/chat",
