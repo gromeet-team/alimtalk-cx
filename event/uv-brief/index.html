@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVID 선패드 · UV 카메라 체험 이벤트 브리프</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf7;
+    --paper: #ffffff;
+    --ink: #111111;
+    --ink-soft: #444444;
+    --muted: #8a8a85;
+    --line: #1a1a1a;
+    --line-soft: #e5e5e0;
+    --accent: #ff4b1f;
+    --accent-soft: #fff1ec;
+    --done: #2f7d3f;
+    --doing: #c97b00;
+    --todo: #7a7a75;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans KR', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.65;
+    font-feature-settings: "kern", "liga";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ============ LAYOUT ============ */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .container-wide {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ============ TOP BAR ============ */
+  .topbar {
+    position: sticky;
+    top: 0;
+    background: rgba(250, 250, 247, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line-soft);
+    z-index: 100;
+    padding: 14px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  .topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+  }
+  .topbar-inner .proj {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .topbar-inner .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    padding: 120px 0 100px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .hero-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    display: flex;
+    gap: 24px;
+  }
+  .hero-meta span {
+    position: relative;
+  }
+  .hero-meta span:not(:last-child)::after {
+    content: "/";
+    position: absolute;
+    right: -16px;
+    color: var(--line-soft);
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(42px, 6.5vw, 84px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+    color: var(--ink);
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .hero-lead {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 680px;
+  }
+  .hero-lead::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 24px;
+  }
+
+  /* ============ SECTION ============ */
+  .section {
+    padding: 100px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4vw, 48px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-bottom: 56px;
+    color: var(--ink);
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ============ BACKGROUND SECTION ============ */
+  .bg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .bg-cell {
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 40px 36px;
+    background: var(--paper);
+  }
+  .bg-cell h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .bg-cell p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+  .bg-cell strong {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* ============ STRUCTURE DIAGRAM ============ */
+  .flow-diagram {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 64px 48px;
+    margin: 48px 0;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .flow-diagram::before {
+    content: "FLOW";
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+  .flow-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .flow-step {
+    position: relative;
+  }
+  .flow-step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -22px;
+    top: 4px;
+    color: var(--accent);
+    font-size: 20px;
+  }
+  .flow-step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .flow-step-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .flow-step-desc {
+    font-size: 13px;
+    color: rgba(250, 250, 247, 0.6);
+    line-height: 1.5;
+  }
+
+  /* ============ REWARDS TABLE ============ */
+  .rewards {
+    border-top: 2px solid var(--line);
+  }
+  .reward-row {
+    display: grid;
+    grid-template-columns: 80px 200px 1fr 200px;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line-soft);
+    align-items: baseline;
+  }
+  .reward-row:hover {
+    background: var(--accent-soft);
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    transition: all 0.2s ease;
+  }
+  .reward-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .reward-stage {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .reward-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .reward-prize {
+    text-align: right;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  /* ============ RNR CARDS ============ */
+  .rnr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  .rnr-card {
+    background: var(--paper);
+    padding: 40px 36px;
+    position: relative;
+    transition: background 0.25s ease;
+  }
+  .rnr-card:hover {
+    background: var(--bg);
+  }
+  .rnr-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .rnr-name {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .rnr-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .rnr-role-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .rnr-task-list {
+    list-style: none;
+    padding: 0;
+  }
+  .rnr-task-list li {
+    padding: 12px 0;
+    padding-left: 28px;
+    position: relative;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink);
+    border-bottom: 1px dashed var(--line-soft);
+  }
+  .rnr-task-list li:last-child {
+    border-bottom: none;
+  }
+  .rnr-task-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .rnr-task-list li strong {
+    font-weight: 600;
+  }
+  .rnr-note {
+    margin-top: 20px;
+    padding: 14px 16px;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+  }
+
+  /* ============ TIMELINE ============ */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--line);
+  }
+  .tl-item {
+    position: relative;
+    padding-bottom: 36px;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -32px;
+    top: 8px;
+    width: 13px;
+    height: 13px;
+    background: var(--bg);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+  }
+  .tl-item.done::before { background: var(--ink); }
+  .tl-item.doing::before {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+  }
+  .tl-phase {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .tl-title {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .tl-desc {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  /* ============ DECISIONS ============ */
+  .decisions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .decision-box {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 32px 28px;
+  }
+  .decision-box h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .decision-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .decision-box li {
+    padding: 10px 0;
+    padding-left: 24px;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .decision-box.positive li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--done);
+    font-weight: 700;
+  }
+  .decision-box.negative li::before {
+    content: "×";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ============ STATUS BOARD ============ */
+  .status-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .status-col h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .status-col h4 .count {
+    color: var(--muted);
+  }
+  .status-col.done h4 { border-color: var(--done); color: var(--done); }
+  .status-col.doing h4 { border-color: var(--accent); color: var(--accent); }
+  .status-col.todo h4 { border-color: var(--todo); color: var(--todo); }
+
+  .status-card {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .status-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .status-card .owner {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 8px;
+  }
+
+  /* ============ TRIGGER TABLE ============ */
+  .trigger-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+  }
+  .trigger-table th {
+    text-align: left;
+    padding: 14px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--ink);
+    background: var(--paper);
+  }
+  .trigger-table td {
+    padding: 18px 16px;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 15px;
+    line-height: 1.5;
+    background: var(--paper);
+  }
+  .trigger-table tr:hover td {
+    background: var(--accent-soft);
+  }
+  .trigger-table td strong { color: var(--accent); font-weight: 600; }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    padding: 60px 0 80px;
+    background: var(--ink);
+    color: var(--bg);
+    margin-top: 80px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .footer-brand em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .footer-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(250, 250, 247, 0.5);
+    text-align: right;
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    .container, .container-wide { padding: 0 20px; }
+    .hero { padding: 80px 0 60px; }
+    .section { padding: 60px 0; }
+    .bg-grid { grid-template-columns: 1fr; }
+    .flow-steps { grid-template-columns: 1fr; gap: 32px; }
+    .flow-step:not(:last-child)::after {
+      content: "↓";
+      right: 50%;
+      top: auto;
+      bottom: -24px;
+      transform: translateX(50%);
+    }
+    .flow-diagram { padding: 40px 28px; }
+    .reward-row {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .reward-prize { text-align: left; }
+    .rnr-grid { grid-template-columns: 1fr; }
+    .decisions { grid-template-columns: 1fr; }
+    .status-board { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; gap: 6px; }
+    .hero-meta span:not(:last-child)::after { display: none; }
+    .trigger-table th, .trigger-table td { padding: 12px 10px; font-size: 13px; }
+  }
+
+  /* ============ SCROLL REVEAL ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="container-wide topbar-inner">
+    <div><span class="dot"></span><span class="proj">UVID · UV 카메라 체험 이벤트</span></div>
+    <div>BRIEF v1.0 · 2026.04.16</div>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-meta">
+      <span>PROJECT BRIEF</span>
+      <span>UVID 선패드</span>
+      <span>사내 공유용</span>
+      <span>회의 자료</span>
+    </div>
+    <h1>
+      보이지 않던<br>
+      자외선 차단을<br>
+      <em>직접 보게</em> 하다.
+    </h1>
+    <p class="hero-lead">
+      UVID 선패드 론칭과 함께 진행하는 UV 카메라 체험형 바이럴 이벤트.
+      단순 후기 수집이 아니라 고객 체험 강화 · UGC 확보 · 광고소재 재활용 ·
+      재구매 유도를 한 번에 가져가는 구조로 설계합니다.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 01 BACKGROUND ============ -->
+<section class="section" id="background">
+  <div class="container">
+    <div class="section-num">01 / BACKGROUND</div>
+    <h2 class="section-title">왜 이 이벤트인가 <em>— 배경과 목적</em></h2>
+
+    <div class="bg-grid">
+      <div class="bg-cell">
+        <h3>제품의 진짜 매력</h3>
+        <p>
+          UVID 선패드는 가격 비교로 승부하는 일반 선크림이 아니다.
+          <strong>메이크업 위에서도 다시 바를 수 있고</strong>,
+          <strong>UV 카메라로 차단이 눈에 보이는</strong>
+          새로운 체험을 주는 선케어다.
+        </p>
+      </div>
+      <div class="bg-cell">
+        <h3>기존 후기 이벤트의 한계</h3>
+        <p>
+          단순 "후기 써주세요" 이벤트는 이 제품의 <strong>와우 모먼트</strong>를
+          담지 못한다. 자외선 차단은 시각적 증거가 있을 때만
+          확실한 설득력이 생긴다.
+        </p>
+      </div>
+      <div class="bg-cell">
+        <h3>네 마리 토끼</h3>
+        <p>
+          <strong>① 고객 체험 강화</strong> ·
+          <strong>② UGC 확보</strong> ·
+          <strong>③ 광고소재 재활용</strong> ·
+          <strong>④ 재구매 유도</strong>.
+          이 네 가지를 한 이벤트 구조 안에서 동시에 회수한다.
+        </p>
+      </div>
+      <div class="bg-cell">
+        <h3>광고비 대체 수단</h3>
+        <p>
+          현재 원가 구조상 본품·쿠폰·유비드 패키지를 보상으로 사용해도
+          메타 광고비 대비 <strong>ROI가 더 높은 구조</strong>다.
+          성과형 리텐션 비용으로 쓰되 철저히 관리한다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 STRUCTURE ============ -->
+<section class="section" id="structure">
+  <div class="container">
+    <div class="section-num">02 / STRUCTURE</div>
+    <h2 class="section-title">리뷰 · 리텐션 <em>전체 구조</em></h2>
+
+    <p style="font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 48px; max-width: 680px;">
+      고객 여정의 각 단계에서 필요한 행동을 정확히 유도하도록
+      <strong style="color: var(--ink);">보상을 4단계로 분리</strong>했다.
+      각 단계마다 목적이 다르기 때문에 보상도 다르게 설계한다.
+    </p>
+
+    <div class="rewards">
+      <div class="reward-row">
+        <div class="reward-num">01</div>
+        <div class="reward-stage">포토리뷰</div>
+        <div class="reward-desc">
+          첫 후기 진입장벽을 낮추는 용도.
+          현금성보다 브랜드 결이 맞고 실제 사용성과 연결됨.
+        </div>
+        <div class="reward-prize">휴대용 케이스</div>
+      </div>
+
+      <div class="reward-row">
+        <div class="reward-num">02</div>
+        <div class="reward-stage">한달리뷰</div>
+        <div class="reward-desc">
+          장기 사용 후기 확보 + 재구매 유도가 핵심.
+          선집행 광고비가 아니라 실제 재구매 시점에 쓰는 비용.
+        </div>
+        <div class="reward-prize">15,000원 쿠폰</div>
+      </div>
+
+      <div class="reward-row">
+        <div class="reward-num">03</div>
+        <div class="reward-stage">VOC 인터뷰</div>
+        <div class="reward-desc">
+          실제 개선 인사이트 확보. 카피 · 상세 · 광고 메시지에
+          바로 반영할 수 있는 고밀도 데이터 수집 목적.
+        </div>
+        <div class="reward-prize">본품 1개 추가</div>
+      </div>
+
+      <div class="reward-row">
+        <div class="reward-num">04</div>
+        <div class="reward-stage">UV 카메라 체험</div>
+        <div class="reward-desc">
+          단순 후기가 아닌 체험형 바이럴 + 광고소재 확보 이벤트.
+          참여형 / SNS형 두 트랙으로 운영.
+        </div>
+        <div class="reward-prize">유비드 180일 / 360일 패키지</div>
+      </div>
+    </div>
+
+    <div class="flow-diagram">
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="flow-step-num">STEP 01</div>
+          <div class="flow-step-title">체험</div>
+          <div class="flow-step-desc">UV 카메라 대여, 선패드 사용 전후 촬영</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">STEP 02</div>
+          <div class="flow-step-title">UGC 확보</div>
+          <div class="flow-step-desc">before/after 영상, 사용 후기 수집</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">STEP 03</div>
+          <div class="flow-step-title">재활용</div>
+          <div class="flow-step-desc">광고 소재, 상세페이지, 메타 광고</div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-step-num">STEP 04</div>
+          <div class="flow-step-title">재구매</div>
+          <div class="flow-step-desc">쿠폰 · 패키지 · 팬층 형성</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 TRIGGER ============ -->
+<section class="section" id="trigger">
+  <div class="container">
+    <div class="section-num">03 / CUSTOMER TOUCHPOINTS</div>
+    <h2 class="section-title">고객은 어떻게 <em>이 이벤트를 알게 되나</em></h2>
+
+    <p style="font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 24px; max-width: 680px;">
+      기존 내돈내산(+21일) 이벤트는 제거하고,
+      <strong style="color: var(--ink);">배송완료 +1일</strong> 시점에
+      UV 이벤트 모집 메시지로 전환한다.
+      <span style="color: var(--muted); font-size: 15px;">(제품 받고 가장 궁금할 때가 골든 타임)</span>
+    </p>
+
+    <table class="trigger-table">
+      <thead>
+        <tr>
+          <th style="width: 30%;">경로</th>
+          <th style="width: 50%;">역할</th>
+          <th style="width: 20%;">담당</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>제품 삽지 QR</strong></td>
+          <td>박스 개봉 후 가장 먼저 접하는 접점. 훅 + 보상 + QR 3요소.</td>
+          <td>엘렌</td>
+        </tr>
+        <tr>
+          <td><strong>배송완료 +1일 알림톡</strong></td>
+          <td>"리뷰 독촉"이 아니라 "궁금할 때 UV 체험 신청" 유도 톤.</td>
+          <td>루미 · 조이</td>
+        </tr>
+        <tr>
+          <td><strong>상세페이지 이벤트 섹션</strong></td>
+          <td>구매 전에도 "이런 체험까지 연결된다"는 기대감 형성.</td>
+          <td>엘렌</td>
+        </tr>
+        <tr>
+          <td><strong>전용 랜딩페이지</strong></td>
+          <td>무슨 이벤트 · 뭘 받는지 · 어떻게 신청 · FAQ 한 번에 이해.</td>
+          <td>현비스</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 04 R&R ============ -->
+<section class="section" id="rnr">
+  <div class="container">
+    <div class="section-num">04 / ROLES &amp; RESPONSIBILITIES</div>
+    <h2 class="section-title">담당자 <em>R&amp;R</em></h2>
+
+    <p style="font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 40px; max-width: 680px;">
+      현비스는 <strong style="color: var(--ink);">구조와 템플릿만 선행</strong>하고,
+      각 담당자가 디벨롭한다. 마지막에 현비스가 리뷰 · QA · 배포 관리.
+    </p>
+
+    <div class="rnr-grid">
+
+      <div class="rnr-card">
+        <div class="rnr-header">
+          <div class="rnr-name"><em>엘렌</em></div>
+          <div class="rnr-role-tag">디자인 · 비주얼</div>
+        </div>
+        <ul class="rnr-task-list">
+          <li>삽지 <strong>비주얼 디벨롭</strong> (QR · 훅 · 보상)</li>
+          <li>상세페이지 이벤트 섹션 디벨롭</li>
+          <li>랜딩페이지 <strong>비주얼 및 이미지/AI 영상</strong></li>
+        </ul>
+        <div class="rnr-note">NOTE: 삽지 = 관심 유도, 상세 = 기대감 강화, 랜딩 = 신청 전환</div>
+      </div>
+
+      <div class="rnr-card">
+        <div class="rnr-header">
+          <div class="rnr-name"><em>루미 · 조이</em></div>
+          <div class="rnr-role-tag">운영 · CX</div>
+        </div>
+        <ul class="rnr-task-list">
+          <li>배송완료 +1일 <strong>알림톡 템플릿 적용</strong></li>
+          <li>기존 내돈내산 흐름 제거 / 대체</li>
+          <li>운영 어드민 상태값 · 필드 반영</li>
+          <li><strong>FAQ · 문의 대응 플로우</strong></li>
+        </ul>
+        <div class="rnr-note">NOTE: 현비스가 템플릿 초안 · 의도 · 연결 포인트 문서로 전달</div>
+      </div>
+
+      <div class="rnr-card">
+        <div class="rnr-header">
+          <div class="rnr-name"><em>벤 · 린</em></div>
+          <div class="rnr-role-tag">그로스 · 콘텐츠</div>
+        </div>
+        <ul class="rnr-task-list">
+          <li><strong>촬영 가이드 문서</strong> 작성 및 운영</li>
+          <li>콘텐츠 기준 (길이 · 구도 · 필수 컷)</li>
+          <li><strong>광고 활용 기준</strong> 및 동의 문구</li>
+          <li>제출 스펙 · BGM / 자막 가이드</li>
+        </ul>
+        <div class="rnr-note">NOTE: "예쁜 영상"이 아니라 "광고로 쓸 수 있는 영상" 기준</div>
+      </div>
+
+      <div class="rnr-card">
+        <div class="rnr-header">
+          <div class="rnr-name"><em>글랜 · 바니</em></div>
+          <div class="rnr-role-tag">소싱 · 구매</div>
+        </div>
+        <ul class="rnr-task-list">
+          <li>UV 카메라 <strong>후보 2~3개 비교</strong></li>
+          <li>단가 · 납기 · 내구성 · 휴대성 검토</li>
+          <li>운영 가능성 (파손 · 분실 · A/S)</li>
+          <li><strong>추천 구매안 + 초기 수량</strong> 도출</li>
+        </ul>
+        <div class="rnr-note">NOTE: "화질 좋은 것"보다 "운영 가능한 장비"가 기준</div>
+      </div>
+
+      <div class="rnr-card" style="grid-column: 1 / -1;">
+        <div class="rnr-header">
+          <div class="rnr-name"><em>현비스</em></div>
+          <div class="rnr-role-tag">Architect · Reviewer</div>
+        </div>
+        <ul class="rnr-task-list">
+          <li>전체 구조 설계 · <strong>카피 초안</strong> · 랜딩 IA</li>
+          <li>어드민 필드 · 상태값 설계</li>
+          <li>공개 랜딩페이지 <strong>MVP 구현</strong> (alimtalk-cx repo)</li>
+          <li>태스크 정리 · 진행도 추적 (그로밋 대시보드 연결)</li>
+          <li>각 담당자 산출물 <strong>리뷰 · QA · 배포 관리</strong></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 KEY DECISIONS ============ -->
+<section class="section" id="decisions">
+  <div class="container">
+    <div class="section-num">05 / KEY DECISIONS</div>
+    <h2 class="section-title">확정된 것과 <em>하지 않을 것</em></h2>
+
+    <div class="decisions">
+      <div class="decision-box positive">
+        <h4>확정 (DO)</h4>
+        <ul>
+          <li>포토리뷰 = 휴대용 케이스</li>
+          <li>한달리뷰 = 15,000원 쿠폰 (1인1회 · 중복불가 · 14일)</li>
+          <li>VOC 인터뷰 = 본품 1개 추가</li>
+          <li>UV 이벤트 = 유비드 180일 / 360일 패키지</li>
+          <li>배송완료 +1일 알림톡 트리거</li>
+          <li>공개 랜딩 별도 제작, 공식몰(uvid.co.kr) 연결</li>
+          <li>메타 이벤트: PageView + SubmitApplication</li>
+          <li>향후 CAPI로 Lead까지 확장 검토</li>
+        </ul>
+      </div>
+
+      <div class="decision-box negative">
+        <h4>제외 (DON'T)</h4>
+        <ul>
+          <li>기존 내돈내산(+21일) 이벤트 삭제</li>
+          <li>본품 3개 / 6개 보상안 폐기 — 임팩트 약함</li>
+          <li>그로밋 대시보드에 고객용 붙이기 — 내부용 유지</li>
+          <li>ViewContent / content_ids — 카탈로그 일치율 이슈</li>
+          <li>카피 · 설명 과다 랜딩 — 모바일 퍼스트로 축소</li>
+          <li>일반 후기 요청 톤 알림톡 — 체험 신청 유도 톤으로</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 STATUS ============ -->
+<section class="section" id="status">
+  <div class="container">
+    <div class="section-num">06 / STATUS BOARD</div>
+    <h2 class="section-title">현재 <em>진행 상태</em></h2>
+
+    <div class="status-board">
+      <div class="status-col done">
+        <h4>DONE <span class="count">05</span></h4>
+        <div class="status-card">
+          구조 · 보상 · 트리거 확정
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          담당자 R&amp;R 공지 (유비드 채널)
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          그로밋 대시보드 active 프로젝트 카드 연결
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          공개 랜딩 MVP 제작 (preview)
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          메타 이벤트 구조 · URL 경로 확정
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+      </div>
+
+      <div class="status-col doing">
+        <h4>IN PROGRESS <span class="count">03</span></h4>
+        <div class="status-card">
+          랜딩 카피 · 타이포 · 히어로 비주얼 리디자인
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          엘렌 AI 영상 / 제품 이미지 반영 구조
+          <div class="owner">OWNER · 엘렌</div>
+        </div>
+        <div class="status-card">
+          알림톡 템플릿 초안 전달
+          <div class="owner">OWNER · 현비스 → 루미 · 조이</div>
+        </div>
+      </div>
+
+      <div class="status-col todo">
+        <h4>TODO <span class="count">06</span></h4>
+        <div class="status-card">
+          신청 저장 endpoint 연결 (Supabase 검토)
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          실제 Meta Pixel 코드 연결
+          <div class="owner">OWNER · 현비스</div>
+        </div>
+        <div class="status-card">
+          삽지 · 상세 · 랜딩 비주얼 제작
+          <div class="owner">OWNER · 엘렌</div>
+        </div>
+        <div class="status-card">
+          촬영 가이드 · 콘텐츠 · 광고 활용 기준
+          <div class="owner">OWNER · 벤 · 린</div>
+        </div>
+        <div class="status-card">
+          UV 카메라 견적 비교 · 추천안
+          <div class="owner">OWNER · 글랜 · 바니</div>
+        </div>
+        <div class="status-card">
+          운영 어드민 필드 · 상태값 반영
+          <div class="owner">OWNER · 루미 · 조이</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 NEXT ============ -->
+<section class="section" id="next">
+  <div class="container">
+    <div class="section-num">07 / NEXT ACTIONS</div>
+    <h2 class="section-title">다음 <em>액션</em></h2>
+
+    <div class="timeline">
+      <div class="tl-item doing">
+        <div class="tl-phase">NOW · 현비스</div>
+        <div class="tl-title">UV 랜딩 preview 재검수</div>
+        <div class="tl-desc">
+          카피 · 타이포 · 히어로 비주얼 영역 확보. 엘렌 이미지/영상이 들어갈
+          자리를 비워둔 채 구조 먼저 픽스.
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-phase">NEXT · 엘렌</div>
+        <div class="tl-title">AI 영상 · 제품 이미지 제공</div>
+        <div class="tl-desc">
+          히어로 영역 비주얼 + 삽지 / 상세 비주얼. 모바일 우선 최적화.
+          병신같이 만들지 말 것.
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-phase">NEXT · 현비스 → 루미 · 조이</div>
+        <div class="tl-title">알림톡 템플릿 + 의도 문서 전달</div>
+        <div class="tl-desc">
+          "이 문구로 넣어줘"가 아니라 "이 구조와 의도로 넣어줘"까지 같이 전달.
+          삽지 가이드 전달 방식과 동일.
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-phase">NEXT · 글랜 · 바니</div>
+        <div class="tl-title">UV 카메라 견적 비교안 도출</div>
+        <div class="tl-desc">
+          후보 2~3개 · 단가 · 운영 가능성 · 추천 구매안 · 초기 수량까지.
+          "운영 가능한 장비" 기준으로.
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-phase">LATER · 현비스</div>
+        <div class="tl-title">신청 저장 · 메타 픽셀 실연결</div>
+        <div class="tl-desc">
+          Supabase로 신청 데이터 수집 → 운영 어드민 연결.
+          PageView / SubmitApplication 실제 픽셀 코드로 교체.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container-wide footer-inner">
+    <div class="footer-brand">
+      UVID <em>선패드</em><br>
+      UV 카메라 체험 이벤트
+    </div>
+    <div class="footer-meta">
+      BRIEF v1.0<br>
+      2026.04.16<br>
+      GROMEET INTERNAL USE
+    </div>
+  </div>
+</footer>
+
+<script>
+  // scroll reveal
+  const revealElements = document.querySelectorAll('.bg-cell, .reward-row, .rnr-card, .decision-box, .status-col, .tl-item, .flow-step');
+  revealElements.forEach(el => el.classList.add('reveal'));
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  revealElements.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
