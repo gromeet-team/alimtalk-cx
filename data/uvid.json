@@ -216,7 +216,7 @@
       "headerName": "취소완료",
       "timing": "취소 완료 시",
       "messages": {
-        "0": "\n              #{고객명}님,<br>\n              취소 처리 완료됐어요.<br>\n<br>\n              💰 환불은 결제수단에 따라<br>\n              영업일 기준 3~5일 소요돼요.<br>\n<br>\n              이번엔 인연이 닿지 않아 아쉬웠어요.<br>\n              어떤 점이 맞지 않으셨는지<br>\n              알려주시면 진심으로 참고할게요.\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">취소가 정상적으로 완료되었습니다.\n\n💰 환불 안내\n▪️결제수단 : #{결제수단}\n▪️환불 예상 : 약 3~7 영업일\n\n짧은 인연이었지만\n다음 기회에 다시 찾아주시면\n감사의 마음을 드리겠습니다.\n\n선택해 주신 것만으로도 감사합니다.\n아쉬운 점을 말씀해 주시면 꼭 참고할게요.\n다음에 더 좋은 경험으로 찾아올게요✨</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">주문내역 확인</div>\n<div class=\"btn\" style=\"cursor: text;\">의견 남기기</div>\n<div class=\"btn\" style=\"cursor: text;\">채널 추가하기</div>\n</div>\n"
       },
       "urls": {
         "0": "https://new-m.pay.naver.com/",
