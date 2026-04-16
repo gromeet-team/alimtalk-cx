@@ -103,9 +103,9 @@
     "campaign-2",
     "campaign-2b",
     "campaign-3",
+    "campaign-12",
     "campaign-4",
     "campaign-4b",
-    "campaign-12",
     "campaign-5",
     "campaign-6",
     "campaign-7",
@@ -139,8 +139,8 @@
       "headerName": "배송완료",
       "timing": "배송 완료 시",
       "messages": {
-        "0": "\n              <b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div>",
-        "1": "\n              #{고객명}님, 드디어 도착했어요! ☀️<br>\n              <br>\n              📦 배송 완료 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              처음 사용하시기 전에<br>\n              이것만 기억해 주세요 🌟<br>\n              <br>\n              ✓ 외출 30분 전 충분히 도포<br>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>\n              ✓ 이마·콧등·광대 꼼꼼히<br>\n              <br>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div></div>"
+        "0": "<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div>",
+        "1": "#{고객명}님, 드디어 도착했어요! ☀️<br>\n              <br>\n              📦 배송 완료 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n              <br>\n              처음 사용하시기 전에<br>\n              이것만 기억해 주세요 🌟<br>\n              <br>\n              ✓ 외출 30분 전 충분히 도포<br>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>\n              ✓ 이마·콧등·광대 꼼꼼히<br>\n              <br>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n                <div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div></div>"
       },
       "urls": {
         "0": "http://pf.kakao.com/_xcdWxon",
@@ -156,6 +156,17 @@
       "urls": {
         "0": "https://new-m.pay.naver.com/",
         "1": "https://smartstore.naver.com/uvid/notice/list?cp=1"
+      }
+    },
+    "campaign-12": {
+      "headerName": "카메라 이벤트 유도",
+      "timing": "배송완료 +1일",
+      "messages": {
+        "0": "\n              #{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n              <br>\n              현재 UV 카메라 이벤트에 참여하시면<br>\n              전용 카메라로 선케어 도포 전후를&nbsp;<div>비교해 보실 수 있습니다!<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n              <br>\n              ✅ 선케어 도포 과정 촬영<br>\n              ✅ 신청 순서대로 참여 프로세스 안내<br>\n              ✅ 참여 고객 대상 혜택 지급<br>\n              <br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              </div>"
+      },
+      "urls": {
+        "0": "http://pf.kakao.com/_xcdWxon/chat",
+        "1": "http://pf.kakao.com/_xcdWxon"
       }
     },
     "campaign-4": {
@@ -180,22 +191,11 @@
         "1": "http://pf.kakao.com/_xcdWxon/chat"
       }
     },
-    "campaign-12": {
-      "headerName": "카메라 이벤트 유도",
-      "timing": "배송완료 +1일",
-      "messages": {
-        "0": "\n              #{고객명}님,<br>\n              유비드 바른 뒤 피부 표현이 어떻게 달라지는지 직접 확인해 보셨나요?<br>\n              <br>\n              현재 UV 카메라 이벤트에 참여하시면<br>\n              전용 카메라로 선케어 도포 전후를&nbsp;<div>비교해 보실 수 있습니다!<br>\n              피부 표현과 사용감을 현장에서 편하게 확인하실 수 있어요.<br>\n              <br>\n              ✅ 선케어 도포 과정 촬영<br>\n              ✅ 신청 순서대로 참여 프로세스 안내<br>\n              ✅ 참여 고객 대상 혜택 지급<br>\n              <br>\n              가능하신 분은 아래 버튼으로 신청해 주세요 😊\n              </div>"
-      },
-      "urls": {
-        "0": "http://pf.kakao.com/_xcdWxon/chat",
-        "1": "http://pf.kakao.com/_xcdWxon"
-      }
-    },
     "campaign-5": {
       "headerName": "한달 사용 후기",
       "timing": "배송완료 +30일",
       "messages": {
-        "0": "\n                #{고객명}님,<br>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br>\n                <br>\n                한 달 동안 사용해 보시면서<br>\n                어떤 점이 좋았는지, 아쉬웠는지<br>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br>\n                <br>\n                짧게라도 장기 사용 후기를 남겨주시면<br>\n                다른 고객님들께도 큰 도움이 되고<br>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊\n                <div class=\"btn-group\">\n                  <div class=\"btn primary\" style=\"cursor: text;\">한달 후기 작성하기</div></div>"
+        "0": "#{고객명}님,<br>\n                유비드와 함께한 지 어느덧 한 달이 됐네요! ☀️<br>\n                <br>\n                한 달 동안 사용해 보시면서<br>\n                어떤 점이 좋았는지, 아쉬웠는지<br>\n                이제는 더 분명하게 느끼셨을 것 같아요.<br>\n                <br>\n                짧게라도 장기 사용 후기를 남겨주시면<br>\n                다른 고객님들께도 큰 도움이 되고<br>\n                저희도 제품 개선에 꼼꼼히 반영할게요 😊\n                <div class=\"btn-group\">\n                  <div class=\"btn primary\" style=\"cursor: text;\">한달 후기 작성하기</div></div>"
       },
       "urls": {
         "0": "https://shopping.naver.com/my/writable-reviews",
