@@ -49,9 +49,9 @@
     "sub_2": "첫 사용 팁 꼭 확인해요&nbsp;",
     "title_2": "드디어 도착했어요",
     "msg_2b_pad": "<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div><div><br></div><div>#{고객명}님의 상품이</div><div>배송 완료되었습니다!</div><div><br></div><div>📦 배송 완료 정보</div><div>▪️상품명 : #{상품명}</div><div>▪️송장번호 : #{송장번호}</div><div><br></div><div>사용하시기 전에</div><div>이것만 기억해 주세요 🌟</div><div><br></div><div>✓ 개봉 후 6개월 이내 사용</div><div>✓ 앰플이 패드에 고르게 스며들도록</div><div>✓ 용기를 1분 정도 뒤집어 놓은 후 사용</div><div>✓ 사용 후 뚜껑 단단히 닫기</div><div>✓ 실리콘 리드 제거 후에는 내용물이 샐 수 있으니 살짝 기울이거나 패드 방향을 바꿔 사용</div><div><br></div><div>오늘부터 자외선 걱정 없는 하루 시작하세요.</div><div class=\"btn-group\"><div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div></div>",
-    "sub_2b_mist": "첫 사용 팁 꼭 확인해요 ☀️",
-    "title_2b_mist": "드디어 도착했어요 ☀️",
-    "msg_2b_mist": "#{고객명}님, 드디어 도착했어요! ☀️<br>\n<br>\n              📦 배송 완료 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br>\n              처음 사용하시기 전에<br>\n              이것만 기억해 주세요 🌟<br>\n<br>\n              ✓ 외출 30분 전 충분히 도포<br>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>\n              ✓ 이마·콧등·광대 꼼꼼히<br>\n<br>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div>\n</div>",
+    "sub_2b_mist": "첫 사용 팁 꼭 확인해요&nbsp;",
+    "title_2b_mist": "드디어 도착했어요&nbsp;",
+    "msg_2b_mist": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">선미스트 도착 소식과 함께\n사용 전 참고사항 안내드려요 📌\n\n#{고객명}님의 상품이\n배송 완료되었습니다!\n\n📦 배송 완료 정보\n▪️상품명 : #{상품명}\n▪️송장번호 : #{송장번호}\n\n사용하시기 전에\n이것만 기억해 주세요 🌟\n\n✓ 외출 30분 전 충분히 도포\n✓ 야외활동 → 2~3시간마다 덧바름\n✓ 실내 활동 위주 → 4~5시간도 충분해요\n✓ 이마·콧등·광대 꼼꼼히\n\n오늘부터 자외선 걱정 없는 하루 시작하세요.</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div>\n</div>",
     "sub_4": "선케어 잘 쓰고 계신가요?",
     "title_4": "구매확정하고 포인트 받기",
     "sub_5": "후기 작성시 혜택 지급",
@@ -140,7 +140,7 @@
       "timing": "배송 완료 시",
       "messages": {
         "0": "<b>선 패드 도착 소식과 함께</b><div><b>사용 전 참고사항 안내드려요 📌</b></div><div><br></div><div>#{고객명}님의 상품이</div><div>배송 완료되었습니다!</div><div><br></div><div>📦 배송 완료 정보</div><div>▪️상품명 : #{상품명}</div><div>▪️송장번호 : #{송장번호}</div><div><br></div><div>사용하시기 전에</div><div>이것만 기억해 주세요 🌟</div><div><br></div><div>✓ 개봉 후 6개월 이내 사용</div><div>✓ 앰플이 패드에 고르게 스며들도록</div><div>✓ 용기를 1분 정도 뒤집어 놓은 후 사용</div><div>✓ 사용 후 뚜껑 단단히 닫기</div><div>✓ 실리콘 리드 제거 후에는 내용물이 샐 수 있으니 살짝 기울이거나 패드 방향을 바꿔 사용</div><div><br></div><div>오늘부터 자외선 걱정 없는 하루 시작하세요.</div><div class=\"btn-group\"><div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div></div>",
-        "1": "#{고객명}님, 드디어 도착했어요! ☀️<br>\n<br>\n              📦 배송 완료 정보<br>\n              ▪️상품명 : #{상품명}<br>\n              ▪️송장번호 : #{송장번호}<br>\n<br>\n              처음 사용하시기 전에<br>\n              이것만 기억해 주세요 🌟<br>\n<br>\n              ✓ 외출 30분 전 충분히 도포<br>\n              ✓ 야외활동 → 2~3시간마다 덧바름<br>\n              ✓ 실내 활동 위주 → 4~5시간도 충분해요<br>\n              ✓ 이마·콧등·광대 꼼꼼히<br>\n<br>\n              오늘부터 자외선 걱정 없는 하루 시작하세요.<br>\n              궁금한 점은 언제든 편하게 말씀해 주세요 😊<br>\n              🕐 평일 10:00~17:00<br>\n              (점심 12:30~13:30 / 주말·공휴일 휴무)\n              <div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
+        "1": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">선미스트 도착 소식과 함께\n사용 전 참고사항 안내드려요 📌\n\n#{고객명}님의 상품이\n배송 완료되었습니다!\n\n📦 배송 완료 정보\n▪️상품명 : #{상품명}\n▪️송장번호 : #{송장번호}\n\n사용하시기 전에\n이것만 기억해 주세요 🌟\n\n✓ 외출 30분 전 충분히 도포\n✓ 야외활동 → 2~3시간마다 덧바름\n✓ 실내 활동 위주 → 4~5시간도 충분해요\n✓ 이마·콧등·광대 꼼꼼히\n\n오늘부터 자외선 걱정 없는 하루 시작하세요.</span><br><div class=\"btn-group\">\n<div class=\"btn primary\" style=\"cursor: text;\">채널 추가하기</div>\n</div>"
       },
       "urls": {
         "0": "http://pf.kakao.com/_xcdWxon",
