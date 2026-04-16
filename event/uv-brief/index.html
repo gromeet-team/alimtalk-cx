@@ -442,6 +442,88 @@
     line-height: 1.6;
   }
 
+  /* ============ PRICE & OPTION ============ */
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+  .offer-card {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 28px 24px;
+    min-height: 240px;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+  }
+  .offer-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .offer-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .offer-price {
+    font-family: 'Fraunces', serif;
+    font-size: 34px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .offer-meta {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .offer-perk {
+    display: inline-flex;
+    width: fit-content;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .strategy-panel {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 30px 28px;
+  }
+  .strategy-panel h4 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .strategy-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .strategy-list li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+  .strategy-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
   /* ============ DECISIONS ============ */
   .decisions {
     display: grid;
@@ -616,6 +698,7 @@
       gap: 8px;
     }
     .reward-prize { text-align: left; }
+    .offer-grid { grid-template-columns: 1fr; }
     .rnr-grid { grid-template-columns: 1fr; }
     .decisions { grid-template-columns: 1fr; }
     .status-board { grid-template-columns: 1fr; }
@@ -795,10 +878,69 @@
   </div>
 </section>
 
-<!-- ============ 03 TRIGGER ============ -->
+<!-- ============ 03 PRICE & OPTION ============ -->
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-num">03 / PRICE & OPTION STRATEGY</div>
+    <h2 class="section-title">선패드 가격과 옵션 전략 <em>— 왜 이 구조인가</em></h2>
+
+    <p style="font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 36px; max-width: 740px;">
+      내부 브리프 기준 현재 확정안은 <strong style="color: var(--ink);">본품 49,000원</strong>을 기본 앵커로 두고,
+      배송 혜택과 휴대용 케이스 증정을 단계적으로 붙여 업셀하는 구조다.
+      가격 할인보다 <strong style="color: var(--ink);">선택 이유가 선명한 옵션 설계</strong>를 우선한다.
+    </p>
+
+    <div class="offer-grid">
+      <article class="offer-card">
+        <div class="offer-eyebrow">OPTION 01</div>
+        <h3>본품 1개</h3>
+        <div class="offer-price">49,000원</div>
+        <div class="offer-meta">
+          처음 써보는 고객의 진입 옵션.
+          가격 방어보다 선패드 카테고리 이해와 첫 경험 확보가 목적.
+        </div>
+        <div class="offer-perk">기본 진입 옵션</div>
+      </article>
+
+      <article class="offer-card">
+        <div class="offer-eyebrow">OPTION 02</div>
+        <h3>본품 2개</h3>
+        <div class="offer-price">98,000원</div>
+        <div class="offer-meta">
+          1개에서 망설이는 고객을 배송비 혜택으로 끌어올리는 업셀 구간.
+          가장 가볍게 설득 가능한 중간 옵션.
+        </div>
+        <div class="offer-perk">무료배송</div>
+      </article>
+
+      <article class="offer-card">
+        <div class="offer-eyebrow">OPTION 03</div>
+        <h3>본품 3개</h3>
+        <div class="offer-price">147,000원</div>
+        <div class="offer-meta">
+          강한 체험 의지가 있는 고객에게 가장 완성도 높은 선택지로 제시.
+          단순 다량구매보다 휴대용 케이스 가치까지 함께 설계.
+        </div>
+        <div class="offer-perk">무료배송 + 휴대용 케이스 증정</div>
+      </article>
+    </div>
+
+    <div class="strategy-panel">
+      <h4>같이 넣어야 하는 핵심 메모</h4>
+      <ul class="strategy-list">
+        <li>선패드는 일반 선크림 최저가 경쟁이 아니라 <strong>수정화장 · 재도포 · 손 안 묻는 사용성</strong> 카테고리로 설명해야 한다.</li>
+        <li>제품 메인 사용 시나리오는 <strong>아침 기초 사용</strong>, 서브 시나리오는 <strong>수정 화장 시 사용</strong>이다.</li>
+        <li>선미스트 지연으로 <strong>선패드 선출시 전략</strong>이 먼저 잡혔고, UV 카메라 이벤트는 이 제품의 와우 모먼트를 눈으로 보이게 만드는 장치다.</li>
+        <li>상세·결제 영역에서는 가격 인하보다 <strong>2개 무료배송 / 3개 케이스 증정</strong> 구조를 직관적으로 반복 노출하는 것이 핵심이다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 TRIGGER ============ -->
 <section class="section" id="trigger">
   <div class="container">
-    <div class="section-num">03 / CUSTOMER TOUCHPOINTS</div>
+    <div class="section-num">04 / CUSTOMER TOUCHPOINTS</div>
     <h2 class="section-title">고객은 어떻게 <em>이 이벤트를 알게 되나</em></h2>
 
     <p style="font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 24px; max-width: 680px;">
@@ -845,7 +987,7 @@
 <!-- ============ 04 R&R ============ -->
 <section class="section" id="rnr">
   <div class="container">
-    <div class="section-num">04 / ROLES &amp; RESPONSIBILITIES</div>
+    <div class="section-num">05 / ROLES &amp; RESPONSIBILITIES</div>
     <h2 class="section-title">담당자 <em>R&amp;R</em></h2>
 
     <p style="font-size: 17px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 40px; max-width: 680px;">
@@ -931,7 +1073,7 @@
 <!-- ============ 05 KEY DECISIONS ============ -->
 <section class="section" id="decisions">
   <div class="container">
-    <div class="section-num">05 / KEY DECISIONS</div>
+    <div class="section-num">06 / KEY DECISIONS</div>
     <h2 class="section-title">확정된 것과 <em>하지 않을 것</em></h2>
 
     <div class="decisions">
@@ -967,7 +1109,7 @@
 <!-- ============ 06 STATUS ============ -->
 <section class="section" id="status">
   <div class="container">
-    <div class="section-num">06 / STATUS BOARD</div>
+    <div class="section-num">07 / STATUS BOARD</div>
     <h2 class="section-title">현재 <em>진행 상태</em></h2>
 
     <div class="status-board">
@@ -1045,7 +1187,7 @@
 <!-- ============ 07 NEXT ============ -->
 <section class="section" id="next">
   <div class="container">
-    <div class="section-num">07 / NEXT ACTIONS</div>
+    <div class="section-num">08 / NEXT ACTIONS</div>
     <h2 class="section-title">다음 <em>액션</em></h2>
 
     <div class="timeline">
