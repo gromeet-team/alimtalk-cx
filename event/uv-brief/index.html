@@ -60,16 +60,22 @@
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line-soft);
     z-index: 100;
-    padding: 14px 0;
+    padding: 14px 0 12px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 12px;
     letter-spacing: 0.02em;
   }
   .topbar-inner {
     display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--muted);
+  }
+  .topbar-meta {
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    color: var(--muted);
+    gap: 16px;
   }
   .topbar-inner .proj {
     color: var(--ink);
@@ -84,6 +90,43 @@
     margin-right: 6px;
     animation: pulse 2s infinite;
   }
+  .topbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line-soft);
+    background: var(--paper);
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-family: 'IBM Plex Sans KR', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1;
+    transition: all 0.2s ease;
+  }
+  .nav-link:hover {
+    transform: translateY(-1px);
+    border-color: var(--ink);
+    color: var(--ink);
+  }
+  .nav-link.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--bg);
+  }
+  .nav-link.home:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .nav-link.uvid:hover { border-color: #4A6FA5; color: #4A6FA5; }
+  .nav-link.foremong:hover { border-color: #4a7c28; color: #4a7c28; }
+  .nav-link.kucham:hover { border-color: #4b6584; color: #4b6584; }
+  .nav-link.meariset:hover { border-color: #FF6B35; color: #FF6B35; }
   @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.4; }
@@ -599,6 +642,17 @@
   /* ============ RESPONSIVE ============ */
   @media (max-width: 768px) {
     .container, .container-wide { padding: 0 20px; }
+    .topbar { padding: 12px 0 10px; }
+    .topbar-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .topbar-nav { gap: 6px; }
+    .nav-link {
+      padding: 6px 10px;
+      font-size: 12px;
+    }
     .hero { padding: 80px 0 60px; }
     .section { padding: 60px 0; }
     .bg-grid { grid-template-columns: 1fr; }
@@ -641,8 +695,18 @@
 <!-- ============ TOP BAR ============ -->
 <div class="topbar">
   <div class="container-wide topbar-inner">
-    <div><span class="dot"></span><span class="proj">UVID · UV 카메라 체험 이벤트</span></div>
-    <div>BRIEF v1.0 · 2026.04.16</div>
+    <div class="topbar-meta">
+      <div><span class="dot"></span><span class="proj">UVID · UV 카메라 체험 이벤트</span></div>
+      <div>BRIEF v1.0 · 2026.04.16</div>
+    </div>
+    <div class="topbar-nav" aria-label="대시보드 이동">
+      <a href="../../index.html" class="nav-link home">🏠 메인</a>
+      <a href="../../uvid.html" class="nav-link uvid">🌞 UVID</a>
+      <a href="../../foremong.html" class="nav-link foremong">🌿 포레몽</a>
+      <a href="../../kucham.html" class="nav-link kucham">🧊 쿠참</a>
+      <a href="../../meariset.html" class="nav-link meariset">📓 메아리셋</a>
+      <a href="./" class="nav-link active">📝 UV 브리프</a>
+    </div>
   </div>
 </div>
 
