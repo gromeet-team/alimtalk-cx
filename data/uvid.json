@@ -271,7 +271,7 @@
       "headerName": "리뷰유도",
       "timing": "배송완료 +7일",
       "messages": {
-        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">후기 공유하고 선물 받아 가세요!\n\n#{고객명}님, 안녕하세요!\n선패드 사용해 보셨나요? ☀️\n\n📸 구매 확정 후&nbsp;</span><div><span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">포토리뷰를 남겨주시면 감사의 마음으로 9,900원 상당의 휴대용 케이스를\n지급해 드립니다.\n자세한 내용은 아래 신청 사이트에서\n참고 부탁드립니다.\n\n일주일 동안 써보신 솔직한 느낌—\n좋은 점도, 아쉬운 점도\n모두 환영해요.\n한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊</span><br></div><div class=\"btn-group\"><div class=\"btn primary\">포토리뷰 남기기</div><div class=\"btn\">적립금 신청하기</div><div class=\"btn\">채널 추가하기</div></div>"
+        "0": "<span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">후기 공유하고 선물 받아 가세요!\n\n#{고객명}님, 안녕하세요!\n선패드 사용해 보셨나요? ☀️\n\n📸 구매 확정 후&nbsp;</span><div><span style=\"color: rgb(51, 51, 51); font-family: &quot;Spoqa Han Sans Neo&quot;, sans-serif, sans-serif; font-size: 14px; white-space-collapse: preserve-breaks; background-color: rgb(255, 255, 255);\">포토리뷰를 남겨주시면 감사의 마음으로 9,900원 상당의 휴대용 케이스를\n지급해 드립니다.\n자세한 내용은 아래 신청 사이트에서\n참고 부탁드립니다.\n\n일주일 동안 써보신 솔직한 느낌—\n좋은 점도, 아쉬운 점도\n모두 환영해요.\n한 줄만 남겨주셔도 정말 큰 힘이 돼요 😊</span><br></div><div class=\"btn-group\"><div class=\"btn primary\">포토리뷰 남기기</div><div class=\"btn\">사은품 신청하기</div><div class=\"btn\">채널 추가하기</div></div>"
       },
       "urls": {
         "0": "https://shopping.naver.com/my/writable-reviews",
@@ -288,7 +288,7 @@
               "primary": true
             },
             {
-              "label": "적립금 신청하기",
+              "label": "사은품 신청하기",
               "url": "https://register.uvid.co.kr/review-claim/week",
               "primary": false
             },
