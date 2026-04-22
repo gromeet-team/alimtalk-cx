@@ -100,7 +100,7 @@
   "title_15": "",
   "sub_reward_expiry": "남은 적립금과 일자를 확인해 보세요.",
   "title_reward_expiry": "적립금 만료 안내💸",
-  "body_reward_expiry": "<div>#{고객명}님, 안녕하세요. 쿠참입니다.&nbsp;</div><div>남겨주신 소중한 후기 덕분에 많은 분들께 큰 도움이 되었어요!&nbsp;</div><div><br></div><div>적립금은 지급일로부터 90일 동안 사용 가능하며, 지금은 소멸 30일 전이에요.💸&nbsp;</div><div><br></div><div>■ 적립금 상세 안내&nbsp;</div><div>보유 적립금: #{보유적립금} 원&nbsp;</div><div>소멸 예정 금액: #{소멸예정금액} 원&nbsp;</div><div>소멸 예정 일자: #{소멸일자}&nbsp;</div><div><br></div><div>✅확인 방법: 로그인 → 마이페이지 → 적립금 내역&nbsp;</div><div><br></div><div>소멸된 적립금은 정책상 복구가 불가하오니 유의해 주시기 바랍니다.</div><div><br></div><div>※이 메세지는 참여하신 이벤트 혜택으로 제공된 적립금 안내 메시지입니다.</div><div class=\"btn-group\"><div class=\"btn primary\">마이페이지 확인</div><div class=\"btn\">쿠참 채널 추가</div></div>",
+  "body_reward_expiry": "<div>#{고객명}님, 안녕하세요. 쿠참입니다.&nbsp;</div><div>남겨주신 소중한 후기 덕분에 많은 분들께 큰 도움이 되었어요!&nbsp;</div><div><br></div><div>적립금은 지급일로부터 90일 동안 사용 가능하며, 지금은 소멸 30일 전이에요.</div><div><br></div><div>■ 적립금 상세 안내&nbsp;</div><div>보유 적립금: #{보유적립금} 원&nbsp;</div><div>소멸 예정 금액: #{소멸예정금액} 원&nbsp;</div><div>소멸 예정 일자: #{소멸일자}&nbsp;</div><div><br></div><div>✅확인 방법: 로그인 → 마이페이지 → 적립금 내역&nbsp;</div><div><br></div><div>소멸된 적립금은 정책상 복구가 불가하오니 유의해 주시기 바랍니다.</div><div><br></div><div>※이 메세지는 참여하신 이벤트 혜택으로 제공된 적립금 안내 메시지입니다.</div><div class=\"btn-group\"><div class=\"btn primary\">적립금 사용하기</div><div class=\"btn\">쿠참 채널 추가</div></div>",
   "url_reward_expiry_use": "https://kucham.kr/myshop/mileage/historyList.html",
   "url_reward_expiry_channel": "https://pf.kakao.com/_JUbqK",
   "ce_install_check": "<br><div class=\"btn-group\"><div class=\"btn primary\">사용가이드 보기</div><div class=\"btn\">쿠참 채널 추가</div></div>",
