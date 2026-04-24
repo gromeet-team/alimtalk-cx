@@ -1014,11 +1014,14 @@
   </footer>
 
   <script>
+    const FORM_ENDPOINT = 'https://register.foremong.com/api/uvid/uv-camera-event';
+
     const form = document.getElementById('applicationForm');
     const feedback = document.getElementById('formFeedback');
     const successBox = document.getElementById('successBox');
     const selectedPackage = document.getElementById('selectedPackage');
     const packageSelectButtons = document.querySelectorAll('.package-select');
+    const submitButton = form.querySelector('button[type="submit"]');
 
     function showError(message) {
       feedback.textContent = message;
@@ -1075,7 +1078,7 @@
       updateSelectedPackageLabel(form.packageType.value.trim());
     });
 
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async function (event) {
       event.preventDefault();
       clearMessages();
 
@@ -1108,10 +1111,43 @@
         return;
       }
 
-      showSuccess('신청이 접수되었습니다. 선정 여부와 이후 절차는 개별 안내드립니다.');
-      trackSubmitApplication();
-      form.reset();
-      updateSelectedPackageLabel('');
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.dataset.originalLabel = submitButton.textContent;
+        submitButton.textContent = '신청 접수 중...';
+      }
+
+      try {
+        const response = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ applicantName, contact, packageType, consent }),
+        });
+
+        const payload = await response.json().catch(function () { return null; });
+
+        if (!response.ok || !payload || payload.status !== 'success') {
+          const message = (payload && payload.message) || '신청이 접수되지 않았어요. 잠시 후 다시 시도해 주세요.';
+          showError(message);
+          return;
+        }
+
+        showSuccess('신청이 접수되었습니다. 선정 여부와 이후 절차는 개별 안내드립니다.');
+        trackSubmitApplication();
+        form.reset();
+        updateSelectedPackageLabel('');
+      } catch (err) {
+        console.error('[uv-camera-event] submit error:', err);
+        showError('네트워크 오류로 신청이 접수되지 않았어요. 잠시 후 다시 시도해 주세요.');
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          if (submitButton.dataset.originalLabel) {
+            submitButton.textContent = submitButton.dataset.originalLabel;
+            delete submitButton.dataset.originalLabel;
+          }
+        }
+      }
     });
   </script>
 </body>
