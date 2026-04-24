@@ -186,6 +186,7 @@ body {
   justify-content: center;
   align-items: center;
   animation: rotate forwards infinite 30s linear;
+  cursor: pointer;
 }
 
 @keyframes rotate {
