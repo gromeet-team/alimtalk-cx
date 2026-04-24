@@ -705,7 +705,8 @@ label .req {
 
   .btn-submit {
     width: 100%;
-    padding: 16px;
+    padding: 14px;
+    font-size: 16px;
   }
 
   .field input {
