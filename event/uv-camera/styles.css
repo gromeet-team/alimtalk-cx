@@ -652,11 +652,6 @@ label .req {
     margin-top: 10px;
   }
 
-  #title div.circle {
-    width: 100px;
-    height: 100px;
-  }
-
   #title div.circle svg {
     width: 30px;
   }
