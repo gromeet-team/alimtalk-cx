@@ -12,7 +12,36 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="https://use.typekit.net/dao1fkr.css">
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="https://player.vimeo.com/api/player.js"></script>
   <script src="./app.js" defer></script>
+
+  <script>
+    let soundEnabled = false;
+
+    function enableSoundOnce() {
+      if (soundEnabled) return;
+
+      const isMobile = window.innerWidth <= 768;
+      const iframe = document.querySelector(
+        isMobile ? '.video.mobile iframe' : '.video.pc iframe'
+      );
+
+      if (iframe) {
+        const player = new Vimeo.Player(iframe);
+        player.setMuted(false);
+        player.setVolume(1);
+        soundEnabled = true;
+      }
+
+      document.removeEventListener('click', enableSoundOnce);
+      document.removeEventListener('touchstart', enableSoundOnce);
+      document.removeEventListener('scroll', enableSoundOnce);
+    }
+
+    document.addEventListener('click', enableSoundOnce);
+    document.addEventListener('touchstart', enableSoundOnce);
+    document.addEventListener('scroll', enableSoundOnce, { passive: true });
+  </script>
 
   <style>
     * {
