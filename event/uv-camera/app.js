@@ -260,13 +260,6 @@ function showSuccess(typeValue) {
   document.getElementById('cards').style.display      = 'none';
   document.getElementById('conditions').style.display = 'none';
 
-  // 회원가입 동의 시 가입 CTA 숨김 (자동 가입 진행)
-  const membership = document.getElementById('membershipInput');
-  const ctaBox     = document.getElementById('signup-cta-box');
-  if (membership && ctaBox && membership.checked) {
-    ctaBox.style.display = 'none';
-  }
-
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -293,9 +286,6 @@ function resetForm() {
   document.getElementById('value-head').style.display = '';
   document.getElementById('cards').style.display      = '';
   document.getElementById('conditions').style.display = '';
-
-  const ctaBox = document.getElementById('signup-cta-box');
-  if (ctaBox) ctaBox.style.display = '';
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -376,7 +366,6 @@ document.addEventListener('DOMContentLoaded', function() {
       consent:             document.getElementById('consentInput').checked,
       marketingConsent:    document.getElementById('marketingInput').checked,
       partnershipConsent:  document.getElementById('partnershipInput').checked,
-      membershipConsent:   document.getElementById('membershipInput').checked,
       // 메타 픽셀 서버 사이드 매칭용
       fbp:                 getCookie('_fbp'),
       fbc:                 getCookie('_fbc'),

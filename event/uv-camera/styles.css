@@ -626,11 +626,6 @@ label .req {
   display: inline !important;
 }
 
-.membership-box {
-  background: linear-gradient(135deg, #F4F8FF 0%, #E4EFFF 100%);
-  border: 1px solid #C5D5FF;
-}
-
 .check-row {
   display: flex;
   align-items: center;
