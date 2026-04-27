@@ -4,8 +4,8 @@
 const FORM_ENDPOINT = 'https://register.uvid.co.kr/api/uvid/uv-camera-event';
 
 const PACKAGE_LABEL = {
-  free_trial:           '무료 콘텐츠 챌린지 — Single Pack 49,000원',
-  influencer_challenge: '인플루언서 챌린지 — Max Pack 249,000원',
+  free_trial:           '무료 체험단 — Single Pack 49,000원 상당',
+  influencer_challenge: '인플루언서 챌린지 — Max Pack 249,000원 상당',
 };
 
 const PACKAGE_VALUE = {
