@@ -30,7 +30,7 @@ function applyTypeChange() {
   document.body.classList.toggle('sns-active', isSNS);
 
   // SNS 필드 required 토글
-  const snsInputs = ['snsUrlInput', 'categoryInput'];
+  const snsInputs = ['snsUrlInput'];
   snsInputs.forEach(id => {
     const el = document.getElementById(id);
     if (el) {
@@ -108,7 +108,7 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'category', 'address', 'consent', 'marketing', 'partnership']
+  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'consent', 'marketing', 'partnership']
     .forEach(clearFieldError);
 
   const name     = document.getElementById('nameInput').value.trim();
@@ -142,19 +142,13 @@ function validateForm() {
   }
 
   if (isSNS) {
-    const snsUrl   = document.getElementById('snsUrlInput').value.trim();
-    const category = document.getElementById('categoryInput').value;
+    const snsUrl = document.getElementById('snsUrlInput').value.trim();
 
     if (!snsUrl) {
       setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
       isValid = false;
     } else if (!/^https?:\/\/.+/.test(snsUrl)) {
       setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
-      isValid = false;
-    }
-
-    if (!category) {
-      setFieldError('category', '카테고리를 선택해 주세요.');
       isValid = false;
     }
   }
@@ -309,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'categoryInput'].forEach(function(id) {
+  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -359,7 +353,6 @@ document.addEventListener('DOMContentLoaded', function() {
       packageType:         PACKAGE_LABEL[typeValue],
       mallId:              document.getElementById('mallIdInput').value.trim(),
       snsUrl:              document.getElementById('snsUrlInput').value.trim(),
-      category:            document.getElementById('categoryInput').value,
       postcode:            document.getElementById('postcodeInput').value.trim(),
       address:             document.getElementById('addressInput').value.trim(),
       addressDetail:       document.getElementById('addressDetailInput').value.trim(),
