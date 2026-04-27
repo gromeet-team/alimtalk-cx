@@ -760,12 +760,17 @@ label .req {
   width: 22px;
   height: 22px;
   min-width: 22px;
+  min-height: 22px;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
   border: 2px solid #C5C5C5;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
   transition: border-color 0.15s;
   flex-shrink: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .type-radio.active input[type="radio"] {
@@ -1120,7 +1125,7 @@ label .req {
 }
 
 .gender-radio-group {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .phone-os-radio,
@@ -1152,6 +1157,9 @@ label .req {
   width: 20px;
   height: 20px;
   min-width: 20px;
+  min-height: 20px;
+  aspect-ratio: 1 / 1;
+  box-sizing: border-box;
   border: 2px solid #C5C5C5;
   border-radius: 50%;
   cursor: pointer;
@@ -1159,6 +1167,7 @@ label .req {
   transition: border-color 0.15s;
   flex-shrink: 0;
   margin: 0;
+  padding: 0;
 }
 
 .phone-os-radio:has(input:checked) input[type="radio"],
