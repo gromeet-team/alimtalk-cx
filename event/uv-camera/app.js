@@ -1,35 +1,57 @@
 // ----------------------------------------------------------------
 // foremong 어드민 연동 엔드포인트
-// 개발자가 /api/uvid/uv-camera-event 생성 후 아래 주소로 교체
+// ※ 도메인 alias 작업(C) 완료 시 register.uvid.co.kr/api/uvid/uv-camera-event 로 교체
 // ----------------------------------------------------------------
 const FORM_ENDPOINT = 'https://register.foremong.com/api/uvid/uv-camera-event';
 
+const PACKAGE_LABEL = {
+  free_trial:           '무료 체험단 — Single Pack 49,000원',
+  influencer_challenge: '인플루언서 챌린지 — Max Pack 249,000원',
+};
+
+const PACKAGE_VALUE = {
+  free_trial:           49000,
+  influencer_challenge: 249000,
+};
+
 
 // ----------------------------------------------------------------
-// 신청 유형 토글
+// 신청 유형 라디오 (참여형 / SNS형 분기)
 // ----------------------------------------------------------------
-function selectType(btn) {
-  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('typeInput').value = btn.textContent.trim();
+function applyTypeChange() {
+  const checked = document.querySelector('input[name="type"]:checked');
+  const value   = checked ? checked.value : 'free_trial';
+  const isSNS   = value === 'influencer_challenge';
 
-  const isSNS = btn.textContent.includes('SNS형');
-  document.querySelectorAll('.sns-field').forEach(function(field) {
-    const input = field.querySelector('input');
-    const label = field.querySelector('label');
-    if (isSNS) {
-      input.required = true;
-      if (!label.querySelector('.req')) {
-        label.insertAdjacentHTML('beforeend', '<span class="req">*</span>');
+  document.querySelectorAll('.type-radio').forEach(label => {
+    const input = label.querySelector('input[name="type"]');
+    label.classList.toggle('active', input && input.checked);
+  });
+
+  document.body.classList.toggle('sns-active', isSNS);
+
+  // SNS 필드 required 토글
+  const snsInputs = ['snsUrlInput', 'categoryInput'];
+  snsInputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.required = isSNS;
+      if (!isSNS) {
+        el.value = '';
+        clearFieldError(id.replace('Input', ''));
       }
-    } else {
-      input.required = false;
-      input.value = '';
-      clearFieldError(field.id.replace('field-', ''));
-      const req = label.querySelector('.req');
-      if (req) req.remove();
     }
   });
+
+  // 메타 파트너십 동의 토글 (SNS형 필수, 참여형 비표시)
+  const partnership = document.getElementById('partnershipInput');
+  if (partnership) {
+    partnership.required = isSNS;
+    if (!isSNS) {
+      partnership.checked = false;
+      clearFieldError('partnership');
+    }
+  }
 }
 
 
@@ -40,7 +62,7 @@ function searchAddress() {
   new daum.Postcode({
     oncomplete: function(data) {
       document.getElementById('postcodeInput').value = data.zonecode;
-      document.getElementById('addressInput').value = data.roadAddress || data.jibunAddress;
+      document.getElementById('addressInput').value  = data.roadAddress || data.jibunAddress;
       document.getElementById('addressDetailInput').focus();
       clearFieldError('address');
     }
@@ -67,14 +89,14 @@ function formatPhone(input) {
 // 필드 에러 표시 / 초기화
 // ----------------------------------------------------------------
 function setFieldError(fieldId, message) {
-  const field = document.getElementById('field-' + fieldId);
+  const field   = document.getElementById('field-' + fieldId);
   const errorEl = document.getElementById(fieldId + 'Error');
   if (field) field.classList.add('error');
   if (errorEl) errorEl.textContent = message;
 }
 
 function clearFieldError(fieldId) {
-  const field = document.getElementById('field-' + fieldId);
+  const field   = document.getElementById('field-' + fieldId);
   const errorEl = document.getElementById(fieldId + 'Error');
   if (field) field.classList.remove('error');
   if (errorEl) errorEl.textContent = '';
@@ -87,15 +109,17 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['name', 'tel', 'email', 'mallId', 'snsAccount', 'snsUrl', 'address', 'consent'].forEach(clearFieldError);
+  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'category', 'address', 'consent', 'marketing', 'partnership']
+    .forEach(clearFieldError);
 
   const name     = document.getElementById('nameInput').value.trim();
   const tel      = document.getElementById('telInput').value.trim();
   const email    = document.getElementById('emailInput').value.trim();
-  const mallId   = document.getElementById('mallIdInput').value.trim();
   const postcode = document.getElementById('postcodeInput').value.trim();
   const consent  = document.getElementById('consentInput').checked;
-  const isSNS    = document.querySelector('.toggle-btn.active').textContent.includes('SNS형');
+  const marketing = document.getElementById('marketingInput').checked;
+  const checked  = document.querySelector('input[name="type"]:checked');
+  const isSNS    = checked && checked.value === 'influencer_challenge';
 
   if (!name) {
     setFieldError('name', '성명을 입력해 주세요.');
@@ -118,24 +142,20 @@ function validateForm() {
     isValid = false;
   }
 
-  if (!mallId) {
-    setFieldError('mallId', '공식몰 아이디를 입력해 주세요.');
-    isValid = false;
-  }
-
   if (isSNS) {
-    const snsAccount = document.getElementById('snsAccountInput').value.trim();
-    const snsUrl     = document.getElementById('snsUrlInput').value.trim();
+    const snsUrl   = document.getElementById('snsUrlInput').value.trim();
+    const category = document.getElementById('categoryInput').value;
 
-    if (!snsAccount) {
-      setFieldError('snsAccount', 'SNS 계정을 입력해 주세요.');
-      isValid = false;
-    }
     if (!snsUrl) {
-      setFieldError('snsUrl', 'SNS URL을 입력해 주세요.');
+      setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
       isValid = false;
     } else if (!/^https?:\/\/.+/.test(snsUrl)) {
       setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+      isValid = false;
+    }
+
+    if (!category) {
+      setFieldError('category', '카테고리를 선택해 주세요.');
       isValid = false;
     }
   }
@@ -146,8 +166,21 @@ function validateForm() {
   }
 
   if (!consent) {
-    setFieldError('consent', '개인정보 수집 및 이용에 동의해 주세요.');
+    setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
     isValid = false;
+  }
+
+  if (!marketing) {
+    setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
+    isValid = false;
+  }
+
+  if (isSNS) {
+    const partnership = document.getElementById('partnershipInput').checked;
+    if (!partnership) {
+      setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+      isValid = false;
+    }
   }
 
   return isValid;
@@ -155,7 +188,7 @@ function validateForm() {
 
 
 // ----------------------------------------------------------------
-// 쿠키 읽기 (Facebook 픽셀용)
+// 쿠키 읽기 (Facebook 픽셀 매칭용)
 // ----------------------------------------------------------------
 function getCookie(name) {
   return document.cookie.split(';').reduce(function(acc, c) {
@@ -197,15 +230,43 @@ async function submitForm(data) {
 
 
 // ----------------------------------------------------------------
+// Meta Pixel Lead 이벤트
+// ----------------------------------------------------------------
+function trackLead(typeValue) {
+  if (typeof fbq !== 'function') return;
+
+  try {
+    fbq('track', 'Lead', {
+      content_name:     'uv_camera_event',
+      content_category: typeValue === 'influencer_challenge' ? 'influencer_challenge' : 'free_trial',
+      value:            PACKAGE_VALUE[typeValue] || 49000,
+      currency:         'KRW',
+    });
+  } catch (err) {
+    console.warn('fbq Lead failed:', err);
+  }
+}
+
+
+// ----------------------------------------------------------------
 // 완료 화면 표시 / 폼 초기화
 // ----------------------------------------------------------------
-function showSuccess(packageType) {
+function showSuccess(typeValue) {
   document.getElementById('applicationForm').style.display = 'none';
-  document.getElementById('successPackage').textContent = '신청 패키지: ' + packageType;
-  document.getElementById('success-screen').style.display = 'flex';
+  document.getElementById('successPackage').textContent    = '신청 패키지: ' + (PACKAGE_LABEL[typeValue] || '');
+  document.getElementById('success-screen').style.display  = 'flex';
 
-  document.getElementById('main').style.display = 'none';
-  document.getElementById('title').style.display = 'none';
+  document.getElementById('main').style.display       = 'none';
+  document.getElementById('value-head').style.display = 'none';
+  document.getElementById('cards').style.display      = 'none';
+  document.getElementById('conditions').style.display = 'none';
+
+  // 회원가입 동의 시 가입 CTA 숨김 (자동 가입 진행)
+  const membership = document.getElementById('membershipInput');
+  const ctaBox     = document.getElementById('signup-cta-box');
+  if (membership && ctaBox && membership.checked) {
+    ctaBox.style.display = 'none';
+  }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -214,24 +275,28 @@ function resetForm() {
   const form = document.getElementById('applicationForm');
   form.reset();
 
-  document.getElementById('typeInput').value = '참여형 (유비드 선패드 180일 패키지)';
-  document.querySelectorAll('.toggle-btn').forEach((btn, i) => btn.classList.toggle('active', i === 0));
-
-  document.querySelectorAll('.sns-field input').forEach(input => { input.required = false; });
-  document.querySelectorAll('.sns-field label .req').forEach(el => el.remove());
+  // 라디오 기본값 (참여형)
+  const freeTrialRadio = document.querySelector('input[name="type"][value="free_trial"]');
+  if (freeTrialRadio) freeTrialRadio.checked = true;
+  applyTypeChange();
 
   document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
   document.querySelectorAll('.error-msg').forEach(el => { el.textContent = ''; });
 
   const feedback = document.getElementById('formFeedback');
-  feedback.textContent = '';
+  feedback.textContent  = '';
   feedback.style.display = 'none';
 
   document.getElementById('success-screen').style.display = 'none';
   form.style.display = 'block';
 
-  document.getElementById('main').style.display = '';
-  document.getElementById('title').style.display = '';
+  document.getElementById('main').style.display       = '';
+  document.getElementById('value-head').style.display = '';
+  document.getElementById('cards').style.display      = '';
+  document.getElementById('conditions').style.display = '';
+
+  const ctaBox = document.getElementById('signup-cta-box');
+  if (ctaBox) ctaBox.style.display = '';
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -242,6 +307,12 @@ function resetForm() {
 // ----------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
 
+  // 신청 유형 라디오
+  document.querySelectorAll('input[name="type"]').forEach(input => {
+    input.addEventListener('change', applyTypeChange);
+  });
+  applyTypeChange();
+
   // 전화번호 자동 하이픈
   document.getElementById('telInput').addEventListener('input', function() {
     formatPhone(this);
@@ -249,11 +320,14 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'emailInput', 'mallIdInput', 'snsAccountInput', 'snsUrlInput'].forEach(function(id) {
+  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'categoryInput'].forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) el.addEventListener('input', function() {
-      clearFieldError(id.replace('Input', ''));
-    });
+    if (el) {
+      const evt = el.tagName === 'SELECT' ? 'change' : 'input';
+      el.addEventListener(evt, function() {
+        clearFieldError(id.replace('Input', ''));
+      });
+    }
   });
 
   ['postcodeInput', 'addressDetailInput'].forEach(function(id) {
@@ -261,8 +335,11 @@ document.addEventListener('DOMContentLoaded', function() {
     if (el) el.addEventListener('input', function() { clearFieldError('address'); });
   });
 
-  document.getElementById('consentInput').addEventListener('change', function() {
-    clearFieldError('consent');
+  ['consentInput', 'marketingInput', 'partnershipInput'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', function() {
+      clearFieldError(id.replace('Input', ''));
+    });
   });
 
   // 폼 제출
@@ -276,37 +353,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     var submitBtn = document.getElementById('submitBtn');
+    var btnLabel  = submitBtn.querySelector('.btn-label');
     var feedback  = document.getElementById('formFeedback');
     submitBtn.disabled = true;
-    submitBtn.textContent = '신청 중...';
+    submitBtn.classList.add('loading');
+    if (btnLabel) btnLabel.textContent = '신청 중...';
     feedback.style.display = 'none';
 
-    var packageType = document.getElementById('typeInput').value;
+    var typeValue = (document.querySelector('input[name="type"]:checked') || {}).value || 'free_trial';
 
-    // /api/uvid/uv-camera-event 필드
     var payload = {
-      applicantName: document.getElementById('nameInput').value.trim(),
-      contact:       document.getElementById('telInput').value.trim(),
-      packageType:   packageType,
-      consent:       document.getElementById('consentInput').checked,
-      email:         document.getElementById('emailInput').value.trim(),
-      mallId:        document.getElementById('mallIdInput').value.trim(),
-      snsAccount:    document.getElementById('snsAccountInput').value.trim(),
-      snsUrl:        document.getElementById('snsUrlInput').value.trim(),
-      postcode:      document.getElementById('postcodeInput').value.trim(),
-      address:       document.getElementById('addressInput').value.trim(),
-      addressDetail: document.getElementById('addressDetailInput').value.trim(),
+      applicantName:       document.getElementById('nameInput').value.trim(),
+      contact:             document.getElementById('telInput').value.trim(),
+      email:               document.getElementById('emailInput').value.trim(),
+      type:                typeValue,
+      packageType:         PACKAGE_LABEL[typeValue],
+      mallId:              document.getElementById('mallIdInput').value.trim(),
+      snsUrl:              document.getElementById('snsUrlInput').value.trim(),
+      category:            document.getElementById('categoryInput').value,
+      postcode:            document.getElementById('postcodeInput').value.trim(),
+      address:             document.getElementById('addressInput').value.trim(),
+      addressDetail:       document.getElementById('addressDetailInput').value.trim(),
+      consent:             document.getElementById('consentInput').checked,
+      marketingConsent:    document.getElementById('marketingInput').checked,
+      partnershipConsent:  document.getElementById('partnershipInput').checked,
+      membershipConsent:   document.getElementById('membershipInput').checked,
+      // 메타 픽셀 서버 사이드 매칭용
+      fbp:                 getCookie('_fbp'),
+      fbc:                 getCookie('_fbc'),
     };
 
     try {
       await submitForm(payload);
-      showSuccess(packageType);
+      trackLead(typeValue);
+      showSuccess(typeValue);
     } catch (err) {
       feedback.textContent = err.message || '신청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
       feedback.style.display = 'block';
     } finally {
       submitBtn.disabled = false;
-      submitBtn.textContent = '이벤트 신청하기';
+      submitBtn.classList.remove('loading');
+      if (btnLabel) btnLabel.textContent = '이벤트 신청하기';
     }
   });
 

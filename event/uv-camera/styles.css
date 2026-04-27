@@ -2,27 +2,7 @@
   --gray-50: #F9F9F9;
   --gray-400: #ABABAB;
   --text-dark: #292929;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraLight.woff2') format('woff2');
-  font-weight: 200;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-display: swap;
+  --orange: #FF4800;
 }
 
 @font-face {
@@ -60,16 +40,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Black.woff2') format('woff2');
-  font-weight: 900;
-  font-display: swap;
-}
-
-
-
-
 html,
 body {
   overflow-x: hidden;
@@ -93,8 +63,7 @@ body {
   display: none;
 }
 
-
-
+/* ============ 메인 비디오 ============ */
 #main {
   height: 957px;
   display: flex;
@@ -111,7 +80,6 @@ body {
   border-radius: 20px;
   overflow: hidden;
 }
-
 
 #main .mainVideo {
   width: 100%;
@@ -131,9 +99,6 @@ body {
   padding-bottom: 56.25%;
   outline: none;
   border: 0;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
 }
 
 #main .mainVideo .video iframe {
@@ -147,33 +112,51 @@ body {
   border-radius: 20px;
 }
 
-#title {
-  padding: 15vw 0;
-}
-
-#title div.txt {
-  font-size: clamp(24px, 1.5625vw, 30px);
+/* ============ 가치 헤드 (구 #title) ============ */
+#value-head {
+  padding: 80px 0 60px;
   text-align: center;
 }
 
-#title div.txt h1 {
-  font-size: clamp(34px, 3.125vw, 60px);
-  letter-spacing: -1.2px;
-  font-weight: 800;
-  margin-top: 20px;
+.value-eyebrow {
+  font-size: clamp(16px, 1.2vw, 20px);
+  color: #737373;
+  margin-bottom: 20px;
+  letter-spacing: 0.02em;
 }
 
+.value-headline {
+  font-size: clamp(32px, 3.125vw, 60px);
+  letter-spacing: -1.2px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
 
-#title div.circle {
+.value-headline strong {
+  color: var(--orange);
+}
+
+.value-sub {
+  font-size: clamp(18px, 1.5vw, 28px);
+  color: #292929;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.value-sub strong {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+#value-head .circle {
   position: relative;
   width: 120px;
   height: 120px;
-  margin: auto;
-  margin-top: 50px;
+  margin: 30px auto 0;
 }
 
-
-#title div.circle div {
+#value-head .circle div {
   background-image: url('images/scroll_circle.png');
   background-position: center;
   background-size: contain;
@@ -190,30 +173,182 @@ body {
 }
 
 @keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-
-#title div.circle svg {
+#value-head .circle svg {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
+/* ============ 두 카드 (정보 비교용) ============ */
+#cards {
+  padding: 60px 0 80px;
+}
 
+.cards-title {
+  text-align: center;
+  font-size: clamp(22px, 2vw, 36px);
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: -0.02em;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 32px;
+  border: 1.5px solid #ECECEC;
+}
+
+.card-tag {
+  font-size: clamp(18px, 1.4vw, 24px);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.card-tag-sub {
+  font-size: 15px;
+  font-weight: 500;
+  color: #737373;
+}
+
+.card-pack {
+  font-size: clamp(20px, 1.7vw, 28px);
+  font-weight: 600;
+  color: #292929;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ECECEC;
+}
+
+.card-pack strong {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+.card-features {
+  list-style: none;
+  padding: 0;
+}
+
+.card-features li {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #292929;
+  margin-bottom: 10px;
+}
+
+.card-feature-highlight {
+  background: #FFF5F2;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-top: 8px;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.card-feature-highlight span {
+  font-size: 13px;
+  color: #737373;
+  font-weight: 500;
+}
+
+/* ============ Placeholder (엘렌 디자인 작업 영역) ============ */
+.placeholder {
+  background: repeating-linear-gradient(
+    45deg,
+    #F1F1F1,
+    #F1F1F1 12px,
+    #E8E8E8 12px,
+    #E8E8E8 24px
+  );
+  border: 1.5px dashed #C5C5C5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #737373;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  padding: 20px;
+}
+
+.placeholder-label {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 6px;
+}
+
+.placeholder-hero {
+  width: 100%;
+  height: 240px;
+  margin-bottom: 30px;
+}
+
+.placeholder-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.placeholder-conditions,
+.placeholder-sns-conditions {
+  flex-direction: column;
+  padding: 32px;
+  margin-bottom: 24px;
+  align-items: stretch;
+}
+
+.placeholder-conditions .conditions-list,
+.placeholder-sns-conditions .conditions-list {
+  margin-top: 16px;
+  list-style: none;
+  padding: 0;
+}
+
+.placeholder-conditions .conditions-list li,
+.placeholder-sns-conditions .conditions-list li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #292929;
+  margin-bottom: 6px;
+}
+
+.placeholder-faq {
+  width: 100%;
+  height: 280px;
+}
+
+.placeholder-footer {
+  width: 100%;
+  height: 140px;
+}
+
+.placeholder-lockin {
+  width: 100%;
+  height: 100px;
+  margin: 32px 0;
+}
+
+/* ============ 신청 폼 ============ */
 .apply-container {
   max-width: 1260px;
   margin: 0 auto;
   background: #fff;
-  padding: 140px 76px;
+  padding: 100px 76px;
   border-radius: 20px;
 }
 
@@ -222,6 +357,17 @@ body {
   font-size: clamp(40px, 4.167vw, 80px);
   font-weight: 800;
   letter-spacing: -0.02em;
+  margin-bottom: 24px;
+}
+
+.age-notice {
+  background: #FFF5F2;
+  border: 1px solid #FFD5C5;
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-size: 15px;
+  color: var(--orange);
+  font-weight: 500;
   margin-bottom: 40px;
 }
 
@@ -235,50 +381,122 @@ body {
 
 .field-label .req,
 label .req {
-  color: #FF4800;
+  color: var(--orange);
   margin-left: 2px;
 }
 
-/* 신청 유형 토글 */
-.type-toggle {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.optional-tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: #737373;
+  margin-left: 4px;
 }
 
-.toggle-btn {
-  padding: 14px 22px;
-  border: none;
-  border-radius: 999px;
-  background: #F1F1F1;
+.req-text,
+.optional-text {
+  font-style: normal;
+  font-size: 13px;
   color: #737373;
-  font-size: 17px;
-  font-weight: 500;
+  margin-left: 4px;
+}
+
+.req-text {
+  color: var(--orange);
+}
+
+/* ============ 신청 유형 라디오 ============ */
+.type-section {
+  margin-bottom: 16px;
+}
+
+.type-radio-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.type-radio {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 22px;
+  border: 1.5px solid #ECECEC;
+  border-radius: 12px;
+  background: #FAFAFA;
   cursor: pointer;
   transition: all 0.2s;
-  font-family: inherit;
 }
 
+.type-radio.active {
+  border-color: var(--orange);
+  background: #FFF5F2;
+}
 
+.type-radio input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  border: 2px solid #C5C5C5;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s;
+  flex-shrink: 0;
+}
 
-.toggle-btn.active {
-  background: #FF4800;
-  color: #fff;
-  font-weight: 600;
+.type-radio.active input[type="radio"] {
+  border-color: var(--orange);
+}
+
+.type-radio.active input[type="radio"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+}
+
+.type-radio-icon {
+  font-size: 24px;
+}
+
+.type-radio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.type-radio-text strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: #292929;
+}
+
+.type-radio-text em {
+  font-style: normal;
+  font-size: 13px;
+  color: #737373;
+  font-weight: 500;
 }
 
 /* 구분선 */
 .divider {
   border: none;
   border-top: 1px solid #D5D5D5;
-  margin: 64px 0;
+  margin: 48px 0;
 }
 
 /* 폼 그리드 */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 45px;
+  gap: 32px;
   margin-bottom: 20px;
 }
 
@@ -297,26 +515,44 @@ label .req {
   margin-bottom: 8px;
 }
 
-.field input {
+.field input,
+.field select {
   height: 48px;
   padding: 0 16px;
   border: 1px solid #F1F1F1;
   border-radius: 8px;
   background: #F1F1F1;
   font-size: 17px;
-  color: #737373;
+  color: #292929;
   font-family: inherit;
   transition: border-color 0.2s;
+}
+
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23737373' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
 }
 
 .field input::placeholder {
   color: var(--gray-400);
 }
 
-.field input:focus {
+.field input:focus,
+.field select:focus {
   outline: none;
-  border-color: #FF4800;
+  border-color: var(--orange);
   background: #fff;
+}
+
+.hint-msg {
+  display: block;
+  font-size: 13px;
+  color: #737373;
+  margin-top: 5px;
 }
 
 /* 주소 영역 */
@@ -333,6 +569,7 @@ label .req {
 .btn-addr-search {
   padding: 0 20px;
   height: 48px;
+  min-height: 48px;
   background: #292929;
   color: #fff;
   border: none;
@@ -344,15 +581,20 @@ label .req {
   white-space: nowrap;
 }
 
+/* ============ 동의 박스 ============ */
+.consent-section {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
 
-/* 개인정보 박스 */
 .privacy-box {
   background: var(--gray-50);
   border: 0.5px solid #D5D5D5;
-  border-radius: 5px;
-  padding: 20px;
-  font-size: 15px;
-  color: #737373;
+  border-radius: 8px;
+  padding: 18px 20px;
+  font-size: 14px;
+  color: #555;
   line-height: 1.7;
   max-height: 180px;
   overflow-y: auto;
@@ -369,25 +611,45 @@ label .req {
   margin-bottom: 2px;
 }
 
+.partnership-box {
+  background: linear-gradient(135deg, #FFF8F4 0%, #FFEFE4 100%);
+  border: 1px solid #FFD5C5;
+}
+
+.partnership-headline {
+  font-size: 16px;
+  color: #292929;
+  margin-bottom: 14px !important;
+}
+
+.partnership-headline strong {
+  display: inline !important;
+}
+
+.membership-box {
+  background: linear-gradient(135deg, #F4F8FF 0%, #E4EFFF 100%);
+  border: 1px solid #C5D5FF;
+}
+
 .check-row {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  font-size: 14px;
+  gap: 10px;
+  font-size: 15px;
   color: var(--text-dark);
   cursor: pointer;
+  font-weight: 500;
 }
 
 .check-row input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
-  min-width: 20px;
-  max-width: 20px;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  max-width: 22px;
   aspect-ratio: 1 / 1;
-  flex: 0 0 20px;
+  flex: 0 0 22px;
   padding: 0;
   margin: 0;
   border: 1.5px solid #292929;
@@ -409,8 +671,8 @@ label .req {
   position: absolute;
   left: 6px;
   top: 2px;
-  width: 5px;
-  height: 10px;
+  width: 6px;
+  height: 11px;
   border: solid #fff;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
@@ -432,15 +694,16 @@ label .req {
 }
 
 /* 필드 에러 상태 */
-.field.error input {
-  border-color: #FF4800;
+.field.error input,
+.field.error select {
+  border-color: var(--orange);
   background: #fff5f2;
 }
 
 .error-msg {
   display: block;
   font-size: 13px;
-  color: #FF4800;
+  color: var(--orange);
   margin-top: 5px;
   min-height: 18px;
 }
@@ -448,7 +711,7 @@ label .req {
 /* 전체 오류 메시지 */
 .form-feedback {
   display: none;
-  color: #FF4800;
+  color: var(--orange);
   font-size: 15px;
   text-align: center;
   margin-top: 20px;
@@ -458,15 +721,16 @@ label .req {
   border-radius: 8px;
 }
 
-/* 제출 버튼 */
+/* ============ 제출 버튼 + 스피너 ============ */
 .submit-wrap {
   text-align: center;
   margin-top: 40px;
 }
 
 .btn-submit {
-  padding: 15px 103px;
-  background: #FF4800;
+  position: relative;
+  padding: 15px 80px;
+  background: var(--orange);
   color: #fff;
   border: none;
   border-radius: 999px;
@@ -475,21 +739,59 @@ label .req {
   cursor: pointer;
   font-family: 'Pretendard';
   transition: opacity 0.2s;
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
 .btn-submit:disabled {
-  opacity: 0.6;
+  opacity: 0.7;
   cursor: not-allowed;
+}
+
+.btn-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.btn-submit.loading .btn-spinner {
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* SNS form/consent 표시 토글 */
+.sns-field,
+.sns-only {
+  display: none;
+}
+
+.sns-active .sns-field,
+.sns-active .sns-only {
+  display: flex;
+  flex-direction: column;
+}
+
+.sns-active .sns-field.full,
+.sns-active .sns-only {
+  grid-column: span 2;
 }
 
 /* #apply 섹션 하단 여백 */
 #apply {
-  padding-bottom: 120px;
+  padding: 40px 0 60px;
 }
 
-/* ----------------------------------------
-   신청 완료 화면
----------------------------------------- */
+/* ============ 신청 완료 화면 + 가입 CTA ============ */
 .success-container {
   display: flex;
   flex-direction: column;
@@ -498,11 +800,11 @@ label .req {
   text-align: center;
   padding: 80px 76px;
   min-height: calc(100vh - 120px);
-  margin-top: 120px;
+  margin-top: 40px;
 }
 
 .success-icon {
-  margin-bottom: 40px;
+  margin-bottom: 32px;
 }
 
 .success-title {
@@ -511,7 +813,7 @@ label .req {
   font-weight: 800;
   letter-spacing: -0.03em;
   color: #292929;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   line-height: 1.3;
 }
 
@@ -525,8 +827,47 @@ label .req {
 .success-package {
   font-size: 15px;
   font-weight: 600;
-  color: #FF4800;
-  margin-bottom: 52px;
+  color: var(--orange);
+  margin-bottom: 36px;
+}
+
+.signup-cta-box {
+  background: linear-gradient(135deg, #FFF5F2 0%, #FFE5DA 100%);
+  border: 1.5px solid #FFD5C5;
+  border-radius: 16px;
+  padding: 28px 24px;
+  margin: 0 auto 24px;
+  max-width: 480px;
+}
+
+.signup-cta-headline {
+  font-size: 18px;
+  font-weight: 700;
+  color: #292929;
+  margin-bottom: 8px;
+}
+
+.signup-cta-headline strong {
+  color: var(--orange);
+}
+
+.signup-cta-sub {
+  font-size: 14px;
+  color: #737373;
+  margin-bottom: 18px;
+}
+
+.btn-signup {
+  display: inline-block;
+  padding: 14px 36px;
+  background: var(--orange);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  min-height: 48px;
+  line-height: 1.5;
 }
 
 .btn-reset {
@@ -540,6 +881,8 @@ label .req {
   cursor: pointer;
   font-family: 'Pretendard';
   transition: background 0.2s, color 0.2s;
+  min-height: 50px;
+  margin-top: 16px;
 }
 
 .btn-reset:hover {
@@ -547,19 +890,30 @@ label .req {
   color: #fff;
 }
 
+/* ============ 추가 섹션 (참여조건/FAQ/푸터) ============ */
+#conditions,
+#faq {
+  padding: 60px 0;
+}
 
-/* 모바일 */
+#site-footer {
+  padding: 40px 0 80px;
+}
 
+.section-title {
+  font-size: clamp(22px, 2vw, 36px);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
+}
 
-
+/* ============ 모바일 ============ */
 @media (max-width: 1024px) {
-
-
-
-  .toggle-btn,
   .field-label,
   .field label,
   .field input,
+  .field select,
   .btn-addr-search {
     font-size: 15px;
   }
@@ -569,19 +923,19 @@ label .req {
   }
 
   .apply-container {
-    padding: 100px 50px;
+    padding: 80px 50px;
   }
 
   .form-grid {
-    gap: 30px;
+    gap: 24px;
   }
 
+  .type-radio-group {
+    grid-template-columns: 1fr;
+  }
 }
 
-
-
 @media (max-width: 768px) {
-
   .mobile {
     display: block;
   }
@@ -590,7 +944,7 @@ label .req {
     display: none;
   }
 
-  /* ============ #main 컨테이너 ============ */
+  /* main video */
   #main {
     width: 100%;
     max-width: 100%;
@@ -598,13 +952,12 @@ label .req {
     margin: 0;
     padding: 30px 20px;
     box-sizing: border-box;
-    display: block;            /* flex 해제 필수 */
+    display: block;
   }
 
-  /* ============ videoWrap — 크기 + 둥글기 담당 ============ */
   #main .videoWrap {
     width: 100%;
-    aspect-ratio: 4 / 5;       /* 👈 여기에만 aspect-ratio */
+    aspect-ratio: 4 / 5;
     border-radius: 20px;
     overflow: hidden;
     clip-path: inset(0 round 32px);
@@ -614,11 +967,10 @@ label .req {
     transform: translateZ(0);
   }
 
-  /* ============ mainVideo — 단순히 wrap 채우기 ============ */
   #main .mainVideo {
     width: 100%;
     height: 100%;
-    aspect-ratio: auto;         /* 👈 기존 aspect-ratio 해제 */
+    aspect-ratio: auto;
     position: absolute;
     inset: 0;
     border-radius: 20px;
@@ -644,30 +996,42 @@ label .req {
     border: 0;
     display: block;
   }
-  #title {
-    padding: 20vw 0;
+
+  #value-head {
+    padding: 60px 0 30px;
   }
 
-  #title div.txt {
-    font-size: 17px;
-  }
-
-  #title div.txt h1 {
+  .value-headline {
     font-size: 26px;
-    margin-top: 10px;
     line-height: 1.3em;
   }
 
-  #title div.circle {
+  .value-sub {
+    font-size: 16px;
+  }
+
+  #value-head .circle {
     width: 100px;
     height: 100px;
     margin-top: 20px;
   }
 
-  #title div.circle svg {
+  #value-head .circle svg {
     width: 30px;
   }
 
+  #cards {
+    padding: 30px 0 60px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    padding: 28px 22px;
+  }
 
   .apply-container {
     padding: 56px 21px;
@@ -675,6 +1039,12 @@ label .req {
 
   .apply-title {
     font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .age-notice {
+    font-size: 14px;
+    padding: 12px 14px;
     margin-bottom: 28px;
   }
 
@@ -682,26 +1052,26 @@ label .req {
     margin: 32px 0;
   }
 
-  .toggle-btn,
   .field-label,
   .field label,
   .field input,
+  .field select,
   .btn-addr-search {
     font-size: 14px;
   }
 
   .form-grid {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 18px;
   }
 
   .field.full {
     grid-column: span 1;
   }
 
-  .toggle-btn {
-    width: 100%;
-    text-align: center;
+  .sns-active .sns-field.full,
+  .sns-active .sns-only {
+    grid-column: span 1;
   }
 
   .btn-submit {
@@ -711,10 +1081,15 @@ label .req {
     min-height: 50px;
   }
 
-  .field input {
+  .field input,
+  .field select {
     height: 48px;
     font-size: 14px;
     padding: 0 12px;
+  }
+
+  .field select {
+    padding-right: 36px;
   }
 
   .address-row {
@@ -733,17 +1108,22 @@ label .req {
     min-height: 48px;
   }
 
-  .toggle-btn {
-    min-height: 48px;
+  .privacy-box {
+    font-size: 13px;
+    padding: 14px;
   }
 
-  .privacy-box {
-    font-size: 12px;
-    padding: 15px;
+  .check-row {
+    font-size: 14px;
   }
 
   #apply {
-    padding-bottom: 60px;
+    padding-bottom: 40px;
+  }
+
+  #conditions,
+  #faq {
+    padding: 40px 0;
   }
 
   .success-container {
@@ -766,13 +1146,23 @@ label .req {
 
   .success-package {
     font-size: 13px;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
+  }
+
+  .signup-cta-headline {
+    font-size: 16px;
+  }
+
+  .btn-signup {
+    width: 100%;
+    padding: 14px;
+    min-height: 48px;
   }
 
   .btn-reset {
     width: 100%;
     padding: 16px;
     font-size: 16px;
+    min-height: 50px;
   }
-
 }
