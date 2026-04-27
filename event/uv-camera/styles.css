@@ -1941,3 +1941,39 @@ label .req {
     min-height: 50px;
   }
 }
+
+/* ============ 5차: 잠수 방지 — 의무 안내 박스 + 법적 조치 동의 박스 ============ */
+.legal-warning-box {
+  margin: 20px 0 24px;
+  padding: 16px 20px;
+  background: #FFF7E0;
+  border-left: 4px solid #FFB793;
+  border-radius: 6px;
+}
+
+.legal-warning-copy {
+  margin: 0;
+  font-size: clamp(14px, 1vw, 15px);
+  line-height: 1.55;
+  color: #292929;
+  letter-spacing: -0.01em;
+}
+
+.legal-warning-copy strong {
+  font-weight: 700;
+  color: #292929;
+}
+
+.legal-consent-box {
+  background: #FFF7E0;
+  border-color: #FFE3B0;
+}
+
+.legal-consent-box p {
+  color: #292929;
+}
+
+.legal-consent-box strong {
+  color: #B8590E;
+}
+

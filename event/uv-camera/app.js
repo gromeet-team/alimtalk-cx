@@ -108,7 +108,7 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'partnership']
+  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
 
   const name     = document.getElementById('nameInput').value.trim();
@@ -185,6 +185,12 @@ function validateForm() {
 
   if (!marketing) {
     setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
+    isValid = false;
+  }
+
+  const legal = document.getElementById('legalInput').checked;
+  if (!legal) {
+    setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
     isValid = false;
   }
 
@@ -338,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (el) el.addEventListener('input', function() { clearFieldError('address'); });
   });
 
-  ['consentInput', 'marketingInput', 'partnershipInput'].forEach(function(id) {
+  ['consentInput', 'marketingInput', 'legalInput', 'partnershipInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('change', function() {
       clearFieldError(id.replace('Input', ''));
@@ -392,6 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       addressDetail:       document.getElementById('addressDetailInput').value.trim(),
       consent:             document.getElementById('consentInput').checked,
       marketingConsent:    document.getElementById('marketingInput').checked,
+      agreeLegal:          document.getElementById('legalInput').checked,
       partnershipConsent:  document.getElementById('partnershipInput').checked,
       // 메타 픽셀 서버 사이드 매칭용
       fbp:                 getCookie('_fbp'),
