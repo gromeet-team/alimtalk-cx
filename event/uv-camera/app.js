@@ -1,8 +1,7 @@
 // ----------------------------------------------------------------
-// foremong 어드민 연동 엔드포인트
-// ※ 도메인 alias 작업(C) 완료 시 register.uvid.co.kr/api/uvid/uv-camera-event 로 교체
+// foremong-register API 엔드포인트 (register.uvid.co.kr 도메인 별칭)
 // ----------------------------------------------------------------
-const FORM_ENDPOINT = 'https://register.foremong.com/api/uvid/uv-camera-event';
+const FORM_ENDPOINT = 'https://register.uvid.co.kr/api/uvid/uv-camera-event';
 
 const PACKAGE_LABEL = {
   free_trial:           '무료 체험단 — Single Pack 49,000원',
