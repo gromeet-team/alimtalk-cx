@@ -205,8 +205,8 @@
 
         <div class="field" id="field-mallId">
           <label for="mallIdInput">유비드 공식몰 아이디 <span class="optional-tag">(선택)</span></label>
-          <input type="text" id="mallIdInput" name="mallId" placeholder="이미 회원이시면 입력 시 추가 혜택 안내">
-          <span class="hint-msg">회원이 아니시면 비워두셔도 됩니다.</span>
+          <input type="text" id="mallIdInput" name="mallId" placeholder="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP" title="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP">
+          <span class="hint-msg">🎯 회원 신청 시 발송 선정 우선 — 한정 수량이라 당첨 확률이 올라갑니다.</span>
           <span class="error-msg" id="mallIdError" aria-live="polite"></span>
         </div>
 
@@ -356,19 +356,38 @@
 
   </section>
 
-  <!-- 참여 조건 섹션 (placeholder — 엘렌 디자인 작업 영역) -->
+  <!-- 참여 조건 섹션 (3단계 챌린지) -->
   <section id="conditions" class="layout">
-    <h2 class="section-title">참여 조건 안내</h2>
-    <div class="placeholder placeholder-conditions">
-      <span class="placeholder-label">[참여 조건 5개 박스 + 아이콘 — 엘렌]</span>
-      <ul class="conditions-list">
-        <li>⏱ <strong>30분이면 끝나는 즉시 촬영 챌린지</strong> (30일 사용 의무 없음)</li>
-        <li>① 맨얼굴 촬영 (자외선 노출 베이스라인)</li>
-        <li>② 선패드로 얼굴 문지름 (도포 동작)</li>
-        <li>③ UV 카메라로 자외선이 사라지는 순간 시각화 촬영</li>
-        <li>④ 영상 이메일 제출 (uvid@gromeet.com, 수령 후 14일 이내)</li>
-      </ul>
+    <h2 class="section-title">30분이면 끝나는 3단계 촬영 챌린지</h2>
+    <p class="section-sub">30일 사용 의무는 없습니다. 수령 즉시 진행해 주세요.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="placeholder placeholder-step">
+          <span class="placeholder-label">[Step 1 비주얼 — 엘렌]</span>
+        </div>
+        <div class="step-num">STEP 1</div>
+        <h3 class="step-title">맨얼굴 촬영 (Before)</h3>
+        <p class="step-desc">자외선 노출 베이스라인을 남기는 단계입니다.</p>
+      </div>
+      <div class="step-card step-card-highlight">
+        <div class="placeholder placeholder-step">
+          <span class="placeholder-label">[Step 2 비주얼 — 엘렌]</span>
+        </div>
+        <div class="step-num">STEP 2 ⭐</div>
+        <h3 class="step-title">UV 카메라로 선패드 도포 시각화</h3>
+        <p class="step-desc">자외선이 까맣게 묻어나오는 순간 — 이벤트 핵심 와우 모먼트.</p>
+      </div>
+      <div class="step-card">
+        <div class="placeholder placeholder-step">
+          <span class="placeholder-label">[Step 3 비주얼 — 엘렌]</span>
+        </div>
+        <div class="step-num">STEP 3</div>
+        <h3 class="step-title">바른 뒤 촉촉·물광 맨얼굴 (After)</h3>
+        <p class="step-desc">발림감과 마무리 톤업을 함께 보여주는 단계입니다.</p>
+      </div>
     </div>
+    <p class="conditions-note">📩 영상은 <strong>uvid@gromeet.com</strong>으로 수령 후 14일 이내 제출. 상세 촬영 가이드(구도·조명·분량·UV 카메라 사용법)는 선정자에게 알림톡으로 별도 PDF 발송됩니다.</p>
+
     <div class="placeholder placeholder-sns-conditions">
       <span class="placeholder-label">[SNS형 추가 조건 카드 + Partnership Ads 메리트 — 엘렌]</span>
       <ul class="conditions-list">
@@ -381,18 +400,73 @@
     </div>
   </section>
 
-  <!-- FAQ 섹션 (placeholder — 엘렌 디자인 작업 영역) -->
+  <!-- FAQ 섹션 -->
   <section id="faq" class="layout">
     <h2 class="section-title">자주 묻는 질문</h2>
-    <div class="placeholder placeholder-faq">
-      <span class="placeholder-label">[FAQ Q1~Q5 — 엘렌·조이]</span>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary><strong>Q1.</strong> UV 카메라는 정말 무료인가요?</summary>
+        <p>네. 신청 후 선정되시면 UV 카메라가 함께 발송됩니다. 카메라 수령·반납 조건은 선정자에게 알림톡으로 별도 안내드립니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary><strong>Q2.</strong> 선패드 받으면 30일 동안 다 써야 하나요?</summary>
+        <p>아니요. 수령 즉시 30분만 투자하셔서 3단계 촬영(맨얼굴 → UV 도포 시각화 → 마무리 맨얼굴)을 진행하시면 됩니다. 30일 사용 의무는 없습니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary><strong>Q3.</strong> 회원가입을 해야 신청할 수 있나요?</summary>
+        <p>비회원도 신청 가능합니다. 단, 선착순 한정 수량이라 회원 신청자가 발송 선정에 우선되며, 회원가입 시 12만원 쿠폰팩이 즉시 지급됩니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary><strong>Q4.</strong> SNS형 게시물은 언제까지 유지해야 하나요?</summary>
+        <p>게시 후 최소 6개월입니다. 조기 삭제 시 보상이 회수될 수 있습니다.</p>
+      </details>
+      <details class="faq-item">
+        <summary><strong>Q5.</strong> 미당첨 시 통보가 오나요?</summary>
+        <p>당첨자께 우선 안내드립니다. 한정 수량으로 진행되어 미당첨 시 별도 알림은 없으나, 차회 이벤트에 우선 안내 받으실 수 있습니다.</p>
+      </details>
     </div>
   </section>
 
-  <!-- 사업자 정보 푸터 (placeholder — 엘렌 디자인 작업 영역) -->
-  <footer id="site-footer" class="layout">
-    <div class="placeholder placeholder-footer">
-      <span class="placeholder-label">[사업자 정보 / 통신판매업신고 / 고객센터 — 엘렌]</span>
+  <!-- 사업자 정보 푸터 (uvid.co.kr 자사몰 영문 그대로) -->
+  <footer id="site-footer">
+    <div class="footer-inner layout">
+      <div class="footer-brand">UVID</div>
+
+      <div class="footer-grid">
+        <div class="footer-col footer-col-company">
+          <p>Company Gromeet Inc. CEO Hyunseok Seo</p>
+          <p>Business License No 863-87-01100</p>
+          <p>Address (08502) 1309 Bando Ivy Valley, 204 Gasan Digital 1-ro, Geumcheon-gu, Seoul</p>
+          <p>E-Commerce Registration No 제2019-서울금천-0115호 <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8638701100" target="_blank" rel="noopener">[사업자정보확인]</a></p>
+          <p>Personal Info Manager Hyunseok Seo</p>
+          <p class="footer-copyright">Copyright ⓒ Inc.Gromeet. All rights reserved.</p>
+        </div>
+
+        <div class="footer-col footer-col-cs">
+          <p class="footer-col-title">중앙 CS</p>
+          <p class="footer-cs-tel">1833-3920</p>
+          <p>Mon - Fri 10:00 ~ 17:00 / Lunch 12:30 ~ 13:30</p>
+          <p>토,일 공휴일 휴무</p>
+        </div>
+
+        <div class="footer-col footer-col-bank">
+          <p class="footer-col-title">결제정보</p>
+          <p>기업은행 943-016944-01-015</p>
+          <p>주식회사 그로밋</p>
+        </div>
+      </div>
+
+      <nav class="footer-links">
+        <a href="https://uvid.co.kr/brand.html" target="_blank" rel="noopener">About Us</a>
+        <span class="footer-link-sep">|</span>
+        <a href="https://uvid.co.kr/member/mall_agreement.html" target="_blank" rel="noopener">Terms of Use</a>
+        <span class="footer-link-sep">|</span>
+        <a href="https://uvid.co.kr/member/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
+        <span class="footer-link-sep">|</span>
+        <a href="https://uvid.co.kr/shopinfo/guide.html" target="_blank" rel="noopener">Instructions for use</a>
+        <span class="footer-link-sep">|</span>
+        <a href="https://www.instagram.com/uvid.kr/" target="_blank" rel="noopener">Instagram</a>
+      </nav>
     </div>
   </footer>
 
