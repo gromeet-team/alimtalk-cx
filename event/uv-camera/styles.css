@@ -310,6 +310,22 @@ body {
   border-radius: 20px;
   padding: 40px 32px;
   border: 1.5px solid #ECECEC;
+  overflow: hidden;
+}
+
+.card-scarcity-strip {
+  margin: -40px -32px 28px;
+  padding: 9px 16px;
+  background: linear-gradient(135deg, #FF4800 0%, #FF7A2E 100%);
+  color: #fff;
+  font-size: clamp(11px, 1vw, 13px);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  text-align: center;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-tag {
@@ -1640,6 +1656,13 @@ label .req {
 
   .card {
     padding: 28px 22px;
+  }
+
+  .card-scarcity-strip {
+    margin: -28px -22px 22px;
+    padding: 8px 12px;
+    font-size: 11.5px;
+    letter-spacing: -0.01em;
   }
 
   .apply-container {
