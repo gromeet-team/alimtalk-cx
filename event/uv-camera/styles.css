@@ -198,6 +198,71 @@ body {
   color: #fff;
 }
 
+/* ============ 락인 카피 + 신청 CTA (선착순 띠 아래) ============ */
+#scroll-cta {
+  padding: 16px 0 24px;
+}
+
+.scroll-cta-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+  background: #FFFBE6;
+  border: 1.5px solid #F5D900;
+  border-radius: 14px;
+}
+
+.scroll-cta-copy {
+  margin: 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: #292929;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.scroll-cta-copy strong {
+  font-weight: 700;
+}
+
+.btn-scroll-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 32px;
+  background: #FEE500;
+  color: #191600;
+  border: 0;
+  border-radius: 999px;
+  font-size: clamp(15px, 1.15vw, 18px);
+  font-weight: 700;
+  font-family: 'Pretendard';
+  cursor: pointer;
+  min-height: 50px;
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-scroll-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(254, 229, 0, 0.45);
+}
+
+.btn-scroll-cta:active {
+  transform: translateY(0);
+}
+
+.btn-scroll-cta-icon {
+  font-size: 1.1em;
+}
+
+.btn-scroll-cta-arrow {
+  font-weight: 800;
+}
+
 /* ============ 두 카드 (정보 비교용) ============ */
 #cards {
   padding: 60px 0 80px;
@@ -253,22 +318,42 @@ body {
 .card-features {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .card-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #FFFAF7;
+  border-left: 4px solid var(--orange);
+  border-radius: 8px;
   font-size: 16px;
-  line-height: 1.7;
+  font-weight: 600;
+  line-height: 1.55;
   color: #292929;
-  margin-bottom: 10px;
+}
+
+.card-features .check-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
 }
 
 .card-feature-highlight {
+  display: block;
   background: #FFF5F2;
+  border-left: 4px solid var(--orange);
   border-radius: 10px;
   padding: 14px 16px;
-  margin-top: 8px;
+  margin-top: 4px;
   color: var(--orange);
-  font-weight: 600;
+  font-weight: 700;
+  line-height: 1.5;
 }
 
 .card-feature-highlight span {
@@ -428,17 +513,6 @@ body {
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 24px;
-}
-
-.age-notice {
-  background: #FFF5F2;
-  border: 1px solid #FFD5C5;
-  border-radius: 8px;
-  padding: 14px 18px;
-  font-size: 15px;
-  color: var(--orange);
-  font-weight: 500;
-  margin-bottom: 40px;
 }
 
 .field-label {
@@ -1337,6 +1411,27 @@ label .req {
     line-height: 1.45;
   }
 
+  /* scroll CTA */
+  #scroll-cta {
+    padding: 8px 20px 16px;
+  }
+
+  .scroll-cta-inner {
+    padding: 18px 18px;
+    gap: 14px;
+    border-radius: 12px;
+  }
+
+  .scroll-cta-copy {
+    font-size: 14px;
+  }
+
+  .btn-scroll-cta {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+
   /* SNS conditions card */
   .sns-conditions-card {
     padding: 22px 20px;
@@ -1373,12 +1468,6 @@ label .req {
   .apply-title {
     font-size: 28px;
     margin-bottom: 20px;
-  }
-
-  .age-notice {
-    font-size: 14px;
-    padding: 12px 14px;
-    margin-bottom: 28px;
   }
 
   .divider {
