@@ -325,6 +325,10 @@ body {
 }
 
 .card-pack {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
   font-size: clamp(20px, 1.7vw, 28px);
   font-weight: 600;
   color: #292929;
@@ -334,8 +338,10 @@ body {
 }
 
 .card-pack strong {
+  margin-left: auto;
   color: var(--orange);
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .card-features {
