@@ -227,28 +227,35 @@ body {
   font-weight: 700;
 }
 
+.scroll-cta-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
 .btn-scroll-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 14px 32px;
-  background: #FEE500;
-  color: #191600;
+  padding: 14px 28px;
   border: 0;
   border-radius: 999px;
-  font-size: clamp(15px, 1.15vw, 18px);
+  font-size: clamp(15px, 1.1vw, 17px);
   font-weight: 700;
   font-family: 'Pretendard';
+  text-decoration: none;
   cursor: pointer;
-  min-height: 50px;
-  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.35);
+  min-height: 52px;
+  flex: 1 1 220px;
+  max-width: 320px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .btn-scroll-cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(254, 229, 0, 0.45);
 }
 
 .btn-scroll-cta:active {
@@ -259,8 +266,24 @@ body {
   font-size: 1.1em;
 }
 
-.btn-scroll-cta-arrow {
-  font-weight: 800;
+.btn-scroll-cta-signup {
+  background: var(--orange);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 72, 0, 0.30);
+}
+
+.btn-scroll-cta-signup:hover {
+  box-shadow: 0 6px 16px rgba(255, 72, 0, 0.40);
+}
+
+.btn-scroll-cta-kakao {
+  background: #FEE500;
+  color: #191600;
+  box-shadow: 0 4px 12px rgba(254, 229, 0, 0.35);
+}
+
+.btn-scroll-cta-kakao:hover {
+  box-shadow: 0 6px 16px rgba(254, 229, 0, 0.45);
 }
 
 /* ============ 두 카드 (정보 비교용) ============ */
@@ -344,6 +367,20 @@ body {
   margin-top: 2px;
 }
 
+.card-feature-note {
+  display: inline;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  color: #737373;
+  margin-left: 4px;
+}
+
+.card-feature-note a {
+  color: #737373;
+  text-decoration: underline;
+}
+
 .card-feature-highlight {
   display: block;
   background: #FFF5F2;
@@ -413,27 +450,62 @@ body {
   margin-bottom: 18px;
 }
 
+.sns-conditions-group {
+  margin-bottom: 20px;
+}
+
+.sns-conditions-group:last-child {
+  margin-bottom: 0;
+}
+
+.sns-conditions-group-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+  text-transform: none;
+}
+
 .sns-conditions-card .conditions-list {
   list-style: none;
   padding: 0;
-  margin: 0 0 20px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .sns-conditions-card .conditions-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #FFFAF7;
+  border-left: 4px solid var(--orange);
+  border-radius: 8px;
   font-size: 15px;
-  line-height: 1.85;
+  font-weight: 600;
+  line-height: 1.55;
   color: #292929;
 }
 
+.sns-conditions-card .conditions-list .check-icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
 .partnership-ads-callout {
-  background: #FFF5F2;
-  border-left: 3px solid var(--orange);
-  border-radius: 10px;
-  padding: 16px 18px;
+  background: linear-gradient(135deg, #FFF5F2 0%, #FFE5DA 100%);
+  border: 1.5px solid #FFD5C5;
+  border-radius: 12px;
+  padding: 18px 20px;
 }
 
 .partnership-ads-headline {
-  font-size: 15px;
+  font-size: 16px;
   color: var(--orange);
   font-weight: 700;
   margin-bottom: 6px;
@@ -443,6 +515,33 @@ body {
   font-size: 14px;
   color: #555;
   line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.partnership-ads-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.partnership-ads-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+  color: #292929;
+}
+
+.partnership-ads-list .check-icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
 }
 
 /* ============ 락인 CTA (카톡채널 + 인스타) ============ */
@@ -1426,7 +1525,14 @@ label .req {
     font-size: 14px;
   }
 
+  .scroll-cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .btn-scroll-cta {
+    flex: 1 1 auto;
+    max-width: 100%;
     width: 100%;
     padding: 14px 20px;
     font-size: 15px;
