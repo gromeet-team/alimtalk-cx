@@ -706,12 +706,13 @@ label .req {
 
   .btn-submit {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     font-size: 16px;
+    min-height: 50px;
   }
 
   .field input {
-    height: 44px;
+    height: 48px;
     font-size: 14px;
     padding: 0 12px;
   }
@@ -724,7 +725,16 @@ label .req {
   .address-row input {
     width: 100%;
     flex: none;
-    height: 44px;
+    height: 48px;
+  }
+
+  .btn-addr-search {
+    height: 48px;
+    min-height: 48px;
+  }
+
+  .toggle-btn {
+    min-height: 48px;
   }
 
   .privacy-box {
