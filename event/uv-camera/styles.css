@@ -112,76 +112,55 @@ body {
   border-radius: 20px;
 }
 
-/* ============ 가치 헤드 (구 #title) ============ */
-#value-head {
-  padding: 80px 0 60px;
+/* ============ 히어로 오버레이 placeholder (엘렌 디자인 작업 영역) ============ */
+.hero-overlay-placeholder {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1.5px dashed rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.hero-overlay-placeholder .placeholder-label {
+  color: #292929;
+}
+
+/* ============ 🔥 선착순 한정 모집 띠 ============ */
+#scarcity-banner {
+  padding: 32px 0 16px;
+}
+
+.scarcity-banner-inner {
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px 28px;
+  border: 2px solid var(--orange);
+  background: #FFF1EB;
+  border-radius: 14px;
+}
+
+.scarcity-banner-copy {
+  margin: 0;
+  font-size: clamp(16px, 1.4vw, 22px);
+  color: var(--orange);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
   text-align: center;
 }
 
-.value-eyebrow {
-  font-size: clamp(16px, 1.2vw, 20px);
-  color: #737373;
-  margin-bottom: 20px;
-  letter-spacing: 0.02em;
-}
-
-.value-headline {
-  font-size: clamp(32px, 3.125vw, 60px);
-  letter-spacing: -1.2px;
+.scarcity-banner-copy strong {
   font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 16px;
-}
-
-.value-headline strong {
-  color: var(--orange);
-}
-
-.value-sub {
-  font-size: clamp(18px, 1.5vw, 28px);
-  color: #292929;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
-.value-sub strong {
-  color: var(--orange);
-  font-weight: 800;
-}
-
-#value-head .circle {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  margin: 30px auto 0;
-}
-
-#value-head .circle div {
-  background-image: url('images/scroll_circle.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 100%;
-  filter: brightness(0);
-  transition: filter 0.4s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  animation: rotate forwards infinite 30s linear;
-  cursor: pointer;
-}
-
-@keyframes rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-#value-head .circle svg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 /* ============ 두 카드 (정보 비교용) ============ */
@@ -289,12 +268,6 @@ body {
   padding: 6px 14px;
   background: rgba(255,255,255,0.85);
   border-radius: 6px;
-}
-
-.placeholder-hero {
-  width: 100%;
-  height: 240px;
-  margin-bottom: 30px;
 }
 
 .placeholder-thumb {
@@ -1202,27 +1175,19 @@ label .req {
     display: block;
   }
 
-  #value-head {
-    padding: 60px 0 30px;
+  #scarcity-banner {
+    padding: 20px 20px 8px;
   }
 
-  .value-headline {
-    font-size: 26px;
-    line-height: 1.3em;
+  .scarcity-banner-inner {
+    padding: 16px 18px;
+    border-width: 2px;
+    border-radius: 12px;
   }
 
-  .value-sub {
-    font-size: 16px;
-  }
-
-  #value-head .circle {
-    width: 100px;
-    height: 100px;
-    margin-top: 20px;
-  }
-
-  #value-head .circle svg {
-    width: 30px;
+  .scarcity-banner-copy {
+    font-size: 15px;
+    line-height: 1.45;
   }
 
   #cards {

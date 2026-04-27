@@ -255,10 +255,10 @@ function showSuccess(typeValue) {
   document.getElementById('successPackage').textContent    = '신청 패키지: ' + (PACKAGE_LABEL[typeValue] || '');
   document.getElementById('success-screen').style.display  = 'flex';
 
-  document.getElementById('main').style.display       = 'none';
-  document.getElementById('value-head').style.display = 'none';
-  document.getElementById('cards').style.display      = 'none';
-  document.getElementById('conditions').style.display = 'none';
+  document.getElementById('main').style.display             = 'none';
+  document.getElementById('scarcity-banner').style.display  = 'none';
+  document.getElementById('cards').style.display            = 'none';
+  document.getElementById('conditions').style.display       = 'none';
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -282,10 +282,10 @@ function resetForm() {
   document.getElementById('success-screen').style.display = 'none';
   form.style.display = 'block';
 
-  document.getElementById('main').style.display       = '';
-  document.getElementById('value-head').style.display = '';
-  document.getElementById('cards').style.display      = '';
-  document.getElementById('conditions').style.display = '';
+  document.getElementById('main').style.display             = '';
+  document.getElementById('scarcity-banner').style.display  = '';
+  document.getElementById('cards').style.display            = '';
+  document.getElementById('conditions').style.display       = '';
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
