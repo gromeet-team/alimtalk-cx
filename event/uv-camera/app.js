@@ -29,18 +29,18 @@ function applyTypeChange() {
 
   document.body.classList.toggle('sns-active', isSNS);
 
-  // SNS 필드 required 토글
-  const snsInputs = ['snsUrlInput'];
-  snsInputs.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.required = isSNS;
-      if (!isSNS) {
-        el.value = '';
-        clearFieldError(id.replace('Input', ''));
-      }
+  // 인스타그램 URL 필드: SNS형 필수, 참여형 선택. 항상 노출.
+  const snsUrlInput = document.getElementById('snsUrlInput');
+  const snsUrlReq   = document.getElementById('snsUrlReq');
+  if (snsUrlInput) {
+    snsUrlInput.required = isSNS;
+    if (!isSNS) {
+      clearFieldError('snsUrl');
     }
-  });
+  }
+  if (snsUrlReq) {
+    snsUrlReq.style.display = isSNS ? 'inline' : 'none';
+  }
 
   // 메타 파트너십 동의 토글 (SNS형 필수, 참여형 비표시)
   const partnership = document.getElementById('partnershipInput');
@@ -108,7 +108,7 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'consent', 'marketing', 'partnership']
+  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'partnership']
     .forEach(clearFieldError);
 
   const name     = document.getElementById('nameInput').value.trim();
@@ -141,9 +141,8 @@ function validateForm() {
     isValid = false;
   }
 
+  const snsUrl = document.getElementById('snsUrlInput').value.trim();
   if (isSNS) {
-    const snsUrl = document.getElementById('snsUrlInput').value.trim();
-
     if (!snsUrl) {
       setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
       isValid = false;
@@ -151,10 +150,31 @@ function validateForm() {
       setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
       isValid = false;
     }
+  } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
+    setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+    isValid = false;
   }
 
   if (!postcode) {
     setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
+    isValid = false;
+  }
+
+  const phoneOs = document.querySelector('input[name="phone_os"]:checked');
+  if (!phoneOs) {
+    setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
+    isValid = false;
+  }
+
+  const gender = document.querySelector('input[name="gender"]:checked');
+  if (!gender) {
+    setFieldError('gender', '성별을 선택해 주세요.');
+    isValid = false;
+  }
+
+  const ageGroup = document.getElementById('ageGroupInput').value;
+  if (!ageGroup) {
+    setFieldError('ageGroup', '연령대를 선택해 주세요.');
     isValid = false;
   }
 
@@ -303,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput'].forEach(function(id) {
+  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -323,6 +343,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (el) el.addEventListener('change', function() {
       clearFieldError(id.replace('Input', ''));
     });
+  });
+
+  // 라디오 그룹 (휴대폰 OS, 성별)
+  document.querySelectorAll('input[name="phone_os"]').forEach(input => {
+    input.addEventListener('change', function() { clearFieldError('phoneOs'); });
+  });
+  document.querySelectorAll('input[name="gender"]').forEach(input => {
+    input.addEventListener('change', function() { clearFieldError('gender'); });
   });
 
   // 폼 제출
@@ -345,6 +373,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var typeValue = (document.querySelector('input[name="type"]:checked') || {}).value || 'free_trial';
 
+    var instagramUrl = document.getElementById('snsUrlInput').value.trim();
+
     var payload = {
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
@@ -352,7 +382,11 @@ document.addEventListener('DOMContentLoaded', function() {
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
       mallId:              document.getElementById('mallIdInput').value.trim(),
-      snsUrl:              document.getElementById('snsUrlInput').value.trim(),
+      snsUrl:              instagramUrl,
+      instagramUrl:        instagramUrl,
+      phoneOs:             (document.querySelector('input[name="phone_os"]:checked') || {}).value || '',
+      gender:              (document.querySelector('input[name="gender"]:checked') || {}).value || '',
+      ageGroup:            document.getElementById('ageGroupInput').value || '',
       postcode:            document.getElementById('postcodeInput').value.trim(),
       address:             document.getElementById('addressInput').value.trim(),
       addressDetail:       document.getElementById('addressDetailInput').value.trim(),

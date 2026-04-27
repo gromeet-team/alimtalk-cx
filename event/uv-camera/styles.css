@@ -328,6 +328,10 @@ body {
   text-overflow: ellipsis;
 }
 
+.card-scarcity-strip-footer {
+  margin: 28px -32px -40px;
+}
+
 .card-tag {
   font-size: clamp(18px, 1.4vw, 24px);
   font-weight: 700;
@@ -608,6 +612,15 @@ body {
   width: 18px;
   height: 18px;
   margin-top: 2px;
+}
+
+.sns-condition-note {
+  display: inline-block;
+  margin-top: 4px;
+  font-style: italic;
+  font-size: 12px;
+  font-weight: 500;
+  color: #737373;
 }
 
 /* ============ 락인 CTA (카톡채널 + 인스타) ============ */
@@ -1074,20 +1087,96 @@ label .req {
 }
 
 /* SNS form/consent 표시 토글 */
-.sns-field,
 .sns-only {
   display: none;
 }
 
-.sns-active .sns-field,
 .sns-active .sns-only {
   display: flex;
   flex-direction: column;
 }
 
-.sns-active .sns-field.full,
 .sns-active .sns-only {
   grid-column: span 2;
+}
+
+/* 참여형(기본) 일 때만 인스타 안내 노출. SNS형이면 hide */
+.sns-active .insta-hint {
+  display: none;
+}
+
+.hint-msg-sub {
+  font-style: normal;
+  color: #ABABAB;
+  margin-left: 4px;
+}
+
+/* ============ 휴대폰 OS / 성별 라디오 그룹 (가로 박스형) ============ */
+.phone-os-radio-group,
+.gender-radio-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.gender-radio-group {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.phone-os-radio,
+.gender-radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1.5px solid #ECECEC;
+  border-radius: 10px;
+  background: #FAFAFA;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 15px;
+  font-weight: 600;
+  color: #292929;
+}
+
+.phone-os-radio:has(input:checked),
+.gender-radio:has(input:checked) {
+  border-color: var(--orange);
+  background: #FFF5F2;
+}
+
+.phone-os-radio input[type="radio"],
+.gender-radio input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid #C5C5C5;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.15s;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.phone-os-radio:has(input:checked) input[type="radio"],
+.gender-radio:has(input:checked) input[type="radio"] {
+  border-color: var(--orange);
+}
+
+.phone-os-radio:has(input:checked) input[type="radio"]::after,
+.gender-radio:has(input:checked) input[type="radio"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  background: var(--orange);
+  border-radius: 50%;
 }
 
 /* #apply 섹션 하단 여백 */
@@ -1665,6 +1754,10 @@ label .req {
     letter-spacing: -0.01em;
   }
 
+  .card-scarcity-strip-footer {
+    margin: 22px -22px -28px;
+  }
+
   .apply-container {
     padding: 56px 21px;
   }
@@ -1695,9 +1788,14 @@ label .req {
     grid-column: span 1;
   }
 
-  .sns-active .sns-field.full,
   .sns-active .sns-only {
     grid-column: span 1;
+  }
+
+  .phone-os-radio,
+  .gender-radio {
+    padding: 12px 14px;
+    font-size: 14px;
   }
 
   .btn-submit {

@@ -133,7 +133,6 @@
     <h2 class="cards-title">두 가지 신청 유형 중 선택할 수 있어요</h2>
     <div class="cards-grid">
       <div class="card card-free">
-        <div class="card-scarcity-strip">🎯 한정 모집 · 선착순 마감 시 종료</div>
         <div class="placeholder placeholder-thumb">
           <span class="placeholder-label">[Single Pack 썸네일 — 엘렌]</span>
         </div>
@@ -144,9 +143,9 @@
           <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>30분이면 끝나는 즉시 촬영 <em class="card-feature-note">(9:16 세로 영상 / 편집 부담 X / 가이드 제공)</em></span></li>
           <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>영상 이메일 제출</span></li>
         </ul>
+        <div class="card-scarcity-strip card-scarcity-strip-footer">🎯 한정 모집 · 선착순 마감 시 종료</div>
       </div>
       <div class="card card-influencer">
-        <div class="card-scarcity-strip">🎯 한정 모집 · 선착순 마감 시 종료</div>
         <div class="placeholder placeholder-thumb">
           <span class="placeholder-label">[Max Pack 썸네일 — 엘렌]</span>
         </div>
@@ -157,6 +156,7 @@
           <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>인스타 게시 + 6개월 유지</span></li>
           <li class="card-feature-highlight">💎 계정 무료 광고 부스트<br><span>(Partnership Ads)</span></li>
         </ul>
+        <div class="card-scarcity-strip card-scarcity-strip-footer">🎯 한정 모집 · 선착순 마감 시 종료</div>
       </div>
     </div>
   </section>
@@ -218,9 +218,34 @@
           <span class="error-msg" id="mallIdError" aria-live="polite"></span>
         </div>
 
-        <div class="field full sns-field" id="field-snsUrl">
-          <label for="snsUrlInput">인스타그램 URL</label>
+        <div class="field full" id="field-gender">
+          <label class="field-label">성별<span class="req">*</span></label>
+          <div class="gender-radio-group">
+            <label class="gender-radio"><input type="radio" name="gender" value="female"><span>여성</span></label>
+            <label class="gender-radio"><input type="radio" name="gender" value="male"><span>남성</span></label>
+            <label class="gender-radio"><input type="radio" name="gender" value="na"><span>응답 안 함</span></label>
+          </div>
+          <span class="error-msg" id="genderError" aria-live="polite"></span>
+        </div>
+
+        <div class="field" id="field-ageGroup">
+          <label for="ageGroupInput">연령대<span class="req">*</span></label>
+          <select id="ageGroupInput" name="age_group">
+            <option value="">선택해 주세요</option>
+            <option value="19-24">19-24</option>
+            <option value="25-29">25-29</option>
+            <option value="30-34">30-34</option>
+            <option value="35-39">35-39</option>
+            <option value="40-49">40-49</option>
+            <option value="50plus">50+</option>
+          </select>
+          <span class="error-msg" id="ageGroupError" aria-live="polite"></span>
+        </div>
+
+        <div class="field full" id="field-snsUrl">
+          <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq" style="display:none;">*</span></label>
           <input type="url" id="snsUrlInput" name="snsUrl" placeholder="https://instagram.com/계정명">
+          <span class="hint-msg insta-hint">💡 <strong>인스타 주소 입력 시 선정 확률 UP</strong> <em class="hint-msg-sub">(운영팀이 콘텐츠 톤 참고용)</em></span>
           <span class="error-msg" id="snsUrlError" aria-live="polite"></span>
         </div>
 
@@ -235,6 +260,21 @@
           <span class="error-msg" id="addressError" aria-live="polite"></span>
         </div>
 
+        <div class="field full" id="field-phoneOs">
+          <label class="field-label">사용 중인 휴대폰 OS<span class="req">*</span></label>
+          <div class="phone-os-radio-group">
+            <label class="phone-os-radio">
+              <input type="radio" name="phone_os" value="iphone">
+              <span>아이폰</span>
+            </label>
+            <label class="phone-os-radio">
+              <input type="radio" name="phone_os" value="android">
+              <span>안드로이드</span>
+            </label>
+          </div>
+          <span class="error-msg" id="phoneOsError" aria-live="polite"></span>
+        </div>
+
       </div>
 
       <hr class="divider">
@@ -247,7 +287,7 @@
           <label class="field-label">개인정보 수집·이용 동의<span class="req">*</span></label>
           <div class="privacy-box">
             <p><strong>0. 참여 자격</strong>본 이벤트는 만 14세 이상만 신청 가능합니다.</p>
-            <p><strong>1. 수집 항목</strong>이름, 연락처, 이메일, 배송지, (선택) 공식몰 아이디, (SNS형) 인스타그램 URL</p>
+            <p><strong>1. 수집 항목</strong>이름, 연락처, 이메일, 배송지, 휴대폰 OS, 성별, 연령대, (선택) 인스타그램 계정, (선택) 공식몰 아이디</p>
             <p><strong>2. 이용 목적</strong>이벤트 신청 접수, 신청자 본인 확인, 선정 여부 안내, 혜택 제공 관련 안내, 문의 응대 및 운영 관리</p>
             <p><strong>3. 보유 및 이용 기간</strong>이벤트 종료 후 3개월까지 (단, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관)</p>
             <p><strong>4. 동의 거부 권리</strong>개인정보 수집·이용에 대한 동의를 거부할 권리가 있으나, 동의하지 않을 경우 이벤트 신청이 제한될 수 있습니다.</p>
@@ -377,7 +417,7 @@
       <div class="sns-conditions-group">
         <p class="sns-conditions-group-label">[게시 의무]</p>
         <ul class="conditions-list">
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>9:16 릴스 1건 게시 — UV 전·후 비교컷 필수 / 핵심 성분(엑토인 등) 1개 이상 언급</span></li>
+          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>9:16 릴스 1건 게시 — UV 전·후 비교컷 필수 / 핵심 성분(엑토인 등) 1개 이상 언급<br><em class="sns-condition-note">(촬영·연출 가이드 제공)</em></span></li>
           <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>팔로워 1,000명 이상이면 누구나 참여 가능 <em class="card-feature-note">(피부·뷰티·라이프스타일·아웃도어 카테고리)</em></span></li>
           <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>#유비드선패드 #UV카메라챌린지 + @uvid_official 멘션</span></li>
           <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>게시물 6개월 유지 <em class="card-feature-note">(조기 삭제 시 보상 회수)</em></span></li>
@@ -391,16 +431,16 @@
 
           <div class="partnership-ads-block">
             <p class="partnership-ads-block-title">파트너십 광고가 뭔가요?</p>
-            <p class="partnership-ads-block-body">브랜드(유비드)가 광고비를 부담해, 본인 인스타그램 게시물을 더 많은 사람에게 노출시켜드리는 메타 공식 기능입니다. 본인 계정·콘텐츠 그대로, 광고 라벨만 자동으로 표시돼요.</p>
+            <p class="partnership-ads-block-body">브랜드(유비드)가 광고비를 부담해, <strong>크리에이터님의</strong> 인스타그램 게시물을 더 많은 사람에게 노출시키는 메타 공식 기능입니다. <strong>크리에이터님</strong> 계정·콘텐츠 그대로, 광고 라벨만 자동으로 표시돼요.</p>
           </div>
 
           <div class="partnership-ads-block">
             <p class="partnership-ads-block-title">메리트</p>
             <ul class="partnership-ads-list">
-              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>광고비 0원으로 본인 계정 도달·팔로워 성장</span></li>
+              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>광고비 0원으로 <strong>도달·노출 극대화 → 신규 팔로워 유입</strong></span></li>
               <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>메타 공식 광고 시스템 <em class="card-feature-note">(안전·신뢰)</em></span></li>
               <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>별도 #광고 표기 불필요 <em class="card-feature-note">(자동 라벨)</em></span></li>
-              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>게시물 삭제 = 광고 자동 종료 <em class="card-feature-note">(통제권 본인)</em></span></li>
+              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>게시물 삭제 = 광고 자동 종료 <em class="card-feature-note">(통제권 <strong>크리에이터님</strong>)</em></span></li>
             </ul>
           </div>
 
