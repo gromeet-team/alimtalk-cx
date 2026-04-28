@@ -1801,6 +1801,18 @@ label .req {
     grid-column: span 1;
   }
 
+  .type-radio {
+    padding: 14px 16px;
+  }
+
+  .type-radio-text strong {
+    font-size: 15px;
+  }
+
+  .type-radio-text em {
+    font-size: 12px;
+  }
+
   .phone-os-radio,
   .gender-radio {
     padding: 12px 14px;
