@@ -321,17 +321,6 @@ document.addEventListener('DOMContentLoaded', function() {
     showSuccess('free_trial');
   }
 
-  // SNS 플랫폼 선택 → prefix 업데이트
-  var snsPlatformSelect = document.getElementById('snsPlatformSelect');
-  var snsPrefixEl = document.getElementById('snsPlatformPrefix');
-  if (snsPlatformSelect && snsPrefixEl) {
-    snsPlatformSelect.addEventListener('change', function() {
-      var selected = this.options[this.selectedIndex];
-      snsPrefixEl.textContent = selected.dataset.prefix || '';
-      clearFieldError('snsUrl');
-    });
-  }
-
   // 신청 유형 라디오
   document.querySelectorAll('input[name="type"]').forEach(input => {
     input.addEventListener('change', applyTypeChange);
@@ -396,10 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var typeValue = (document.querySelector('input[name="type"]:checked') || {}).value || 'free_trial';
 
     var snsUsername    = document.getElementById('snsUrlInput').value.trim();
-    var snsPlatformEl  = document.getElementById('snsPlatformSelect');
-    var snsPlatform    = snsPlatformEl ? snsPlatformEl.value : 'instagram';
-    var snsPrefixMap   = { instagram: 'https://instagram.com/', youtube: 'https://youtube.com/@', tiktok: 'https://tiktok.com/@' };
-    var instagramUrl   = snsUsername ? (snsPrefixMap[snsPlatform] || 'https://instagram.com/') + snsUsername : '';
+    var instagramUrl   = snsUsername ? 'https://instagram.com/' + snsUsername : '';
 
     var payload = {
       purchaseChannel:     document.getElementById('purchaseChannelInput').value || '',
@@ -409,7 +395,6 @@ document.addEventListener('DOMContentLoaded', function() {
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
       mallId:              document.getElementById('mallIdInput').value.trim(),
-      snsPlatform:         snsPlatform,
       snsUrl:              instagramUrl,
       instagramUrl:        instagramUrl,
       phoneOs:             (document.querySelector('input[name="phone_os"]:checked') || {}).value || '',
