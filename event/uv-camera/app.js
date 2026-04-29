@@ -316,6 +316,11 @@ function resetForm() {
 // ----------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
 
+  // ?success=1 파라미터로 완료 화면 직접 미리보기
+  if (new URLSearchParams(location.search).get('success') === '1') {
+    showSuccess('free_trial');
+  }
+
   // 신청 유형 라디오
   document.querySelectorAll('input[name="type"]').forEach(input => {
     input.addEventListener('change', applyTypeChange);
