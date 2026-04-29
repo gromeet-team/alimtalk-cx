@@ -191,6 +191,18 @@
       <!-- 공통 필드 -->
       <div class="form-grid">
 
+        <div class="field" id="field-purchase-channel">
+          <label for="purchaseChannelInput">구매처/구매여부<span class="req">*</span></label>
+          <select id="purchaseChannelInput" name="purchase_channel">
+            <option value="" disabled selected>선택해 주세요.</option>
+            <option value="비구매">비구매</option>
+            <option value="공식홈페이지">공식홈페이지</option>
+            <option value="스마트스토어">스마트스토어</option>
+            <option value="기타">기타</option>
+          </select>
+          <span class="error-msg" id="purchaseChannelError" aria-live="polite"></span>
+        </div>
+
         <div class="field" id="field-name">
           <label for="nameInput">성명<span class="req">*</span></label>
           <input type="text" id="nameInput" name="name" placeholder="성명을 입력해 주세요." autocomplete="name">

@@ -108,8 +108,14 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
+  ['purchaseChannel', 'name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
+
+  const purchaseChannel = document.getElementById('purchaseChannelInput').value;
+  if (!purchaseChannel) {
+    setFieldError('purchaseChannel', '구매처/구매여부를 선택해 주세요.');
+    isValid = false;
+  }
 
   const name     = document.getElementById('nameInput').value.trim();
   const tel      = document.getElementById('telInput').value.trim();
@@ -334,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
+  ['purchaseChannelInput', 'nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -387,6 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var instagramUrl = document.getElementById('snsUrlInput').value.trim();
 
     var payload = {
+      purchaseChannel:     document.getElementById('purchaseChannelInput').value || '',
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
       email:               document.getElementById('emailInput').value.trim(),
