@@ -882,6 +882,90 @@ label .req {
   margin-top: 5px;
 }
 
+.sns-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.sns-platform-select {
+  flex-shrink: 0;
+  height: 48px;
+  padding: 0 32px 0 12px;
+  border: 1px solid #F1F1F1;
+  border-radius: 8px;
+  background: #F1F1F1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23737373' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 15px;
+  font-family: inherit;
+  color: #292929;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.sns-platform-select:focus {
+  outline: none;
+  border-color: var(--orange);
+  background-color: #fff;
+}
+
+.sns-username-row {
+  flex: 1;
+}
+
+.input-prefix-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #F1F1F1;
+  border-radius: 8px;
+  background: #F1F1F1;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.input-prefix-row:focus-within {
+  border-color: var(--orange);
+  background: #fff;
+}
+
+.input-prefix-row:focus-within .input-prefix {
+  background: #fff;
+}
+
+.input-prefix {
+  padding: 0 10px 0 16px;
+  font-size: 15px;
+  color: #737373;
+  white-space: nowrap;
+  background: #F1F1F1;
+  transition: background 0.2s;
+  line-height: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix-row input {
+  flex: 1;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  height: 48px;
+  font-size: 17px;
+  color: #292929;
+  font-family: inherit;
+  outline: none;
+}
+
+.field.error .input-prefix-row {
+  border-color: #e03131;
+}
+
 /* 주소 영역 */
 .address-row {
   display: flex;
