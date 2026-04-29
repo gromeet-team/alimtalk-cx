@@ -252,12 +252,19 @@
         </div>
 
         <div class="field full" id="field-snsUrl">
-          <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq" style="display:none;">*</span></label>
-          <div class="input-prefix-row">
-            <span class="input-prefix">instagram.com/</span>
-            <input type="text" id="snsUrlInput" name="snsUrl" placeholder="계정명" autocomplete="off">
+          <label for="snsUrlInput">SNS 계정<span class="req sns-req" id="snsUrlReq" style="display:none;">*</span></label>
+          <div class="sns-input-row">
+            <select id="snsPlatformSelect" class="sns-platform-select">
+              <option value="instagram" data-prefix="instagram.com/">인스타그램</option>
+              <option value="youtube" data-prefix="youtube.com/@">유튜브</option>
+              <option value="tiktok" data-prefix="tiktok.com/@">틱톡</option>
+            </select>
+            <div class="input-prefix-row sns-username-row">
+              <span class="input-prefix" id="snsPlatformPrefix">instagram.com/</span>
+              <input type="text" id="snsUrlInput" name="snsUrl" placeholder="계정명" autocomplete="off">
+            </div>
           </div>
-          <span class="hint-msg insta-hint">💡 <strong>인스타 주소 입력 시 선정 확률 UP</strong> <em class="hint-msg-sub">(운영팀이 콘텐츠 톤 참고용)</em></span>
+          <span class="hint-msg insta-hint">💡 <strong>SNS 계정 입력 시 선정 확률 UP</strong> <em class="hint-msg-sub">(운영팀이 콘텐츠 톤 참고용)</em></span>
           <span class="error-msg" id="snsUrlError" aria-live="polite"></span>
         </div>
 
