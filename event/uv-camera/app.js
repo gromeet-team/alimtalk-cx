@@ -147,18 +147,12 @@ function validateForm() {
     isValid = false;
   }
 
-  const snsUrl = document.getElementById('snsUrlInput').value.trim();
+  const snsUsername = document.getElementById('snsUrlInput').value.trim();
   if (isSNS) {
-    if (!snsUrl) {
-      setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
-      isValid = false;
-    } else if (!/^https?:\/\/.+/.test(snsUrl)) {
-      setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+    if (!snsUsername) {
+      setFieldError('snsUrl', '인스타그램 계정명을 입력해 주세요.');
       isValid = false;
     }
-  } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
-    setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
-    isValid = false;
   }
 
   if (!postcode) {
@@ -390,7 +384,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var typeValue = (document.querySelector('input[name="type"]:checked') || {}).value || 'free_trial';
 
-    var instagramUrl = document.getElementById('snsUrlInput').value.trim();
+    var snsUsername    = document.getElementById('snsUrlInput').value.trim();
+    var instagramUrl   = snsUsername ? 'https://instagram.com/' + snsUsername : '';
 
     var payload = {
       purchaseChannel:     document.getElementById('purchaseChannelInput').value || '',

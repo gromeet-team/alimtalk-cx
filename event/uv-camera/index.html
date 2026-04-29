@@ -253,7 +253,10 @@
 
         <div class="field full" id="field-snsUrl">
           <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq" style="display:none;">*</span></label>
-          <input type="url" id="snsUrlInput" name="snsUrl" placeholder="https://instagram.com/계정명">
+          <div class="input-prefix-row">
+            <span class="input-prefix">instagram.com/</span>
+            <input type="text" id="snsUrlInput" name="snsUrl" placeholder="계정명" autocomplete="off">
+          </div>
           <span class="hint-msg insta-hint">💡 <strong>인스타 주소 입력 시 선정 확률 UP</strong> <em class="hint-msg-sub">(운영팀이 콘텐츠 톤 참고용)</em></span>
           <span class="error-msg" id="snsUrlError" aria-live="polite"></span>
         </div>

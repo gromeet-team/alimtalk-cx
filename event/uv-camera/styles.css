@@ -882,6 +882,55 @@ label .req {
   margin-top: 5px;
 }
 
+.input-prefix-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #F1F1F1;
+  border-radius: 8px;
+  background: #F1F1F1;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.input-prefix-row:focus-within {
+  border-color: var(--orange);
+  background: #fff;
+}
+
+.input-prefix-row:focus-within .input-prefix {
+  background: #fff;
+}
+
+.input-prefix {
+  padding: 0 10px 0 16px;
+  font-size: 15px;
+  color: #737373;
+  white-space: nowrap;
+  background: #F1F1F1;
+  transition: background 0.2s;
+  line-height: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix-row input {
+  flex: 1;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  height: 48px;
+  font-size: 17px;
+  color: #292929;
+  font-family: inherit;
+  outline: none;
+}
+
+.field.error .input-prefix-row {
+  border-color: #e03131;
+}
+
 /* 주소 영역 */
 .address-row {
   display: flex;
