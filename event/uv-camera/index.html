@@ -8,7 +8,8 @@
   <title>UV 카메라 + 유비드 선패드 무료 체험 | 최대 249,000원 상당 혜택</title>
   <meta name="description" content="UV 카메라로 자외선 차단 효과를 직접 확인하고, 유비드 엑토인 스킨케어 선패드 Single Pack 또는 Max Pack을 무료로 체험해 보세요.">
   <meta property="og:title" content="UV 카메라 + 유비드 선패드 무료 체험 | 최대 249,000원 상당 혜택">
-  <meta property="og:description" content="30분이면 끝나는 즉시 촬영 챌린지. 콘텐츠 챌린지(Single Pack 49,000원 상당) 또는 인플루언서 챌린지(Max Pack 249,000원 상당) 중 선택해 신청하세요.">
+  <meta property="og:description"
+    content="30분이면 끝나는 즉시 촬영 챌린지. 콘텐츠 챌린지(Single Pack 49,000원 상당) 또는 인플루언서 챌린지(Max Pack 249,000원 상당) 중 선택해 신청하세요.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="./images/og-image-placeholder.png">
   <link rel="stylesheet" href="./styles.css">
@@ -19,19 +20,22 @@
 
   <!-- Meta Pixel Code (UVID: 727154800448524) -->
   <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '727154800448524');
     fbq('track', 'PageView');
   </script>
   <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=727154800448524&ev=PageView&noscript=1"/></noscript>
+      src="https://www.facebook.com/tr?id=727154800448524&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
 
   <script>
@@ -64,6 +68,78 @@
     document.addEventListener('click', enableSoundOnce);
     document.addEventListener('touchstart', enableSoundOnce);
     document.addEventListener('scroll', enableSoundOnce, { passive: true });
+  </script>
+
+  <script>
+    // FAQ 아코디언 — 각 항목 독립 토글
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.parentElement.classList.toggle('active');
+        });
+      });
+    });
+  </script>
+
+  <script>
+    // Scroll fade-in
+    document.addEventListener('DOMContentLoaded', () => {
+      const targets = document.querySelectorAll('.fade-up');
+
+      if (!('IntersectionObserver' in window)) {
+        targets.forEach(el => el.classList.add('in-view'));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      });
+
+      targets.forEach(el => io.observe(el));
+    });
+  </script>
+
+  <script>
+    /* ===================================================
+   Floating Action Buttons (채팅 + 맨 위로)
+   =================================================== */
+
+    // 카카오 채팅 열기 (채팅 버튼 클릭 시)
+    function onChatClick() {
+      window.open('http://pf.kakao.com/_xcdWxon/chat', '_blank', 'noopener,noreferrer');
+    }
+
+    // 맨 위로 스크롤 (위로가기 버튼 클릭 시)
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 스크롤 거리에 따라 위로가기 버튼 노출/숨김
+    document.addEventListener('DOMContentLoaded', () => {
+      const fabTop = document.getElementById('fabTop');
+      if (!fabTop) return;
+
+      const SHOW_AFTER = 400; // 400px 스크롤 후 노출
+
+      const toggleVisibility = () => {
+        if (window.scrollY > SHOW_AFTER) {
+          fabTop.classList.add('visible');
+        } else {
+          fabTop.classList.remove('visible');
+        }
+      };
+
+      window.addEventListener('scroll', toggleVisibility, { passive: true });
+      toggleVisibility(); // 초기 상태 확인
+    });
   </script>
 
   <style>
@@ -99,72 +175,245 @@
         <p class="hero-overlay-eyebrow">UV 카메라 챌린지 이벤트</p>
         <h1 class="hero-overlay-headline pc">UV 카메라 + 유비드 선패드 <strong>무료 체험</strong></h1>
         <h1 class="hero-overlay-headline mobile">UV 카메라 + 유비드 선패드<br><strong>무료 체험</strong></h1>
-        <p class="hero-overlay-sub">최대 <strong>249,000원 상당 혜택</strong></p>
+        <p class="hero-overlay-sub">최대 <strong>249,000원 상당</strong> 혜택</p>
       </div>
     </div>
   </section>
 
-  <!-- 🎯 한정 모집 띠 -->
-  <section id="scarcity-banner" class="layout">
-    <div class="scarcity-banner-inner">
-      <p class="scarcity-banner-copy"><strong>한정 모집 · 선착순 마감 시 종료</strong></p>
-    </div>
-  </section>
 
-  <!-- 락인 카피 + 두 락인 버튼 (선착순 띠 바로 아래) -->
-  <section id="scroll-cta" class="layout">
-    <div class="scroll-cta-inner">
-      <p class="scroll-cta-copy"><strong>공식몰 회원가입 + UVID 카카오 채널 친구추가 시 선정률 UP</strong></p>
-      <div class="scroll-cta-buttons">
-        <a class="btn-scroll-cta btn-scroll-cta-signup" href="https://uvid.co.kr/member/login.html" target="_blank" rel="noopener">
-          <span class="btn-scroll-cta-label">공식몰 회원가입</span>
-        </a>
-        <a class="btn-scroll-cta btn-scroll-cta-kakao" href="http://pf.kakao.com/_xcdWxon/friend" target="_blank" rel="noopener">
-          <span class="btn-scroll-cta-label">카카오 채널 친구추가</span>
-        </a>
+
+  <!-- 마감 안내 -->
+  <section class="deadline-section">
+    <div class="container fade-up">
+      <h2 class="section-title">한정 모집 · 선착순 마감 시 종료</h2>
+      <p class="deadline-desc">
+        <span class="highlight">SNS에 후기 작성 + 카카오 채널 친구추가 시 추가 혜택 UP!</span>
+      </p>
+      <div class="btn-group">
+        <button class="btn btn-primary">공식몰 회원가입</button>
+        <button class="btn btn-secondary">카카오 채널 친구추가</button>
       </div>
     </div>
   </section>
 
-  <!-- 두 옵션 카드 (정보 비교용, CTA 없음) -->
-  <section id="cards" class="layout">
-    <h2 class="cards-title">두 가지 신청 유형 중 선택할 수 있어요</h2>
-    <div class="cards-grid">
-      <div class="card card-free">
-        <div class="placeholder placeholder-thumb">
-          <span class="placeholder-label">[Single Pack 썸네일 — 엘렌]</span>
+  <!-- 두 가지 신청 유형 -->
+  <section class="apply-type-section">
+    <div class="container">
+      <h2 class="section-title fade-up">두 가지 신청 유형 중 선택할 수 있어요</h2>
+      <div class="apply-cards">
+        <div class="apply-card fade-up">
+          <div class="card-badge">선택1</div>
+          <div class="cont">
+            <div class="card-image"><img src="images/sunpad_m.png"></div>
+            <div class="title">
+              <div>참여형</div>
+              <h3 class="card-title">콘텐츠 챌린지</h3>
+              <p class="card-subtitle">싱글팩 무료증정(49,000원 상당)</p>
+            </div>
+            <ul class="card-list">
+              <li><img src="images/Vector.svg">누구나 신청 가능</li>
+              <li><img src="images/Vector.svg">5분이면 끝나는 쉽고 간단한 촬영</li>
+              <li><img src="images/Vector.svg">촬영 영상 이메일 제출</li>
+            </ul>
+          </div>
         </div>
-        <div class="card-tag">콘텐츠 챌린지 <span class="card-tag-sub">(참여형)</span></div>
-        <div class="card-pack">Single Pack <strong>49,000원</strong></div>
-        <ul class="card-features">
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>누구나 신청 가능</span></li>
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>30분이면 끝나는 즉시 촬영 <em class="card-feature-note">(9:16 세로 영상 / 편집 부담 X / 가이드 제공)</em></span></li>
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>영상 이메일 제출</span></li>
-        </ul>
-        <div class="card-scarcity-strip card-scarcity-strip-footer">🎯 한정 모집 · 선착순 마감 시 종료</div>
-      </div>
-      <div class="card card-influencer">
-        <div class="placeholder placeholder-thumb">
-          <span class="placeholder-label">[Max Pack 썸네일 — 엘렌]</span>
+        <div class="apply-card fade-up">
+          <div class="card-badge all">선택2</div>
+          <div class="cont">
+            <div class="card-image"><img src="images/sunpad_6_m.png"></div>
+            <div class="title">
+              <div>SNS형</div>
+              <h3 class="card-title">인플루언서 챌린지</h3>
+              <p class="card-subtitle">맥스팩 무료증정(249,000원 상당)</p>
+            </div>
+            <ul class="card-list">
+              <li><img src="images/Vector.svg">팔로워 1,000+ / 카테고리 핏 일치</li>
+              <li><img src="images/Vector.svg">인스타그램 게시 및 기간 6개월 유지</li>
+              <li><img src="images/Vector.svg">계정 무료 광고 부스트 지원</li>
+            </ul>
+          </div>
         </div>
-        <div class="card-tag">인플루언서 챌린지 <span class="card-tag-sub">(SNS형)</span></div>
-        <div class="card-pack">Max Pack <strong>249,000원</strong></div>
-        <ul class="card-features">
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>팔로워 1,000+ / 카테고리 핏</span></li>
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>인스타 게시 + 6개월 유지</span></li>
-          <li class="card-feature-highlight">💎 계정 무료 광고 부스트<br><span>(Partnership Ads)</span></li>
-        </ul>
-        <div class="card-scarcity-strip card-scarcity-strip-footer">🎯 한정 모집 · 선착순 마감 시 종료</div>
       </div>
     </div>
   </section>
 
-  <section id="apply" class="layout">
 
+
+  
+
+
+  <!-- 3단계 촬영 방법 -->
+  <section class="steps-section">
+    <div class="container">
+      <div class="fade-up">
+        <h2 class="section-title">쉽고 간단한 3단계 촬영 방법</h2>
+        <p class="steps-desc">UV 카메라로 촬영까지 단 3단계로 끝!</p>
+      </div>
+      <div class="steps-grid fade-up">
+        <div class="step-item">
+          <div class="step-label">STEP 1</div>
+          <div class="step-title">Before 촬영</div>
+          <div class="step-image"><img src="images/step_img1.png"></div>
+          <p class="step-desc">선패드를 바르기 전 <b>평소 피부 모습</b>을 일반 카메라로 촬영</p>
+        </div>
+        <div class="step-arrow"><img src="images/Vector_arrow.svg"></div>
+        <div class="step-item">
+          <div class="step-label">STEP 2</div>
+          <div class="step-title">UV 카메라 촬영</div>
+          <div class="step-image"><img src="images/step_img2.png"></div>
+          <p class="step-desc">UV 카메라로 선패드를 얼굴에 바르는 모습 촬영<b>(선패드를 바른 부분이 까맣게 묻어나오는 모습)</b></p>
+        </div>
+        <div class="step-arrow"><img src="images/Vector_arrow.svg"></div>
+        <div class="step-item">
+          <div class="step-label">STEP 3</div>
+          <div class="step-title">After 촬영</div>
+          <div class="step-image"><img src="images/step_img3.png"></div>
+          <p class="step-desc">선패드를 바른 직후 촉촉하고 <b>광나는 피부 모습</b> 촬영</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 안내 사항 -->
+  <section class="notice-section">
+    <div class="notice-inner container">
+      <h2 class="notice-title fade-up">안내 사항</h2>
+      <div class="text fade-up">
+        <p class="notice-text">
+          제품 수령 후 14일 이내 촬영 영상 콘텐츠 제출 및 UV 카메라를 반납해주셔야 합니다.
+          (미이행 시 약관에 따라 법적 책임을 물을 수 있습니다.)
+        </p>
+        <p class="notice-text">
+          영상 콘텐츠는 <strong>uvid@gromeet.com</strong>으로 제출해주세요.
+        </p>
+        <p class="notice-text">
+          이벤트 선정 시 알림톡으로 상세 촬영 가이드 링크를 전달드립니다.
+        </p>
+      </div>
+      <div class="notice-card fade-up">
+        <h3 class="notice-card-title">인플루언서 챌린지(SNS형) 추가 조건</h3>
+        <div class="notice-card-section">
+          <h4>게시 의무</h4>
+          <ul>
+            <li>9:16 릴스 1건 게시 <em>(촬영·연출 가이드 제공)</em>
+              <p>UV 전·후 비교컷 필수 / 핵심 성분(엑토인 등) 1개 이상 언급</p>
+            </li>
+            <li>팔로워 1,000명 이상이면 누구나 참여 가능<em> (피부·뷰티·라이프 스타일·아웃도어 카테고리)</em></li>
+            <li>해시태그 필수 포함
+              <p class="back_line hash">#유비드선패드 #UV카메라챌린지 @uvid.officail 멘션</p>
+            </li>
+            <li>게시물 6개월 유지<em> (조기 삭제 시 보상 회수)</em></li>
+          </ul>
+        </div>
+        <div class="notice-card-section">
+          <h4>추가 혜택<p class="back_line">★파트너쉽 광고 무료 부스트★</p>
+          </h4>
+          <div>
+            <p><b>파트너쉽 광고란?</b><br>
+              브랜드(유비드)가 광고비를 부담해 크리에이터님의 인스타그램 게시물을 더 많은 사람들에게 노출시키는 메타 공식 기능입니다.
+              <br>크리에이터님 계정·콘텐츠 그대로 광고 라벨만 자동으로 표시돼요.
+            </p>
+          </div>
+          <ul>
+            <li>광고비 0원으로 도달·노출 극대화 → 신규 팔로워 유입</li>
+            <li>메타 공식 광고 시스템 (안전·신뢰)</li>
+            <li>별도 광고 표기 불필요 (자동 라벨)</li>
+            <li>게시물 삭제 = 광고 자동 종료 (통제권은 크리에이터님에게 있습니다.)</li>
+            <p class="small_t">※ 모든 게시물이 자동 부스트 되는건 아니며 콘텐츠 퀄리티가 광고 활용 가능한 수준일 때, 유비드가 개별 컨텍 후 협의를 통해 진행됩니다.</p>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <div class="faq-inner container">
+      <h2 class="faq-title fade-up">자주 묻는 질문</h2>
+
+      <div class="fade-up">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>UV 카메라는 정말 무료인가요?</span>
+            <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              네. 신청 후 선정되시면 UV 카메라가 함께 발송됩니다.(신청 폼에서 선택한 OS어댑터로 발송)<br>
+              카메라 수령 및 반납 조건은 선정자분께 알림톡으로 별도 안내드립니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>제품 수령 후 30일 동안 다 사용해야 하나요?</span>
+            <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              아니요. 30일 사용 의무는 없으며 제품 수령 후 14일 이내로만 3단계 콘텐츠 영상 촬영 진행 후<br>
+              메일(uvid@gromeet.com)로 전달해주시면 됩니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>공식몰 회원가입을 해야 신청할 수 있나요?</span>
+            <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              비회원도 신청 가능합니다. 단, 선착순 한정 수량이라 회원 신청자가 우선 선정됩니다.<br>
+              현재 공식몰 회원가입 시 12만원 쿠폰팩이 즉시 지급되고 있으며 해당 이벤트 신청 시 우선 선정이 가능합니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>(SNS형)SNS 게시물은 언제까지 유지해야 하나요?</span>
+            <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              게시 후 최소 6개월이며 파트너쉽 광고에도 참여하실 수 있습니다.<br>
+              조기 삭제 시 보상이 회수될 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div class="faq-item active">
+          <button class="faq-question">
+            <span>미당첨 시에도 알림이 오나요?</span>
+            <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              당첨자분들께만 알림이 전송됩니다.<br>
+              미당첨 시 별도 알림은 없으나 추후 진행되는 이벤트에 우선 안내 받으실 수 있습니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="apply" class="layout fade-up">
+
+    <h2 class="faq-title fade-up">이벤트 신청하기</h2>
     <!-- 신청 폼 -->
     <form id="applicationForm" class="apply-container" novalidate>
-      <h2 class="apply-title">Apply for event</h2>
-
       <!-- 신청 유형 라디오 -->
       <section class="type-section">
         <label class="field-label">신청 유형<span class="req">*</span></label>
@@ -173,14 +422,14 @@
             <input type="radio" name="type" value="free_trial" checked>
             <span class="type-radio-text">
               <strong>콘텐츠 챌린지</strong>
-              <em>Single Pack 49,000원 상당</em>
+              <em>(Single Pack 49,000원 상당)</em>
             </span>
           </label>
           <label class="type-radio">
             <input type="radio" name="type" value="influencer_challenge">
             <span class="type-radio-text">
               <strong>인플루언서 챌린지</strong>
-              <em>Max Pack 249,000원 상당</em>
+              <em>(Max Pack 249,000원 상당)</em>
             </span>
           </label>
         </div>
@@ -190,18 +439,6 @@
 
       <!-- 공통 필드 -->
       <div class="form-grid">
-
-        <div class="field" id="field-purchase-channel">
-          <label for="purchaseChannelInput">구매처/구매여부<span class="req">*</span></label>
-          <select id="purchaseChannelInput" name="purchase_channel">
-            <option value="" disabled selected>선택해 주세요.</option>
-            <option value="비구매">비구매</option>
-            <option value="공식홈페이지">공식홈페이지</option>
-            <option value="스마트스토어">스마트스토어</option>
-            <option value="기타">기타</option>
-          </select>
-          <span class="error-msg" id="purchaseChannelError" aria-live="polite"></span>
-        </div>
 
         <div class="field" id="field-name">
           <label for="nameInput">성명<span class="req">*</span></label>
@@ -222,9 +459,10 @@
         </div>
 
         <div class="field" id="field-mallId">
-          <label for="mallIdInput">유비드 공식몰 아이디 <span class="optional-tag">(선택)</span></label>
-          <input type="text" id="mallIdInput" name="mallId" placeholder="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP" title="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP">
-          <span class="hint-msg">🎯 회원이면 당첨 확률 UP</span>
+          <label for="mallIdInput">유비드 공식몰 아이디<span class="optional-tag">(선택)</span></label>
+          <input type="text" id="mallIdInput" name="mallId" placeholder="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP"
+            title="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP">
+          <span class="hint-msg">· 공식몰 회원이면 당첨 확률 UP!</span>
           <span class="error-msg" id="mallIdError" aria-live="polite"></span>
         </div>
 
@@ -252,12 +490,10 @@
         </div>
 
         <div class="field full" id="field-snsUrl">
-          <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq" style="display:none;">*</span></label>
-          <div class="input-prefix-row">
-            <span class="input-prefix">instagram.com/</span>
-            <input type="text" id="snsUrlInput" name="snsUrl" placeholder="계정명" autocomplete="off">
-          </div>
-          <span class="hint-msg insta-hint">💡 <strong>인스타 주소 입력 시 선정 확률 UP</strong> <em class="hint-msg-sub">(운영팀이 콘텐츠 톤 참고용)</em></span>
+          <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq"
+              style="display:none;">*</span></label>
+          <input type="url" id="snsUrlInput" name="snsUrl" placeholder="https://instagram.com/계정명">
+          <span class="hint-msg insta-hint">· 계정 입력 시 선정 확률 UP!</span>
           <span class="error-msg" id="snsUrlError" aria-live="polite"></span>
         </div>
 
@@ -284,7 +520,7 @@
               <span>안드로이드</span>
             </label>
           </div>
-          <span class="hint-msg">💡 OS에 맞는 UV 카메라(아이폰용/안드로이드용)를 보내드려요</span>
+          <span class="hint-msg">· OS에 맞는 UV 카메라(아이폰용/안드로이드용)를 보내드려요!</span>
           <span class="error-msg" id="phoneOsError" aria-live="polite"></span>
         </div>
 
@@ -302,9 +538,12 @@
             <p><strong>0. 참여 자격</strong>본 이벤트는 만 14세 이상만 신청 가능합니다.</p>
             <p><strong>1. 수집 항목</strong>이름, 연락처, 이메일, 배송지, 휴대폰 OS, 성별, 연령대, (선택) 인스타그램 계정, (선택) 공식몰 아이디</p>
             <p><strong>2. 이용 목적</strong>이벤트 신청 접수, 신청자 본인 확인, 선정 여부 안내, 혜택 제공 관련 안내, 문의 응대 및 운영 관리</p>
-            <p><strong>2-1. 보상 발송·콘텐츠 회수·UV 카메라 반납 운영 활용</strong>수집된 개인정보(이름·연락처·주소·이메일)는 보상 발송, 콘텐츠 회수 안내, UV 카메라 반납 안내에 활용됩니다.</p>
-            <p><strong>2-2. 의무 미이행 시 법적 조치 활용</strong>콘텐츠 제출 또는 UV 카메라 반납 의무를 이행하지 않을 경우, 수집된 개인정보는 채무 이행 청구·내용증명 발송·민형사상 법적 조치(사기죄·횡령죄·채무불이행 등)에 활용될 수 있습니다.</p>
-            <p><strong>3. 보유 및 이용 기간</strong>이벤트 종료 후 3개월까지. 단, 의무 이행 완료 또는 분쟁 해결 시까지 보관(최대 3년 — 법적 조치 시효 고려), 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관.</p>
+            <p><strong>2-1. 보상 발송·콘텐츠 회수·UV 카메라 반납 운영 활용</strong>수집된 개인정보(이름·연락처·주소·이메일)는 보상 발송, 콘텐츠 회수 안내, UV 카메라 반납
+              안내에 활용됩니다.</p>
+            <p><strong>2-2. 의무 미이행 시 법적 조치 활용</strong>콘텐츠 제출 또는 UV 카메라 반납 의무를 이행하지 않을 경우, 수집된 개인정보는 채무 이행 청구·내용증명
+              발송·민형사상 법적 조치(사기죄·횡령죄·채무불이행 등)에 활용될 수 있습니다.</p>
+            <p><strong>3. 보유 및 이용 기간</strong>이벤트 종료 후 3개월까지. 단, 의무 이행 완료 또는 분쟁 해결 시까지 보관(최대 3년 — 법적 조치 시효 고려), 관계 법령에 따라
+              보관이 필요한 경우 해당 기간 동안 보관.</p>
             <p><strong>4. 동의 거부 권리</strong>개인정보 수집·이용에 대한 동의를 거부할 권리가 있으나, 동의하지 않을 경우 이벤트 신청이 제한될 수 있습니다.</p>
           </div>
           <label class="check-row">
@@ -375,27 +614,28 @@
     <div id="success-screen" class="apply-container success-container" style="display:none;">
       <div>
         <div class="success-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
-            <circle cx="32" cy="32" r="32" fill="#FF4800" />
-            <path d="M18 32L27 41L46 22" stroke="white" stroke-width="3.5" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
+          <img src="images/Vector.svg">
         </div>
-        <h2 class="success-title">신청이 완료되었습니다.</h2>
+        <h2 class="success-title">이벤트  신청이 완료되었습니다.</h2>
         <p class="success-desc">선정 여부와 이후 절차는<br>입력하신 연락처로 개별 안내드립니다.</p>
         <p id="successPackage" class="success-package"></p>
 
-        <!-- 락인 CTA — 카톡채널 + 인스타 -->
-        <div class="lockin-cta" id="lockin-cta">
-          <p class="lockin-cta-headline">📲 발송·당첨 결과 안내를 가장 빠르게 받아보세요</p>
-          <div class="lockin-cta-buttons">
-            <a class="btn-lockin btn-lockin-kakao" href="http://pf.kakao.com/_xcdWxon/friend" target="_blank" rel="noopener">💬 카톡채널 추가</a>
-            <a class="btn-lockin btn-lockin-insta" href="https://www.instagram.com/uvid.kr/" target="_blank" rel="noopener">📷 인스타 팔로우</a>
-          </div>
+        <!-- 가입 CTA + 12만원 쿠폰팩 인센티브 -->
+        <div class="signup-cta-box" id="signup-cta-box">
+          <p class="signup-cta-headline">지금 공식몰 회원가입하면 <strong>12만원 쿠폰팩 즉시 지급!</strong></p>
+          <a class="btn-signup" href="https://uvid.co.kr/member/join" target="_blank" rel="noopener">1초만에 회원가입 하기</a>
         </div>
 
-        <!-- 가이드 CTA -->
-        <a class="btn-guide" href="https://uvid-sunpad-guide.vercel.app/" target="_blank" rel="noopener">📋 UV 카메라 사용 가이드 보기 →</a>
+        <!-- 락인 CTA — 카톡채널 + 인스타 -->
+        <div class="lockin-cta" id="lockin-cta">
+          <p class="lockin-cta-headline">발송·당첨 결과 안내를 가장 빠르게 받아보세요</p>
+          <div class="lockin-cta-buttons">
+            <a class="btn-lockin btn-lockin-kakao" href="http://pf.kakao.com/_xcdWxon/friend" target="_blank"
+              rel="noopener"><img src="images/kakao_b.png"></a>
+            <a class="btn-lockin btn-lockin-insta" href="https://www.instagram.com/uvid.kr/" target="_blank"
+              rel="noopener"><img src="images/insta_b.png"></a>
+          </div>
+        </div>
 
         <button type="button" class="btn-reset" onclick="resetForm()">다시 신청하기</button>
       </div>
@@ -403,149 +643,23 @@
 
   </section>
 
-  <!-- 참여 조건 섹션 (3단계 챌린지) -->
-  <section id="conditions" class="layout">
-    <h2 class="section-title">30분이면 끝나는 3단계 촬영 챌린지</h2>
-    <p class="section-sub">30일 사용 의무는 없습니다. 수령 즉시 진행해 주세요.</p>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-icon">1</div>
-        <div class="step-num">STEP 1</div>
-        <h3 class="step-title">맨얼굴 촬영 (Before)</h3>
-        <p class="step-desc">선패드를 바르기 전 평소 피부 상태를 일반 카메라로 촬영하는 단계입니다.</p>
-      </div>
-      <div class="step-card step-card-highlight">
-        <div class="step-icon step-icon-highlight">2<span class="step-icon-star">⭐</span></div>
-        <div class="step-num">STEP 2 · 핵심</div>
-        <h3 class="step-title">UV 카메라로 선패드 도포 시각화</h3>
-        <p class="step-desc">선패드로 얼굴을 문지를 때 자외선이 까맣게 묻어나오는 모습을 UV 카메라로 촬영하는 단계입니다. 이 장면이 이벤트 핵심이에요.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-icon">3</div>
-        <div class="step-num">STEP 3</div>
-        <h3 class="step-title">바른 뒤 촉촉·물광 맨얼굴 (After)</h3>
-        <p class="step-desc">선패드 바른 직후 피부를 찍어주세요.</p>
-        <ul class="step-checklist">
-          <li>끈적임 없이 촉촉한 마무리</li>
-          <li>자연광에서 자연스럽게</li>
-        </ul>
-      </div>
-    </div>
-    <p class="conditions-note">📩 영상은 <strong>uvid@gromeet.com</strong>으로 수령 후 14일 이내 제출. 상세 촬영 가이드(구도·조명·분량·UV 카메라 사용법)는 선정자에게 알림톡으로 별도 PDF 발송됩니다.</p>
 
-    <div class="legal-notice-box">
-      <p class="legal-notice-copy">📌 수령 후 14일 이내 콘텐츠 제출 + UV 카메라 반납.<br>미이행 시 약관에 따라 법적 책임을 물을 수 있습니다.</p>
-    </div>
+  <div class="fab-container">
+    <!-- 채팅 버튼 -->
+    <button class="fab fab-chat" aria-label="채팅 열기" onclick="onChatClick()">
+      <img src="images/twemoji_left-speech-bubble.svg">
+    </button>
 
-    <div class="sns-conditions-card">
-      <h3 class="sns-conditions-title">📸 인플루언서 챌린지(SNS형) 추가 조건</h3>
+    <!-- 위로가기 버튼 -->
+    <button class="fab fab-top" id="fabTop" aria-label="맨 위로" onclick="scrollToTop()">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 19V5M5 12l7-7 7 7" />
+      </svg>
+    </button>
+  </div>
 
-      <div class="sns-conditions-group">
-        <p class="sns-conditions-group-label">[게시 의무]</p>
-        <ul class="conditions-list">
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>9:16 릴스 1건 게시 — UV 전·후 비교컷 필수 / 핵심 성분(엑토인 등) 1개 이상 언급<br><em class="sns-condition-note">(촬영·연출 가이드 제공)</em></span></li>
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>팔로워 1,000명 이상이면 누구나 참여 가능 <em class="card-feature-note">(피부·뷰티·라이프스타일·아웃도어 카테고리)</em></span></li>
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>#유비드선패드 #UV카메라챌린지 + @uvid_official 멘션</span></li>
-          <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>게시물 6개월 유지 <em class="card-feature-note">(조기 삭제 시 보상 회수)</em></span></li>
-        </ul>
-      </div>
 
-      <div class="sns-conditions-group">
-        <p class="sns-conditions-group-label">[추가 혜택]</p>
-        <div class="partnership-ads-callout">
-          <p class="partnership-ads-headline">💎 <strong>파트너십 광고 무료 부스트</strong> <em class="partnership-ads-sublabel">(콘텐츠 선별 진행)</em></p>
 
-          <div class="partnership-ads-block">
-            <p class="partnership-ads-block-title">파트너십 광고가 뭔가요?</p>
-            <p class="partnership-ads-block-body">브랜드(유비드)가 광고비를 부담해, <strong>크리에이터님의</strong> 인스타그램 게시물을 더 많은 사람에게 노출시키는 메타 공식 기능입니다. <strong>크리에이터님</strong> 계정·콘텐츠 그대로, 광고 라벨만 자동으로 표시돼요.</p>
-          </div>
-
-          <div class="partnership-ads-block">
-            <p class="partnership-ads-block-title">메리트</p>
-            <ul class="partnership-ads-list">
-              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>광고비 0원으로 <strong>도달·노출 극대화 → 신규 팔로워 유입</strong></span></li>
-              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>메타 공식 광고 시스템 <em class="card-feature-note">(안전·신뢰)</em></span></li>
-              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>별도 #광고 표기 불필요 <em class="card-feature-note">(자동 라벨)</em></span></li>
-              <li><svg class="check-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="10" fill="#FF4800"/><path d="M5.5 10.5l3 3 6-6.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span>게시물 삭제 = 광고 자동 종료 <em class="card-feature-note">(통제권 <strong>크리에이터님</strong>)</em></span></li>
-            </ul>
-          </div>
-
-          <div class="partnership-ads-condition">
-            <p class="partnership-ads-block-title">진행 조건</p>
-            <p class="partnership-ads-block-body">모든 게시물이 자동 부스트되는 건 아니에요. <strong>콘텐츠 퀄리티가 광고 활용 가능한 수준일 때, 유비드가 개별 컨택 후 협의를 통해 진행</strong>됩니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ 섹션 -->
-  <section id="faq" class="layout">
-    <h2 class="section-title">자주 묻는 질문</h2>
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary><strong>Q1.</strong> UV 카메라는 정말 무료인가요?</summary>
-        <p>네. 신청 후 선정되시면 UV 카메라가 함께 발송됩니다. 카메라 수령·반납 조건은 선정자에게 알림톡으로 별도 안내드립니다.</p>
-      </details>
-      <details class="faq-item">
-        <summary><strong>Q2.</strong> 선패드 받으면 30일 동안 다 써야 하나요?</summary>
-        <p>아니요. 수령 즉시 30분만 투자하셔서 3단계 촬영(맨얼굴 → UV 도포 시각화 → 마무리 맨얼굴)을 진행하시면 됩니다. 30일 사용 의무는 없습니다.</p>
-      </details>
-      <details class="faq-item">
-        <summary><strong>Q3.</strong> 공식몰 회원가입을 해야 신청할 수 있나요?</summary>
-        <p>비회원도 신청 가능합니다. 단, 선착순 한정 수량이라 회원 신청자가 발송 선정에 우선되며, 공식몰 회원가입 시 12만원 쿠폰팩이 즉시 지급됩니다.</p>
-      </details>
-      <details class="faq-item">
-        <summary><strong>Q4.</strong> SNS형 게시물은 언제까지 유지해야 하나요?</summary>
-        <p>게시 후 최소 6개월입니다. 조기 삭제 시 보상이 회수될 수 있습니다.</p>
-      </details>
-      <details class="faq-item">
-        <summary><strong>Q5.</strong> 미당첨 시 통보가 오나요?</summary>
-        <p>당첨자께 우선 안내드립니다. 한정 수량으로 진행되어 미당첨 시 별도 알림은 없으나, 차회 이벤트에 우선 안내 받으실 수 있습니다.</p>
-      </details>
-    </div>
-  </section>
-
-  <!-- 사업자 정보 푸터 (uvid.co.kr 자사몰 영문 그대로) -->
-  <footer id="site-footer">
-    <div class="footer-inner layout">
-      <div class="footer-brand">UVID</div>
-
-      <div class="footer-grid">
-        <div class="footer-col footer-col-company">
-          <p>Company Gromeet Inc. CEO Hyunseok Seo</p>
-          <p>Business License No 863-87-01100</p>
-          <p>Address (08502) 1309 Bando Ivy Valley, 204 Gasan Digital 1-ro, Geumcheon-gu, Seoul</p>
-          <p>E-Commerce Registration No 제2019-서울금천-0115호 <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=8638701100" target="_blank" rel="noopener">[사업자정보확인]</a></p>
-          <p>Personal Info Manager Hyunseok Seo</p>
-          <p class="footer-copyright">Copyright ⓒ Inc.Gromeet. All rights reserved.</p>
-        </div>
-
-        <div class="footer-col footer-col-cs">
-          <p class="footer-cs-tel">1833-3920</p>
-          <p>Mon - Fri 10:00 ~ 17:00 / Lunch 12:30 ~ 13:30</p>
-          <p>토,일 공휴일 휴무</p>
-        </div>
-
-        <div class="footer-col footer-col-bank">
-          <p>기업은행 943-016944-01-015</p>
-          <p>주식회사 그로밋</p>
-        </div>
-      </div>
-
-      <nav class="footer-links">
-        <a href="https://uvid.co.kr/brand.html" target="_blank" rel="noopener">About Us</a>
-        <span class="footer-link-sep">|</span>
-        <a href="https://uvid.co.kr/member/mall_agreement.html" target="_blank" rel="noopener">Terms of Use</a>
-        <span class="footer-link-sep">|</span>
-        <a href="https://uvid.co.kr/member/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
-        <span class="footer-link-sep">|</span>
-        <a href="https://uvid.co.kr/shopinfo/guide.html" target="_blank" rel="noopener">Instructions for use</a>
-        <span class="footer-link-sep">|</span>
-        <a href="https://www.instagram.com/uvid.kr/" target="_blank" rel="noopener">Instagram</a>
-      </nav>
-    </div>
-  </footer>
 
 </body>
 

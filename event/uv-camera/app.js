@@ -108,14 +108,8 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['purchaseChannel', 'name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
+  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
-
-  const purchaseChannel = document.getElementById('purchaseChannelInput').value;
-  if (!purchaseChannel) {
-    setFieldError('purchaseChannel', '구매처/구매여부를 선택해 주세요.');
-    isValid = false;
-  }
 
   const name     = document.getElementById('nameInput').value.trim();
   const tel      = document.getElementById('telInput').value.trim();
@@ -147,12 +141,18 @@ function validateForm() {
     isValid = false;
   }
 
-  const snsUsername = document.getElementById('snsUrlInput').value.trim();
+  const snsUrl = document.getElementById('snsUrlInput').value.trim();
   if (isSNS) {
-    if (!snsUsername) {
-      setFieldError('snsUrl', '인스타그램 계정명을 입력해 주세요.');
+    if (!snsUrl) {
+      setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+      isValid = false;
+    } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+      setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
       isValid = false;
     }
+  } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
+    setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+    isValid = false;
   }
 
   if (!postcode) {
@@ -316,11 +316,6 @@ function resetForm() {
 // ----------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
 
-  // ?success=1 파라미터로 완료 화면 직접 미리보기
-  if (new URLSearchParams(location.search).get('success') === '1') {
-    showSuccess('free_trial');
-  }
-
   // 신청 유형 라디오
   document.querySelectorAll('input[name="type"]').forEach(input => {
     input.addEventListener('change', applyTypeChange);
@@ -334,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['purchaseChannelInput', 'nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
+  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -384,11 +379,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var typeValue = (document.querySelector('input[name="type"]:checked') || {}).value || 'free_trial';
 
-    var snsUsername    = document.getElementById('snsUrlInput').value.trim();
-    var instagramUrl   = snsUsername ? 'https://instagram.com/' + snsUsername : '';
+    var instagramUrl = document.getElementById('snsUrlInput').value.trim();
 
     var payload = {
-      purchaseChannel:     document.getElementById('purchaseChannelInput').value || '',
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
       email:               document.getElementById('emailInput').value.trim(),
