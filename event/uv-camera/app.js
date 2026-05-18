@@ -271,16 +271,7 @@ function trackLead(typeValue) {
 // 완료 화면 표시 / 폼 초기화
 // ----------------------------------------------------------------
 function showSuccess(typeValue) {
-  document.getElementById('applicationForm').style.display = 'none';
-  document.getElementById('successPackage').textContent    = '신청 패키지: ' + (PACKAGE_LABEL[typeValue] || '');
-  document.getElementById('success-screen').style.display  = 'flex';
-
-  document.getElementById('main').style.display             = 'none';
-  document.getElementById('scarcity-banner').style.display  = 'none';
-  document.getElementById('cards').style.display            = 'none';
-  document.getElementById('conditions').style.display       = 'none';
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.location.href = 'complete.html?type=' + encodeURIComponent(typeValue || '');
 }
 
 function resetForm() {
