@@ -1123,7 +1123,7 @@ label .req {
 .notice-card {
   background: #fff;
   border-radius: 12px;
-  padding: 40px 20px;
+  padding: 80px 45px;
 }
 
 .notice-card-title {
@@ -1538,6 +1538,10 @@ label .req {
 
   .pc {
     display: none;
+  }
+
+  .notice-card {
+    padding: 40px 20px;
   }
 
   .deadline-section,
