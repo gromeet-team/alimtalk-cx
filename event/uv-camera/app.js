@@ -15,6 +15,35 @@ const PACKAGE_VALUE = {
 
 
 // ----------------------------------------------------------------
+// 중복 신청 차단 (클라이언트 측 보조 — 서버 차단이 진짜 차단)
+// ----------------------------------------------------------------
+const APPLIED_KEY = 'uvidUvCameraApplied';
+
+function markApplied() {
+  try { localStorage.setItem(APPLIED_KEY, '1'); } catch (_) { /* ignore */ }
+}
+
+function isApplied() {
+  try { return localStorage.getItem(APPLIED_KEY) === '1'; } catch (_) { return false; }
+}
+
+function applyAppliedLockUI() {
+  if (!isApplied()) return;
+  var submitBtn = document.getElementById('submitBtn');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    var label = submitBtn.querySelector('.btn-label');
+    if (label) label.textContent = '이미 신청 완료';
+  }
+  var feedback = document.getElementById('formFeedback');
+  if (feedback) {
+    feedback.textContent = '이미 신청하셨습니다. 선정 여부는 입력하신 연락처로 안내드립니다.';
+    feedback.style.display = 'block';
+  }
+}
+
+
+// ----------------------------------------------------------------
 // 신청 유형 라디오 (참여형 / SNS형 분기)
 // ----------------------------------------------------------------
 function applyTypeChange() {
@@ -241,7 +270,10 @@ async function submitForm(data) {
   }
 
   if (!res.ok) {
-    throw new Error(result.error || '서버 오류가 발생했습니다. (' + res.status + ')');
+    var err = new Error(result.error || '서버 오류가 발생했습니다. (' + res.status + ')');
+    err.code = result.code;
+    err.status = res.status;
+    throw err;
   }
 
   return result;
@@ -271,6 +303,7 @@ function trackLead(typeValue) {
 // 완료 화면 표시 / 폼 초기화
 // ----------------------------------------------------------------
 function showSuccess(typeValue) {
+  markApplied();
   window.location.href = 'complete.html?type=' + encodeURIComponent(typeValue || '');
 }
 
@@ -306,6 +339,9 @@ function resetForm() {
 // 이벤트 바인딩
 // ----------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
+
+  // 이미 신청한 사용자: 폼 비활성 + 안내
+  applyAppliedLockUI();
 
   // 신청 유형 라디오
   document.querySelectorAll('input[name="type"]').forEach(input => {
@@ -401,6 +437,10 @@ document.addEventListener('DOMContentLoaded', function() {
       trackLead(typeValue);
       showSuccess(typeValue);
     } catch (err) {
+      if (err && err.code === 'duplicate') {
+        markApplied();
+        applyAppliedLockUI();
+      }
       feedback.textContent = err.message || '신청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.';
       feedback.style.display = 'block';
     } finally {
