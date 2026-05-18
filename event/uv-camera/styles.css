@@ -253,6 +253,9 @@ button {
 }
 
 .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 14px 32px;
   border-radius: 999px;
   font-size: 24px;
@@ -260,6 +263,7 @@ button {
   transition: all 0.2s;
   letter-spacing: -0.2px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn-primary,
