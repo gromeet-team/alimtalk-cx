@@ -1491,6 +1491,11 @@ label .req {
 
 
 
+/* 모바일 전용 줄바꿈 (PC에서는 숨김) */
+.m-br {
+  display: none;
+}
+
 /* ============ 모바일 ============ */
 @media (max-width: 1024px) {
 
@@ -1542,6 +1547,10 @@ label .req {
 
   .pc {
     display: none;
+  }
+
+  .m-br {
+    display: inline;
   }
 
   .notice-card {
