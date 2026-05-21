@@ -213,10 +213,19 @@ button {
 }
 
 
+/* 모바일 전용 줄바꿈 (PC에서는 숨김) */
+.m-br {
+  display: none;
+}
+
 /* ============ 모바일 ============ */
 @media (max-width: 1024px) {
   .apply-container {
     padding: 80px 50px;
+  }
+
+  .m-br {
+    display: inline;
   }
 }
 
