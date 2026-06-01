@@ -9,5 +9,9 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    { "source": "/uv-camera", "destination": "/event/uv-camera/", "permanent": false },
+    { "source": "/uv-camera/", "destination": "/event/uv-camera/", "permanent": false }
   ]
 }
