@@ -137,13 +137,13 @@ function clearFieldError(fieldId) {
 function validateForm() {
   let isValid = true;
 
-  ['name', 'tel', 'email', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
+  ['name', 'tel', 'cafeNickname', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
 
-  const name     = document.getElementById('nameInput').value.trim();
-  const tel      = document.getElementById('telInput').value.trim();
-  const email    = document.getElementById('emailInput').value.trim();
-  const postcode = document.getElementById('postcodeInput').value.trim();
+  const name          = document.getElementById('nameInput').value.trim();
+  const tel           = document.getElementById('telInput').value.trim();
+  const cafeNickname  = document.getElementById('cafeNicknameInput').value.trim();
+  const postcode      = document.getElementById('postcodeInput').value.trim();
   const consent  = document.getElementById('consentInput').checked;
   const marketing = document.getElementById('marketingInput').checked;
   const checked  = document.querySelector('input[name="type"]:checked');
@@ -162,11 +162,11 @@ function validateForm() {
     isValid = false;
   }
 
-  if (!email) {
-    setFieldError('email', '이메일을 입력해 주세요.');
+  if (!cafeNickname) {
+    setFieldError('cafeNickname', '동결단 카페 닉네임을 입력해 주세요.');
     isValid = false;
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    setFieldError('email', '올바른 이메일 형식을 입력해 주세요.');
+  } else if (cafeNickname.length > 30) {
+    setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
     isValid = false;
   }
 
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'emailInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
+  ['nameInput', 'cafeNicknameInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var payload = {
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
-      email:               document.getElementById('emailInput').value.trim(),
+      cafeNickname:        document.getElementById('cafeNicknameInput').value.trim(),
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
       mallId:              document.getElementById('mallIdInput').value.trim(),
