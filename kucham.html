@@ -1563,12 +1563,12 @@
   </div>
 
   <!-- 7. VOC 참여 유도 — OFF: 제빙기 재발주 없음(2026-06-23) -->
-  <div data-campaign="campaign-7" class="campaign-card" style="display:none" data-status="off">
+  <div data-campaign="campaign-7" class="campaign-card decided-skip" data-status="off" style="border-left:4px solid #64748b; background:#f8fafc; opacity:.72;">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">7</div>
         <span class="name">VOC 참여 유도 — OFF</span>
-        <span class="impact mid">MID</span>
+        <span class="impact" style="background:#64748b;">OFF</span>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
         <div class="modify-toggle" onclick="event.stopPropagation()">
@@ -1576,7 +1576,7 @@
           <span class="toggle-switch" onclick="event.stopPropagation(); document.getElementById('modify-campaign-7').click();"></span>
           <label for="modify-campaign-7" onclick="event.stopPropagation()">수정필요</label>
         </div>
-        <span class="timing">배송완료+14일</span>
+        <span class="timing">OFF · 제빙기 재발주 없음</span>
         <span class="arrow">▼</span>
       </div>
     </div>
@@ -1637,10 +1637,8 @@
       </div>
 
       <div class="decision-bar">
-        <span class="status-label">결정</span>
-        <button class="decision-btn adopt" onclick="event.stopPropagation(); decide('campaign-7', 'adopt')">✅ 채택</button>
-        <button class="decision-btn modify" onclick="event.stopPropagation(); decide('campaign-7', 'modify')">✏️ 수정</button>
-        <button class="decision-btn skip" onclick="event.stopPropagation(); decide('campaign-7', 'skip')">⏭️ 보류</button>
+        <span class="status-label">상태: OFF</span>
+        <button class="decision-btn skip selected" onclick="event.stopPropagation(); decide('campaign-7', 'skip')">⏹️ OFF</button>
       </div>
     </div>
   </div>
@@ -2480,7 +2478,7 @@
 
   // 캠페인 순서 변경 시 idx 기반 캐시 충돌 방지
   (function() {
-    const CACHE_VERSION = "v8";
+    const CACHE_VERSION = "v9";
     const VER_KEY = `alimtalk_${BRAND}_cache_version`;
     if (localStorage.getItem(VER_KEY) !== CACHE_VERSION) {
       Object.keys(localStorage)
