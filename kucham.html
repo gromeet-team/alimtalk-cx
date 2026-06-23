@@ -1562,12 +1562,12 @@
     </div>
   </div>
 
-  <!-- 7. VOC 참여 유도 -->
-  <div data-campaign="campaign-7" class="campaign-card">
+  <!-- 7. VOC 참여 유도 — OFF: 제빙기 재발주 없음(2026-06-23) -->
+  <div data-campaign="campaign-7" class="campaign-card" style="display:none" data-status="off">
     <div class="campaign-header" onclick="this.closest('.campaign-card').classList.toggle('open')" style="cursor:pointer">
       <div class="left">
         <div class="num-badge">7</div>
-        <span class="name">VOC 참여 유도</span>
+        <span class="name">VOC 참여 유도 — OFF</span>
         <span class="impact mid">MID</span>
       </div>
       <div style="display:flex;align-items:center;gap:12px;">
@@ -1597,11 +1597,11 @@
             <div class="url-box-title">🔗 현재 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">참여하고 혜택받기</span>
-              <input type="text" class="url-input" value="https://whattime.co.kr/gromeet/kucham" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <input type="text" class="url-input" value="" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
             <div class="url-row">
               <span class="url-btn-label">채널 추가하기</span>
-              <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <input type="text" class="url-input" value="" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
             <div class="url-note">참여 링크 → whattime / 채널 추가 → 카카오채널</div>
           </div>
@@ -1864,13 +1864,13 @@
             <div class="url-box-title">🔗 취소완료 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">의견 남기기</span>
-              <input type="text" class="url-input" value="https://register.kucham.kr/voc" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <input type="text" class="url-input" value="" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
             <div class="url-row">
               <span class="url-btn-label">1:1 문의하기</span>
               <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
-            <div class="url-note">의견 남기기 → register.kucham.kr/voc / 1:1 문의하기 → 카카오채널</div>
+            <div class="url-note">의견 남기기 → OFF / 1:1 문의하기 → 카카오채널</div>
           </div>
 
           <ul class="issues">
@@ -1895,7 +1895,7 @@
               <span class="url-btn-label">1:1 문의하기</span>
               <input type="text" class="url-input" data-url-key="campaign_10_url_2" value="" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
-            <div class="url-note">의견 남기기 → register.kucham.kr/voc / 1:1 문의하기 → 카카오채널</div>
+            <div class="url-note">의견 남기기 → OFF / 1:1 문의하기 → 카카오채널</div>
           </div>
         </div>
       </div>
@@ -2222,13 +2222,13 @@
             <div class="url-box-title">🔗 반품완료 랜딩 URL</div>
             <div class="url-row">
               <span class="url-btn-label">의견 남기기</span>
-              <input type="text" class="url-input" value="https://register.kucham.kr/voc" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
+              <input type="text" class="url-input" value="" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
             <div class="url-row">
               <span class="url-btn-label">쿠참 채널 추가</span>
               <input type="text" class="url-input" value="http://pf.kakao.com/_JUbqK" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
-            <div class="url-note">의견 남기기 → register.kucham.kr/voc / 채널 추가 → 카카오채널</div>
+            <div class="url-note">의견 남기기 → OFF / 채널 추가 → 카카오채널</div>
           </div>
 
           <ul class="issues">
@@ -2253,7 +2253,7 @@
               <span class="url-btn-label">쿠참 채널 추가</span>
               <input type="text" class="url-input" data-url-key="campaign_14_url_3" value="" spellcheck="false" readonly onclick="event.stopPropagation(); var url=this.value.trim(); if(url&&url!=='#'){window.open(url,'_blank');}" style="cursor:pointer;">
             </div>
-            <div class="url-note">의견 남기기 → register.kucham.kr/voc / 채널 추가 → 카카오채널</div>
+            <div class="url-note">의견 남기기 → OFF / 채널 추가 → 카카오채널</div>
           </div>
         </div>
       </div>
