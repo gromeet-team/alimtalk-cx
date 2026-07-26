@@ -96,8 +96,16 @@ function getActiveConsentInputs() {
   return inputs;
 }
 
+function syncConsentSummaryIndicators() {
+  document.querySelectorAll('.consent-summary-checkbox').forEach(function(indicator) {
+    const target = document.getElementById(indicator.dataset.consentTarget);
+    if (target) indicator.checked = target.checked;
+  });
+}
+
 function syncAllConsentState() {
   const master = document.getElementById('allConsentInput');
+  syncConsentSummaryIndicators();
   if (!master) return;
   const inputs = getActiveConsentInputs();
   const checkedCount = inputs.filter(input => input.checked).length;
@@ -499,6 +507,18 @@ document.addEventListener('DOMContentLoaded', function() {
       syncAllConsentState();
     });
   }
+
+  document.querySelectorAll('.consent-summary-checkbox').forEach(function(indicator) {
+    indicator.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const target = document.getElementById(indicator.dataset.consentTarget);
+      if (!target) return;
+      target.checked = !target.checked;
+      target.dispatchEvent(new Event('change', { bubbles: true }));
+      requestAnimationFrame(syncConsentSummaryIndicators);
+    });
+  });
 
   ['consentInput', 'marketingInput', 'legalInput', 'partnershipInput'].forEach(function(id) {
     var el = document.getElementById(id);

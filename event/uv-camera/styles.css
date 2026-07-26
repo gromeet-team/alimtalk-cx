@@ -891,6 +891,22 @@ label .req {
   display: none;
 }
 
+.consent-summary-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.consent-summary-checkbox {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--text-dark);
+  cursor: pointer;
+}
+
 .consent-toggle {
   flex-shrink: 0;
   color: #737373;
