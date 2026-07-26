@@ -146,12 +146,11 @@ function validateForm(stepNumber) {
   const checkStep4 = validateAll || stepNumber === 4;
   const checkStep5 = validateAll || stepNumber === 5;
 
-  ['name', 'tel', 'cafeNickname', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
+  ['name', 'tel', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
 
   const name          = document.getElementById('nameInput').value.trim();
   const tel           = document.getElementById('telInput').value.trim();
-  const cafeNickname  = document.getElementById('cafeNicknameInput').value.trim();
   const postcode      = document.getElementById('postcodeInput').value.trim();
   const consent  = document.getElementById('consentInput').checked;
   const marketing = document.getElementById('marketingInput').checked;
@@ -199,11 +198,6 @@ function validateForm(stepNumber) {
   }
 
   if (checkStep4) {
-    if (cafeNickname && cafeNickname.length > 30) {
-      setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
-      isValid = false;
-    }
-
     const snsUrl = document.getElementById('snsUrlInput').value.trim();
     if (isSNS) {
       if (!snsUrl) {
@@ -415,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'cafeNicknameInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
+  ['nameInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -469,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var payload = {
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
-      cafeNickname:        document.getElementById('cafeNicknameInput').value.trim(),
+      cafeNickname:        '',
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
       mallId:              document.getElementById('mallIdInput').value.trim(),
