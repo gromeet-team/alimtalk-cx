@@ -18,6 +18,10 @@ const PACKAGE_VALUE = {
 // 중복 신청 차단 (클라이언트 측 보조 — 서버 차단이 진짜 차단)
 // ----------------------------------------------------------------
 const APPLIED_KEY = 'uvidUvCameraApplied';
+const DRAFT_KEY = 'uvidUvCameraDraft';
+const DRAFT_TTL_MS = 24 * 60 * 60 * 1000;
+let draftExpiryTimer = null;
+let draftTrackingReady = false;
 
 function markApplied() {
   try { localStorage.setItem(APPLIED_KEY, '1'); } catch (_) { /* ignore */ }
@@ -27,8 +31,139 @@ function isApplied() {
   try { return localStorage.getItem(APPLIED_KEY) === '1'; } catch (_) { return false; }
 }
 
+function clearDraft() {
+  if (draftExpiryTimer) {
+    window.clearTimeout(draftExpiryTimer);
+    draftExpiryTimer = null;
+  }
+  try { localStorage.removeItem(DRAFT_KEY); } catch (_) { /* ignore */ }
+}
+
+function readDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+
+    const draft = JSON.parse(raw);
+    if (!draft || !Number.isFinite(draft.expiresAt) || Date.now() >= draft.expiresAt) {
+      clearDraft();
+      return null;
+    }
+    return draft;
+  } catch (_) {
+    clearDraft();
+    return null;
+  }
+}
+
+function scheduleDraftExpiry(expiresAt) {
+  if (draftExpiryTimer) window.clearTimeout(draftExpiryTimer);
+  const remaining = Math.max(0, expiresAt - Date.now());
+  draftExpiryTimer = window.setTimeout(function() {
+    const draft = readDraft();
+    if (!draft || Date.now() >= draft.expiresAt) clearDraft();
+  }, Math.min(remaining, 2147483647));
+}
+
+function getCheckedValue(name) {
+  const checked = document.querySelector('input[name="' + name + '"]:checked');
+  return checked ? checked.value : '';
+}
+
+function saveDraft() {
+  const form = document.getElementById('applicationForm');
+  if (!draftTrackingReady || !form || isApplied()) return;
+
+  try {
+    const now = Date.now();
+    const existing = readDraft();
+    const createdAt = existing && Number.isFinite(existing.createdAt) ? existing.createdAt : now;
+    const expiresAt = createdAt + DRAFT_TTL_MS;
+
+    if (now >= expiresAt) {
+      clearDraft();
+      return;
+    }
+
+    const draft = {
+      createdAt: createdAt,
+      updatedAt: now,
+      expiresAt: expiresAt,
+      step: currentFormStep,
+      fields: {
+        type: getCheckedValue('type'),
+        name: document.getElementById('nameInput').value,
+        tel: document.getElementById('telInput').value,
+        gender: getCheckedValue('gender'),
+        ageGroup: document.getElementById('ageGroupInput').value,
+        snsUrl: document.getElementById('snsUrlInput').value,
+        postcode: document.getElementById('postcodeInput').value,
+        address: document.getElementById('addressInput').value,
+        addressDetail: document.getElementById('addressDetailInput').value,
+        phoneOs: getCheckedValue('phone_os'),
+        consent: document.getElementById('consentInput').checked,
+        marketingConsent: document.getElementById('marketingInput').checked,
+        agreeLegal: document.getElementById('legalInput').checked,
+        partnershipConsent: document.getElementById('partnershipInput').checked,
+      },
+    };
+
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    scheduleDraftExpiry(expiresAt);
+  } catch (_) {
+    // localStorage 접근 실패가 폼 작성/제출을 막지 않도록 무시
+  }
+}
+
+function restoreRadioValue(name, value) {
+  if (!value) return;
+  document.querySelectorAll('input[name="' + name + '"]').forEach(function(input) {
+    if (input.value === value) input.checked = true;
+  });
+}
+
+function restoreDraft() {
+  const draft = readDraft();
+  if (!draft || !draft.fields) return false;
+
+  const fields = draft.fields;
+  restoreRadioValue('type', fields.type);
+  restoreRadioValue('gender', fields.gender);
+  restoreRadioValue('phone_os', fields.phoneOs);
+
+  [
+    ['nameInput', fields.name],
+    ['telInput', fields.tel],
+    ['ageGroupInput', fields.ageGroup],
+    ['snsUrlInput', fields.snsUrl],
+    ['postcodeInput', fields.postcode],
+    ['addressInput', fields.address],
+    ['addressDetailInput', fields.addressDetail],
+  ].forEach(function(entry) {
+    const input = document.getElementById(entry[0]);
+    if (input && typeof entry[1] === 'string') input.value = entry[1];
+  });
+
+  [
+    ['consentInput', fields.consent],
+    ['marketingInput', fields.marketingConsent],
+    ['legalInput', fields.agreeLegal],
+    ['partnershipInput', fields.partnershipConsent],
+  ].forEach(function(entry) {
+    const input = document.getElementById(entry[0]);
+    if (input) input.checked = entry[1] === true;
+  });
+
+  applyTypeChange();
+  syncAllConsentState();
+  showFormStep(Number(draft.step) || 1, false);
+  scheduleDraftExpiry(draft.expiresAt);
+  return true;
+}
+
 function applyAppliedLockUI() {
   if (!isApplied()) return;
+  clearDraft();
   var submitBtn = document.getElementById('submitBtn');
   if (submitBtn) {
     submitBtn.disabled = true;
@@ -158,6 +293,7 @@ function searchAddress() {
       closePostcodeLayer();
       document.getElementById('addressDetailInput').focus();
       clearFieldError('address');
+      saveDraft();
     },
     width: '100%',
     height: '100%'
@@ -332,6 +468,7 @@ function showFormStep(stepNumber, moveFocus) {
   document.getElementById('nextStepBtn').hidden = currentFormStep === FORM_STEP_COUNT;
   document.getElementById('submitWrap').hidden = currentFormStep !== FORM_STEP_COUNT;
   syncConditionalStepControls();
+  saveDraft();
 
   if (moveFocus) {
     document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -414,6 +551,7 @@ function trackLead(typeValue) {
 // 완료 화면 표시 / 폼 초기화
 // ----------------------------------------------------------------
 function showSuccess(typeValue) {
+  clearDraft();
   markApplied();
   window.location.href = 'complete.html?type=' + encodeURIComponent(typeValue || '');
 }
@@ -460,7 +598,12 @@ document.addEventListener('DOMContentLoaded', function() {
     input.addEventListener('change', applyTypeChange);
   });
   applyTypeChange();
-  showFormStep(1, false);
+  if (!restoreDraft()) showFormStep(1, false);
+  draftTrackingReady = true;
+
+  const applicationForm = document.getElementById('applicationForm');
+  applicationForm.addEventListener('input', saveDraft);
+  applicationForm.addEventListener('change', saveDraft);
 
   document.getElementById('nextStepBtn').addEventListener('click', function() {
     if (!validateForm(currentFormStep)) {
@@ -537,7 +680,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 폼 제출
-  document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+  applicationForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     if (!validateForm()) {
