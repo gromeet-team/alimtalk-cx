@@ -665,6 +665,10 @@ label .req {
   height: 100%;
 }
 
+.type-select-card .card-title {
+  display: block;
+}
+
 .type-select-card .title > span:first-child {
   display: flex;
   align-items: center;
