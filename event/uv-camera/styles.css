@@ -104,6 +104,24 @@ button {
   overflow: hidden;
 }
 
+.hero-video-poster,
+.hero-video-poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-video-poster {
+  z-index: 0;
+  background: #d4cec9;
+  overflow: hidden;
+}
+
+.hero-video-poster img {
+  object-fit: cover;
+}
+
 #main .mainVideo .video {
   position: absolute;
   top: 0;
@@ -124,6 +142,11 @@ button {
   left: 0;
   transform: translateY(-50%);
   border: 0;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+#main .mainVideo .video iframe.is-playing {
   opacity: 1;
 }
 

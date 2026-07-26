@@ -13,11 +13,17 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="./images/og-image-placeholder.png">
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://player.vimeo.com">
+  <link rel="preconnect" href="https://i.vimeocdn.com">
+  <link rel="preload" as="image" href="./images/hero-video-poster-pc.jpg"
+    media="(min-width: 768px)" fetchpriority="high">
+  <link rel="preload" as="image" href="./images/hero-video-poster-mobile.jpg"
+    media="(max-width: 767px)" fetchpriority="high">
   <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
   <link rel="stylesheet" href="./styles.css">
-  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="https://player.vimeo.com/api/player.js"></script>
+  <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
+  <script src="https://player.vimeo.com/api/player.js" defer></script>
   <script src="./app.js" defer></script>
 
   <!-- Meta Pixel Code (UVID: 727154800448524) -->
@@ -70,6 +76,21 @@
     document.addEventListener('click', enableSoundOnce);
     document.addEventListener('touchstart', enableSoundOnce);
     document.addEventListener('scroll', enableSoundOnce, { passive: true });
+
+    window.addEventListener('DOMContentLoaded', function () {
+      if (typeof Vimeo === 'undefined' || !Vimeo.Player) return;
+
+      document.querySelectorAll('#main .video iframe').forEach(function (iframe) {
+        try {
+          const player = new Vimeo.Player(iframe);
+          player.on('playing', function () {
+            iframe.classList.add('is-playing');
+          });
+        } catch (err) {
+          console.warn('Vimeo hero ready detection failed:', err);
+        }
+      });
+    });
   </script>
 
   <script>
@@ -235,17 +256,21 @@
   <section id="main" class="layout">
     <div class="videoWrap">
       <div class="mainVideo" data-ez="contents-1adw4yz-1">
+        <picture class="hero-video-poster" aria-hidden="true">
+          <source media="(max-width: 767px)" srcset="./images/hero-video-poster-mobile.jpg">
+          <img src="./images/hero-video-poster-pc.jpg" alt="" width="1280" height="720" fetchpriority="high">
+        </picture>
         <div class="video pc">
           <iframe
             src="https://player.vimeo.com/video/1187152751?h=bace74890f&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;title=0&amp;controls=0&amp;background=1&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
             frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-            title="shutterstock_3462199637_3"></iframe>
+            loading="eager" title="shutterstock_3462199637_3"></iframe>
         </div>
         <div class="video mobile">
           <iframe
             src="https://player.vimeo.com/video/1187153461?h=f99961e619&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;title=0&amp;controls=0&amp;background=1&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
             frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
-            title="shutterstock_3462199637_3"></iframe>
+            loading="eager" title="shutterstock_3462199637_3"></iframe>
         </div>
       </div>
       <!-- 히어로 영상 오버레이 — 가치 카피 (시각 디테일은 엘렌 영역) -->
