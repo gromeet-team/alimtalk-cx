@@ -84,17 +84,17 @@
   </script>
 
   <script>
-    // 광고 유입용 메인 흐름: 히어로 → 유형 혜택 → 신청폼 → 상세 접기
+    // 광고 유입용 메인 흐름: 히어로 → 신청폼 → 상세 접기
     document.addEventListener('DOMContentLoaded', () => {
-      const applyType = document.querySelector('.apply-type-section');
+      const hero = document.getElementById('main');
       const apply = document.getElementById('apply');
       const deadline = document.querySelector('.deadline-section');
       const steps = document.querySelector('.steps-section');
       const notice = document.querySelector('.notice-section');
       const faq = document.querySelector('.faq-section');
-      if (!applyType || !apply || !deadline || !steps || !notice || !faq) return;
+      if (!hero || !apply || !deadline || !steps || !notice || !faq) return;
 
-      applyType.insertAdjacentElement('afterend', apply);
+      hero.insertAdjacentElement('afterend', apply);
 
       const accordions = document.createElement('section');
       accordions.className = 'main-accordions';
@@ -274,53 +274,6 @@
       </div>
     </div>
   </section>
-
-  <!-- 두 가지 신청 유형 -->
-  <section class="apply-type-section">
-    <div class="container">
-      <h2 class="section-title fade-up">두 가지 신청 유형 중 선택할 수 있어요</h2>
-      <p class="benefit-condition fade-up">UV카메라는 체험 후 반납 · 선패드는 증정</p>
-      <div class="apply-cards">
-        <div class="apply-card fade-up">
-          <div class="card-badge">선택1</div>
-          <div class="cont">
-            <div class="card-image"><img src="images/sunpad_m.webp"></div>
-            <div class="title">
-              <div>참여형</div>
-              <h3 class="card-title">콘텐츠 챌린지</h3>
-              <p class="card-subtitle">촬영·인증 완료 시 싱글팩 제공(49,000원 상당)</p>
-            </div>
-            <ul class="card-list">
-              <li><img src="images/Vector.svg">누구나 신청 가능</li>
-              <li><img src="images/Vector.svg">5분이면 끝나는 쉽고 간단한 촬영</li>
-              <li><img src="images/Vector.svg">동결단 네이버 카페에 인증글 업로드</li>
-            </ul>
-          </div>
-        </div>
-        <div class="apply-card fade-up">
-          <div class="card-badge all">선택2</div>
-          <div class="cont">
-            <div class="card-image"><img src="images/sunpad_6_m.webp"></div>
-            <div class="title">
-              <div>SNS형</div>
-              <h3 class="card-title">인플루언서 챌린지</h3>
-              <p class="card-subtitle">촬영·게시 완료 시 맥스팩 제공(249,000원 상당)</p>
-            </div>
-            <ul class="card-list">
-              <li><img src="images/Vector.svg">팔로워 1,000+ / 카테고리 핏 일치</li>
-              <li><img src="images/Vector.svg">인스타그램 게시 및 기간 6개월 유지</li>
-              <li><img src="images/Vector.svg">계정 무료 광고 부스트 지원</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  
-
 
   <!-- 3단계 촬영 방법 -->
   <section class="steps-section">
