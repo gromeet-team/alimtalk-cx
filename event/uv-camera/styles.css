@@ -646,6 +646,70 @@ label .req {
   font-weight: 500;
 }
 
+.type-radio-group .type-select-card {
+  display: block;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.type-radio-group .type-select-card.active {
+  border-color: #292929;
+  box-shadow: 0 0 0 3px rgba(41, 41, 41, 0.08);
+}
+
+.type-select-card > input[type="radio"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-width: 1px;
+  min-height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.type-select-card .card-badge,
+.type-select-card .cont,
+.type-select-card .title,
+.type-select-card .card-subtitle,
+.type-select-card .card-list {
+  display: block;
+}
+
+.type-select-card .cont {
+  height: 100%;
+}
+
+.type-select-card .title > span:first-child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  border-radius: 100px;
+  background-color: #FBE8A2;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.type-select-card .card-list > span {
+  display: flex;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.type-select-card .card-list img {
+  margin-right: 10px;
+}
+
 /* 구분선 */
 .divider {
   border: none;
@@ -1641,6 +1705,13 @@ label .req {
     grid-template-columns: 1fr;
   }
 
+  .type-select-card .title > span:first-child {
+    width: 60px;
+    height: 60px;
+    font-size: 14px;
+    top: -25px;
+  }
+
   .apply-card .cont {
     padding: 45px 20px;
   }
@@ -1788,6 +1859,10 @@ label .req {
   .apply-cards {
     grid-template-columns: 1fr;
     margin-top: 50px;
+  }
+
+  .type-select-card .card-list > span {
+    font-size: 14px;
   }
 
   .card-badge {
