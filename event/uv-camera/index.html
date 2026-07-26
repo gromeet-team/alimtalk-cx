@@ -5,15 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>UV 카메라 + 유비드 선패드 무료 체험 | 최대 249,000원 상당 혜택</title>
-  <meta name="description" content="UV 카메라로 자외선 차단 효과를 직접 확인하고, 유비드 엑토인 스킨케어 선패드 Single Pack 또는 Max Pack을 무료로 체험해 보세요.">
-  <meta property="og:title" content="UV 카메라 + 유비드 선패드 무료 체험 | 최대 249,000원 상당 혜택">
+  <title>유비드 선패드 UV 이벤트 | 선착순 100명 베타테스트</title>
+  <meta name="description" content="유비드 선패드 UV 이벤트 선착순 100명 베타테스트. 미션 완료 시 선패드 무료증정 · UV카메라는 체험 후 반납.">
+  <meta property="og:title" content="유비드 선패드 UV 이벤트 | 미션 완료 시 선패드 무료증정 · UV카메라는 체험 후 반납">
   <meta property="og:description"
-    content="30분이면 끝나는 즉시 촬영 챌린지. 콘텐츠 챌린지(Single Pack 49,000원 상당) 또는 인플루언서 챌린지(Max Pack 249,000원 상당) 중 선택해 신청하세요.">
+    content="유비드 선패드 UV 이벤트 선착순 100명 베타테스트. 미션 완료 시 선패드 무료증정 · UV카메라는 체험 후 반납.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="./images/og-image-placeholder.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="https://use.typekit.net/dao1fkr.css">
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script src="./app.js" defer></script>
@@ -82,6 +84,66 @@
   </script>
 
   <script>
+    // 광고 유입용 메인 흐름: 히어로 → 신청폼 → 상세 접기
+    document.addEventListener('DOMContentLoaded', () => {
+      const hero = document.getElementById('main');
+      const apply = document.getElementById('apply');
+      const deadline = document.querySelector('.deadline-section');
+      const steps = document.querySelector('.steps-section');
+      const notice = document.querySelector('.notice-section');
+      const faq = document.querySelector('.faq-section');
+      if (!hero || !apply || !deadline || !steps || !notice || !faq) return;
+
+      hero.insertAdjacentElement('afterend', apply);
+
+      const accordions = document.createElement('section');
+      accordions.className = 'main-accordions';
+
+      const missionFragment = document.createDocumentFragment();
+      [
+        [deadline, 'main-deadline-block'],
+        [steps, 'main-steps-block'],
+        [notice, 'main-notice-block']
+      ].forEach(([section, className]) => {
+        const block = document.createElement('div');
+        block.className = `main-detail-block ${className}`;
+        while (section.firstChild) block.appendChild(section.firstChild);
+        missionFragment.appendChild(block);
+        section.remove();
+      });
+
+      const faqFragment = document.createDocumentFragment();
+      const faqBlock = document.createElement('div');
+      faqBlock.className = 'main-detail-block main-faq-block';
+      while (faq.firstChild) faqBlock.appendChild(faq.firstChild);
+      faqFragment.appendChild(faqBlock);
+      faq.remove();
+
+      const revealContent = (details, fragment) => {
+        details.addEventListener('toggle', () => {
+          const content = details.querySelector('.main-detail-content');
+          if (!details.open || content.childElementCount) return;
+          content.appendChild(fragment);
+          content.querySelectorAll('.fade-up').forEach(element => element.classList.add('in-view'));
+        });
+      };
+
+      const missionDetails = document.createElement('details');
+      missionDetails.className = 'main-details';
+      missionDetails.innerHTML = '<summary><span>안내사항</span><small>UV카메라는 체험 후 반납 · 선패드는 증정 · 14일 내 촬영/인증</small></summary><div class="main-detail-content"></div>';
+      revealContent(missionDetails, missionFragment);
+
+      const faqDetails = document.createElement('details');
+      faqDetails.className = 'main-details';
+      faqDetails.innerHTML = '<summary><span>자주 묻는 질문</span></summary><div class="main-detail-content"></div>';
+      revealContent(faqDetails, faqFragment);
+
+      accordions.append(missionDetails, faqDetails);
+      apply.appendChild(accordions);
+    });
+  </script>
+
+  <script>
     // Scroll fade-in
     document.addEventListener('DOMContentLoaded', () => {
       const targets = document.querySelectorAll('.fade-up');
@@ -125,20 +187,36 @@
     // 스크롤 거리에 따라 위로가기 버튼 노출/숨김
     document.addEventListener('DOMContentLoaded', () => {
       const fabTop = document.getElementById('fabTop');
-      if (!fabTop) return;
+      const stickyApply = document.querySelector('.sticky-apply-cta');
+      const applicationForm = document.getElementById('applicationForm');
 
       const SHOW_AFTER = 400; // 400px 스크롤 후 노출
 
       const toggleVisibility = () => {
-        if (window.scrollY > SHOW_AFTER) {
+        if (fabTop && window.scrollY > SHOW_AFTER) {
           fabTop.classList.add('visible');
-        } else {
+        } else if (fabTop) {
           fabTop.classList.remove('visible');
         }
       };
 
       window.addEventListener('scroll', toggleVisibility, { passive: true });
       toggleVisibility(); // 초기 상태 확인
+
+      // 폼 구간에서는 제출 버튼을 가리지 않도록 하단 CTA를 숨깁니다.
+      if (stickyApply && applicationForm && 'IntersectionObserver' in window) {
+        const formObserver = new IntersectionObserver(entries => {
+          const formVisible = entries.some(entry => entry.isIntersecting);
+          stickyApply.classList.toggle('is-hidden', formVisible);
+          stickyApply.setAttribute('aria-hidden', formVisible ? 'true' : 'false');
+          if (formVisible) {
+            stickyApply.setAttribute('tabindex', '-1');
+          } else {
+            stickyApply.removeAttribute('tabindex');
+          }
+        }, { threshold: 0.01 });
+        formObserver.observe(applicationForm);
+      }
     });
   </script>
 
@@ -172,10 +250,9 @@
       </div>
       <!-- 히어로 영상 오버레이 — 가치 카피 (시각 디테일은 엘렌 영역) -->
       <div class="hero-overlay">
-        <p class="hero-overlay-eyebrow">UV 카메라 챌린지 이벤트</p>
-        <h1 class="hero-overlay-headline pc">UV 카메라 + 유비드 선패드 <strong>무료 체험</strong></h1>
-        <h1 class="hero-overlay-headline mobile">UV 카메라 + 유비드 선패드<br><strong>무료 체험</strong></h1>
-        <p class="hero-overlay-sub">최대 <strong>249,000원 상당</strong> 혜택</p>
+        <p class="hero-overlay-eyebrow">유비드 선패드 UV 이벤트</p>
+        <h1 class="hero-overlay-headline">선착순 100명 베타테스트</h1>
+        <p class="hero-overlay-sub">최대 <strong>249,000원 상당</strong></p>
       </div>
     </div>
   </section>
@@ -196,52 +273,6 @@
     </div>
   </section>
 
-  <!-- 두 가지 신청 유형 -->
-  <section class="apply-type-section">
-    <div class="container">
-      <h2 class="section-title fade-up">두 가지 신청 유형 중 선택할 수 있어요</h2>
-      <div class="apply-cards">
-        <div class="apply-card fade-up">
-          <div class="card-badge">선택1</div>
-          <div class="cont">
-            <div class="card-image"><img src="images/sunpad_m.png"></div>
-            <div class="title">
-              <div>참여형</div>
-              <h3 class="card-title">콘텐츠 챌린지</h3>
-              <p class="card-subtitle">싱글팩 무료증정(49,000원 상당)</p>
-            </div>
-            <ul class="card-list">
-              <li><img src="images/Vector.svg">누구나 신청 가능</li>
-              <li><img src="images/Vector.svg">5분이면 끝나는 쉽고 간단한 촬영</li>
-              <li><img src="images/Vector.svg">동결단 네이버 카페에 인증글 업로드</li>
-            </ul>
-          </div>
-        </div>
-        <div class="apply-card fade-up">
-          <div class="card-badge all">선택2</div>
-          <div class="cont">
-            <div class="card-image"><img src="images/sunpad_6_m.png"></div>
-            <div class="title">
-              <div>SNS형</div>
-              <h3 class="card-title">인플루언서 챌린지</h3>
-              <p class="card-subtitle">맥스팩 무료증정(249,000원 상당)</p>
-            </div>
-            <ul class="card-list">
-              <li><img src="images/Vector.svg">팔로워 1,000+ / 카테고리 핏 일치</li>
-              <li><img src="images/Vector.svg">인스타그램 게시 및 기간 6개월 유지</li>
-              <li><img src="images/Vector.svg">계정 무료 광고 부스트 지원</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  
-
-
   <!-- 3단계 촬영 방법 -->
   <section class="steps-section">
     <div class="container">
@@ -253,21 +284,21 @@
         <div class="step-item">
           <div class="step-label">STEP 1</div>
           <div class="step-title">Before 촬영</div>
-          <div class="step-image"><img src="images/step_img1.png"></div>
+          <div class="step-image"><img src="images/step_img1.webp"></div>
           <p class="step-desc">선패드를 바르기 전<br class="m-br"> <b>평소 피부 모습</b>을<br class="m-br"> 일반 카메라로 촬영</p>
         </div>
         <div class="step-arrow"><img src="images/Vector_arrow.svg"></div>
         <div class="step-item">
           <div class="step-label">STEP 2</div>
           <div class="step-title">UV 카메라 촬영</div>
-          <div class="step-image"><img src="images/step_img2.png"></div>
+          <div class="step-image"><img src="images/step_img2.webp"></div>
           <p class="step-desc">UV 카메라로 선패드를<br class="m-br"> 얼굴에 바르는 모습 촬영<br class="m-br"> <b>(선패드를 바른 부분이<br class="m-br"> 까맣게 묻어나오는 모습)</b></p>
         </div>
         <div class="step-arrow"><img src="images/Vector_arrow.svg"></div>
         <div class="step-item">
           <div class="step-label">STEP 3</div>
           <div class="step-title">After 촬영</div>
-          <div class="step-image"><img src="images/step_img3.png"></div>
+          <div class="step-image"><img src="images/step_img3.webp"></div>
           <p class="step-desc">선패드를 바른 직후<br class="m-br"> 촉촉하고 <b>광나는 피부 모습</b> 촬영</p>
         </div>
       </div>
@@ -333,13 +364,13 @@
       <div class="fade-up">
         <div class="faq-item active">
           <button class="faq-question">
-            <span>UV 카메라는 정말 무료인가요?</span>
+            <span>UV 카메라 체험은 정말 0원인가요?</span>
             <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
-              네. 신청 후 선정되시면 UV 카메라가 함께 발송됩니다.(신청 폼에서 선택한 OS어댑터로 발송)<br>
-              카메라 수령 및 반납 조건은 선정자분께 알림톡으로 별도 안내드립니다.
+              <strong>촬영·인증 콘텐츠 제출과 UV 카메라 반납을 모두 완료하는 조건의 0원 체험단입니다.</strong><br>
+              선정되면 신청 폼에서 선택한 OS에 맞는 UV 카메라가 제품과 함께 발송되며, 상세 미션과 반납 방법은 알림톡으로 안내드립니다.
             </div>
           </div>
         </div>
@@ -408,65 +439,89 @@
   </section>
 
 
-  <section id="apply" class="layout fade-up">
+  <section id="apply" class="layout">
 
-    <h2 class="faq-title fade-up">이벤트 신청하기</h2>
+    <h2 class="faq-title">UVID 선패드 출시 전,<br>100명 한정 무료 테스트 신청</h2>
+    <p class="apply-scarcity-pill">선착순 100명 · 마감 시 조기종료</p>
+    <p class="apply-subline">미션 완료 시 선패드 무료증정</p>
     <!-- 신청 폼 -->
     <form id="applicationForm" class="apply-container" novalidate>
+      <div class="form-progress" aria-label="신청 진행 단계">
+        <div class="form-progress-track"><span id="formProgressBar"></span></div>
+        <div class="form-progress-steps">
+          <span data-step-indicator="1">신청유형</span>
+          <span data-step-indicator="2">기본정보</span>
+          <span data-step-indicator="3">배송지·OS</span>
+          <span data-step-indicator="4">SNS</span>
+          <span data-step-indicator="5">동의</span>
+        </div>
+        <p class="form-step-title" id="formStepTitle" aria-live="polite">1단계 · 신청유형</p>
+      </div>
+
       <!-- 신청 유형 라디오 -->
-      <section class="type-section">
+      <section class="type-section" data-form-step="1">
         <label class="field-label">신청 유형<span class="req">*</span></label>
         <div class="type-radio-group">
-          <label class="type-radio active">
+          <label class="type-radio type-select-card apply-card active">
             <input type="radio" name="type" value="free_trial" checked>
-            <span class="type-radio-text">
-              <strong>콘텐츠 챌린지</strong>
-              <em>(Single Pack 49,000원 상당)</em>
+            <span class="card-badge">선택1</span>
+            <span class="cont">
+              <span class="card-image"><img src="images/sunpad_m.webp" alt="유비드 선패드 싱글팩"></span>
+              <span class="title">
+                <span>참여형</span>
+                <strong class="card-title">콘텐츠 챌린지</strong>
+                <span class="card-subtitle">촬영·인증 완료 시 싱글팩 제공(49,000원 상당)</span>
+              </span>
+              <span class="card-list">
+                <span><img src="images/Vector.svg" alt="">누구나 신청 가능</span>
+                <span><img src="images/Vector.svg" alt="">5분 컷 간단 촬영</span>
+                <span><img src="images/Vector.svg" alt="">카페 인증글 업로드</span>
+              </span>
             </span>
           </label>
-          <label class="type-radio">
+          <label class="type-radio type-select-card apply-card">
             <input type="radio" name="type" value="influencer_challenge">
-            <span class="type-radio-text">
-              <strong>인플루언서 챌린지</strong>
-              <em>(Max Pack 249,000원 상당)</em>
+            <span class="card-badge all">선택2</span>
+            <span class="cont">
+              <span class="card-image"><img src="images/sunpad_6_m.webp" alt="유비드 선패드 맥스팩"></span>
+              <span class="title">
+                <span>SNS형</span>
+                <strong class="card-title">인플루언서 챌린지</strong>
+                <span class="card-subtitle">촬영·게시 완료 시 맥스팩 제공(249,000원 상당)</span>
+              </span>
+              <span class="card-list">
+                <span><img src="images/Vector.svg" alt="">팔로워 1,000+ 누구나</span>
+                <span><img src="images/Vector.svg" alt="">인스타 게시 6개월 유지</span>
+                <span><img src="images/Vector.svg" alt="">계정 무료 광고 부스트 지원</span>
+              </span>
             </span>
           </label>
         </div>
       </section>
 
-      <hr class="divider">
+      <hr class="divider" data-form-step="1">
 
       <!-- 공통 필드 -->
       <div class="form-grid">
 
-        <div class="field" id="field-name">
+        <div class="field" id="field-name" data-form-step="2">
           <label for="nameInput">성명<span class="req">*</span></label>
           <input type="text" id="nameInput" name="name" placeholder="성명을 입력해 주세요." autocomplete="name">
           <span class="error-msg" id="nameError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-tel">
+        <div class="field" id="field-tel" data-form-step="2">
           <label for="telInput">연락처<span class="req">*</span></label>
           <input type="tel" id="telInput" name="tel" placeholder="010-0000-0000" autocomplete="tel" maxlength="13">
           <span class="error-msg" id="telError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-cafeNickname">
-          <label for="cafeNicknameInput">동결단 카페 닉네임<span class="req">*</span></label>
-          <input type="text" id="cafeNicknameInput" name="cafe_nickname" placeholder="동결단 네이버 카페 닉네임을 입력해 주세요." autocomplete="nickname" maxlength="30">
-          <span class="hint-msg">· 카페 인증글 제목(예: [UV인증]닉네임)과 동일하게 입력해주세요.</span>
-          <span class="error-msg" id="cafeNicknameError" aria-live="polite"></span>
+        <div class="field full form-step-note" data-form-step="4">
+          <strong>공식몰 회원 우선 선정 안내</strong>
+          <span>비회원도 신청 가능하며, 한정 수량으로 공식몰 회원은 발송 선정 시 우선 검토됩니다.</span>
         </div>
 
-        <div class="field" id="field-mallId">
-          <label for="mallIdInput">유비드 공식몰 아이디<span class="optional-tag">(선택)</span></label>
-          <input type="text" id="mallIdInput" name="mallId" placeholder="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP"
-            title="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP">
-          <span class="hint-msg">· 공식몰 회원이면 당첨 확률 UP!</span>
-          <span class="error-msg" id="mallIdError" aria-live="polite"></span>
-        </div>
-
-        <div class="field full" id="field-gender">
+        <div class="field full" id="field-gender" data-form-step="2">
           <label class="field-label">성별<span class="req">*</span></label>
           <div class="gender-radio-group">
             <label class="gender-radio"><input type="radio" name="gender" value="female"><span>여성</span></label>
@@ -475,7 +530,7 @@
           <span class="error-msg" id="genderError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-ageGroup">
+        <div class="field" id="field-ageGroup" data-form-step="2">
           <label for="ageGroupInput">연령대<span class="req">*</span></label>
           <select id="ageGroupInput" name="age_group">
             <option value="">선택해 주세요</option>
@@ -489,15 +544,15 @@
           <span class="error-msg" id="ageGroupError" aria-live="polite"></span>
         </div>
 
-        <div class="field full" id="field-snsUrl">
+        <div class="field full" id="field-snsUrl" data-form-step="4">
           <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq"
               style="display:none;">*</span></label>
           <input type="url" id="snsUrlInput" name="snsUrl" placeholder="https://instagram.com/계정명">
-          <span class="hint-msg insta-hint">· 계정 입력 시 선정 확률 UP!</span>
+          <span class="hint-msg insta-hint">계정 입력 시 선정 확률 UP</span>
           <span class="error-msg" id="snsUrlError" aria-live="polite"></span>
         </div>
 
-        <div class="field full" id="field-address">
+        <div class="field full" id="field-address" data-form-step="3">
           <label>배송지<span class="req">*</span></label>
           <div class="address-row">
             <input type="text" id="postcodeInput" name="postcode" placeholder="우편번호" readonly>
@@ -506,9 +561,16 @@
           <input type="text" id="addressInput" name="address" placeholder="주소" readonly class="address-line">
           <input type="text" id="addressDetailInput" name="addressDetail" placeholder="상세 주소를 입력해 주세요.">
           <span class="error-msg" id="addressError" aria-live="polite"></span>
+          <div class="postcode-layer" id="postcodeLayer" hidden aria-hidden="true">
+            <div class="postcode-layer-head">
+              <strong>주소 검색</strong>
+              <button type="button" class="btn-postcode-close" onclick="closePostcodeLayer()">닫기</button>
+            </div>
+            <div class="postcode-embed" id="postcodeEmbed"></div>
+          </div>
         </div>
 
-        <div class="field full" id="field-phoneOs">
+        <div class="field full" id="field-phoneOs" data-form-step="3">
           <label class="field-label">사용 중인 휴대폰 OS<span class="req">*</span></label>
           <div class="phone-os-radio-group">
             <label class="phone-os-radio">
@@ -526,74 +588,119 @@
 
       </div>
 
-      <hr class="divider">
+      <hr class="divider" data-form-step="5">
 
       <!-- 동의 체크박스 4개 -->
       <div class="consent-section">
 
+        <label class="check-row all-consent-row" data-form-step="5">
+          <input type="checkbox" id="allConsentInput">
+          <span>전체 동의합니다</span>
+        </label>
+
         <!-- 1. 개인정보 수집·이용 (필수) -->
-        <div class="field full" id="field-consent">
-          <label class="field-label">개인정보 수집·이용 동의<span class="req">*</span></label>
-          <div class="privacy-box">
-            <p><strong>0. 참여 자격</strong>본 이벤트는 만 14세 이상만 신청 가능합니다.</p>
-            <p><strong>1. 수집 항목</strong>이름, 연락처, 동결단 카페 닉네임, 배송지, 휴대폰 OS, 성별, 연령대, (선택) 인스타그램 계정, (선택) 공식몰 아이디</p>
-            <p><strong>2. 이용 목적</strong>이벤트 신청 접수, 신청자 본인 확인, 선정 여부 안내, 혜택 제공 관련 안내, 문의 응대 및 운영 관리</p>
-            <p><strong>2-1. 보상 발송·콘텐츠 회수·UV 카메라 반납 운영 활용</strong>수집된 개인정보(이름·연락처·주소·동결단 카페 닉네임)는 보상 발송, 카페 인증글 매칭·콘텐츠 회수 안내, UV 카메라 반납
-              안내에 활용됩니다.</p>
-            <p><strong>2-2. 의무 미이행 시 법적 조치 활용</strong>콘텐츠 제출 또는 UV 카메라 반납 의무를 이행하지 않을 경우, 수집된 개인정보는 채무 이행 청구·내용증명
-              발송·민형사상 법적 조치(사기죄·횡령죄·채무불이행 등)에 활용될 수 있습니다.</p>
-            <p><strong>3. 보유 및 이용 기간</strong>이벤트 종료 후 3개월까지. 단, 의무 이행 완료 또는 분쟁 해결 시까지 보관(최대 3년 — 법적 조치 시효 고려), 관계 법령에 따라
-              보관이 필요한 경우 해당 기간 동안 보관.</p>
-            <p><strong>4. 동의 거부 권리</strong>개인정보 수집·이용에 대한 동의를 거부할 권리가 있으나, 동의하지 않을 경우 이벤트 신청이 제한될 수 있습니다.</p>
-          </div>
-          <label class="check-row">
-            <input type="checkbox" id="consentInput" name="consent">
-            <span>개인정보 수집·이용에 동의합니다. <em class="req-text">(필수)</em></span>
-          </label>
-          <span class="error-msg" id="consentError" aria-live="polite"></span>
+        <div class="field full" id="field-consent" data-form-step="5">
+          <details class="consent-details">
+            <summary>
+              <span class="consent-summary-label">
+                <input type="checkbox" class="consent-summary-checkbox" data-consent-target="consentInput" aria-label="개인정보 수집·이용 동의">
+                <span>개인정보 수집·이용 동의 <em class="req-text">(필수)</em></span>
+              </span>
+              <span class="consent-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="consent-detail-body">
+              <div class="privacy-box">
+                <p><strong>0. 참여 자격</strong>본 이벤트는 만 14세 이상만 신청 가능합니다.</p>
+                <p><strong>1. 수집 항목</strong>이름, 연락처, 배송지, 휴대폰 OS, 성별, 연령대, (선택) 인스타그램 계정</p>
+                <p><strong>2. 이용 목적</strong>이벤트 신청 접수, 신청자 본인 확인, 선정 여부 안내, 혜택 제공 관련 안내, 문의 응대 및 운영 관리</p>
+                <p><strong>2-1. 보상 발송·콘텐츠 회수·UV 카메라 반납 운영 활용</strong>수집된 개인정보(이름·연락처·주소)는 보상 발송, 콘텐츠 회수 안내, UV 카메라 반납
+                  안내에 활용됩니다.</p>
+                <p><strong>2-2. 의무 미이행 시 법적 조치 활용</strong>콘텐츠 제출 또는 UV 카메라 반납 의무를 이행하지 않을 경우, 수집된 개인정보는 채무 이행 청구·내용증명
+                  발송·민형사상 법적 조치(사기죄·횡령죄·채무불이행 등)에 활용될 수 있습니다.</p>
+                <p><strong>3. 보유 및 이용 기간</strong>이벤트 종료 후 3개월까지. 단, 의무 이행 완료 또는 분쟁 해결 시까지 보관(최대 3년 — 법적 조치 시효 고려), 관계 법령에 따라
+                  보관이 필요한 경우 해당 기간 동안 보관.</p>
+                <p><strong>4. 동의 거부 권리</strong>개인정보 수집·이용에 대한 동의를 거부할 권리가 있으나, 동의하지 않을 경우 이벤트 신청이 제한될 수 있습니다.</p>
+              </div>
+              <label class="check-row">
+                <input type="checkbox" id="consentInput" name="consent">
+                <span>개인정보 수집·이용에 동의합니다. <em class="req-text">(필수)</em></span>
+              </label>
+              <span class="error-msg" id="consentError" aria-live="polite"></span>
+            </div>
+          </details>
         </div>
 
         <!-- 2. 콘텐츠 2차 마케팅 활용 (필수) -->
-        <div class="field full" id="field-marketing">
-          <label class="field-label">콘텐츠 2차 마케팅 활용 동의<span class="req">*</span></label>
-          <div class="privacy-box">
-            <p>유비드는 본 이벤트로 제출되는 영상·사진·게시물을 다음 채널에서 자유롭게 활용할 수 있습니다.</p>
-            <p><strong>활용 채널</strong>유비드 광고 소재(메타·구글·네이버 등), 상세페이지, 공식 SNS, 자사몰, 제휴 매체</p>
-            <p><strong>활용 기간</strong>제출일로부터 영구 (참여자 요청 시 협의 가능)</p>
-            <p><strong>2차 가공</strong>크롭·자막·BGM 추가 등 광고 송출에 필요한 가공 포함</p>
-          </div>
-          <label class="check-row">
-            <input type="checkbox" id="marketingInput" name="marketingConsent">
-            <span>콘텐츠 2차 마케팅 활용에 동의합니다. <em class="req-text">(필수)</em></span>
-          </label>
-          <span class="error-msg" id="marketingError" aria-live="polite"></span>
+        <div class="field full" id="field-marketing" data-form-step="5">
+          <details class="consent-details">
+            <summary>
+              <span class="consent-summary-label">
+                <input type="checkbox" class="consent-summary-checkbox" data-consent-target="marketingInput" aria-label="콘텐츠 2차 마케팅 활용 동의">
+                <span>콘텐츠 2차 마케팅 활용 동의 <em class="req-text">(필수)</em></span>
+              </span>
+              <span class="consent-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="consent-detail-body">
+              <div class="privacy-box">
+                <p>유비드는 본 이벤트로 제출되는 영상·사진·게시물을 다음 채널에서 자유롭게 활용할 수 있습니다.</p>
+                <p><strong>활용 채널</strong>유비드 광고 소재(메타·구글·네이버 등), 상세페이지, 공식 SNS, 자사몰, 제휴 매체</p>
+                <p><strong>활용 기간</strong>제출일로부터 영구 (참여자 요청 시 협의 가능)</p>
+                <p><strong>2차 가공</strong>크롭·자막·BGM 추가 등 광고 송출에 필요한 가공 포함</p>
+              </div>
+              <label class="check-row">
+                <input type="checkbox" id="marketingInput" name="marketingConsent">
+                <span>콘텐츠 2차 마케팅 활용에 동의합니다. <em class="req-text">(필수)</em></span>
+              </label>
+              <span class="error-msg" id="marketingError" aria-live="polite"></span>
+            </div>
+          </details>
         </div>
 
         <!-- 3. 콘텐츠 제출·UV 카메라 반납 의무 (필수, 모두) -->
-        <div class="field full" id="field-legal">
-          <label class="field-label">콘텐츠 제출·UV 카메라 반납 의무 동의<span class="req">*</span></label>
-          <label class="check-row">
-            <input type="checkbox" id="legalInput" name="agree_legal">
-            <span>콘텐츠 제출 의무·UV 카메라 반납 의무 미이행 시 손해배상 청구·민형사상 법적 조치 가능에 동의합니다. <em class="req-text">(필수)</em></span>
-          </label>
-          <span class="error-msg" id="legalError" aria-live="polite"></span>
+        <div class="field full" id="field-legal" data-form-step="5">
+          <details class="consent-details">
+            <summary>
+              <span class="consent-summary-label">
+                <input type="checkbox" class="consent-summary-checkbox" data-consent-target="legalInput" aria-label="콘텐츠 제출 및 UV 카메라 반납 의무 동의">
+                <span>콘텐츠 제출·UV 카메라 반납 의무 동의 <em class="req-text">(필수)</em></span>
+              </span>
+              <span class="consent-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="consent-detail-body">
+              <label class="check-row">
+                <input type="checkbox" id="legalInput" name="agree_legal">
+                <span>콘텐츠 제출 의무·UV 카메라 반납 의무 미이행 시 손해배상 청구·민형사상 법적 조치 가능에 동의합니다. <em class="req-text">(필수)</em></span>
+              </label>
+              <span class="error-msg" id="legalError" aria-live="polite"></span>
+            </div>
+          </details>
         </div>
 
         <!-- 4. 메타 파트너십 광고 (SNS형 필수, 참여형 비표시) -->
-        <div class="field full sns-only" id="field-partnership">
-          <label class="field-label">메타 파트너십 광고 동의<span class="req">*</span></label>
-          <div class="privacy-box partnership-box">
-            <p class="partnership-headline">💎 <strong>유비드가 게시물에 무료 광고 부스트를 드립니다 (필수)</strong></p>
-            <p>메타 파트너십 광고는 브랜드가 광고 비용을 부담해 인플루언서 게시물의 도달·노출을 높여드리는 기능입니다.</p>
-            <p>✓ 계정 성장에 무료로 활용 가능</p>
-            <p>✓ 광고비 전액 유비드가 부담</p>
-            <p>✓ 게시물 삭제 시 자동 종료 (통제권 게시자)</p>
-          </div>
-          <label class="check-row">
-            <input type="checkbox" id="partnershipInput" name="partnershipConsent">
-            <span>메타 파트너십 광고에 동의합니다. <em class="req-text">(SNS형 필수)</em></span>
-          </label>
-          <span class="error-msg" id="partnershipError" aria-live="polite"></span>
+        <div class="field full sns-only" id="field-partnership" data-form-step="5">
+          <details class="consent-details">
+            <summary>
+              <span class="consent-summary-label">
+                <input type="checkbox" class="consent-summary-checkbox" data-consent-target="partnershipInput" aria-label="메타 파트너십 광고 동의">
+                <span>메타 파트너십 광고 동의 <em class="req-text">(SNS형 필수)</em></span>
+              </span>
+              <span class="consent-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="consent-detail-body">
+              <div class="privacy-box partnership-box">
+                <p class="partnership-headline">💎 <strong>유비드가 게시물에 무료 광고 부스트를 드립니다 (필수)</strong></p>
+                <p>메타 파트너십 광고는 브랜드가 광고 비용을 부담해 인플루언서 게시물의 도달·노출을 높여드리는 기능입니다.</p>
+                <p>✓ 계정 성장에 무료로 활용 가능</p>
+                <p>✓ 광고비 전액 유비드가 부담</p>
+                <p>✓ 게시물 삭제 시 자동 종료 (통제권 게시자)</p>
+              </div>
+              <label class="check-row">
+                <input type="checkbox" id="partnershipInput" name="partnershipConsent">
+                <span>메타 파트너십 광고에 동의합니다. <em class="req-text">(SNS형 필수)</em></span>
+              </label>
+              <span class="error-msg" id="partnershipError" aria-live="polite"></span>
+            </div>
+          </details>
         </div>
 
       </div>
@@ -601,10 +708,15 @@
       <!-- 전체 오류 메시지 -->
       <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
 
+      <div class="form-nav">
+        <button type="button" id="prevStepBtn" class="btn-step btn-step-back" hidden>이전</button>
+        <button type="button" id="nextStepBtn" class="btn-step btn-step-next">다음</button>
+      </div>
+
       <!-- 제출 버튼 -->
-      <div class="submit-wrap">
+      <div class="submit-wrap" id="submitWrap" hidden>
         <button type="submit" id="submitBtn" class="btn-submit">
-          <span class="btn-label">이벤트 신청하기</span>
+          <span class="btn-label">무료 테스트 신청 완료하기</span>
           <span class="btn-spinner" aria-hidden="true"></span>
         </button>
       </div>
@@ -614,6 +726,7 @@
 
   </section>
 
+  <a class="sticky-apply-cta" href="#apply">지금 신청하기</a>
 
   <div class="fab-container">
     <!-- 채팅 버튼 -->

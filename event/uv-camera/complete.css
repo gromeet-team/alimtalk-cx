@@ -5,42 +5,6 @@
   --orange: #FF4800;
 }
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-display: swap;
-}
-
-
 html,
 body {
   overflow-x: clip;
@@ -49,7 +13,7 @@ body {
 
 body {
   background: #fff9d9;
-  font-family: 'Pretendard';
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   color: #292929;
   overflow-x: clip;
 }
@@ -102,7 +66,7 @@ button {
 }
 
 .success-title {
-  font-family: 'Pretendard';
+  font-family: inherit;
   font-size: 52px;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -125,6 +89,35 @@ button {
   border-radius: 50px;
   margin: 50px auto;
   max-width: 735px;
+}
+
+.mission-notice {
+  max-width: 735px;
+  margin: 0 auto 50px;
+  padding: 28px 32px;
+  border: 1px solid #ead56e;
+  border-radius: 15px;
+  background: #fff9d9;
+  color: #292929;
+}
+
+.mission-notice > strong {
+  display: block;
+  margin-bottom: 14px;
+  font-size: clamp(18px, 1.67vw, 24px);
+}
+
+.mission-notice p {
+  margin: 0 0 10px;
+  font-size: clamp(16px, 1.4vw, 20px);
+  line-height: 1.55;
+}
+
+.mission-notice span {
+  display: block;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .signup-cta-box {
@@ -166,8 +159,19 @@ button {
 
 .lockin-cta-buttons a {
   display: block;
-  width: fit-content;
+  width: 100px;
+  height: 100px;
   margin: 0 10px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.lockin-cta-buttons a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .btn-reset {
@@ -180,7 +184,7 @@ button {
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Pretendard';
+  font-family: inherit;
   text-decoration: none;
   transition: background 0.2s, color 0.2s;
   margin-top: 65px;
@@ -272,6 +276,20 @@ button {
     margin: 0 auto 30px;
   }
 
+  .mission-notice {
+    width: 90%;
+    margin-bottom: 30px;
+    padding: 22px 16px;
+  }
+
+  .mission-notice > strong {
+    font-size: 17px;
+  }
+
+  .mission-notice p {
+    font-size: 15px;
+  }
+
   .lockin-cta {
     padding: 20px 16px;
   }
@@ -281,8 +299,9 @@ button {
     margin-bottom: 30px;
   }
 
-  .lockin-cta-buttons a img {
+  .lockin-cta-buttons a {
     width: 60px;
+    height: 60px;
   }
 
   .apply-container {

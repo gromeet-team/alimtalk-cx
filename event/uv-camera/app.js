@@ -18,6 +18,12 @@ const PACKAGE_VALUE = {
 // 중복 신청 차단 (클라이언트 측 보조 — 서버 차단이 진짜 차단)
 // ----------------------------------------------------------------
 const APPLIED_KEY = 'uvidUvCameraApplied';
+const DRAFT_KEY = 'uvidUvCameraDraft';
+const DRAFT_TTL_MS = 24 * 60 * 60 * 1000;
+const PIXEL_EVENTS_KEY = 'uvidUvCameraPixelEvents';
+const firedPixelEvents = new Set();
+let draftExpiryTimer = null;
+let draftTrackingReady = false;
 
 function markApplied() {
   try { localStorage.setItem(APPLIED_KEY, '1'); } catch (_) { /* ignore */ }
@@ -27,8 +33,139 @@ function isApplied() {
   try { return localStorage.getItem(APPLIED_KEY) === '1'; } catch (_) { return false; }
 }
 
+function clearDraft() {
+  if (draftExpiryTimer) {
+    window.clearTimeout(draftExpiryTimer);
+    draftExpiryTimer = null;
+  }
+  try { localStorage.removeItem(DRAFT_KEY); } catch (_) { /* ignore */ }
+}
+
+function readDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return null;
+
+    const draft = JSON.parse(raw);
+    if (!draft || !Number.isFinite(draft.expiresAt) || Date.now() >= draft.expiresAt) {
+      clearDraft();
+      return null;
+    }
+    return draft;
+  } catch (_) {
+    clearDraft();
+    return null;
+  }
+}
+
+function scheduleDraftExpiry(expiresAt) {
+  if (draftExpiryTimer) window.clearTimeout(draftExpiryTimer);
+  const remaining = Math.max(0, expiresAt - Date.now());
+  draftExpiryTimer = window.setTimeout(function() {
+    const draft = readDraft();
+    if (!draft || Date.now() >= draft.expiresAt) clearDraft();
+  }, Math.min(remaining, 2147483647));
+}
+
+function getCheckedValue(name) {
+  const checked = document.querySelector('input[name="' + name + '"]:checked');
+  return checked ? checked.value : '';
+}
+
+function saveDraft() {
+  const form = document.getElementById('applicationForm');
+  if (!draftTrackingReady || !form || isApplied()) return;
+
+  try {
+    const now = Date.now();
+    const existing = readDraft();
+    const createdAt = existing && Number.isFinite(existing.createdAt) ? existing.createdAt : now;
+    const expiresAt = createdAt + DRAFT_TTL_MS;
+
+    if (now >= expiresAt) {
+      clearDraft();
+      return;
+    }
+
+    const draft = {
+      createdAt: createdAt,
+      updatedAt: now,
+      expiresAt: expiresAt,
+      step: currentFormStep,
+      fields: {
+        type: getCheckedValue('type'),
+        name: document.getElementById('nameInput').value,
+        tel: document.getElementById('telInput').value,
+        gender: getCheckedValue('gender'),
+        ageGroup: document.getElementById('ageGroupInput').value,
+        snsUrl: document.getElementById('snsUrlInput').value,
+        postcode: document.getElementById('postcodeInput').value,
+        address: document.getElementById('addressInput').value,
+        addressDetail: document.getElementById('addressDetailInput').value,
+        phoneOs: getCheckedValue('phone_os'),
+        consent: document.getElementById('consentInput').checked,
+        marketingConsent: document.getElementById('marketingInput').checked,
+        agreeLegal: document.getElementById('legalInput').checked,
+        partnershipConsent: document.getElementById('partnershipInput').checked,
+      },
+    };
+
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    scheduleDraftExpiry(expiresAt);
+  } catch (_) {
+    // localStorage 접근 실패가 폼 작성/제출을 막지 않도록 무시
+  }
+}
+
+function restoreRadioValue(name, value) {
+  if (!value) return;
+  document.querySelectorAll('input[name="' + name + '"]').forEach(function(input) {
+    if (input.value === value) input.checked = true;
+  });
+}
+
+function restoreDraft() {
+  const draft = readDraft();
+  if (!draft || !draft.fields) return false;
+
+  const fields = draft.fields;
+  restoreRadioValue('type', fields.type);
+  restoreRadioValue('gender', fields.gender);
+  restoreRadioValue('phone_os', fields.phoneOs);
+
+  [
+    ['nameInput', fields.name],
+    ['telInput', fields.tel],
+    ['ageGroupInput', fields.ageGroup],
+    ['snsUrlInput', fields.snsUrl],
+    ['postcodeInput', fields.postcode],
+    ['addressInput', fields.address],
+    ['addressDetailInput', fields.addressDetail],
+  ].forEach(function(entry) {
+    const input = document.getElementById(entry[0]);
+    if (input && typeof entry[1] === 'string') input.value = entry[1];
+  });
+
+  [
+    ['consentInput', fields.consent],
+    ['marketingInput', fields.marketingConsent],
+    ['legalInput', fields.agreeLegal],
+    ['partnershipInput', fields.partnershipConsent],
+  ].forEach(function(entry) {
+    const input = document.getElementById(entry[0]);
+    if (input) input.checked = entry[1] === true;
+  });
+
+  applyTypeChange();
+  syncAllConsentState();
+  showFormStep(Number(draft.step) || 1, false);
+  scheduleDraftExpiry(draft.expiresAt);
+  return true;
+}
+
 function applyAppliedLockUI() {
   if (!isApplied()) return;
+  clearDraft();
   var submitBtn = document.getElementById('submitBtn');
   if (submitBtn) {
     submitBtn.disabled = true;
@@ -80,21 +217,103 @@ function applyTypeChange() {
       clearFieldError('partnership');
     }
   }
+
+  syncAllConsentState();
+  syncConditionalStepControls();
+}
+
+function selectTypeAndAdvance(input) {
+  if (!input) return;
+
+  input.checked = true;
+  applyTypeChange();
+
+  // 초기화/초안 복원은 이 함수를 거치지 않으며, 실제 1단계 선택에서만 이동한다.
+  if (currentFormStep !== 1) return;
+  trackFormStep(1);
+  showFormStep(2, true);
+}
+
+function getActiveConsentInputs() {
+  const inputs = ['consentInput', 'marketingInput', 'legalInput']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  if (document.body.classList.contains('sns-active')) {
+    const partnership = document.getElementById('partnershipInput');
+    if (partnership) inputs.push(partnership);
+  }
+  return inputs;
+}
+
+function syncConsentSummaryIndicators() {
+  document.querySelectorAll('.consent-summary-checkbox').forEach(function(indicator) {
+    const target = document.getElementById(indicator.dataset.consentTarget);
+    if (target) indicator.checked = target.checked;
+  });
+}
+
+function syncAllConsentState() {
+  const master = document.getElementById('allConsentInput');
+  syncConsentSummaryIndicators();
+  if (!master) return;
+  const inputs = getActiveConsentInputs();
+  const checkedCount = inputs.filter(input => input.checked).length;
+  master.checked = inputs.length > 0 && checkedCount === inputs.length;
+  master.indeterminate = checkedCount > 0 && checkedCount < inputs.length;
+}
+
+function syncConditionalStepControls() {
+  const nextButton = document.getElementById('nextStepBtn');
+  const snsUrlInput = document.getElementById('snsUrlInput');
+  if (!nextButton || !snsUrlInput) return;
+  const checked = document.querySelector('input[name="type"]:checked');
+  const isSNS = checked && checked.value === 'influencer_challenge';
+  const isEmptyOptionalSnsStep = currentFormStep === 4 && !isSNS && !snsUrlInput.value.trim();
+  nextButton.textContent = isEmptyOptionalSnsStep ? '건너뛰기' : '다음';
 }
 
 
 // ----------------------------------------------------------------
 // 다음 주소검색 API
 // ----------------------------------------------------------------
+function closePostcodeLayer() {
+  const layer = document.getElementById('postcodeLayer');
+  const embed = document.getElementById('postcodeEmbed');
+  if (!layer || !embed) return;
+
+  layer.hidden = true;
+  layer.setAttribute('aria-hidden', 'true');
+  embed.innerHTML = '';
+}
+
 function searchAddress() {
+  const layer = document.getElementById('postcodeLayer');
+  const embed = document.getElementById('postcodeEmbed');
+  if (!layer || !embed || !window.daum || !daum.Postcode) return;
+
+  if (!layer.hidden) {
+    closePostcodeLayer();
+    return;
+  }
+
+  layer.hidden = false;
+  layer.setAttribute('aria-hidden', 'false');
+  embed.innerHTML = '';
+
   new daum.Postcode({
     oncomplete: function(data) {
       document.getElementById('postcodeInput').value = data.zonecode;
       document.getElementById('addressInput').value  = data.roadAddress || data.jibunAddress;
+      closePostcodeLayer();
       document.getElementById('addressDetailInput').focus();
       clearFieldError('address');
-    }
-  }).open();
+      saveDraft();
+    },
+    width: '100%',
+    height: '100%'
+  }).embed(embed);
+
+  layer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 
@@ -120,6 +339,8 @@ function setFieldError(fieldId, message) {
   const field   = document.getElementById('field-' + fieldId);
   const errorEl = document.getElementById(fieldId + 'Error');
   if (field) field.classList.add('error');
+  const details = field && field.querySelector('.consent-details');
+  if (details) details.open = true;
   if (errorEl) errorEl.textContent = message;
 }
 
@@ -134,104 +355,198 @@ function clearFieldError(fieldId) {
 // ----------------------------------------------------------------
 // 유효성 검사
 // ----------------------------------------------------------------
-function validateForm() {
-  let isValid = true;
+let currentFormStep = 1;
+const FORM_STEP_COUNT = 5;
+const FORM_STEP_TITLES = ['신청유형', '기본정보', '배송지·OS', 'SNS', '동의'];
 
-  ['name', 'tel', 'cafeNickname', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
+function validateForm(stepNumber) {
+  let isValid = true;
+  const validateAll = !stepNumber;
+  const checkStep2 = validateAll || stepNumber === 2;
+  const checkStep3 = validateAll || stepNumber === 3;
+  const checkStep4 = validateAll || stepNumber === 4;
+  const checkStep5 = validateAll || stepNumber === 5;
+
+  ['name', 'tel', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
 
   const name          = document.getElementById('nameInput').value.trim();
   const tel           = document.getElementById('telInput').value.trim();
-  const cafeNickname  = document.getElementById('cafeNicknameInput').value.trim();
   const postcode      = document.getElementById('postcodeInput').value.trim();
   const consent  = document.getElementById('consentInput').checked;
   const marketing = document.getElementById('marketingInput').checked;
   const checked  = document.querySelector('input[name="type"]:checked');
   const isSNS    = checked && checked.value === 'influencer_challenge';
 
-  if (!name) {
-    setFieldError('name', '성명을 입력해 주세요.');
-    isValid = false;
-  }
-
-  if (!tel) {
-    setFieldError('tel', '연락처를 입력해 주세요.');
-    isValid = false;
-  } else if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(tel)) {
-    setFieldError('tel', '올바른 연락처를 입력해 주세요. (예: 010-1234-5678)');
-    isValid = false;
-  }
-
-  if (!cafeNickname) {
-    setFieldError('cafeNickname', '동결단 카페 닉네임을 입력해 주세요.');
-    isValid = false;
-  } else if (cafeNickname.length > 30) {
-    setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
-    isValid = false;
-  }
-
-  const snsUrl = document.getElementById('snsUrlInput').value.trim();
-  if (isSNS) {
-    if (!snsUrl) {
-      setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+  if (checkStep2) {
+    if (!name) {
+      setFieldError('name', '성명을 입력해 주세요.');
       isValid = false;
-    } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+    }
+
+    if (!tel) {
+      setFieldError('tel', '연락처를 입력해 주세요.');
+      isValid = false;
+    } else if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(tel)) {
+      setFieldError('tel', '올바른 연락처를 입력해 주세요. (예: 010-1234-5678)');
+      isValid = false;
+    }
+
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+      setFieldError('gender', '성별을 선택해 주세요.');
+      isValid = false;
+    }
+
+    const ageGroup = document.getElementById('ageGroupInput').value;
+    if (!ageGroup) {
+      setFieldError('ageGroup', '연령대를 선택해 주세요.');
+      isValid = false;
+    }
+  }
+
+  if (checkStep3) {
+    if (!postcode) {
+      setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
+      isValid = false;
+    }
+
+    const phoneOs = document.querySelector('input[name="phone_os"]:checked');
+    if (!phoneOs) {
+      setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
+      isValid = false;
+    }
+  }
+
+  if (checkStep4) {
+    const snsUrl = document.getElementById('snsUrlInput').value.trim();
+    if (isSNS) {
+      if (!snsUrl) {
+        setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+        isValid = false;
+      } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+        setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+        isValid = false;
+      }
+    } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
       setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
       isValid = false;
     }
-  } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
-    setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
-    isValid = false;
   }
 
-  if (!postcode) {
-    setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
-    isValid = false;
-  }
-
-  const phoneOs = document.querySelector('input[name="phone_os"]:checked');
-  if (!phoneOs) {
-    setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
-    isValid = false;
-  }
-
-  const gender = document.querySelector('input[name="gender"]:checked');
-  if (!gender) {
-    setFieldError('gender', '성별을 선택해 주세요.');
-    isValid = false;
-  }
-
-  const ageGroup = document.getElementById('ageGroupInput').value;
-  if (!ageGroup) {
-    setFieldError('ageGroup', '연령대를 선택해 주세요.');
-    isValid = false;
-  }
-
-  if (!consent) {
-    setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
-    isValid = false;
-  }
-
-  if (!marketing) {
-    setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
-    isValid = false;
-  }
-
-  const legal = document.getElementById('legalInput').checked;
-  if (!legal) {
-    setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
-    isValid = false;
-  }
-
-  if (isSNS) {
-    const partnership = document.getElementById('partnershipInput').checked;
-    if (!partnership) {
-      setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+  if (checkStep5) {
+    if (!consent) {
+      setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
       isValid = false;
+    }
+
+    if (!marketing) {
+      setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
+      isValid = false;
+    }
+
+    const legal = document.getElementById('legalInput').checked;
+    if (!legal) {
+      setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
+      isValid = false;
+    }
+
+    if (isSNS) {
+      const partnership = document.getElementById('partnershipInput').checked;
+      if (!partnership) {
+        setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+        isValid = false;
+      }
     }
   }
 
   return isValid;
+}
+
+function getSelectedType() {
+  const checked = document.querySelector('input[name="type"]:checked');
+  return checked ? checked.value : 'free_trial';
+}
+
+function hasFiredPixelEvent(eventName) {
+  if (firedPixelEvents.has(eventName)) return true;
+
+  try {
+    const storedEvents = JSON.parse(sessionStorage.getItem(PIXEL_EVENTS_KEY) || '[]');
+    if (Array.isArray(storedEvents) && storedEvents.includes(eventName)) {
+      firedPixelEvents.add(eventName);
+      return true;
+    }
+  } catch (_) {
+    // sessionStorage 접근 실패 시 메모리 Set만 사용
+  }
+
+  return false;
+}
+
+function rememberPixelEvent(eventName) {
+  firedPixelEvents.add(eventName);
+
+  try {
+    const storedEvents = JSON.parse(sessionStorage.getItem(PIXEL_EVENTS_KEY) || '[]');
+    const nextEvents = Array.isArray(storedEvents) ? storedEvents : [];
+    if (!nextEvents.includes(eventName)) nextEvents.push(eventName);
+    sessionStorage.setItem(PIXEL_EVENTS_KEY, JSON.stringify(nextEvents));
+  } catch (_) {
+    // sessionStorage 접근 실패 시 메모리 Set에 기록된 상태 유지
+  }
+}
+
+function trackFormPixelEvent(eventName, isCustom) {
+  if (hasFiredPixelEvent(eventName) || typeof fbq !== 'function') return;
+
+  try {
+    fbq(isCustom ? 'trackCustom' : 'track', eventName, {
+      content_name: 'uv_camera_event',
+      content_category: getSelectedType(),
+    });
+    rememberPixelEvent(eventName);
+  } catch (err) {
+    console.warn('fbq ' + eventName + ' failed:', err);
+  }
+}
+
+function trackFormStep(stepNumber) {
+  trackFormPixelEvent('UvcamStep' + stepNumber, true);
+}
+
+function showFormStep(stepNumber, moveFocus) {
+  currentFormStep = Math.min(Math.max(stepNumber, 1), FORM_STEP_COUNT);
+
+  document.querySelectorAll('[data-form-step]').forEach(function(element) {
+    element.hidden = Number(element.dataset.formStep) !== currentFormStep;
+  });
+
+  document.querySelectorAll('[data-step-indicator]').forEach(function(indicator) {
+    const step = Number(indicator.dataset.stepIndicator);
+    indicator.classList.toggle('active', step === currentFormStep);
+    indicator.classList.toggle('complete', step < currentFormStep);
+  });
+
+  document.getElementById('formProgressBar').style.width = ((currentFormStep - 1) / (FORM_STEP_COUNT - 1) * 100) + '%';
+  document.getElementById('formStepTitle').textContent = currentFormStep + '단계 · ' + FORM_STEP_TITLES[currentFormStep - 1];
+  document.getElementById('prevStepBtn').hidden = currentFormStep === 1;
+  document.getElementById('nextStepBtn').hidden = currentFormStep === FORM_STEP_COUNT;
+  document.getElementById('submitWrap').hidden = currentFormStep !== FORM_STEP_COUNT;
+  syncConditionalStepControls();
+  saveDraft();
+  if (currentFormStep === 1) trackFormPixelEvent('InitiateCheckout', false);
+
+  if (moveFocus) {
+    document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function showFirstInvalidStep() {
+  const firstError = document.querySelector('.field.error[data-form-step]');
+  if (firstError) showFormStep(Number(firstError.dataset.formStep), false);
+  const visibleError = document.querySelector('.field.error:not([hidden])');
+  if (visibleError) visibleError.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 
@@ -303,6 +618,7 @@ function trackLead(typeValue) {
 // 완료 화면 표시 / 폼 초기화
 // ----------------------------------------------------------------
 function showSuccess(typeValue) {
+  clearDraft();
   markApplied();
   window.location.href = 'complete.html?type=' + encodeURIComponent(typeValue || '');
 }
@@ -315,6 +631,7 @@ function resetForm() {
   const freeTrialRadio = document.querySelector('input[name="type"][value="free_trial"]');
   if (freeTrialRadio) freeTrialRadio.checked = true;
   applyTypeChange();
+  showFormStep(1, false);
 
   document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
   document.querySelectorAll('.error-msg').forEach(el => { el.textContent = ''; });
@@ -345,9 +662,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 신청 유형 라디오
   document.querySelectorAll('input[name="type"]').forEach(input => {
-    input.addEventListener('change', applyTypeChange);
+    // click은 이미 선택된 카드 재탭을, change는 키보드 라디오 이동을 처리한다.
+    // 먼저 처리된 이벤트가 2단계로 이동하므로 뒤따르는 이벤트는 중복 이동하지 않는다.
+    input.addEventListener('click', function() {
+      selectTypeAndAdvance(input);
+    });
+    input.addEventListener('change', function() {
+      selectTypeAndAdvance(input);
+    });
   });
   applyTypeChange();
+  if (!restoreDraft()) showFormStep(1, false);
+  draftTrackingReady = true;
+
+  const applicationForm = document.getElementById('applicationForm');
+  applicationForm.addEventListener('input', saveDraft);
+  applicationForm.addEventListener('change', saveDraft);
+
+  document.getElementById('nextStepBtn').addEventListener('click', function() {
+    if (!validateForm(currentFormStep)) {
+      showFirstInvalidStep();
+      return;
+    }
+    trackFormStep(currentFormStep);
+    showFormStep(currentFormStep + 1, true);
+  });
+
+  document.getElementById('prevStepBtn').addEventListener('click', function() {
+    showFormStep(currentFormStep - 1, true);
+  });
 
   // 전화번호 자동 하이픈
   document.getElementById('telInput').addEventListener('input', function() {
@@ -356,12 +699,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'cafeNicknameInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
+  ['nameInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
       el.addEventListener(evt, function() {
         clearFieldError(id.replace('Input', ''));
+        if (id === 'snsUrlInput') syncConditionalStepControls();
       });
     }
   });
@@ -371,10 +715,34 @@ document.addEventListener('DOMContentLoaded', function() {
     if (el) el.addEventListener('input', function() { clearFieldError('address'); });
   });
 
+  const allConsentInput = document.getElementById('allConsentInput');
+  if (allConsentInput) {
+    allConsentInput.addEventListener('change', function() {
+      getActiveConsentInputs().forEach(function(input) {
+        input.checked = allConsentInput.checked;
+        clearFieldError(input.id.replace('Input', ''));
+      });
+      syncAllConsentState();
+    });
+  }
+
+  document.querySelectorAll('.consent-summary-checkbox').forEach(function(indicator) {
+    indicator.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      const target = document.getElementById(indicator.dataset.consentTarget);
+      if (!target) return;
+      target.checked = !target.checked;
+      target.dispatchEvent(new Event('change', { bubbles: true }));
+      requestAnimationFrame(syncConsentSummaryIndicators);
+    });
+  });
+
   ['consentInput', 'marketingInput', 'legalInput', 'partnershipInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('change', function() {
       clearFieldError(id.replace('Input', ''));
+      syncAllConsentState();
     });
   });
 
@@ -387,14 +755,14 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 폼 제출
-  document.getElementById('applicationForm').addEventListener('submit', async function(e) {
+  applicationForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     if (!validateForm()) {
-      var firstError = document.querySelector('.field.error');
-      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showFirstInvalidStep();
       return;
     }
+    trackFormStep(5);
 
     var submitBtn = document.getElementById('submitBtn');
     var btnLabel  = submitBtn.querySelector('.btn-label');
@@ -411,10 +779,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var payload = {
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
-      cafeNickname:        document.getElementById('cafeNicknameInput').value.trim(),
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
-      mallId:              document.getElementById('mallIdInput').value.trim(),
       snsUrl:              instagramUrl,
       instagramUrl:        instagramUrl,
       phoneOs:             (document.querySelector('input[name="phone_os"]:checked') || {}).value || '',
@@ -446,7 +812,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } finally {
       submitBtn.disabled = false;
       submitBtn.classList.remove('loading');
-      if (btnLabel) btnLabel.textContent = '이벤트 신청하기';
+      if (btnLabel) btnLabel.textContent = '무료 테스트 신청 완료하기';
     }
   });
 

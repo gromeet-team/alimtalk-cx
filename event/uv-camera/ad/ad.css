@@ -1,0 +1,153 @@
+.ad-page {
+  margin: 0;
+  background: #fff;
+}
+
+.ad-page .fade-up {
+  opacity: 1;
+  transform: none;
+}
+
+.ad-loading {
+  padding: 80px 20px;
+  color: #737373;
+  text-align: center;
+}
+
+.ad-benefits {
+  padding: 64px 20px;
+  background: #fff9d9;
+}
+
+.ad-benefits-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+.ad-benefits h2 {
+  margin-bottom: 28px;
+  color: #292929;
+  font-size: 34px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.ad-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ad-benefit {
+  padding: 24px 20px;
+  border-radius: 16px;
+  background: #fff;
+  color: #292929;
+  text-align: center;
+}
+
+.ad-benefit strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 21px;
+}
+
+.ad-benefit span {
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.ad-return {
+  margin-top: 24px;
+  font-size: 19px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.ad-page #apply {
+  padding-top: 72px;
+}
+
+.ad-accordions {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 24px 20px 140px;
+}
+
+.ad-details {
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.ad-details > summary {
+  padding: 24px 4px;
+  color: #292929;
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.ad-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.ad-details > summary::after {
+  content: '+';
+  float: right;
+}
+
+.ad-details[open] > summary::after {
+  content: '−';
+}
+
+.ad-detail-content .steps-section,
+.ad-detail-content .notice-section,
+.ad-detail-content .faq-section {
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+@media (max-width: 767px) {
+  .ad-benefits {
+    padding: 44px 16px;
+  }
+
+  .ad-benefits h2 {
+    margin-bottom: 20px;
+    font-size: 25px;
+  }
+
+  .ad-benefit-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .ad-benefit {
+    padding: 18px 16px;
+  }
+
+  .ad-benefit strong {
+    font-size: 18px;
+  }
+
+  .ad-benefit span {
+    font-size: 14px;
+  }
+
+  .ad-return {
+    margin-top: 18px;
+    font-size: 15px;
+  }
+
+  .ad-page #apply {
+    padding-top: 52px;
+  }
+
+  .ad-accordions {
+    padding-bottom: 110px;
+  }
+
+  .ad-details > summary {
+    font-size: 18px;
+  }
+}
