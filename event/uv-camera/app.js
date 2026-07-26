@@ -545,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } finally {
       submitBtn.disabled = false;
       submitBtn.classList.remove('loading');
-      if (btnLabel) btnLabel.textContent = '이벤트 신청하기';
+      if (btnLabel) btnLabel.textContent = '무료 테스트 신청 완료하기';
     }
   });
 
