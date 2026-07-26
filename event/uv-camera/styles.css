@@ -296,6 +296,18 @@ button {
   text-align: center;
 }
 
+.benefit-condition {
+  margin-top: 20px;
+  color: #292929;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.benefit-condition + .apply-cards {
+  margin-top: 48px;
+}
+
 .apply-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1871,6 +1883,16 @@ label .req {
   .apply-cards {
     grid-template-columns: 1fr;
     margin-top: 50px;
+  }
+
+  .benefit-condition {
+    margin-top: 14px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+
+  .benefit-condition + .apply-cards {
+    margin-top: 32px;
   }
 
   .type-select-card .card-list > span {
