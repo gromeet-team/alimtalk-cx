@@ -188,7 +188,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const fabTop = document.getElementById('fabTop');
       const stickyApply = document.querySelector('.sticky-apply-cta');
-      const applySection = document.getElementById('apply');
+      const applicationForm = document.getElementById('applicationForm');
 
       const SHOW_AFTER = 400; // 400px 스크롤 후 노출
 
@@ -204,8 +204,8 @@
       toggleVisibility(); // 초기 상태 확인
 
       // 폼 구간에서는 제출 버튼을 가리지 않도록 하단 CTA를 숨깁니다.
-      if (stickyApply && applySection && 'IntersectionObserver' in window) {
-        const applyObserver = new IntersectionObserver(entries => {
+      if (stickyApply && applicationForm && 'IntersectionObserver' in window) {
+        const formObserver = new IntersectionObserver(entries => {
           const formVisible = entries.some(entry => entry.isIntersecting);
           stickyApply.classList.toggle('is-hidden', formVisible);
           stickyApply.setAttribute('aria-hidden', formVisible ? 'true' : 'false');
@@ -215,7 +215,7 @@
             stickyApply.removeAttribute('tabindex');
           }
         }, { threshold: 0.01 });
-        applyObserver.observe(applySection);
+        formObserver.observe(applicationForm);
       }
     });
   </script>
