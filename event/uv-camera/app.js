@@ -463,7 +463,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var payload = {
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
-      cafeNickname:        '',
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
       mallId:              document.getElementById('mallIdInput').value.trim(),
