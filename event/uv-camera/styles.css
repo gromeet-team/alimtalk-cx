@@ -1471,12 +1471,27 @@ label .req {
 }
 
 .main-details > summary {
+  position: relative;
   padding: 28px 4px;
+  padding-right: 48px;
   color: #292929;
   font-size: 24px;
   font-weight: 700;
   cursor: pointer;
   list-style: none;
+}
+
+.main-details > summary > span,
+.main-details > summary > small {
+  display: block;
+}
+
+.main-details > summary > small {
+  margin-top: 8px;
+  color: #737373;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .main-details > summary::-webkit-details-marker {
@@ -1485,7 +1500,9 @@ label .req {
 
 .main-details > summary::after {
   content: '+';
-  float: right;
+  position: absolute;
+  top: 28px;
+  right: 4px;
 }
 
 .main-details[open] > summary::after {
@@ -1974,7 +1991,18 @@ label .req {
 
   .main-details > summary {
     padding: 22px 2px;
+    padding-right: 36px;
     font-size: 18px;
+  }
+
+  .main-details > summary > small {
+    margin-top: 7px;
+    font-size: 13px;
+  }
+
+  .main-details > summary::after {
+    top: 22px;
+    right: 2px;
   }
 
   .main-detail-content .deadline-section,

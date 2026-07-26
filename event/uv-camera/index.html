@@ -101,13 +101,13 @@
 
       const missionDetails = document.createElement('details');
       missionDetails.className = 'main-details';
-      missionDetails.innerHTML = '<summary>안내사항 보기</summary><div class="main-detail-content"></div>';
+      missionDetails.innerHTML = '<summary><span>안내사항 보기</span><small>UV카메라는 체험 후 반납 · 선패드는 증정 · 14일 내 촬영/인증</small></summary><div class="main-detail-content"></div>';
       const missionContent = missionDetails.querySelector('.main-detail-content');
       missionContent.append(deadline, steps, notice);
 
       const faqDetails = document.createElement('details');
       faqDetails.className = 'main-details';
-      faqDetails.innerHTML = '<summary>자주 묻는 질문 보기</summary><div class="main-detail-content"></div>';
+      faqDetails.innerHTML = '<summary><span>자주 묻는 질문 보기</span></summary><div class="main-detail-content"></div>';
       faqDetails.querySelector('.main-detail-content').append(faq);
 
       accordions.append(missionDetails, faqDetails);
