@@ -1387,6 +1387,18 @@ label .req {
   letter-spacing: -0.5px;
 }
 
+#apply > .faq-title {
+  margin-bottom: 16px;
+}
+
+.apply-subline {
+  margin-bottom: 48px;
+  color: #292929;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .faq-item {
   border-bottom: 1px solid #eee;
   transition: background 0.2s;
@@ -1905,6 +1917,16 @@ label .req {
 
   .faq-title {
     margin-bottom: 50px;
+  }
+
+  #apply > .faq-title {
+    margin-bottom: 12px;
+  }
+
+  .apply-subline {
+    margin-bottom: 32px;
+    padding: 0 20px;
+    font-size: 15px;
   }
 
   /* lockin CTA */
