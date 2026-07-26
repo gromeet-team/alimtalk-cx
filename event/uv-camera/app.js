@@ -82,6 +82,7 @@ function applyTypeChange() {
   }
 
   syncAllConsentState();
+  syncConditionalStepControls();
 }
 
 function getActiveConsentInputs() {
@@ -102,6 +103,16 @@ function syncAllConsentState() {
   const checkedCount = inputs.filter(input => input.checked).length;
   master.checked = inputs.length > 0 && checkedCount === inputs.length;
   master.indeterminate = checkedCount > 0 && checkedCount < inputs.length;
+}
+
+function syncConditionalStepControls() {
+  const nextButton = document.getElementById('nextStepBtn');
+  const snsUrlInput = document.getElementById('snsUrlInput');
+  if (!nextButton || !snsUrlInput) return;
+  const checked = document.querySelector('input[name="type"]:checked');
+  const isSNS = checked && checked.value === 'influencer_challenge';
+  const isEmptyOptionalSnsStep = currentFormStep === 4 && !isSNS && !snsUrlInput.value.trim();
+  nextButton.textContent = isEmptyOptionalSnsStep ? '건너뛰기' : '다음';
 }
 
 
@@ -284,6 +295,7 @@ function showFormStep(stepNumber, moveFocus) {
   document.getElementById('prevStepBtn').hidden = currentFormStep === 1;
   document.getElementById('nextStepBtn').hidden = currentFormStep === FORM_STEP_COUNT;
   document.getElementById('submitWrap').hidden = currentFormStep !== FORM_STEP_COUNT;
+  syncConditionalStepControls();
 
   if (moveFocus) {
     document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -439,6 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
       el.addEventListener(evt, function() {
         clearFieldError(id.replace('Input', ''));
+        if (id === 'snsUrlInput') syncConditionalStepControls();
       });
     }
   });
