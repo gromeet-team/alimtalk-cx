@@ -1488,6 +1488,19 @@ label .req {
   margin-bottom: 16px;
 }
 
+.apply-scarcity-pill {
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #FBE8A2;
+  color: #292929;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .apply-subline {
   margin-bottom: 48px;
   color: #292929;
@@ -2193,6 +2206,12 @@ label .req {
     margin-bottom: 32px;
     padding: 0 20px;
     font-size: 15px;
+  }
+
+  .apply-scarcity-pill {
+    margin-bottom: 12px;
+    padding: 7px 12px;
+    font-size: 13px;
   }
 
   /* lockin CTA */
