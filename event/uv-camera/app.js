@@ -119,15 +119,43 @@ function syncConditionalStepControls() {
 // ----------------------------------------------------------------
 // 다음 주소검색 API
 // ----------------------------------------------------------------
+function closePostcodeLayer() {
+  const layer = document.getElementById('postcodeLayer');
+  const embed = document.getElementById('postcodeEmbed');
+  if (!layer || !embed) return;
+
+  layer.hidden = true;
+  layer.setAttribute('aria-hidden', 'true');
+  embed.innerHTML = '';
+}
+
 function searchAddress() {
+  const layer = document.getElementById('postcodeLayer');
+  const embed = document.getElementById('postcodeEmbed');
+  if (!layer || !embed || !window.daum || !daum.Postcode) return;
+
+  if (!layer.hidden) {
+    closePostcodeLayer();
+    return;
+  }
+
+  layer.hidden = false;
+  layer.setAttribute('aria-hidden', 'false');
+  embed.innerHTML = '';
+
   new daum.Postcode({
     oncomplete: function(data) {
       document.getElementById('postcodeInput').value = data.zonecode;
       document.getElementById('addressInput').value  = data.roadAddress || data.jibunAddress;
+      closePostcodeLayer();
       document.getElementById('addressDetailInput').focus();
       clearFieldError('address');
-    }
-  }).open();
+    },
+    width: '100%',
+    height: '100%'
+  }).embed(embed);
+
+  layer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 

@@ -561,6 +561,13 @@
           <input type="text" id="addressInput" name="address" placeholder="주소" readonly class="address-line">
           <input type="text" id="addressDetailInput" name="addressDetail" placeholder="상세 주소를 입력해 주세요.">
           <span class="error-msg" id="addressError" aria-live="polite"></span>
+          <div class="postcode-layer" id="postcodeLayer" hidden aria-hidden="true">
+            <div class="postcode-layer-head">
+              <strong>주소 검색</strong>
+              <button type="button" class="btn-postcode-close" onclick="closePostcodeLayer()">닫기</button>
+            </div>
+            <div class="postcode-embed" id="postcodeEmbed"></div>
+          </div>
         </div>
 
         <div class="field full" id="field-phoneOs" data-form-step="3">
