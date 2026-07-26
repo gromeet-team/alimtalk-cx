@@ -453,8 +453,8 @@ button {
   max-width: 1260px;
   margin: 0 auto;
   background: #fff;
-  padding: 100px 76px;
-  border-radius: 20px;
+  padding: 100px 76px 40px;
+  border-radius: 20px 20px 0 0;
 }
 
 [data-form-step][hidden] {
@@ -1159,7 +1159,7 @@ label .req {
 
 /* #apply 섹션 위아래 여백 */
 #apply {
-  padding-bottom: clamp(60px, 16vw, 260px);
+  padding-bottom: clamp(60px, 6vw, 96px);
   padding-top: clamp(60px, 16vw, 260px);
 }
 
@@ -1503,8 +1503,9 @@ label .req {
 .main-accordions {
   max-width: 1260px;
   margin: 0 auto;
-  padding: 40px 5% 160px;
+  padding: 0 76px 80px;
   background: #fff;
+  border-radius: 0 0 20px 20px;
 }
 
 .main-details {
@@ -1811,7 +1812,11 @@ label .req {
   }
 
   .apply-container {
-    padding: 80px 50px;
+    padding: 80px 50px 36px;
+  }
+
+  .main-accordions {
+    padding: 0 50px 64px;
   }
 
   .form-grid {
@@ -1877,6 +1882,7 @@ label .req {
   .faq-section,
   #apply {
     padding: 100px 0 !important;
+    padding-bottom: 60px !important;
   }
 
   .section-title {
@@ -2036,7 +2042,7 @@ label .req {
   }
 
   .main-accordions {
-    padding: 24px 16px 110px;
+    padding: 0 21px 56px;
   }
 
   .main-details > summary {
@@ -2077,7 +2083,7 @@ label .req {
 
 
   .apply-container {
-    padding: 56px 21px;
+    padding: 56px 21px 32px;
   }
 
   .apply-title {
