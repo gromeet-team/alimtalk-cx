@@ -7,35 +7,35 @@
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+  src: url('./fonts/Pretendard-400-subset.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+  src: url('./fonts/Pretendard-500-subset.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+  src: url('./fonts/Pretendard-600-subset.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+  src: url('./fonts/Pretendard-700-subset.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+  src: url('./fonts/Pretendard-800-subset.woff2') format('woff2');
   font-weight: 800;
   font-display: swap;
 }
@@ -147,7 +147,7 @@ button {
   height: 0;
   padding-bottom: 56.25%;
   /* 16:9 비율 유지 */
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -159,7 +159,26 @@ button {
   left: 0;
   transform: translateY(-50%);
   border: 0;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+
+#main .mainVideo .video.is-ready iframe {
   opacity: 1;
+}
+
+.hero-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+}
+
+.hero-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ============ 히어로 영상 오버레이 (가치 카피) ============ */
@@ -597,6 +616,54 @@ label .req {
   margin: 48px 0;
 }
 
+/* 신청 폼 단계 표시 */
+.form-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 360px;
+  margin: 0 auto 18px;
+}
+
+.form-step-dot {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D5D5D5;
+  border-radius: 50%;
+  background: #F5F5F5;
+  color: #737373;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-step-dot.active {
+  border-color: #292929;
+  background: #292929;
+  color: #fff;
+}
+
+.form-step-line {
+  width: 72px;
+  height: 1px;
+  background: #D5D5D5;
+}
+
+.form-step-title {
+  margin-bottom: 42px;
+  text-align: center;
+  color: #292929;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.form-step-panel[hidden] {
+  display: none;
+}
+
 /* 폼 그리드 */
 .form-grid {
   display: grid;
@@ -823,6 +890,35 @@ label .req {
   margin-top: 40px;
 }
 
+.form-step-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.btn-step {
+  min-width: 150px;
+  min-height: 50px;
+  padding: 15px 34px;
+  border: 1.5px solid #292929;
+  border-radius: 999px;
+  font-family: 'Pretendard';
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-step-back {
+  background: #fff;
+  color: #292929;
+}
+
+.btn-step-next {
+  background: #292929;
+  color: #fff;
+}
+
 .btn-submit {
   position: relative;
   padding: 15px 80px;
@@ -859,6 +955,11 @@ label .req {
 
 .btn-submit.loading .btn-spinner {
   display: inline-block;
+}
+
+.btn-submit[hidden],
+.btn-step[hidden] {
+  display: none;
 }
 
 @keyframes spin {
@@ -1367,6 +1468,28 @@ label .req {
   stroke-linejoin: round;
 }
 
+.sticky-apply-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 999;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: 16px 36px;
+  border-radius: 999px;
+  background: #292929;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.sticky-apply-cta[hidden] {
+  display: none;
+}
+
 
 /* ============================================
    유동형 폰트 사이즈 — 1440px 기준
@@ -1760,6 +1883,31 @@ label .req {
     padding: 16px;
     font-size: 16px;
     min-height: 50px;
+  }
+
+  .form-step-title {
+    margin-bottom: 32px;
+    font-size: 16px;
+  }
+
+  .form-step-actions {
+    gap: 8px;
+  }
+
+  .btn-step,
+  .form-step-actions .btn-submit {
+    width: 100%;
+    min-width: 0;
+    padding: 16px 12px;
+    font-size: 16px;
+  }
+
+  .sticky-apply-cta {
+    bottom: 16px;
+    width: calc(100% - 40px);
+    min-width: 0;
+    padding: 15px 24px;
+    font-size: 16px;
   }
 
   .field input,

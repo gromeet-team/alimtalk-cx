@@ -18,6 +18,7 @@ const PACKAGE_VALUE = {
 // 중복 신청 차단 (클라이언트 측 보조 — 서버 차단이 진짜 차단)
 // ----------------------------------------------------------------
 const APPLIED_KEY = 'uvidUvCameraApplied';
+let currentFormStep = 1;
 
 function markApplied() {
   try { localStorage.setItem(APPLIED_KEY, '1'); } catch (_) { /* ignore */ }
@@ -134,8 +135,12 @@ function clearFieldError(fieldId) {
 // ----------------------------------------------------------------
 // 유효성 검사
 // ----------------------------------------------------------------
-function validateForm() {
+function validateForm(stepNumber) {
   let isValid = true;
+  const validateAll = !stepNumber;
+  const checkStep1 = validateAll || stepNumber === 1;
+  const checkStep2 = validateAll || stepNumber === 2;
+  const checkStep3 = validateAll || stepNumber === 3;
 
   ['name', 'tel', 'cafeNickname', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
@@ -149,89 +154,165 @@ function validateForm() {
   const checked  = document.querySelector('input[name="type"]:checked');
   const isSNS    = checked && checked.value === 'influencer_challenge';
 
-  if (!name) {
-    setFieldError('name', '성명을 입력해 주세요.');
-    isValid = false;
-  }
-
-  if (!tel) {
-    setFieldError('tel', '연락처를 입력해 주세요.');
-    isValid = false;
-  } else if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(tel)) {
-    setFieldError('tel', '올바른 연락처를 입력해 주세요. (예: 010-1234-5678)');
-    isValid = false;
-  }
-
-  if (!cafeNickname) {
-    setFieldError('cafeNickname', '동결단 카페 닉네임을 입력해 주세요.');
-    isValid = false;
-  } else if (cafeNickname.length > 30) {
-    setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
-    isValid = false;
-  }
-
-  const snsUrl = document.getElementById('snsUrlInput').value.trim();
-  if (isSNS) {
-    if (!snsUrl) {
-      setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+  if (checkStep1) {
+    if (!name) {
+      setFieldError('name', '성명을 입력해 주세요.');
       isValid = false;
-    } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+    }
+
+    if (!tel) {
+      setFieldError('tel', '연락처를 입력해 주세요.');
+      isValid = false;
+    } else if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(tel)) {
+      setFieldError('tel', '올바른 연락처를 입력해 주세요. (예: 010-1234-5678)');
+      isValid = false;
+    }
+
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+      setFieldError('gender', '성별을 선택해 주세요.');
+      isValid = false;
+    }
+
+    const ageGroup = document.getElementById('ageGroupInput').value;
+    if (!ageGroup) {
+      setFieldError('ageGroup', '연령대를 선택해 주세요.');
+      isValid = false;
+    }
+  }
+
+  if (checkStep2) {
+    if (cafeNickname.length > 30) {
+      setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
+      isValid = false;
+    }
+
+    const snsUrl = document.getElementById('snsUrlInput').value.trim();
+    if (isSNS) {
+      if (!snsUrl) {
+        setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+        isValid = false;
+      } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+        setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+        isValid = false;
+      }
+    } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
       setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
       isValid = false;
     }
-  } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
-    setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
-    isValid = false;
-  }
 
-  if (!postcode) {
-    setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
-    isValid = false;
-  }
-
-  const phoneOs = document.querySelector('input[name="phone_os"]:checked');
-  if (!phoneOs) {
-    setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
-    isValid = false;
-  }
-
-  const gender = document.querySelector('input[name="gender"]:checked');
-  if (!gender) {
-    setFieldError('gender', '성별을 선택해 주세요.');
-    isValid = false;
-  }
-
-  const ageGroup = document.getElementById('ageGroupInput').value;
-  if (!ageGroup) {
-    setFieldError('ageGroup', '연령대를 선택해 주세요.');
-    isValid = false;
-  }
-
-  if (!consent) {
-    setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
-    isValid = false;
-  }
-
-  if (!marketing) {
-    setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
-    isValid = false;
-  }
-
-  const legal = document.getElementById('legalInput').checked;
-  if (!legal) {
-    setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
-    isValid = false;
-  }
-
-  if (isSNS) {
-    const partnership = document.getElementById('partnershipInput').checked;
-    if (!partnership) {
-      setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+    if (!postcode) {
+      setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
       isValid = false;
+    }
+
+    const phoneOs = document.querySelector('input[name="phone_os"]:checked');
+    if (!phoneOs) {
+      setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
+      isValid = false;
+    }
+  }
+
+  if (checkStep3) {
+    if (!consent) {
+      setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
+      isValid = false;
+    }
+
+    if (!marketing) {
+      setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
+      isValid = false;
+    }
+
+    const legal = document.getElementById('legalInput').checked;
+    if (!legal) {
+      setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
+      isValid = false;
+    }
+
+    if (isSNS) {
+      const partnership = document.getElementById('partnershipInput').checked;
+      if (!partnership) {
+        setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+        isValid = false;
+      }
     }
   }
 
   return isValid;
+}
+
+function showFormStep(stepNumber, moveFocus) {
+  const stepTitles = ['기본 정보', '배송 및 계정 정보', '필수 동의'];
+  currentFormStep = Math.max(1, Math.min(3, stepNumber));
+
+  document.querySelectorAll('[data-form-step]').forEach(function(panel) {
+    panel.hidden = Number(panel.getAttribute('data-form-step')) !== currentFormStep;
+  });
+
+  document.querySelectorAll('[data-step-indicator]').forEach(function(indicator) {
+    const indicatorStep = Number(indicator.getAttribute('data-step-indicator'));
+    const isActive = indicatorStep === currentFormStep;
+    indicator.classList.toggle('active', isActive);
+    if (isActive) {
+      indicator.setAttribute('aria-current', 'step');
+    } else {
+      indicator.removeAttribute('aria-current');
+    }
+  });
+
+  const title = document.getElementById('formStepTitle');
+  if (title) title.textContent = currentFormStep + '단계 · ' + stepTitles[currentFormStep - 1];
+
+  const prevButton = document.getElementById('prevStepBtn');
+  const nextButton = document.getElementById('nextStepBtn');
+  const submitButton = document.getElementById('submitBtn');
+  if (prevButton) prevButton.hidden = currentFormStep === 1;
+  if (nextButton) nextButton.hidden = currentFormStep === 3;
+  if (submitButton) submitButton.hidden = currentFormStep !== 3;
+
+  if (moveFocus) {
+    const panel = document.querySelector('[data-form-step="' + currentFormStep + '"]');
+    const firstControl = panel && panel.querySelector('input:not([type="hidden"]), select, button');
+    if (firstControl) firstControl.focus({ preventScroll: true });
+    document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function showFirstInvalidStep() {
+  const firstError = document.querySelector('.field.error');
+  const panel = firstError && firstError.closest('[data-form-step]');
+  if (panel) showFormStep(Number(panel.getAttribute('data-form-step')), false);
+  if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function initStickyApplyCta() {
+  const applySection = document.getElementById('apply');
+  const stickyCta = document.getElementById('stickyApplyCta');
+  if (!applySection || !stickyCta) return;
+
+  function setVisible(visible) {
+    stickyCta.hidden = !visible;
+    stickyCta.setAttribute('tabindex', visible ? '0' : '-1');
+    stickyCta.setAttribute('aria-hidden', visible ? 'false' : 'true');
+  }
+
+  setVisible(false);
+  if (!('IntersectionObserver' in window)) {
+    const update = function() {
+      const rect = applySection.getBoundingClientRect();
+      setVisible(rect.bottom <= 0 || rect.top >= window.innerHeight);
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    return;
+  }
+
+  const observer = new IntersectionObserver(function(entries) {
+    setVisible(!entries[0].isIntersecting);
+  }, { threshold: 0.01 });
+  observer.observe(applySection);
 }
 
 
@@ -315,6 +396,7 @@ function resetForm() {
   const freeTrialRadio = document.querySelector('input[name="type"][value="free_trial"]');
   if (freeTrialRadio) freeTrialRadio.checked = true;
   applyTypeChange();
+  showFormStep(1, false);
 
   document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
   document.querySelectorAll('.error-msg').forEach(el => { el.textContent = ''; });
@@ -323,15 +405,8 @@ function resetForm() {
   feedback.textContent  = '';
   feedback.style.display = 'none';
 
-  document.getElementById('success-screen').style.display = 'none';
   form.style.display = 'block';
-
-  document.getElementById('main').style.display             = '';
-  document.getElementById('scarcity-banner').style.display  = '';
-  document.getElementById('cards').style.display            = '';
-  document.getElementById('conditions').style.display       = '';
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 
@@ -348,6 +423,20 @@ document.addEventListener('DOMContentLoaded', function() {
     input.addEventListener('change', applyTypeChange);
   });
   applyTypeChange();
+  showFormStep(1, false);
+  initStickyApplyCta();
+
+  document.getElementById('nextStepBtn').addEventListener('click', function() {
+    if (!validateForm(currentFormStep)) {
+      showFirstInvalidStep();
+      return;
+    }
+    showFormStep(currentFormStep + 1, true);
+  });
+
+  document.getElementById('prevStepBtn').addEventListener('click', function() {
+    showFormStep(currentFormStep - 1, true);
+  });
 
   // 전화번호 자동 하이픈
   document.getElementById('telInput').addEventListener('input', function() {
@@ -391,8 +480,7 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
 
     if (!validateForm()) {
-      var firstError = document.querySelector('.field.error');
-      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showFirstInvalidStep();
       return;
     }
 

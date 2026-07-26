@@ -7,35 +7,35 @@
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
+  src: url('./fonts/Pretendard-400-subset.woff2') format('woff2');
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+  src: url('./fonts/Pretendard-500-subset.woff2') format('woff2');
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
+  src: url('./fonts/Pretendard-600-subset.woff2') format('woff2');
   font-weight: 600;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
+  src: url('./fonts/Pretendard-700-subset.woff2') format('woff2');
   font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
+  src: url('./fonts/Pretendard-800-subset.woff2') format('woff2');
   font-weight: 800;
   font-display: swap;
 }
@@ -125,6 +125,27 @@ button {
   border-radius: 50px;
   margin: 50px auto;
   max-width: 735px;
+}
+
+.cafe-notice {
+  max-width: 735px;
+  margin: 0 auto 50px;
+  padding: 28px 24px;
+  border: 1px solid #D5D5D5;
+  border-radius: 15px;
+  color: #292929;
+  font-size: clamp(14px, 1.11vw, 16px);
+  line-height: 1.7;
+}
+
+.cafe-notice-title {
+  margin: 0 0 8px;
+  font-size: clamp(16px, 1.25vw, 18px);
+  font-weight: 700;
+}
+
+.cafe-notice p:last-child {
+  margin: 0;
 }
 
 .signup-cta-box {
