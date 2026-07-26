@@ -1459,6 +1459,47 @@ label .req {
   max-height: 500px;
 }
 
+.main-accordions {
+  max-width: 1260px;
+  margin: 0 auto;
+  padding: 40px 5% 160px;
+  background: #fff;
+}
+
+.main-details {
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.main-details > summary {
+  padding: 28px 4px;
+  color: #292929;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.main-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.main-details > summary::after {
+  content: '+';
+  float: right;
+}
+
+.main-details[open] > summary::after {
+  content: '−';
+}
+
+.main-detail-content .deadline-section,
+.main-detail-content .steps-section,
+.main-detail-content .notice-section,
+.main-detail-content .faq-section {
+  padding-top: 64px;
+  padding-bottom: 80px;
+}
+
 
 
 /* ===== 플로팅 버튼 컨테이너 ===== */
@@ -1925,6 +1966,23 @@ label .req {
 
   .faq-title {
     margin-bottom: 50px;
+  }
+
+  .main-accordions {
+    padding: 24px 16px 110px;
+  }
+
+  .main-details > summary {
+    padding: 22px 2px;
+    font-size: 18px;
+  }
+
+  .main-detail-content .deadline-section,
+  .main-detail-content .steps-section,
+  .main-detail-content .notice-section,
+  .main-detail-content .faq-section {
+    padding-top: 40px;
+    padding-bottom: 52px;
   }
 
   #apply > .faq-title {

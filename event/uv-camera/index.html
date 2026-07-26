@@ -84,6 +84,38 @@
   </script>
 
   <script>
+    // 광고 유입용 메인 흐름: 히어로 → 유형 혜택 → 신청폼 → 상세 접기
+    document.addEventListener('DOMContentLoaded', () => {
+      const applyType = document.querySelector('.apply-type-section');
+      const apply = document.getElementById('apply');
+      const deadline = document.querySelector('.deadline-section');
+      const steps = document.querySelector('.steps-section');
+      const notice = document.querySelector('.notice-section');
+      const faq = document.querySelector('.faq-section');
+      if (!applyType || !apply || !deadline || !steps || !notice || !faq) return;
+
+      applyType.insertAdjacentElement('afterend', apply);
+
+      const accordions = document.createElement('section');
+      accordions.className = 'main-accordions';
+
+      const missionDetails = document.createElement('details');
+      missionDetails.className = 'main-details';
+      missionDetails.innerHTML = '<summary>미션 상세 보기</summary><div class="main-detail-content"></div>';
+      const missionContent = missionDetails.querySelector('.main-detail-content');
+      missionContent.append(deadline, steps, notice);
+
+      const faqDetails = document.createElement('details');
+      faqDetails.className = 'main-details';
+      faqDetails.innerHTML = '<summary>자주 묻는 질문 보기</summary><div class="main-detail-content"></div>';
+      faqDetails.querySelector('.main-detail-content').append(faq);
+
+      accordions.append(missionDetails, faqDetails);
+      apply.insertAdjacentElement('afterend', accordions);
+    });
+  </script>
+
+  <script>
     // Scroll fade-in
     document.addEventListener('DOMContentLoaded', () => {
       const targets = document.querySelectorAll('.fade-up');
