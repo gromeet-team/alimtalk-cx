@@ -162,10 +162,7 @@ function validateForm() {
     isValid = false;
   }
 
-  if (!cafeNickname) {
-    setFieldError('cafeNickname', '동결단 카페 닉네임을 입력해 주세요.');
-    isValid = false;
-  } else if (cafeNickname.length > 30) {
+  if (cafeNickname && cafeNickname.length > 30) {
     setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
     isValid = false;
   }

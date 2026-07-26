@@ -5,15 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>UV 카메라 + 유비드 선패드 무료 체험 | 최대 249,000원 상당 혜택</title>
-  <meta name="description" content="UV 카메라로 자외선 차단 효과를 직접 확인하고, 유비드 엑토인 스킨케어 선패드 Single Pack 또는 Max Pack을 무료로 체험해 보세요.">
-  <meta property="og:title" content="UV 카메라 + 유비드 선패드 무료 체험 | 최대 249,000원 상당 혜택">
+  <title>UV 카메라 + 유비드 선패드 미션형 0원 체험단 | 최대 249,000원 상당 혜택</title>
+  <meta name="description" content="촬영·인증 미션을 완료하면 유비드 엑토인 스킨케어 선패드 Single Pack 또는 Max Pack을 0원으로 체험할 수 있는 UV 카메라 체험단입니다.">
+  <meta property="og:title" content="UV 카메라 + 유비드 선패드 미션형 0원 체험단 | 최대 249,000원 상당 혜택">
   <meta property="og:description"
     content="30분이면 끝나는 즉시 촬영 챌린지. 콘텐츠 챌린지(Single Pack 49,000원 상당) 또는 인플루언서 챌린지(Max Pack 249,000원 상당) 중 선택해 신청하세요.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="./images/og-image-placeholder.png">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
   <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="https://use.typekit.net/dao1fkr.css">
   <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script src="./app.js" defer></script>
@@ -71,6 +73,50 @@
   </script>
 
   <script>
+    // Vimeo가 정상 재생 준비를 마친 경우에만 영상을 노출합니다.
+    // 비공개 설정·네트워크 오류가 있으면 제품 비주얼 폴백을 유지합니다.
+    document.addEventListener('DOMContentLoaded', () => {
+      const videoRoot = document.querySelector('.mainVideo');
+      const videos = Array.from(document.querySelectorAll('.mainVideo .video'));
+      if (!videoRoot || !videos.length || typeof Vimeo === 'undefined' || !Vimeo.Player) return;
+
+      const mobileMedia = window.matchMedia('(max-width: 767px)');
+      const syncActiveVideo = () => {
+        const activeVideo = videoRoot.querySelector(mobileMedia.matches ? '.video.mobile' : '.video.pc');
+        videoRoot.classList.toggle('video-ready', !!activeVideo && activeVideo.classList.contains('is-ready'));
+      };
+
+      videos.forEach(video => {
+        const iframe = video.querySelector('iframe');
+        if (!iframe) return;
+
+        const timeout = new Promise((_, reject) => {
+          window.setTimeout(() => reject(new Error('Vimeo ready timeout')), 6000);
+        });
+
+        try {
+          const player = new Vimeo.Player(iframe);
+          Promise.race([player.ready(), timeout])
+            .then(() => {
+              video.classList.add('is-ready');
+              syncActiveVideo();
+            })
+            .catch(err => console.warn('Vimeo fallback active:', err));
+        } catch (err) {
+          console.warn('Vimeo fallback active:', err);
+        }
+      });
+
+      if (typeof mobileMedia.addEventListener === 'function') {
+        mobileMedia.addEventListener('change', syncActiveVideo);
+      } else {
+        mobileMedia.addListener(syncActiveVideo);
+      }
+      syncActiveVideo();
+    });
+  </script>
+
+  <script>
     // FAQ 아코디언 — 각 항목 독립 토글
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.faq-question').forEach(btn => {
@@ -125,20 +171,36 @@
     // 스크롤 거리에 따라 위로가기 버튼 노출/숨김
     document.addEventListener('DOMContentLoaded', () => {
       const fabTop = document.getElementById('fabTop');
-      if (!fabTop) return;
+      const stickyApply = document.querySelector('.sticky-apply-cta');
+      const applySection = document.getElementById('apply');
 
       const SHOW_AFTER = 400; // 400px 스크롤 후 노출
 
       const toggleVisibility = () => {
-        if (window.scrollY > SHOW_AFTER) {
+        if (fabTop && window.scrollY > SHOW_AFTER) {
           fabTop.classList.add('visible');
-        } else {
+        } else if (fabTop) {
           fabTop.classList.remove('visible');
         }
       };
 
       window.addEventListener('scroll', toggleVisibility, { passive: true });
       toggleVisibility(); // 초기 상태 확인
+
+      // 폼 구간에서는 제출 버튼을 가리지 않도록 하단 CTA를 숨깁니다.
+      if (stickyApply && applySection && 'IntersectionObserver' in window) {
+        const applyObserver = new IntersectionObserver(entries => {
+          const formVisible = entries.some(entry => entry.isIntersecting);
+          stickyApply.classList.toggle('is-hidden', formVisible);
+          stickyApply.setAttribute('aria-hidden', formVisible ? 'true' : 'false');
+          if (formVisible) {
+            stickyApply.setAttribute('tabindex', '-1');
+          } else {
+            stickyApply.removeAttribute('tabindex');
+          }
+        }, { threshold: 0.01 });
+        applyObserver.observe(applySection);
+      }
     });
   </script>
 
@@ -157,6 +219,9 @@
   <section id="main" class="layout">
     <div class="videoWrap">
       <div class="mainVideo" data-ez="contents-1adw4yz-1">
+        <div class="hero-fallback" aria-hidden="true">
+          <img src="images/sunpad_6_m.webp" alt="">
+        </div>
         <div class="video pc">
           <iframe
             src="https://player.vimeo.com/video/1187152751?h=bace74890f&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;title=0&amp;controls=0&amp;background=1&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
@@ -173,8 +238,8 @@
       <!-- 히어로 영상 오버레이 — 가치 카피 (시각 디테일은 엘렌 영역) -->
       <div class="hero-overlay">
         <p class="hero-overlay-eyebrow">UV 카메라 챌린지 이벤트</p>
-        <h1 class="hero-overlay-headline pc">UV 카메라 + 유비드 선패드 <strong>무료 체험</strong></h1>
-        <h1 class="hero-overlay-headline mobile">UV 카메라 + 유비드 선패드<br><strong>무료 체험</strong></h1>
+        <h1 class="hero-overlay-headline pc">UV 카메라 + 유비드 선패드 <strong>미션 완료 시 0원 체험</strong></h1>
+        <h1 class="hero-overlay-headline mobile">UV 카메라 + 유비드 선패드<br><strong>미션 완료 시 0원 체험</strong></h1>
         <p class="hero-overlay-sub">최대 <strong>249,000원 상당</strong> 혜택</p>
       </div>
     </div>
@@ -204,11 +269,11 @@
         <div class="apply-card fade-up">
           <div class="card-badge">선택1</div>
           <div class="cont">
-            <div class="card-image"><img src="images/sunpad_m.png"></div>
+            <div class="card-image"><img src="images/sunpad_m.webp"></div>
             <div class="title">
               <div>참여형</div>
               <h3 class="card-title">콘텐츠 챌린지</h3>
-              <p class="card-subtitle">싱글팩 무료증정(49,000원 상당)</p>
+              <p class="card-subtitle">촬영·인증 완료 시 싱글팩 제공(49,000원 상당)</p>
             </div>
             <ul class="card-list">
               <li><img src="images/Vector.svg">누구나 신청 가능</li>
@@ -220,11 +285,11 @@
         <div class="apply-card fade-up">
           <div class="card-badge all">선택2</div>
           <div class="cont">
-            <div class="card-image"><img src="images/sunpad_6_m.png"></div>
+            <div class="card-image"><img src="images/sunpad_6_m.webp"></div>
             <div class="title">
               <div>SNS형</div>
               <h3 class="card-title">인플루언서 챌린지</h3>
-              <p class="card-subtitle">맥스팩 무료증정(249,000원 상당)</p>
+              <p class="card-subtitle">촬영·게시 완료 시 맥스팩 제공(249,000원 상당)</p>
             </div>
             <ul class="card-list">
               <li><img src="images/Vector.svg">팔로워 1,000+ / 카테고리 핏 일치</li>
@@ -253,21 +318,21 @@
         <div class="step-item">
           <div class="step-label">STEP 1</div>
           <div class="step-title">Before 촬영</div>
-          <div class="step-image"><img src="images/step_img1.png"></div>
+          <div class="step-image"><img src="images/step_img1.webp"></div>
           <p class="step-desc">선패드를 바르기 전<br class="m-br"> <b>평소 피부 모습</b>을<br class="m-br"> 일반 카메라로 촬영</p>
         </div>
         <div class="step-arrow"><img src="images/Vector_arrow.svg"></div>
         <div class="step-item">
           <div class="step-label">STEP 2</div>
           <div class="step-title">UV 카메라 촬영</div>
-          <div class="step-image"><img src="images/step_img2.png"></div>
+          <div class="step-image"><img src="images/step_img2.webp"></div>
           <p class="step-desc">UV 카메라로 선패드를<br class="m-br"> 얼굴에 바르는 모습 촬영<br class="m-br"> <b>(선패드를 바른 부분이<br class="m-br"> 까맣게 묻어나오는 모습)</b></p>
         </div>
         <div class="step-arrow"><img src="images/Vector_arrow.svg"></div>
         <div class="step-item">
           <div class="step-label">STEP 3</div>
           <div class="step-title">After 촬영</div>
-          <div class="step-image"><img src="images/step_img3.png"></div>
+          <div class="step-image"><img src="images/step_img3.webp"></div>
           <p class="step-desc">선패드를 바른 직후<br class="m-br"> 촉촉하고 <b>광나는 피부 모습</b> 촬영</p>
         </div>
       </div>
@@ -333,13 +398,13 @@
       <div class="fade-up">
         <div class="faq-item active">
           <button class="faq-question">
-            <span>UV 카메라는 정말 무료인가요?</span>
+            <span>UV 카메라 체험은 정말 0원인가요?</span>
             <span class="faq-icon"><img src="images/weui_arrow-outlined.svg"></span>
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
-              네. 신청 후 선정되시면 UV 카메라가 함께 발송됩니다.(신청 폼에서 선택한 OS어댑터로 발송)<br>
-              카메라 수령 및 반납 조건은 선정자분께 알림톡으로 별도 안내드립니다.
+              <strong>촬영·인증 콘텐츠 제출과 UV 카메라 반납을 모두 완료하는 조건의 0원 체험단입니다.</strong><br>
+              선정되면 신청 폼에서 선택한 OS에 맞는 UV 카메라가 제품과 함께 발송되며, 상세 미션과 반납 방법은 알림톡으로 안내드립니다.
             </div>
           </div>
         </div>
@@ -452,9 +517,9 @@
         </div>
 
         <div class="field" id="field-cafeNickname">
-          <label for="cafeNicknameInput">동결단 카페 닉네임<span class="req">*</span></label>
-          <input type="text" id="cafeNicknameInput" name="cafe_nickname" placeholder="동결단 네이버 카페 닉네임을 입력해 주세요." autocomplete="nickname" maxlength="30">
-          <span class="hint-msg">· 카페 인증글 제목(예: [UV인증]닉네임)과 동일하게 입력해주세요.</span>
+          <label for="cafeNicknameInput">동결단 카페 닉네임<span class="optional-tag">(선택)</span></label>
+          <input type="text" id="cafeNicknameInput" name="cafe_nickname" placeholder="가입한 경우에만 닉네임을 입력해 주세요." autocomplete="nickname" maxlength="30">
+          <span class="hint-msg">· 선정 후 촬영 완료 시 동결단 네이버 카페에 [UV인증]닉네임으로 인증글을 업로드해 주세요.</span>
           <span class="error-msg" id="cafeNicknameError" aria-live="polite"></span>
         </div>
 
@@ -536,9 +601,9 @@
           <label class="field-label">개인정보 수집·이용 동의<span class="req">*</span></label>
           <div class="privacy-box">
             <p><strong>0. 참여 자격</strong>본 이벤트는 만 14세 이상만 신청 가능합니다.</p>
-            <p><strong>1. 수집 항목</strong>이름, 연락처, 동결단 카페 닉네임, 배송지, 휴대폰 OS, 성별, 연령대, (선택) 인스타그램 계정, (선택) 공식몰 아이디</p>
+            <p><strong>1. 수집 항목</strong>이름, 연락처, 배송지, 휴대폰 OS, 성별, 연령대, (선택) 동결단 카페 닉네임, (선택) 인스타그램 계정, (선택) 공식몰 아이디</p>
             <p><strong>2. 이용 목적</strong>이벤트 신청 접수, 신청자 본인 확인, 선정 여부 안내, 혜택 제공 관련 안내, 문의 응대 및 운영 관리</p>
-            <p><strong>2-1. 보상 발송·콘텐츠 회수·UV 카메라 반납 운영 활용</strong>수집된 개인정보(이름·연락처·주소·동결단 카페 닉네임)는 보상 발송, 카페 인증글 매칭·콘텐츠 회수 안내, UV 카메라 반납
+            <p><strong>2-1. 보상 발송·콘텐츠 회수·UV 카메라 반납 운영 활용</strong>수집된 개인정보(이름·연락처·주소 및 입력한 경우 동결단 카페 닉네임)는 보상 발송, 카페 인증글 매칭·콘텐츠 회수 안내, UV 카메라 반납
               안내에 활용됩니다.</p>
             <p><strong>2-2. 의무 미이행 시 법적 조치 활용</strong>콘텐츠 제출 또는 UV 카메라 반납 의무를 이행하지 않을 경우, 수집된 개인정보는 채무 이행 청구·내용증명
               발송·민형사상 법적 조치(사기죄·횡령죄·채무불이행 등)에 활용될 수 있습니다.</p>
@@ -614,6 +679,7 @@
 
   </section>
 
+  <a class="sticky-apply-cta" href="#apply">지금 신청하기</a>
 
   <div class="fab-container">
     <!-- 채팅 버튼 -->

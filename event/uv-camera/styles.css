@@ -5,42 +5,6 @@
   --orange: #FF4800;
 }
 
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Pretendard';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-display: swap;
-}
-
-
 /************  애니메이션 동작   ***********/
 /* ===== Scroll fade-in ===== */
 .fade-up {
@@ -76,9 +40,10 @@ body {
 
 body {
   background: #fff9d9;
-  font-family: 'Pretendard';
+  font-family: 'Pretendard Variable', 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   color: #292929;
   overflow-x: clip;
+  padding-bottom: 96px;
 }
 
 li,
@@ -147,7 +112,7 @@ button {
   height: 0;
   padding-bottom: 56.25%;
   /* 16:9 비율 유지 */
-  z-index: 0;
+  z-index: 1;
   overflow: hidden;
 }
 
@@ -159,7 +124,36 @@ button {
   left: 0;
   transform: translateY(-50%);
   border: 0;
+  opacity: 0;
+  transition: opacity .35s ease;
+}
+
+#main .mainVideo.video-ready .video iframe {
   opacity: 1;
+}
+
+.hero-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.96) 0 18%, rgba(255, 249, 192, 0.82) 42%, rgba(255, 191, 138, 0.78) 100%),
+    #fff9d9;
+  transition: opacity .35s ease;
+}
+
+.hero-fallback img {
+  width: min(38vw, 560px);
+  height: auto;
+  filter: drop-shadow(0 24px 32px rgba(41, 41, 41, 0.18));
+}
+
+.mainVideo.video-ready .hero-fallback {
+  opacity: 0;
 }
 
 /* ============ 히어로 영상 오버레이 (가치 카피) ============ */
@@ -468,7 +462,7 @@ button {
 }
 
 .apply-title {
-  font-family: "poppins", sans-serif;
+  font-family: inherit;
   font-size: clamp(40px, 4.167vw, 80px);
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -833,7 +827,7 @@ label .req {
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Pretendard';
+  font-family: inherit;
   transition: opacity 0.2s;
   min-height: 50px;
   display: inline-flex;
@@ -991,7 +985,7 @@ label .req {
 }
 
 .success-title {
-  font-family: 'Pretendard';
+  font-family: inherit;
   font-size: 52px;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -1075,7 +1069,7 @@ label .req {
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
-  font-family: 'Pretendard';
+  font-family: inherit;
   transition: background 0.2s, color 0.2s;
   min-height: 50px;
   margin-top: 65px;
@@ -1300,12 +1294,46 @@ label .req {
 .fab-container {
   position: fixed;
   right: 24px;
-  bottom: 32px;
+  bottom: 96px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   z-index: 1000;
+}
+
+.sticky-apply-cta {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  z-index: 1001;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(calc(100% - 40px), 420px);
+  min-height: 58px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: #292929;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.24);
+  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+
+.sticky-apply-cta:hover {
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+}
+
+.sticky-apply-cta.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(12px);
 }
 
 /* ===== 공통 버튼 스타일 ===== */
@@ -1629,6 +1657,10 @@ label .req {
     transform: translate(-50%, -50%);
   }
 
+  .hero-fallback img {
+    width: min(88vw, 430px);
+  }
+
 
 
   /* hero overlay */
@@ -1760,6 +1792,18 @@ label .req {
     padding: 16px;
     font-size: 16px;
     min-height: 50px;
+  }
+
+  .sticky-apply-cta {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    width: calc(100% - 32px);
+    min-height: 54px;
+    font-size: 16px;
+  }
+
+  .fab-container {
+    right: 16px;
+    bottom: 82px;
   }
 
   .field input,
