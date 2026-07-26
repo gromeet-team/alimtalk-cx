@@ -222,6 +222,18 @@ function applyTypeChange() {
   syncConditionalStepControls();
 }
 
+function selectTypeAndAdvance(input) {
+  if (!input) return;
+
+  input.checked = true;
+  applyTypeChange();
+
+  // 초기화/초안 복원은 이 함수를 거치지 않으며, 실제 1단계 선택에서만 이동한다.
+  if (currentFormStep !== 1) return;
+  trackFormStep(1);
+  showFormStep(2, true);
+}
+
 function getActiveConsentInputs() {
   const inputs = ['consentInput', 'marketingInput', 'legalInput']
     .map(id => document.getElementById(id))
@@ -650,7 +662,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 신청 유형 라디오
   document.querySelectorAll('input[name="type"]').forEach(input => {
-    input.addEventListener('change', applyTypeChange);
+    // click은 이미 선택된 카드 재탭을, change는 키보드 라디오 이동을 처리한다.
+    // 먼저 처리된 이벤트가 2단계로 이동하므로 뒤따르는 이벤트는 중복 이동하지 않는다.
+    input.addEventListener('click', function() {
+      selectTypeAndAdvance(input);
+    });
+    input.addEventListener('change', function() {
+      selectTypeAndAdvance(input);
+    });
   });
   applyTypeChange();
   if (!restoreDraft()) showFormStep(1, false);
