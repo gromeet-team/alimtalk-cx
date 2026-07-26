@@ -2048,7 +2048,74 @@ label .req {
   }
 
   .type-select-card .card-list > span {
-    font-size: 14px;
+    align-items: flex-start;
+    padding: 3px 0;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .type-radio-group {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .type-radio-group .type-select-card {
+    min-width: 0;
+    border-radius: 14px;
+  }
+
+  .type-radio-group .type-select-card .cont {
+    padding: 18px 9px 16px;
+  }
+
+  .type-radio-group .card-badge {
+    width: auto;
+    min-width: 58px;
+    padding: 4px 9px;
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .type-radio-group .card-image {
+    height: 108px;
+  }
+
+  .type-radio-group .card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .type-radio-group .type-select-card .title {
+    grid-template-columns: minmax(0, 1fr) 44px;
+    column-gap: 5px;
+  }
+
+  .type-radio-group .type-select-card .title > span:first-child {
+    width: 44px;
+    height: 44px;
+    padding: 4px;
+    font-size: 10px;
+  }
+
+  .type-radio-group .type-select-card .card-title {
+    font-size: 15px;
+    line-height: 1.25;
+    letter-spacing: -0.4px;
+  }
+
+  .type-radio-group .type-select-card .card-subtitle {
+    margin-top: 9px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .type-radio-group .type-select-card .card-list img {
+    width: 12px;
+    height: 12px;
+    margin-top: 2px;
+    margin-right: 4px;
   }
 
   .card-badge {
