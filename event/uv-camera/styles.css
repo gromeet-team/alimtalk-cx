@@ -855,7 +855,59 @@ label .req {
 .consent-section {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 12px;
+}
+
+.all-consent-row {
+  padding: 18px 20px;
+  border: 1.5px solid #292929;
+  border-radius: 10px;
+  background: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.consent-details {
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.consent-details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+  color: var(--text-dark);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.consent-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.consent-toggle {
+  flex-shrink: 0;
+  color: #737373;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.consent-toggle::before {
+  content: '펼쳐보기';
+}
+
+.consent-details[open] .consent-toggle::before {
+  content: '접기';
+}
+
+.consent-detail-body {
+  padding: 0 20px 18px;
 }
 
 .privacy-box {

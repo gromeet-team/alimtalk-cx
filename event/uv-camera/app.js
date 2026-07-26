@@ -80,6 +80,28 @@ function applyTypeChange() {
       clearFieldError('partnership');
     }
   }
+
+  syncAllConsentState();
+}
+
+function getActiveConsentInputs() {
+  const inputs = ['consentInput', 'marketingInput', 'legalInput']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+  if (document.body.classList.contains('sns-active')) {
+    const partnership = document.getElementById('partnershipInput');
+    if (partnership) inputs.push(partnership);
+  }
+  return inputs;
+}
+
+function syncAllConsentState() {
+  const master = document.getElementById('allConsentInput');
+  if (!master) return;
+  const inputs = getActiveConsentInputs();
+  const checkedCount = inputs.filter(input => input.checked).length;
+  master.checked = inputs.length > 0 && checkedCount === inputs.length;
+  master.indeterminate = checkedCount > 0 && checkedCount < inputs.length;
 }
 
 
@@ -120,6 +142,8 @@ function setFieldError(fieldId, message) {
   const field   = document.getElementById('field-' + fieldId);
   const errorEl = document.getElementById(fieldId + 'Error');
   if (field) field.classList.add('error');
+  const details = field && field.querySelector('.consent-details');
+  if (details) details.open = true;
   if (errorEl) errorEl.textContent = message;
 }
 
@@ -424,10 +448,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (el) el.addEventListener('input', function() { clearFieldError('address'); });
   });
 
+  const allConsentInput = document.getElementById('allConsentInput');
+  if (allConsentInput) {
+    allConsentInput.addEventListener('change', function() {
+      getActiveConsentInputs().forEach(function(input) {
+        input.checked = allConsentInput.checked;
+        clearFieldError(input.id.replace('Input', ''));
+      });
+      syncAllConsentState();
+    });
+  }
+
   ['consentInput', 'marketingInput', 'legalInput', 'partnershipInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener('change', function() {
       clearFieldError(id.replace('Input', ''));
+      syncAllConsentState();
     });
   });
 
