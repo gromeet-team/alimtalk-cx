@@ -210,6 +210,19 @@ button {
   font-weight: 800;
 }
 
+.hero-overlay-condition {
+  margin-top: 18px;
+  padding: 8px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.22);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
 /* ========== Section: Deadline ========== */
 .deadline-section {
   background: #fff;
@@ -1760,6 +1773,12 @@ label .req {
 
   .hero-overlay-sub {
     font-size: 18px;
+  }
+
+  .hero-overlay-condition {
+    margin-top: 14px;
+    padding: 7px 12px;
+    font-size: 13px;
   }
 
   .btn-group {
