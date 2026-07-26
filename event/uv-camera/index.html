@@ -478,8 +478,20 @@
     <h2 class="faq-title fade-up">이벤트 신청하기</h2>
     <!-- 신청 폼 -->
     <form id="applicationForm" class="apply-container" novalidate>
+      <div class="form-progress" aria-label="신청 진행 단계">
+        <div class="form-progress-track"><span id="formProgressBar"></span></div>
+        <div class="form-progress-steps">
+          <span data-step-indicator="1">신청유형</span>
+          <span data-step-indicator="2">기본정보</span>
+          <span data-step-indicator="3">배송지·OS</span>
+          <span data-step-indicator="4">SNS·공식몰</span>
+          <span data-step-indicator="5">동의</span>
+        </div>
+        <p class="form-step-title" id="formStepTitle" aria-live="polite">1단계 · 신청유형</p>
+      </div>
+
       <!-- 신청 유형 라디오 -->
-      <section class="type-section">
+      <section class="type-section" data-form-step="1">
         <label class="field-label">신청 유형<span class="req">*</span></label>
         <div class="type-radio-group">
           <label class="type-radio active">
@@ -504,26 +516,26 @@
       <!-- 공통 필드 -->
       <div class="form-grid">
 
-        <div class="field" id="field-name">
+        <div class="field" id="field-name" data-form-step="2">
           <label for="nameInput">성명<span class="req">*</span></label>
           <input type="text" id="nameInput" name="name" placeholder="성명을 입력해 주세요." autocomplete="name">
           <span class="error-msg" id="nameError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-tel">
+        <div class="field" id="field-tel" data-form-step="2">
           <label for="telInput">연락처<span class="req">*</span></label>
           <input type="tel" id="telInput" name="tel" placeholder="010-0000-0000" autocomplete="tel" maxlength="13">
           <span class="error-msg" id="telError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-cafeNickname">
+        <div class="field" id="field-cafeNickname" data-form-step="4">
           <label for="cafeNicknameInput">동결단 카페 닉네임<span class="optional-tag">(선택)</span></label>
           <input type="text" id="cafeNicknameInput" name="cafe_nickname" placeholder="가입한 경우에만 닉네임을 입력해 주세요." autocomplete="nickname" maxlength="30">
           <span class="hint-msg">· 선정 후 촬영 완료 시 동결단 네이버 카페에 [UV인증]닉네임으로 인증글을 업로드해 주세요.</span>
           <span class="error-msg" id="cafeNicknameError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-mallId">
+        <div class="field" id="field-mallId" data-form-step="4">
           <label for="mallIdInput">유비드 공식몰 아이디<span class="optional-tag">(선택)</span></label>
           <input type="text" id="mallIdInput" name="mallId" placeholder="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP"
             title="회원 신청 시 발송 선정 우선 / 한정 수량이라 당첨 확률 UP">
@@ -531,7 +543,7 @@
           <span class="error-msg" id="mallIdError" aria-live="polite"></span>
         </div>
 
-        <div class="field full" id="field-gender">
+        <div class="field full" id="field-gender" data-form-step="2">
           <label class="field-label">성별<span class="req">*</span></label>
           <div class="gender-radio-group">
             <label class="gender-radio"><input type="radio" name="gender" value="female"><span>여성</span></label>
@@ -540,7 +552,7 @@
           <span class="error-msg" id="genderError" aria-live="polite"></span>
         </div>
 
-        <div class="field" id="field-ageGroup">
+        <div class="field" id="field-ageGroup" data-form-step="2">
           <label for="ageGroupInput">연령대<span class="req">*</span></label>
           <select id="ageGroupInput" name="age_group">
             <option value="">선택해 주세요</option>
@@ -554,7 +566,7 @@
           <span class="error-msg" id="ageGroupError" aria-live="polite"></span>
         </div>
 
-        <div class="field full" id="field-snsUrl">
+        <div class="field full" id="field-snsUrl" data-form-step="4">
           <label for="snsUrlInput">인스타그램 URL<span class="req sns-req" id="snsUrlReq"
               style="display:none;">*</span></label>
           <input type="url" id="snsUrlInput" name="snsUrl" placeholder="https://instagram.com/계정명">
@@ -562,7 +574,7 @@
           <span class="error-msg" id="snsUrlError" aria-live="polite"></span>
         </div>
 
-        <div class="field full" id="field-address">
+        <div class="field full" id="field-address" data-form-step="3">
           <label>배송지<span class="req">*</span></label>
           <div class="address-row">
             <input type="text" id="postcodeInput" name="postcode" placeholder="우편번호" readonly>
@@ -573,7 +585,7 @@
           <span class="error-msg" id="addressError" aria-live="polite"></span>
         </div>
 
-        <div class="field full" id="field-phoneOs">
+        <div class="field full" id="field-phoneOs" data-form-step="3">
           <label class="field-label">사용 중인 휴대폰 OS<span class="req">*</span></label>
           <div class="phone-os-radio-group">
             <label class="phone-os-radio">
@@ -597,7 +609,7 @@
       <div class="consent-section">
 
         <!-- 1. 개인정보 수집·이용 (필수) -->
-        <div class="field full" id="field-consent">
+        <div class="field full" id="field-consent" data-form-step="5">
           <label class="field-label">개인정보 수집·이용 동의<span class="req">*</span></label>
           <div class="privacy-box">
             <p><strong>0. 참여 자격</strong>본 이벤트는 만 14세 이상만 신청 가능합니다.</p>
@@ -619,7 +631,7 @@
         </div>
 
         <!-- 2. 콘텐츠 2차 마케팅 활용 (필수) -->
-        <div class="field full" id="field-marketing">
+        <div class="field full" id="field-marketing" data-form-step="5">
           <label class="field-label">콘텐츠 2차 마케팅 활용 동의<span class="req">*</span></label>
           <div class="privacy-box">
             <p>유비드는 본 이벤트로 제출되는 영상·사진·게시물을 다음 채널에서 자유롭게 활용할 수 있습니다.</p>
@@ -635,7 +647,7 @@
         </div>
 
         <!-- 3. 콘텐츠 제출·UV 카메라 반납 의무 (필수, 모두) -->
-        <div class="field full" id="field-legal">
+        <div class="field full" id="field-legal" data-form-step="5">
           <label class="field-label">콘텐츠 제출·UV 카메라 반납 의무 동의<span class="req">*</span></label>
           <label class="check-row">
             <input type="checkbox" id="legalInput" name="agree_legal">
@@ -645,7 +657,7 @@
         </div>
 
         <!-- 4. 메타 파트너십 광고 (SNS형 필수, 참여형 비표시) -->
-        <div class="field full sns-only" id="field-partnership">
+        <div class="field full sns-only" id="field-partnership" data-form-step="5">
           <label class="field-label">메타 파트너십 광고 동의<span class="req">*</span></label>
           <div class="privacy-box partnership-box">
             <p class="partnership-headline">💎 <strong>유비드가 게시물에 무료 광고 부스트를 드립니다 (필수)</strong></p>
@@ -666,8 +678,13 @@
       <!-- 전체 오류 메시지 -->
       <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
 
+      <div class="form-nav">
+        <button type="button" id="prevStepBtn" class="btn-step btn-step-back" hidden>이전</button>
+        <button type="button" id="nextStepBtn" class="btn-step btn-step-next">다음</button>
+      </div>
+
       <!-- 제출 버튼 -->
-      <div class="submit-wrap">
+      <div class="submit-wrap" id="submitWrap" hidden>
         <button type="submit" id="submitBtn" class="btn-submit">
           <span class="btn-label">이벤트 신청하기</span>
           <span class="btn-spinner" aria-hidden="true"></span>

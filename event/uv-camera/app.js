@@ -134,8 +134,17 @@ function clearFieldError(fieldId) {
 // ----------------------------------------------------------------
 // 유효성 검사
 // ----------------------------------------------------------------
-function validateForm() {
+let currentFormStep = 1;
+const FORM_STEP_COUNT = 5;
+const FORM_STEP_TITLES = ['신청유형', '기본정보', '배송지·OS', 'SNS·공식몰', '동의'];
+
+function validateForm(stepNumber) {
   let isValid = true;
+  const validateAll = !stepNumber;
+  const checkStep2 = validateAll || stepNumber === 2;
+  const checkStep3 = validateAll || stepNumber === 3;
+  const checkStep4 = validateAll || stepNumber === 4;
+  const checkStep5 = validateAll || stepNumber === 5;
 
   ['name', 'tel', 'cafeNickname', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
@@ -149,86 +158,125 @@ function validateForm() {
   const checked  = document.querySelector('input[name="type"]:checked');
   const isSNS    = checked && checked.value === 'influencer_challenge';
 
-  if (!name) {
-    setFieldError('name', '성명을 입력해 주세요.');
-    isValid = false;
-  }
-
-  if (!tel) {
-    setFieldError('tel', '연락처를 입력해 주세요.');
-    isValid = false;
-  } else if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(tel)) {
-    setFieldError('tel', '올바른 연락처를 입력해 주세요. (예: 010-1234-5678)');
-    isValid = false;
-  }
-
-  if (cafeNickname && cafeNickname.length > 30) {
-    setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
-    isValid = false;
-  }
-
-  const snsUrl = document.getElementById('snsUrlInput').value.trim();
-  if (isSNS) {
-    if (!snsUrl) {
-      setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+  if (checkStep2) {
+    if (!name) {
+      setFieldError('name', '성명을 입력해 주세요.');
       isValid = false;
-    } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+    }
+
+    if (!tel) {
+      setFieldError('tel', '연락처를 입력해 주세요.');
+      isValid = false;
+    } else if (!/^01[0-9]-\d{3,4}-\d{4}$/.test(tel)) {
+      setFieldError('tel', '올바른 연락처를 입력해 주세요. (예: 010-1234-5678)');
+      isValid = false;
+    }
+
+    const gender = document.querySelector('input[name="gender"]:checked');
+    if (!gender) {
+      setFieldError('gender', '성별을 선택해 주세요.');
+      isValid = false;
+    }
+
+    const ageGroup = document.getElementById('ageGroupInput').value;
+    if (!ageGroup) {
+      setFieldError('ageGroup', '연령대를 선택해 주세요.');
+      isValid = false;
+    }
+  }
+
+  if (checkStep3) {
+    if (!postcode) {
+      setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
+      isValid = false;
+    }
+
+    const phoneOs = document.querySelector('input[name="phone_os"]:checked');
+    if (!phoneOs) {
+      setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
+      isValid = false;
+    }
+  }
+
+  if (checkStep4) {
+    if (cafeNickname && cafeNickname.length > 30) {
+      setFieldError('cafeNickname', '닉네임은 30자 이하로 입력해 주세요.');
+      isValid = false;
+    }
+
+    const snsUrl = document.getElementById('snsUrlInput').value.trim();
+    if (isSNS) {
+      if (!snsUrl) {
+        setFieldError('snsUrl', '인스타그램 URL을 입력해 주세요.');
+        isValid = false;
+      } else if (!/^https?:\/\/.+/.test(snsUrl)) {
+        setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
+        isValid = false;
+      }
+    } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
       setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
       isValid = false;
     }
-  } else if (snsUrl && !/^https?:\/\/.+/.test(snsUrl)) {
-    setFieldError('snsUrl', 'http:// 또는 https://로 시작하는 URL을 입력해 주세요.');
-    isValid = false;
   }
 
-  if (!postcode) {
-    setFieldError('address', '주소검색 버튼을 눌러 주소를 선택해 주세요.');
-    isValid = false;
-  }
-
-  const phoneOs = document.querySelector('input[name="phone_os"]:checked');
-  if (!phoneOs) {
-    setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
-    isValid = false;
-  }
-
-  const gender = document.querySelector('input[name="gender"]:checked');
-  if (!gender) {
-    setFieldError('gender', '성별을 선택해 주세요.');
-    isValid = false;
-  }
-
-  const ageGroup = document.getElementById('ageGroupInput').value;
-  if (!ageGroup) {
-    setFieldError('ageGroup', '연령대를 선택해 주세요.');
-    isValid = false;
-  }
-
-  if (!consent) {
-    setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
-    isValid = false;
-  }
-
-  if (!marketing) {
-    setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
-    isValid = false;
-  }
-
-  const legal = document.getElementById('legalInput').checked;
-  if (!legal) {
-    setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
-    isValid = false;
-  }
-
-  if (isSNS) {
-    const partnership = document.getElementById('partnershipInput').checked;
-    if (!partnership) {
-      setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+  if (checkStep5) {
+    if (!consent) {
+      setFieldError('consent', '개인정보 수집·이용에 동의해 주세요.');
       isValid = false;
+    }
+
+    if (!marketing) {
+      setFieldError('marketing', '콘텐츠 2차 마케팅 활용에 동의해 주세요.');
+      isValid = false;
+    }
+
+    const legal = document.getElementById('legalInput').checked;
+    if (!legal) {
+      setFieldError('legal', '콘텐츠 제출·UV 카메라 반납 의무 동의가 필요합니다.');
+      isValid = false;
+    }
+
+    if (isSNS) {
+      const partnership = document.getElementById('partnershipInput').checked;
+      if (!partnership) {
+        setFieldError('partnership', '메타 파트너십 광고 동의가 필요합니다.');
+        isValid = false;
+      }
     }
   }
 
   return isValid;
+}
+
+function showFormStep(stepNumber, moveFocus) {
+  currentFormStep = Math.min(Math.max(stepNumber, 1), FORM_STEP_COUNT);
+
+  document.querySelectorAll('[data-form-step]').forEach(function(element) {
+    element.hidden = Number(element.dataset.formStep) !== currentFormStep;
+  });
+
+  document.querySelectorAll('[data-step-indicator]').forEach(function(indicator) {
+    const step = Number(indicator.dataset.stepIndicator);
+    indicator.classList.toggle('active', step === currentFormStep);
+    indicator.classList.toggle('complete', step < currentFormStep);
+  });
+
+  document.getElementById('formProgressBar').style.width = ((currentFormStep - 1) / (FORM_STEP_COUNT - 1) * 100) + '%';
+  document.getElementById('formStepTitle').textContent = currentFormStep + '단계 · ' + FORM_STEP_TITLES[currentFormStep - 1];
+  document.getElementById('prevStepBtn').hidden = currentFormStep === 1;
+  document.getElementById('nextStepBtn').hidden = currentFormStep === FORM_STEP_COUNT;
+  document.getElementById('submitWrap').hidden = currentFormStep !== FORM_STEP_COUNT;
+
+  if (moveFocus) {
+    document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function showFirstInvalidStep() {
+  const firstError = document.querySelector('.field.error[data-form-step]');
+  if (firstError) showFormStep(Number(firstError.dataset.formStep), false);
+  const visibleError = document.querySelector('.field.error:not([hidden])');
+  if (visibleError) visibleError.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 
@@ -312,6 +360,7 @@ function resetForm() {
   const freeTrialRadio = document.querySelector('input[name="type"][value="free_trial"]');
   if (freeTrialRadio) freeTrialRadio.checked = true;
   applyTypeChange();
+  showFormStep(1, false);
 
   document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
   document.querySelectorAll('.error-msg').forEach(el => { el.textContent = ''; });
@@ -345,6 +394,19 @@ document.addEventListener('DOMContentLoaded', function() {
     input.addEventListener('change', applyTypeChange);
   });
   applyTypeChange();
+  showFormStep(1, false);
+
+  document.getElementById('nextStepBtn').addEventListener('click', function() {
+    if (!validateForm(currentFormStep)) {
+      showFirstInvalidStep();
+      return;
+    }
+    showFormStep(currentFormStep + 1, true);
+  });
+
+  document.getElementById('prevStepBtn').addEventListener('click', function() {
+    showFormStep(currentFormStep - 1, true);
+  });
 
   // 전화번호 자동 하이픈
   document.getElementById('telInput').addEventListener('input', function() {
@@ -388,8 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
 
     if (!validateForm()) {
-      var firstError = document.querySelector('.field.error');
-      if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showFirstInvalidStep();
       return;
     }
 

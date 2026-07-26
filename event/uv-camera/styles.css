@@ -461,6 +461,55 @@ button {
   border-radius: 20px;
 }
 
+[data-form-step][hidden] {
+  display: none !important;
+}
+
+.form-progress {
+  margin-bottom: 48px;
+}
+
+.form-progress-track {
+  height: 4px;
+  overflow: hidden;
+  background: #ECECEC;
+  border-radius: 999px;
+}
+
+.form-progress-track span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: #292929;
+  border-radius: inherit;
+  transition: width 0.25s ease;
+}
+
+.form-progress-steps {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.form-progress-steps span {
+  font-size: 13px;
+  font-weight: 500;
+  color: #A5A5A5;
+}
+
+.form-progress-steps span.active,
+.form-progress-steps span.complete {
+  color: #292929;
+}
+
+.form-step-title {
+  margin-top: 32px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #292929;
+}
+
 .apply-title {
   font-family: inherit;
   font-size: clamp(40px, 4.167vw, 80px);
@@ -809,6 +858,35 @@ label .req {
   background: #fff5f2;
   border: 1px solid #FFD5C5;
   border-radius: 8px;
+}
+
+.form-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.btn-step {
+  min-width: 140px;
+  min-height: 50px;
+  padding: 14px 32px;
+  border: 1px solid #292929;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-step-back {
+  color: #292929;
+  background: #fff;
+}
+
+.btn-step-next {
+  color: #fff;
+  background: #292929;
 }
 
 /* ============ 제출 버튼 + 스피너 ============ */
@@ -1750,6 +1828,23 @@ label .req {
     margin-bottom: 20px;
   }
 
+  .form-progress {
+    margin-bottom: 32px;
+  }
+
+  .form-progress-steps {
+    gap: 4px;
+  }
+
+  .form-progress-steps span {
+    font-size: 10px;
+  }
+
+  .form-step-title {
+    margin-top: 24px;
+    font-size: 20px;
+  }
+
   .divider {
     margin: 32px 0;
   }
@@ -1792,6 +1887,16 @@ label .req {
     padding: 16px;
     font-size: 16px;
     min-height: 50px;
+  }
+
+  .form-nav {
+    margin-top: 32px;
+  }
+
+  .btn-step {
+    flex: 1;
+    min-width: 0;
+    font-size: 16px;
   }
 
   .sticky-apply-cta {
