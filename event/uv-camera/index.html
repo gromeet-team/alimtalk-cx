@@ -73,50 +73,6 @@
   </script>
 
   <script>
-    // Vimeo가 정상 재생 준비를 마친 경우에만 영상을 노출합니다.
-    // 비공개 설정·네트워크 오류가 있으면 제품 비주얼 폴백을 유지합니다.
-    document.addEventListener('DOMContentLoaded', () => {
-      const videoRoot = document.querySelector('.mainVideo');
-      const videos = Array.from(document.querySelectorAll('.mainVideo .video'));
-      if (!videoRoot || !videos.length || typeof Vimeo === 'undefined' || !Vimeo.Player) return;
-
-      const mobileMedia = window.matchMedia('(max-width: 767px)');
-      const syncActiveVideo = () => {
-        const activeVideo = videoRoot.querySelector(mobileMedia.matches ? '.video.mobile' : '.video.pc');
-        videoRoot.classList.toggle('video-ready', !!activeVideo && activeVideo.classList.contains('is-ready'));
-      };
-
-      videos.forEach(video => {
-        const iframe = video.querySelector('iframe');
-        if (!iframe) return;
-
-        const timeout = new Promise((_, reject) => {
-          window.setTimeout(() => reject(new Error('Vimeo ready timeout')), 6000);
-        });
-
-        try {
-          const player = new Vimeo.Player(iframe);
-          Promise.race([player.ready(), timeout])
-            .then(() => {
-              video.classList.add('is-ready');
-              syncActiveVideo();
-            })
-            .catch(err => console.warn('Vimeo fallback active:', err));
-        } catch (err) {
-          console.warn('Vimeo fallback active:', err);
-        }
-      });
-
-      if (typeof mobileMedia.addEventListener === 'function') {
-        mobileMedia.addEventListener('change', syncActiveVideo);
-      } else {
-        mobileMedia.addListener(syncActiveVideo);
-      }
-      syncActiveVideo();
-    });
-  </script>
-
-  <script>
     // FAQ 아코디언 — 각 항목 독립 토글
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.faq-question').forEach(btn => {
@@ -219,9 +175,6 @@
   <section id="main" class="layout">
     <div class="videoWrap">
       <div class="mainVideo" data-ez="contents-1adw4yz-1">
-        <div class="hero-fallback" aria-hidden="true">
-          <img src="images/sunpad_6_m.webp" alt="">
-        </div>
         <div class="video pc">
           <iframe
             src="https://player.vimeo.com/video/1187152751?h=bace74890f&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;title=0&amp;controls=0&amp;background=1&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"

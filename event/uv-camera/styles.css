@@ -112,7 +112,7 @@ button {
   height: 0;
   padding-bottom: 56.25%;
   /* 16:9 비율 유지 */
-  z-index: 1;
+  z-index: 0;
   overflow: hidden;
 }
 
@@ -124,36 +124,7 @@ button {
   left: 0;
   transform: translateY(-50%);
   border: 0;
-  opacity: 0;
-  transition: opacity .35s ease;
-}
-
-#main .mainVideo.video-ready .video iframe {
   opacity: 1;
-}
-
-.hero-fallback {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.96) 0 18%, rgba(255, 249, 192, 0.82) 42%, rgba(255, 191, 138, 0.78) 100%),
-    #fff9d9;
-  transition: opacity .35s ease;
-}
-
-.hero-fallback img {
-  width: min(38vw, 560px);
-  height: auto;
-  filter: drop-shadow(0 24px 32px rgba(41, 41, 41, 0.18));
-}
-
-.mainVideo.video-ready .hero-fallback {
-  opacity: 0;
 }
 
 /* ============ 히어로 영상 오버레이 (가치 카피) ============ */
@@ -1842,12 +1813,6 @@ label .req {
     left: 50%;
     transform: translate(-50%, -50%);
   }
-
-  .hero-fallback img {
-    width: min(88vw, 430px);
-  }
-
-
 
   /* hero overlay */
   .hero-overlay {
