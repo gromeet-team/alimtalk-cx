@@ -20,6 +20,8 @@ const PACKAGE_VALUE = {
 const APPLIED_KEY = 'uvidUvCameraApplied';
 const DRAFT_KEY = 'uvidUvCameraDraft';
 const DRAFT_TTL_MS = 24 * 60 * 60 * 1000;
+const PIXEL_EVENTS_KEY = 'uvidUvCameraPixelEvents';
+const firedPixelEvents = new Set();
 let draftExpiryTimer = null;
 let draftTrackingReady = false;
 
@@ -449,6 +451,58 @@ function validateForm(stepNumber) {
   return isValid;
 }
 
+function getSelectedType() {
+  const checked = document.querySelector('input[name="type"]:checked');
+  return checked ? checked.value : 'free_trial';
+}
+
+function hasFiredPixelEvent(eventName) {
+  if (firedPixelEvents.has(eventName)) return true;
+
+  try {
+    const storedEvents = JSON.parse(sessionStorage.getItem(PIXEL_EVENTS_KEY) || '[]');
+    if (Array.isArray(storedEvents) && storedEvents.includes(eventName)) {
+      firedPixelEvents.add(eventName);
+      return true;
+    }
+  } catch (_) {
+    // sessionStorage 접근 실패 시 메모리 Set만 사용
+  }
+
+  return false;
+}
+
+function rememberPixelEvent(eventName) {
+  firedPixelEvents.add(eventName);
+
+  try {
+    const storedEvents = JSON.parse(sessionStorage.getItem(PIXEL_EVENTS_KEY) || '[]');
+    const nextEvents = Array.isArray(storedEvents) ? storedEvents : [];
+    if (!nextEvents.includes(eventName)) nextEvents.push(eventName);
+    sessionStorage.setItem(PIXEL_EVENTS_KEY, JSON.stringify(nextEvents));
+  } catch (_) {
+    // sessionStorage 접근 실패 시 메모리 Set에 기록된 상태 유지
+  }
+}
+
+function trackFormPixelEvent(eventName, isCustom) {
+  if (hasFiredPixelEvent(eventName) || typeof fbq !== 'function') return;
+
+  try {
+    fbq(isCustom ? 'trackCustom' : 'track', eventName, {
+      content_name: 'uv_camera_event',
+      content_category: getSelectedType(),
+    });
+    rememberPixelEvent(eventName);
+  } catch (err) {
+    console.warn('fbq ' + eventName + ' failed:', err);
+  }
+}
+
+function trackFormStep(stepNumber) {
+  trackFormPixelEvent('UvcamStep' + stepNumber, true);
+}
+
 function showFormStep(stepNumber, moveFocus) {
   currentFormStep = Math.min(Math.max(stepNumber, 1), FORM_STEP_COUNT);
 
@@ -469,6 +523,7 @@ function showFormStep(stepNumber, moveFocus) {
   document.getElementById('submitWrap').hidden = currentFormStep !== FORM_STEP_COUNT;
   syncConditionalStepControls();
   saveDraft();
+  if (currentFormStep === 1) trackFormPixelEvent('InitiateCheckout', false);
 
   if (moveFocus) {
     document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -610,6 +665,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showFirstInvalidStep();
       return;
     }
+    trackFormStep(currentFormStep);
     showFormStep(currentFormStep + 1, true);
   });
 
@@ -687,6 +743,7 @@ document.addEventListener('DOMContentLoaded', function() {
       showFirstInvalidStep();
       return;
     }
+    trackFormStep(5);
 
     var submitBtn = document.getElementById('submitBtn');
     var btnLabel  = submitBtn.querySelector('.btn-label');
