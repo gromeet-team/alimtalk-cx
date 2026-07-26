@@ -171,7 +171,7 @@ function clearFieldError(fieldId) {
 // ----------------------------------------------------------------
 let currentFormStep = 1;
 const FORM_STEP_COUNT = 5;
-const FORM_STEP_TITLES = ['신청유형', '기본정보', '배송지·OS', 'SNS·공식몰', '동의'];
+const FORM_STEP_TITLES = ['신청유형', '기본정보', '배송지·OS', 'SNS', '동의'];
 
 function validateForm(stepNumber) {
   let isValid = true;
