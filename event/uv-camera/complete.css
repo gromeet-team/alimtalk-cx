@@ -163,6 +163,21 @@ button {
   margin: 0 10px;
 }
 
+.lockin-cta-buttons .btn-lockin-cafe {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #03C75A;
+}
+
+.btn-lockin-cafe svg {
+  width: 62px;
+  height: 62px;
+}
+
 .btn-reset {
   display: inline-block;
   padding: 15px 60px;
@@ -290,6 +305,16 @@ button {
 
   .lockin-cta-buttons a img {
     width: 60px;
+  }
+
+  .lockin-cta-buttons .btn-lockin-cafe {
+    width: 60px;
+    height: 60px;
+  }
+
+  .btn-lockin-cafe svg {
+    width: 38px;
+    height: 38px;
   }
 
   .apply-container {
