@@ -159,22 +159,18 @@ button {
 
 .lockin-cta-buttons a {
   display: block;
-  width: fit-content;
-  margin: 0 10px;
-}
-
-.lockin-cta-buttons .btn-lockin-cafe {
-  display: block;
   width: 100px;
   height: 100px;
+  margin: 0 10px;
   border-radius: 50%;
   overflow: hidden;
 }
 
-.btn-lockin-cafe img {
+.lockin-cta-buttons a img {
   display: block;
   width: 100%;
   height: 100%;
+  border-radius: 50%;
   object-fit: cover;
 }
 
@@ -303,11 +299,7 @@ button {
     margin-bottom: 30px;
   }
 
-  .lockin-cta-buttons a img {
-    width: 60px;
-  }
-
-  .lockin-cta-buttons .btn-lockin-cafe {
+  .lockin-cta-buttons a {
     width: 60px;
     height: 60px;
   }
