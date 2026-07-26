@@ -1577,6 +1577,13 @@ label .req {
   border-bottom: 1px solid #d5d5d5;
 }
 
+.main-accordions .fade-up,
+.main-accordions .fade-up.in-view {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
 .main-details > summary {
   position: relative;
   padding: 28px 4px;
