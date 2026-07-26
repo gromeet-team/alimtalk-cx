@@ -146,7 +146,7 @@ function validateForm(stepNumber) {
   const checkStep4 = validateAll || stepNumber === 4;
   const checkStep5 = validateAll || stepNumber === 5;
 
-  ['name', 'tel', 'mallId', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
+  ['name', 'tel', 'snsUrl', 'address', 'phoneOs', 'gender', 'ageGroup', 'consent', 'marketing', 'legal', 'partnership']
     .forEach(clearFieldError);
 
   const name          = document.getElementById('nameInput').value.trim();
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 입력 시 해당 필드 에러 초기화
-  ['nameInput', 'mallIdInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
+  ['nameInput', 'snsUrlInput', 'ageGroupInput'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) {
       const evt = el.tagName === 'SELECT' ? 'change' : 'input';
@@ -465,7 +465,6 @@ document.addEventListener('DOMContentLoaded', function() {
       contact:             document.getElementById('telInput').value.trim(),
       type:                typeValue,
       packageType:         PACKAGE_LABEL[typeValue],
-      mallId:              document.getElementById('mallIdInput').value.trim(),
       snsUrl:              instagramUrl,
       instagramUrl:        instagramUrl,
       phoneOs:             (document.querySelector('input[name="phone_os"]:checked') || {}).value || '',

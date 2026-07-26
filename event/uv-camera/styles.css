@@ -767,6 +767,23 @@ label .req {
   margin-top: 15px;
 }
 
+.form-step-note {
+  gap: 6px;
+  padding: 18px 20px;
+  border-radius: 10px;
+  background: #fff9d9;
+  color: #292929;
+}
+
+.form-step-note strong {
+  font-size: 16px;
+}
+
+.form-step-note span {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
 /* 주소 영역 */
 .address-row {
   display: flex;
