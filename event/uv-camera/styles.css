@@ -697,6 +697,35 @@ label .req {
   margin-right: 10px;
 }
 
+.apply-type-section .title,
+.type-select-card .title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 80px;
+  grid-template-areas:
+    "heading badge"
+    "subtitle subtitle";
+  column-gap: 12px;
+  align-items: center;
+}
+
+.apply-type-section .title > div,
+.type-select-card .title > span:first-child {
+  position: static;
+  grid-area: badge;
+}
+
+.apply-type-section .card-title,
+.type-select-card .card-title {
+  grid-area: heading;
+  margin-bottom: 0;
+}
+
+.apply-type-section .card-subtitle,
+.type-select-card .card-subtitle {
+  grid-area: subtitle;
+  margin-top: 12px;
+}
+
 /* 구분선 */
 .divider {
   border: none;
@@ -1509,12 +1538,14 @@ label .req {
   content: '−';
 }
 
-.main-detail-content .deadline-section,
-.main-detail-content .steps-section,
-.main-detail-content .notice-section,
-.main-detail-content .faq-section {
+.main-detail-block {
   padding-top: 64px;
   padding-bottom: 80px;
+}
+
+.main-deadline-block,
+.main-steps-block {
+  text-align: center;
 }
 
 
@@ -1780,10 +1811,11 @@ label .req {
   }
 
   .type-select-card .title > span:first-child {
+    position: static;
     width: 60px;
     height: 60px;
     font-size: 14px;
-    top: -25px;
+    top: auto;
   }
 
   .apply-card .cont {
@@ -1791,10 +1823,16 @@ label .req {
   }
 
   .title>div {
+    position: static;
     width: 60px;
     height: 60px;
     font-size: 14px;
-    top: -25px;
+    top: auto;
+  }
+
+  .apply-type-section .title,
+  .type-select-card .title {
+    grid-template-columns: minmax(0, 1fr) 60px;
   }
 
 
@@ -2005,10 +2043,7 @@ label .req {
     right: 2px;
   }
 
-  .main-detail-content .deadline-section,
-  .main-detail-content .steps-section,
-  .main-detail-content .notice-section,
-  .main-detail-content .faq-section {
+  .main-detail-block {
     padding-top: 40px;
     padding-bottom: 52px;
   }

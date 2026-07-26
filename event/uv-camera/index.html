@@ -99,16 +99,44 @@
       const accordions = document.createElement('section');
       accordions.className = 'main-accordions';
 
+      const missionFragment = document.createDocumentFragment();
+      [
+        [deadline, 'main-deadline-block'],
+        [steps, 'main-steps-block'],
+        [notice, 'main-notice-block']
+      ].forEach(([section, className]) => {
+        const block = document.createElement('div');
+        block.className = `main-detail-block ${className}`;
+        while (section.firstChild) block.appendChild(section.firstChild);
+        missionFragment.appendChild(block);
+        section.remove();
+      });
+
+      const faqFragment = document.createDocumentFragment();
+      const faqBlock = document.createElement('div');
+      faqBlock.className = 'main-detail-block main-faq-block';
+      while (faq.firstChild) faqBlock.appendChild(faq.firstChild);
+      faqFragment.appendChild(faqBlock);
+      faq.remove();
+
+      const revealContent = (details, fragment) => {
+        details.addEventListener('toggle', () => {
+          const content = details.querySelector('.main-detail-content');
+          if (!details.open || content.childElementCount) return;
+          content.appendChild(fragment);
+          content.querySelectorAll('.fade-up').forEach(element => element.classList.add('in-view'));
+        });
+      };
+
       const missionDetails = document.createElement('details');
       missionDetails.className = 'main-details';
       missionDetails.innerHTML = '<summary><span>안내사항 보기</span><small>UV카메라는 체험 후 반납 · 선패드는 증정 · 14일 내 촬영/인증</small></summary><div class="main-detail-content"></div>';
-      const missionContent = missionDetails.querySelector('.main-detail-content');
-      missionContent.append(deadline, steps, notice);
+      revealContent(missionDetails, missionFragment);
 
       const faqDetails = document.createElement('details');
       faqDetails.className = 'main-details';
       faqDetails.innerHTML = '<summary><span>자주 묻는 질문 보기</span></summary><div class="main-detail-content"></div>';
-      faqDetails.querySelector('.main-detail-content').append(faq);
+      revealContent(faqDetails, faqFragment);
 
       accordions.append(missionDetails, faqDetails);
       apply.insertAdjacentElement('afterend', accordions);
