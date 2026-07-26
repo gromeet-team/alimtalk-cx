@@ -733,6 +733,18 @@ label .req {
   margin: 48px 0;
 }
 
+.type-section:not([hidden]) + .divider {
+  margin: 24px 0 0;
+}
+
+.type-section:not([hidden]) ~ .form-grid {
+  display: none;
+}
+
+.type-section:not([hidden]) ~ .form-nav {
+  margin-top: 24px;
+}
+
 /* 폼 그리드 */
 .form-grid {
   display: grid;
