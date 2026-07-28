@@ -357,7 +357,7 @@ function clearFieldError(fieldId) {
 // ----------------------------------------------------------------
 let currentFormStep = 1;
 const FORM_STEP_COUNT = 5;
-const FORM_STEP_TITLES = ['신청유형', '기본정보', '배송지·OS', 'SNS', '동의'];
+const FORM_STEP_TITLES = ['신청유형', '기본정보', '배송지·단자', 'SNS', '동의'];
 
 function validateForm(stepNumber) {
   let isValid = true;
@@ -413,7 +413,7 @@ function validateForm(stepNumber) {
 
     const phoneOs = document.querySelector('input[name="phone_os"]:checked');
     if (!phoneOs) {
-      setFieldError('phoneOs', '사용 중인 휴대폰 OS를 선택해 주세요.');
+      setFieldError('phoneOs', '사용 중인 휴대폰 연결 단자를 선택해 주세요.');
       isValid = false;
     }
   }
@@ -746,7 +746,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // 라디오 그룹 (휴대폰 OS, 성별)
+  // 라디오 그룹 (연결 단자, 성별)
   document.querySelectorAll('input[name="phone_os"]').forEach(input => {
     input.addEventListener('change', function() { clearFieldError('phoneOs'); });
   });
