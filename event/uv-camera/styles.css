@@ -331,8 +331,7 @@ button {
   font-size: 22px;
   font-weight: 600;
   letter-spacing: 0.5px;
-  margin: auto;
-  margin-bottom: 35px;
+  margin: 30px auto 0;
   text-align: center;
 }
 
@@ -2227,10 +2226,6 @@ label .req {
     height: 12px;
     margin-top: 2px;
     margin-right: 4px;
-  }
-
-  .card-badge {
-    margin-bottom: 20px;
   }
 
   .card-subtitle {
