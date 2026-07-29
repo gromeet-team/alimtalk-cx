@@ -151,7 +151,7 @@
 
       const missionDetails = document.createElement('details');
       missionDetails.className = 'main-details';
-      missionDetails.innerHTML = '<summary><span>안내사항</span><small>UV카메라는 체험 후 반납 · 선패드는 증정 · 14일 내 촬영/인증</small></summary><div class="main-detail-content"></div>';
+      missionDetails.innerHTML = '<summary><span>안내사항</span><small>UV카메라는 체험 후 반납 · 선패드는 증정 · 7일 내 촬영/인증</small></summary><div class="main-detail-content"></div>';
       revealContent(missionDetails, missionFragment);
 
       const faqDetails = document.createElement('details');
@@ -336,7 +336,7 @@
       <h2 class="notice-title fade-up">안내 사항</h2>
       <div class="text fade-up">
         <p class="notice-text">
-          제품 수령 후 14일 이내 촬영 영상 콘텐츠 제출 및 UV 카메라를 반납해주셔야 합니다.<br>(미이행 시 약관에 따라 법적 책임을 물을 수 있습니다.)
+          제품 수령 후 7일 이내 촬영 영상 콘텐츠 제출 및 UV 카메라를 반납해주셔야 합니다.<br>(미이행 시 약관에 따라 법적 책임을 물을 수 있습니다.)
         </p>
         <p class="notice-text">
           영상 콘텐츠는 <strong>동결단 네이버 카페</strong>에 <strong>[UV인증]닉네임</strong> 제목으로 인증글을 업로드해주세요.
@@ -409,7 +409,7 @@
           </button>
           <div class="faq-answer">
             <div class="faq-answer-inner">
-              아니요. 30일 사용 의무는 없으며 제품 수령 후 14일 이내로만 3단계 콘텐츠 영상 촬영 진행 후<br>
+              아니요. 30일 사용 의무는 없으며 제품 수령 후 7일 이내로만 3단계 콘텐츠 영상 촬영 진행 후<br>
               동결단 네이버 카페에 <strong>[UV인증]닉네임</strong> 제목으로 인증글을 업로드해주시면 됩니다.
             </div>
           </div>
@@ -692,9 +692,16 @@
               <span class="consent-toggle" aria-hidden="true"></span>
             </summary>
             <div class="consent-detail-body">
+              <div class="privacy-box legal-consent-box">
+                <p>본인은 체험 제품과 UV 카메라를 수령한 후, <strong>제품 수령일로부터 7일 이내</strong>에 안내된 콘텐츠를 제출·게시하고 UV 카메라를 반납해야 함을 확인합니다.</p>
+                <p>정당한 사유 없이 위 의무를 이행하지 않고, 유비드의 별도 이행 요청에도 응하지 않을 경우 다음 비용에 대한 손해배상 청구 및 관련 법령에 따른 조치가 진행될 수 있습니다.</p>
+                <p><strong>콘텐츠 미제출·후기 미게시</strong>제공받은 제품의 판매가 및 최초 발송 배송비</p>
+                <p><strong>UV 카메라 미반납·분실·훼손</strong>UV 카메라 가액 및 반납·회수 과정에서 실제 발생한 비용</p>
+                <p>불가피한 사유로 기한 내 이행이 어려운 경우, 반드시 기한 전에 유비드 고객센터와 협의해야 합니다.</p>
+              </div>
               <label class="check-row">
                 <input type="checkbox" id="legalInput" name="agree_legal">
-                <span>콘텐츠 제출 의무·UV 카메라 반납 의무 미이행 시 손해배상 청구·민형사상 법적 조치 가능에 동의합니다. <em class="req-text">(필수)</em></span>
+                <span>위 콘텐츠 제출·게시 및 UV 카메라 반납 의무와 미이행 시 비용 청구 기준을 확인했으며 이에 동의합니다. <em class="req-text">(필수)</em></span>
               </label>
               <span class="error-msg" id="legalError" aria-live="polite"></span>
             </div>

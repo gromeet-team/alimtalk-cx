@@ -971,6 +971,11 @@ label .req {
   margin-bottom: 2px;
 }
 
+.legal-consent-box {
+  max-height: none;
+  overflow-y: visible;
+}
+
 
 .partnership-headline {
   font-size: 16px;
