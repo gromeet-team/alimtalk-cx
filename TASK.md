@@ -14,6 +14,12 @@
 - [x] 운영 URL의 HTML 메타태그 및 이미지 HTTP 200 확인
 - [x] Production 배포 후 실제 운영 응답 재검증
 
+## 네이버 캐시 후속 보완
+
+- [ ] 기존 `og-image-placeholder.png` 경로도 실제 이미지로 교체
+- [ ] 페이지·이미지 Open Graph URL에 캐시 갱신용 버전값 적용
+- [ ] 버전 URL의 네이버 크롤러 응답과 이미지 해시 검증
+
 ---
 
 # 이전 작업 — UVID UV카메라 SNS 게시물 유지 의무 문구 보완
