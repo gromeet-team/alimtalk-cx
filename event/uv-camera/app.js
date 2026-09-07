@@ -824,6 +824,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var instagramUrl = document.getElementById('snsUrlInput').value.trim();
 
+    // Lead eventID를 제출 전에 생성 → 서버 CAPI·클라 픽셀·완료 페이지가 동일 eventID로 중복제거.
+    var leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+
     var payload = {
       applicantName:       document.getElementById('nameInput').value.trim(),
       contact:             document.getElementById('telInput').value.trim(),
@@ -844,14 +847,15 @@ document.addEventListener('DOMContentLoaded', function() {
       // 메타 픽셀 서버 사이드 매칭용
       fbp:                 getCookie('_fbp'),
       fbc:                 getCookie('_fbc'),
+      // 서버 CAPI Lead가 동일 eventID로 발화하도록 전달 (Pixel↔CAPI 중복제거).
+      metaEventId:         leadEventId,
     };
 
     try {
       await submitForm(payload);
       mpTrack('uvcam_submit', { type: typeValue });
       // 제출 성공 시점에 Lead + InitiateCheckout 발화 (머신러닝 최적화 신호).
-      // Lead는 eventID를 완료 페이지로 넘겨 동일 eventID로 중복제거 → 완료 페이지 발화는 유실 대비 백업.
-      var leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      // Lead eventID는 위에서 생성해 서버로도 전달 → 완료 페이지로 넘겨 동일 eventID로 중복제거(완료 페이지·CAPI는 유실 대비 백업).
       trackLead(typeValue, leadEventId);
       trackInitiateCheckout(typeValue);
       showSuccess(typeValue, leadEventId);
