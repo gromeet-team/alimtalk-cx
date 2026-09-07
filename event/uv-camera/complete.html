@@ -109,12 +109,14 @@
         var LEAD_GUARD_KEY = 'uvcamLeadFired';
         if (typeof fbq === 'function' && sessionStorage.getItem(LEAD_GUARD_KEY) !== '1') {
           var VALUE_MAP = { free_trial: 49000, influencer_challenge: 249000 };
+          // 제출 시점(app.js)에서 넘어온 eventID로 동일 Lead 중복제거. 완료 페이지 발화는 유실 대비 백업.
+          var leadEid = params.get('eid');
           fbq('track', 'Lead', {
             content_name:     'uv_camera_event',
             content_category: typeValue === 'influencer_challenge' ? 'influencer_challenge' : 'free_trial',
             value:            VALUE_MAP[typeValue] || 49000,
             currency:         'KRW',
-          });
+          }, leadEid ? { eventID: leadEid } : undefined);
           sessionStorage.setItem(LEAD_GUARD_KEY, '1');
         }
       } catch (_) { /* Lead 발화 실패가 페이지 렌더를 막지 않도록 무시 */ }

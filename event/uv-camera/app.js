@@ -556,7 +556,8 @@ function showFormStep(stepNumber, moveFocus) {
   syncConditionalStepControls();
   saveDraft();
   mpTrack('uvcam_step_view', { step: currentFormStep });
-  if (currentFormStep === 1) trackFormPixelEvent('InitiateCheckout', false);
+  // InitiateCheckout는 폼 시작이 아니라 "제출 성공" 시점에 발화한다 (submit 핸들러 참조).
+  // 폼 시작 발화는 이탈자까지 최적화 대상으로 학습시켜 광고 효율을 떨어뜨림.
 
   if (moveFocus) {
     document.getElementById('applicationForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -619,7 +620,7 @@ async function submitForm(data) {
 // ----------------------------------------------------------------
 // Meta Pixel Lead 이벤트
 // ----------------------------------------------------------------
-function trackLead(typeValue) {
+function trackLead(typeValue, eventId) {
   if (typeof fbq !== 'function') return;
 
   try {
@@ -628,9 +629,25 @@ function trackLead(typeValue) {
       content_category: typeValue === 'influencer_challenge' ? 'influencer_challenge' : 'free_trial',
       value:            PACKAGE_VALUE[typeValue] || 49000,
       currency:         'KRW',
-    });
+    }, eventId ? { eventID: eventId } : undefined);
   } catch (err) {
     console.warn('fbq Lead failed:', err);
+  }
+}
+
+function trackInitiateCheckout(typeValue) {
+  if (typeof fbq !== 'function' || hasFiredPixelEvent('InitiateCheckout')) return;
+
+  try {
+    fbq('track', 'InitiateCheckout', {
+      content_name:     'uv_camera_event',
+      content_category: typeValue === 'influencer_challenge' ? 'influencer_challenge' : 'free_trial',
+      value:            PACKAGE_VALUE[typeValue] || 49000,
+      currency:         'KRW',
+    });
+    rememberPixelEvent('InitiateCheckout');
+  } catch (err) {
+    console.warn('fbq InitiateCheckout failed:', err);
   }
 }
 
@@ -638,10 +655,12 @@ function trackLead(typeValue) {
 // ----------------------------------------------------------------
 // 완료 화면 표시 / 폼 초기화
 // ----------------------------------------------------------------
-function showSuccess(typeValue) {
+function showSuccess(typeValue, leadEventId) {
   clearDraft();
   markApplied();
-  window.location.href = 'complete.html?type=' + encodeURIComponent(typeValue || '');
+  var url = 'complete.html?type=' + encodeURIComponent(typeValue || '');
+  if (leadEventId) url += '&eid=' + encodeURIComponent(leadEventId);
+  window.location.href = url;
 }
 
 function resetForm() {
@@ -830,9 +849,12 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
       await submitForm(payload);
       mpTrack('uvcam_submit', { type: typeValue });
-      // Lead 픽셀은 complete.html 로드 시 단일 발화한다.
-      // (리다이렉트 직전 발화는 beacon 취소 위험 + 완료 페이지 Lead와 이중계수 → 여기서는 발화하지 않음)
-      showSuccess(typeValue);
+      // 제출 성공 시점에 Lead + InitiateCheckout 발화 (머신러닝 최적화 신호).
+      // Lead는 eventID를 완료 페이지로 넘겨 동일 eventID로 중복제거 → 완료 페이지 발화는 유실 대비 백업.
+      var leadEventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      trackLead(typeValue, leadEventId);
+      trackInitiateCheckout(typeValue);
+      showSuccess(typeValue, leadEventId);
     } catch (err) {
       if (err && err.code === 'duplicate') {
         markApplied();
