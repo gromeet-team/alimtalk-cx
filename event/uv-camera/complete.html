@@ -31,6 +31,18 @@
   <noscript><img height="1" width="1" style="display:none"
       src="https://www.facebook.com/tr?id=727154800448524&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
+
+  <!-- Mixpanel (프로젝트 유비드 / 자사몰 uvid.co.kr 동일 토큰 — distinct_id 크로스서브도메인 연결) -->
+  <script type="text/javascript">
+    (function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+    mixpanel.init('81b4b2e683c9884cd168fc8aab2408a5', {
+      autocapture: true,
+      record_sessions_percent: 100,
+      persistence: 'localStorage+cookie',
+      cross_subdomain_cookie: true
+    });
+  </script>
+  <!-- End Mixpanel -->
 </head>
 
 <body>
@@ -106,6 +118,33 @@
           sessionStorage.setItem(LEAD_GUARD_KEY, '1');
         }
       } catch (_) { /* Lead 발화 실패가 페이지 렌더를 막지 않도록 무시 */ }
+
+      // Mixpanel 헬퍼 (SDK 미로드/차단 시에도 무시)
+      function mpTrack(name, props) {
+        try {
+          if (window.mixpanel && typeof window.mixpanel.track === 'function') {
+            window.mixpanel.track(name, props || {});
+          }
+        } catch (_) { /* ignore */ }
+      }
+
+      // 완료 페이지 조회
+      mpTrack('uvcam_complete_view', { type: typeValue || '' });
+
+      // 공식몰 회원가입 클릭 → Meta 커스텀 + Mixpanel
+      document.querySelectorAll('a[href*="uvid.co.kr/member/login"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          try { if (typeof fbq === 'function') fbq('trackCustom', 'UvcamSignupClick', { type: typeValue || '' }); } catch (_) {}
+          mpTrack('uvcam_signup_click', { type: typeValue || '' });
+        });
+      });
+
+      // 동결단 카페 가입 클릭 → Mixpanel
+      document.querySelectorAll('a[href*="cafe.naver.com/sacevve"]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          mpTrack('uvcam_cafe_click', { type: typeValue || '' });
+        });
+      });
     })();
   </script>
 </body>

@@ -25,6 +25,17 @@ const firedPixelEvents = new Set();
 let draftExpiryTimer = null;
 let draftTrackingReady = false;
 
+// ----------------------------------------------------------------
+// Mixpanel 이벤트 헬퍼 (SDK 미로드/차단 시에도 폼 동작 불변)
+// ----------------------------------------------------------------
+function mpTrack(eventName, props) {
+  try {
+    if (window.mixpanel && typeof window.mixpanel.track === 'function') {
+      window.mixpanel.track(eventName, props || {});
+    }
+  } catch (_) { /* ignore */ }
+}
+
 function markApplied() {
   try { localStorage.setItem(APPLIED_KEY, '1'); } catch (_) { /* ignore */ }
 }
@@ -103,10 +114,8 @@ function saveDraft() {
         address: document.getElementById('addressInput').value,
         addressDetail: document.getElementById('addressDetailInput').value,
         phoneOs: getCheckedValue('phone_os'),
-        consent: document.getElementById('consentInput').checked,
-        marketingConsent: document.getElementById('marketingInput').checked,
-        agreeLegal: document.getElementById('legalInput').checked,
-        partnershipConsent: document.getElementById('partnershipInput').checked,
+        // ⚠️ 동의 체크박스(consent/marketing/legal/partnership)는 저장하지 않는다.
+        //    재진입 시 동의는 매번 명시적으로 다시 받아야 하므로 draft에 포함 금지.
       },
     };
 
@@ -146,21 +155,32 @@ function restoreDraft() {
     if (input && typeof entry[1] === 'string') input.value = entry[1];
   });
 
-  [
-    ['consentInput', fields.consent],
-    ['marketingInput', fields.marketingConsent],
-    ['legalInput', fields.agreeLegal],
-    ['partnershipInput', fields.partnershipConsent],
-  ].forEach(function(entry) {
-    const input = document.getElementById(entry[0]);
-    if (input) input.checked = entry[1] === true;
-  });
+  // 동의 체크박스는 복원하지 않는다 (매 진입 시 명시적으로 다시 받음).
 
   applyTypeChange();
   syncAllConsentState();
   showFormStep(Number(draft.step) || 1, false);
   scheduleDraftExpiry(draft.expiresAt);
+  showDraftRestoredNotice();
   return true;
+}
+
+// 이탈 후 재진입 시 작성 내용 복원 안내 (1회, 자동 소멸)
+function showDraftRestoredNotice() {
+  try {
+    if (document.getElementById('draftRestoredNotice')) return;
+    var anchor = document.querySelector('#applicationForm .form-progress');
+    if (!anchor) return;
+    var notice = document.createElement('p');
+    notice.id = 'draftRestoredNotice';
+    notice.className = 'draft-restored-notice';
+    notice.setAttribute('role', 'status');
+    notice.textContent = '작성하던 내용을 불러왔어요.';
+    anchor.insertAdjacentElement('afterend', notice);
+    window.setTimeout(function() {
+      if (notice && notice.parentNode) notice.parentNode.removeChild(notice);
+    }, 6000);
+  } catch (_) { /* 안내 실패가 폼 동작을 막지 않도록 무시 */ }
 }
 
 function applyAppliedLockUI() {
@@ -535,6 +555,7 @@ function showFormStep(stepNumber, moveFocus) {
   document.getElementById('submitWrap').hidden = currentFormStep !== FORM_STEP_COUNT;
   syncConditionalStepControls();
   saveDraft();
+  mpTrack('uvcam_step_view', { step: currentFormStep });
   if (currentFormStep === 1) trackFormPixelEvent('InitiateCheckout', false);
 
   if (moveFocus) {
@@ -657,6 +678,8 @@ function resetForm() {
 // ----------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', function() {
 
+  mpTrack('uvcam_landing_view');
+
   // 이미 신청한 사용자: 폼 비활성 + 안내
   applyAppliedLockUI();
 
@@ -676,8 +699,14 @@ document.addEventListener('DOMContentLoaded', function() {
   draftTrackingReady = true;
 
   const applicationForm = document.getElementById('applicationForm');
-  applicationForm.addEventListener('input', saveDraft);
-  applicationForm.addEventListener('change', saveDraft);
+  // 입력 중 저장은 debounce 500ms (단계 이동·주소 선택 시의 saveDraft()는 즉시 유지)
+  let draftInputTimer = null;
+  function saveDraftDebounced() {
+    if (draftInputTimer) window.clearTimeout(draftInputTimer);
+    draftInputTimer = window.setTimeout(saveDraft, 500);
+  }
+  applicationForm.addEventListener('input', saveDraftDebounced);
+  applicationForm.addEventListener('change', saveDraftDebounced);
 
   document.getElementById('nextStepBtn').addEventListener('click', function() {
     if (!validateForm(currentFormStep)) {
@@ -800,6 +829,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     try {
       await submitForm(payload);
+      mpTrack('uvcam_submit', { type: typeValue });
       // Lead 픽셀은 complete.html 로드 시 단일 발화한다.
       // (리다이렉트 직전 발화는 beacon 취소 위험 + 완료 페이지 Lead와 이중계수 → 여기서는 발화하지 않음)
       showSuccess(typeValue);

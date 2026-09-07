@@ -2502,3 +2502,15 @@ label .req {
 
 
 }
+
+/* 이탈 후 재진입 draft 복원 안내 */
+.draft-restored-notice {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #1a6b3a;
+  background: #e8f6ee;
+  border: 1px solid #bfe6cf;
+  border-radius: 8px;
+  text-align: center;
+}
