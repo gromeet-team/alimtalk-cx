@@ -90,6 +90,22 @@
       } else {
         pkgEl.style.display = 'none';
       }
+
+      // Meta Pixel Lead — 완료 페이지에서 단일 발화 (새로고침 중복 방지).
+      // 폼 제출 직후 리다이렉트 전 발화는 beacon 취소 위험이 있어 안정적인 완료 페이지로 이전함.
+      try {
+        var LEAD_GUARD_KEY = 'uvcamLeadFired';
+        if (typeof fbq === 'function' && sessionStorage.getItem(LEAD_GUARD_KEY) !== '1') {
+          var VALUE_MAP = { free_trial: 49000, influencer_challenge: 249000 };
+          fbq('track', 'Lead', {
+            content_name:     'uv_camera_event',
+            content_category: typeValue === 'influencer_challenge' ? 'influencer_challenge' : 'free_trial',
+            value:            VALUE_MAP[typeValue] || 49000,
+            currency:         'KRW',
+          });
+          sessionStorage.setItem(LEAD_GUARD_KEY, '1');
+        }
+      } catch (_) { /* Lead 발화 실패가 페이지 렌더를 막지 않도록 무시 */ }
     })();
   </script>
 </body>

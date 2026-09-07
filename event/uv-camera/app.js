@@ -800,7 +800,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     try {
       await submitForm(payload);
-      trackLead(typeValue);
+      // Lead 픽셀은 complete.html 로드 시 단일 발화한다.
+      // (리다이렉트 직전 발화는 beacon 취소 위험 + 완료 페이지 Lead와 이중계수 → 여기서는 발화하지 않음)
       showSuccess(typeValue);
     } catch (err) {
       if (err && err.code === 'duplicate') {
