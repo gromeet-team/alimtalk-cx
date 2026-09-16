@@ -28,7 +28,7 @@
       '<div class="ad-benefits-inner">',
       '<h2>신청 전 핵심혜택 3가지</h2>',
       '<div class="ad-benefit-grid">',
-      '<div class="ad-benefit"><strong>최대 294,000원 상당</strong><span>미션 완료 시 유비드 선패드 증정</span></div>',
+      '<div class="ad-benefit"><strong>최대 249,000원 상당</strong><span>미션 완료 시 유비드 선패드 증정</span></div>',
       '<div class="ad-benefit"><strong>UV카메라 무료 체험</strong><span>도포 전·후 모습을 직접 촬영</span></div>',
       '<div class="ad-benefit"><strong>간단한 콘텐츠 미션</strong><span>가이드에 따라 촬영·인증하면 완료</span></div>',
       '</div>',
